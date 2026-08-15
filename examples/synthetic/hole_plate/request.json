@@ -1,0 +1,51 @@
+{
+  "request": "synth_hole_plate",
+  "instruction": "Drill a 6mm diameter hole through the top face near the boss.",
+  "transcript": "Drill a six millimeter hole here through the top.",
+  "transcript_words": [
+    {
+      "word": "Drill",
+      "start": 0.0,
+      "end": 0.3
+    },
+    {
+      "word": "a",
+      "start": 0.3,
+      "end": 0.4
+    },
+    {
+      "word": "six",
+      "start": 0.4,
+      "end": 0.7
+    },
+    {
+      "word": "millimeter",
+      "start": 0.7,
+      "end": 1.2
+    },
+    {
+      "word": "hole",
+      "start": 1.2,
+      "end": 1.5
+    },
+    {
+      "word": "here",
+      "start": 1.5,
+      "end": 1.8
+    }
+  ],
+  "events": [
+    {
+      "t": 1.6,
+      "x": 0.65,
+      "y": 0.5,
+      "drawing": true
+    }
+  ],
+  "brep_start_path": [
+    "C:\\Users\\lenin\\Downloads\\IDETC\\examples\\synthetic\\hole_plate\\input.step"
+  ],
+  "difficulty": "medium",
+  "modality": "interactive",
+  "root_dir": "C:\\Users\\lenin\\Downloads\\IDETC\\examples\\synthetic\\hole_plate"
+}

@@ -1,0 +1,245 @@
+{
+  "summary": {
+    "n": 12,
+    "A": {
+      "chamfer": 0.9499749999999999,
+      "volume_f1": 0.6174,
+      "diff_f1": 0.032758333333333334
+    },
+    "B": {
+      "chamfer": 0.9502583333333335,
+      "volume_f1": 0.61875,
+      "diff_f1": 0.06545833333333333
+    }
+  },
+  "rows": [
+    {
+      "id": "ZK22J6VYRKQ2RTFD_1758875163.609787",
+      "type": "fillet_chamfer",
+      "instruction": "Add 0.2 mm chamfer to the hole edges to improve fitting.",
+      "A": {
+        "chamfer": 0.9837,
+        "volume_f1": 0.7958,
+        "diff_f1": 0.2761,
+        "valid": true
+      },
+      "B": {
+        "chamfer": 0.9836,
+        "volume_f1": 0.7964,
+        "diff_f1": 0.2902,
+        "valid": true
+      },
+      "B_accepted": true,
+      "B_tool": "Strategy blend: hole rims if named, else length-band edges"
+    },
+    {
+      "id": "ZK22J6VYRKQ2RTFD_1758874422.1403751",
+      "type": "hole_edit",
+      "instruction": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip a",
+      "A": {
+        "chamfer": 0.9755,
+        "volume_f1": 0.6593,
+        "diff_f1": 0.0457,
+        "valid": true
+      },
+      "B": {
+        "chamfer": 0.9817,
+        "volume_f1": 0.7899,
+        "diff_f1": 0.141,
+        "valid": true
+      },
+      "B_accepted": false,
+      "B_tool": "Strategy hole_add: parsed diameter on planar face, not an existing cylinder wall"
+    },
+    {
+      "id": "ZK22J6VYRKQ2RTFD_1758873912.731081",
+      "type": "feature_addition",
+      "instruction": "Add a 1.5 millimetre rib to increase support and make the structure strong.",
+      "A": {
+        "chamfer": 0.9827,
+        "volume_f1": 0.7943,
+        "diff_f1": 0.0612,
+        "valid": true
+      },
+      "B": {
+        "chamfer": 0.9816,
+        "volume_f1": 0.7814,
+        "diff_f1": 0.0865,
+        "valid": true
+      },
+      "B_accepted": true,
+      "B_tool": "Strategy feature_add: one local solid, no raw scaffold"
+    },
+    {
+      "id": "4E22SJE7QVTSP2E3_1758737060.465216",
+      "type": "boolean_modification",
+      "instruction": "Change that vertical slot to cut through complete body to decrease weight",
+      "A": {
+        "chamfer": 0.9832,
+        "volume_f1": 0.8381,
+        "diff_f1": 0.0,
+        "valid": true
+      },
+      "B": {
+        "chamfer": 0.9832,
+        "volume_f1": 0.8381,
+        "diff_f1": 0.0,
+        "valid": true
+      },
+      "B_accepted": false,
+      "B_tool": "Strategy boolean: one local cut box"
+    },
+    {
+      "id": "4S7JQK6ZQMAD25GL_1758863141.735564",
+      "type": "fillet_chamfer",
+      "instruction": "Add a 2 millimetre fillet to the edges of the scrolling wheel slot to ensure a smooth surface.",
+      "A": {
+        "chamfer": 0.9835,
+        "volume_f1": 0.5574,
+        "diff_f1": 0.0086,
+        "valid": true
+      },
+      "B": {
+        "chamfer": 0.9832,
+        "volume_f1": 0.5482,
+        "diff_f1": 0.0147,
+        "valid": true
+      },
+      "B_accepted": false,
+      "B_tool": "Strategy blend: named feature first, then local fillet"
+    },
+    {
+      "id": "4S7JQK6ZQMAD25GL_1758863286.214549",
+      "type": "feature_addition",
+      "instruction": "Add two click buttons with the height of 2 millimetre to provide a comfortable and responsive feel f",
+      "A": {
+        "chamfer": 0.9826,
+        "volume_f1": 0.5243,
+        "diff_f1": 0.0,
+        "valid": true
+      },
+      "B": {
+        "chamfer": 0.9821,
+        "volume_f1": 0.5199,
+        "diff_f1": 0.0006,
+        "valid": true
+      },
+      "B_accepted": true,
+      "B_tool": "Strategy feature_add: one local solid, no raw scaffold"
+    },
+    {
+      "id": "F332D3FXML85WLR2_1770206307.074256",
+      "type": "dimension_change",
+      "instruction": "Scale the part 10x. Add drafts of 2 degrees to all vertical surfaces, with flat bottom surface as a ",
+      "A": {
+        "chamfer": 0.5691,
+        "volume_f1": 0.0058,
+        "diff_f1": 0.0015,
+        "valid": true
+      },
+      "B": {
+        "chamfer": 0.5694,
+        "volume_f1": 0.0115,
+        "diff_f1": 0.0072,
+        "valid": true
+      },
+      "B_accepted": false,
+      "B_tool": "Strategy dimension: uniform scale only when factor is explicit"
+    },
+    {
+      "id": "B7A2N74ZJBF9MZHU_1770171700.697783",
+      "type": "ambiguous",
+      "instruction": "Remove the largest radius that is all around the part and replace it by the same size radius as othe",
+      "A": {
+        "chamfer": 0.9937,
+        "volume_f1": 0.2834,
+        "diff_f1": 0.0,
+        "valid": true
+      },
+      "B": {
+        "chamfer": 0.9937,
+        "volume_f1": 0.2842,
+        "diff_f1": 0.0,
+        "valid": true
+      },
+      "B_accepted": false,
+      "B_tool": "incomplete:no strategy for this edit type"
+    },
+    {
+      "id": "3YH2WFSRM22W7DKT_1769177116.6129558",
+      "type": "feature_addition",
+      "instruction": "Design simple locking mechanism in the area of the hook to secure carried load.",
+      "A": {
+        "chamfer": 0.991,
+        "volume_f1": 0.8214,
+        "diff_f1": 0.0,
+        "valid": true
+      },
+      "B": {
+        "chamfer": 0.991,
+        "volume_f1": 0.8239,
+        "diff_f1": 0.0,
+        "valid": true
+      },
+      "B_accepted": false,
+      "B_tool": "incomplete:feature_add requires a parsed size"
+    },
+    {
+      "id": "3YH2WFSRM22W7DKT_1769177020.525719",
+      "type": "boolean_modification",
+      "instruction": "Add several cutouts into the part to decrease its weight.",
+      "A": {
+        "chamfer": 0.9866,
+        "volume_f1": 0.7954,
+        "diff_f1": 0.0,
+        "valid": true
+      },
+      "B": {
+        "chamfer": 0.986,
+        "volume_f1": 0.7797,
+        "diff_f1": 0.0,
+        "valid": true
+      },
+      "B_accepted": true,
+      "B_tool": "Strategy boolean: one local cut box"
+    },
+    {
+      "id": "F332D3FXML85WLR2_1770204696.542443",
+      "type": "feature_addition",
+      "instruction": "Create two cover parts, that have matching outer shape to the outer contour of the central part, sit",
+      "A": {
+        "chamfer": 0.9901,
+        "volume_f1": 0.6048,
+        "diff_f1": 0.0,
+        "valid": true
+      },
+      "B": {
+        "chamfer": 0.99,
+        "volume_f1": 0.6134,
+        "diff_f1": 0.0,
+        "valid": true
+      },
+      "B_accepted": true,
+      "B_tool": "Strategy feature_add: one local solid, no raw scaffold"
+    },
+    {
+      "id": "B7A2N74ZJBF9MZHU_1770174133.012106",
+      "type": "feature_translation",
+      "instruction": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+      "A": {
+        "chamfer": 0.978,
+        "volume_f1": 0.7288,
+        "diff_f1": 0.0,
+        "valid": true
+      },
+      "B": {
+        "chamfer": 0.9776,
+        "volume_f1": 0.6384,
+        "diff_f1": 0.2453,
+        "valid": true
+      },
+      "B_accepted": false,
+      "B_tool": "incomplete:feature_move of a named feature is not a whole-body translate_body"
+    }
+  ]
+}

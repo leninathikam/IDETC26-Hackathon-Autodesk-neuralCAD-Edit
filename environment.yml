@@ -1,0 +1,26 @@
+name: neuralCAD-edit
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+    - itables
+    - pandas
+    - mongita
+    - cadquery
+    - pyarrow
+    - ray
+    - openai
+    - anthropic
+    - google-genai
+    - json-repair
+    - scikit-learn
+    - open3d
+    - torch
+    - transformers
+    - pillow
+    - probreg
+    - scipy
+    - pyobjc-framework-Cocoa; sys_platform == 'darwin'

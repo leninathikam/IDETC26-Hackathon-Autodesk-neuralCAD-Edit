@@ -1,0 +1,9 @@
+<!doctype html><html><head><meta charset='utf-8'><title>GroundedCAD</title>
+<style>body{font-family:Arial;margin:40px} h1{color:#145aa0}</style></head><body>
+<h1>GroundedCAD</h1><ul><li>IDETC/CIE 2026 — Autodesk Track</li><li>AI harness for real-world 3D CAD editing</li><li>neuralCAD-Edit aligned, CadQuery-first</li></ul>
+<h1>Problem</h1><ul><li>Editing >> generation in engineering practice</li><li>Frontier VLMs lag human CAD experts</li><li>Harness design (tools/inspection/iteration) is decisive</li></ul>
+<h1>Method</h1><ul><li>1. Geometry census of input STEP</li><li>2. Temporal grounding (text/cursor/drawing)</li><li>3. Local EditSpec via constrained tools</li><li>4. Sandbox execute + deterministic verify</li><li>5. Independent critic (no false completion)</li></ul>
+<h1>Vs baseline harness</h1><ul><li>Baseline: free CadQuery rewrite + self-declare done</li><li>Ours: grounded targets + typed plan + gates</li><li>Best-valid retention under iteration budget</li><li>Benchmark-compatible STEP/STL/settings.json</li></ul>
+<h1>Results & examples</h1><ul><li>Synthetic suite: fillet, hole, duplicate, translate, chamfer</li><li>Ablations in outputs/ablations/ablation_report.json</li><li>Next: full text-48 neuralCAD-Edit auto metrics</li><li>Attach 5 iso views for qualitative slide</li></ul>
+<h1>Impact & next</h1><ul><li>Closer to collaborator-style CAD assistance</li><li>Stronger video grounding + parametric Fusion tools</li><li>Open, reproducible agent harness</li></ul>
+</body></html>

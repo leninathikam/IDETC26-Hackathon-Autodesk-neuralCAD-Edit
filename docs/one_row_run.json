@@ -1,0 +1,26 @@
+{
+  "index": 1,
+  "id": "ZK22J6VYRKQ2RTFD_1758874422.1403751",
+  "instruction": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.",
+  "A": {
+    "chamfer": 0.9755,
+    "volume_f1": 0.6593,
+    "diff_f1": 0.0457,
+    "valid": true
+  },
+  "B": {
+    "chamfer": 0.9817,
+    "volume_f1": 0.7899,
+    "diff_f1": 0.141,
+    "valid": true
+  },
+  "accepted": false,
+  "failure_category": "planning",
+  "tool": "Strategy hole_add: parsed diameter on planar face, not an existing cylinder wall",
+  "model": "claude-sonnet-4-5",
+  "tokens": {
+    "input_tokens": 1053.0,
+    "output_tokens": 447.0,
+    "thinking_tokens": 0.0
+  }
+}

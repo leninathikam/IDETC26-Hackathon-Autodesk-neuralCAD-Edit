@@ -1,0 +1,11 @@
+{
+  "request": "synth_chamfer_box",
+  "instruction": "Chamfer the edges by 1.5mm.",
+  "transcript": "Apply a 1.5 mm chamfer on the edges.",
+  "brep_start_path": [
+    "C:\\Users\\lenin\\Downloads\\IDETC\\examples\\synthetic\\chamfer_box\\input.step"
+  ],
+  "difficulty": "easy",
+  "modality": "text",
+  "root_dir": "C:\\Users\\lenin\\Downloads\\IDETC\\examples\\synthetic\\chamfer_box"
+}

@@ -1,0 +1,45 @@
+[project]
+name = "neuralcad-edit"
+version = "0.1.0"
+description = "IDETC 2026 Autodesk neuralCAD-Edit hackathon — GroundedCAD harness"
+requires-python = ">=3.10"
+dependencies = [
+    "itables",
+    "python-dotenv",
+    "pandas",
+    "mongita",
+    "cadquery",
+    "pyarrow",
+    "openai",
+    "anthropic",
+    "google-genai",
+    "json-repair",
+    "scikit-learn",
+    "pillow",
+    "scipy",
+    "pydantic>=2.0",
+    "numpy",
+    "pyyaml",
+    "tqdm",
+    "rich",
+    "opencv-python-headless",
+]
+
+[project.optional-dependencies]
+eval = ["open3d", "torch", "transformers", "probreg"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+groundedcad = "groundedcad.cli:main"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["groundedcad*", "src*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

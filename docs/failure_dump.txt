@@ -1,0 +1,320 @@
+﻿01 D=0.290 V=0.796 C=0.984 fillet_chamfer         accept=True exec=True crit=True fail=None
+    instr: Add 0.2 mm chamfer to the hole edges to improve fitting.
+    spec: /chamfer tools=[('chamfer_circular_edges', {'distance': 0.2, 'min_length': 0.0, 'max_length': 1000000000.0, 'max_edges': 12})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=66.8125797667966 bbox={'xmin': -0.491959760672451, 'ymin': -0.015857347423939877, 'zmin': -3.911573065542472, 'xmax': 12.798850130116206, 'ymax': 4.910222702896921, 'zmax': 4.343247264456157}
+    notes: Heuristic chamfer_circular_edges
+
+02 D=0.058 V=0.658 C=0.976 hole_edit              accept=True exec=True crit=True fail=None
+    instr: Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.
+    spec: /hole tools=[('drill_hole_at_point', {'x': -0.3097, 'y': 0.8497, 'z': 0.8983, 'diameter': 4.0, 'axis': 'Z'})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=57.512910177426875 bbox={'xmin': 1.3342478053879099, 'ymin': -0.015857862195863996, 'zmin': -3.911573065542472, 'xmax': 12.798850130116206, 'ymax': 4.910222702896921, 'zmax': 4.343247264456157}
+    notes: Heuristic hole at grounded target center
+
+03 D=0.085 V=0.793 C=0.983 feature_addition       accept=True exec=True crit=True fail=None
+    instr: Add a 1.5 millimetre rib to increase support and make the structure strong.
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=67.08982065469982 bbox={'xmin': -0.491959760672451, 'ymin': -0.015857347423939877, 'zmin': -3.911573065542472, 'xmax': 12.798850130116206, 'ymax': 4.910222702896921, 'zmax': 4.343247264456157}
+    notes: Fallback raw script scaffold
+
+04 D=0.180 V=0.949 C=0.987 fillet_chamfer         accept=True exec=True crit=True fail=None
+    instr: Hi , Please remove the fillet at the front center and add a 1 millimeter chamfer instead
+    spec: /fillet tools=[('fillet_edges_by_length', {'radius': 0.5, 'min_length': 0.0, 'max_length': 1000000000.0, 'max_edges': 12})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=2 vol=29777.098022450493 bbox={'xmin': -56.56911187027379, 'ymin': -6.361554825138351, 'zmin': -56.66164259177173, 'xmax': 56.56891789474428, 'ymax': 3.191748728075574, 'zmax': 56.29213419971387}
+    notes: Heuristic fillet_edges_by_length
+
+05 D=0.130 V=0.925 C=0.987 ambiguous              accept=True exec=True crit=True fail=None
+    instr: Hi , Please change the center flower type profile into a hexagonal profile for better torque transfer
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=2 vol=29778.338003386496 bbox={'xmin': -56.56911187027379, 'ymin': -6.361554825138351, 'zmin': -56.66164259177173, 'xmax': 56.56891789474428, 'ymax': 3.191748728075574, 'zmax': 56.29213419971387}
+    notes: Fallback raw script scaffold
+
+06 D=0.156 V=0.936 C=0.987 fillet_chamfer         accept=True exec=True crit=True fail=None
+    instr: Hi , Please convert the round edges of the gear into straight spur gear teeth.
+    spec: /fillet tools=[('fillet_edges_by_length', {'radius': 0.5, 'min_length': 0.0, 'max_length': 1000000000.0, 'max_edges': 12})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=2 vol=29777.098022450493 bbox={'xmin': -56.56911187027379, 'ymin': -6.361554825138351, 'zmin': -56.66164259177173, 'xmax': 56.56891789474428, 'ymax': 3.191748728075574, 'zmax': 56.29213419971387}
+    notes: Heuristic fillet_edges_by_length
+
+07 D=0.000 V=0.838 C=0.983 boolean_modification   accept=True exec=True crit=True fail=None
+    instr: Change that vertical slot to cut through complete body to decrease weight
+    spec: /extrude_cut tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=426801.535840777 bbox={'xmin': -0.002710731734167936, 'ymin': -0.0027107317341981073, 'zmin': -60.0027107317342, 'xmax': 168.0027107317342, 'ymax': 180.0281339999198, 'zmax': 0.015539128831331279}
+    notes: Fallback raw script scaffold
+
+08 D=0.028 V=0.636 C=0.962 feature_addition       accept=True exec=True crit=True fail=None
+    instr: Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=426801.535840777 bbox={'xmin': -0.002710731734167936, 'ymin': -0.0027107317341981073, 'zmin': -60.0027107317342, 'xmax': 168.0027107317342, 'ymax': 180.0281339999198, 'zmax': 0.015539128831331279}
+    notes: Fallback raw script scaffold
+
+09 D=0.142 V=0.753 C=0.983 hole_edit              accept=True exec=True crit=True fail=None
+    instr: Insert screws to both holes to be able to fix tool on the table
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=426801.535840777 bbox={'xmin': -0.002710731734167936, 'ymin': -0.0027107317341981073, 'zmin': -60.0027107317342, 'xmax': 168.0027107317342, 'ymax': 180.0281339999198, 'zmax': 0.015539128831331279}
+    notes: Fallback raw script scaffold
+
+10 D=0.190 V=0.705 C=0.981 feature_addition       accept=True exec=True crit=True fail=None
+    instr: Hi , Please create an outlet port on the top right and an inlet port on the bottom left .
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=20 vol=7255190.7534103645 bbox={'xmin': -112.2153535078263, 'ymin': -171.45860565178293, 'zmin': -266.72027261427473, 'xmax': 12.737853842666908, 'ymax': 188.00999024776348, 'zmax': 310.3852149758232}
+    notes: Fallback raw script scaffold
+
+11 D=0.101 V=0.757 C=0.979 feature_addition       accept=True exec=True crit=True fail=None
+    instr: Hi , Please create a filling system on the radiator , including a pouring section and a cap.
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=20 vol=7255190.7534103645 bbox={'xmin': -112.2153535078263, 'ymin': -171.45860565178293, 'zmin': -266.72027261427473, 'xmax': 12.737853842666908, 'ymax': 188.00999024776348, 'zmax': 310.3852149758232}
+    notes: Fallback raw script scaffold
+
+12 D=0.137 V=0.709 C=0.981 pattern                accept=True exec=True crit=True fail=None
+    instr: Hi , Create a slot pattern across the plastic part surface on both the top and bottom sides.
+    spec: /extrude_cut tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=20 vol=7255190.7534103645 bbox={'xmin': -112.2153535078263, 'ymin': -171.45860565178293, 'zmin': -266.72027261427473, 'xmax': 12.737853842666908, 'ymax': 188.00999024776348, 'zmax': 310.3852149758232}
+    notes: Fallback raw script scaffold
+
+13 D=0.009 V=0.546 C=0.983 fillet_chamfer         accept=True exec=True crit=True fail=None
+    instr: Add a 2 millimetre fillet to the edges of the scrolling wheel slot to ensure a smooth surface.
+    spec: /fillet tools=[('fillet_edges_by_length', {'radius': 0.5, 'min_length': 0.0, 'max_length': 1000000000.0, 'max_edges': 12})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=2 vol=127192.8568666988 bbox={'xmin': -7.876361258894365, 'ymin': -0.627927888312664, 'zmin': -25.202986316424226, 'xmax': 61.61784588961345, 'ymax': 35.16497751761635, 'zmax': 78.04303518516096}
+    notes: Heuristic fillet_edges_by_length
+
+14 D=0.003 V=0.544 C=0.983 feature_addition       accept=True exec=True crit=True fail=None
+    instr: Add a sliding switch on the bottom to provide a convenient on and off function
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=2 vol=127190.39518055102 bbox={'xmin': -7.876361258894365, 'ymin': -0.627927888312664, 'zmin': -25.20298642068003, 'xmax': 61.61784588961345, 'ymax': 34.90384632241004, 'zmax': 78.04303509630348}
+    notes: Fallback raw script scaffold
+
+15 D=0.001 V=0.517 C=0.983 feature_addition       accept=True exec=True crit=True fail=None
+    instr: Add two click buttons with the height of 2 millimetre to provide a comfortable and responsive feel for the user
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=2 vol=127190.39518055102 bbox={'xmin': -7.876361258894365, 'ymin': -0.627927888312664, 'zmin': -25.20298642068003, 'xmax': 61.61784588961345, 'ymax': 34.90384632241004, 'zmax': 78.04303509630348}
+    notes: Fallback raw script scaffold
+
+16 D=0.057 V=0.166 C=0.982 fillet_chamfer         accept=True exec=True crit=True fail=None
+    instr: Add rounds to all edges of the part. R=0,2mm
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=5.470427083228609 bbox={'xmin': -1.0012374183754091, 'ymin': -3.0000001000000007, 'zmin': -0.7500001000000008, 'xmax': 1.0012374183754091, 'ymax': 3.0000001000000007, 'zmax': 0.7512374183754092}
+    notes: Fallback raw script scaffold
+
+17 D=0.002 V=0.006 C=0.569 fillet_chamfer         accept=True exec=True crit=True fail=None
+    instr: Scale the part 10x. Add drafts of 2 degrees to all vertical surfaces, with flat bottom surface as a hinge. Add rounds R=
+    spec: /hole tools=[('drill_hole_at_point', {'x': 0.0, 'y': 0.0, 'z': 0.053, 'diameter': 2.0, 'axis': 'Z'})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=2 vol=4.655211560089541 bbox={'xmin': -1.0011440746142322, 'ymin': -3.0000001000000007, 'zmin': -0.750368628027669, 'xmax': 1.0011440746142322, 'ymax': 3.0000001000000265, 'zmax': 0.7511440746142322}
+    notes: Heuristic hole at grounded target center
+
+18 D=0.242 V=0.560 C=0.911 hole_edit              accept=True exec=True crit=True fail=None
+    instr: Add flange with thickness of 0,5mm and width of 2mm that starts on the flat bottom surface. Do not fill the central part
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=5.470427083228609 bbox={'xmin': -1.0012374183754091, 'ymin': -3.0000001000000007, 'zmin': -0.7500001000000008, 'xmax': 1.0012374183754091, 'ymax': 3.0000001000000007, 'zmax': 0.7512374183754092}
+    notes: Fallback raw script scaffold
+
+19 D=0.141 V=0.334 C=0.993 dimension_change       accept=True exec=True crit=True fail=None
+    instr: Make the whole frame structure taller by 0,5cm. The area profile remains the same.
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=611785.5001093379 bbox={'xmin': -949.6419809495667, 'ymin': -506.71762353220714, 'zmin': 26.77984141354322, 'xmax': -163.59801247902152, 'ymax': -338.38813077441876, 'zmax': 595.3317723229175}
+    notes: Fallback raw script scaffold
+
+20 D=0.117 V=0.256 C=0.989 fillet_chamfer         accept=True exec=True crit=True fail=None
+    instr: If edge with bigger radius is considered as top, add supporting structure to the bottom of the frame by offseting inner 
+    spec: /fillet tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=611785.5001093379 bbox={'xmin': -949.6419809495667, 'ymin': -506.71762353220714, 'zmin': 26.77984141354322, 'xmax': -163.59801247902152, 'ymax': -338.38813077441876, 'zmax': 595.3317723229175}
+    notes: Creates a 20mm offset supporting structure at the bottom with 5mm thickness, adds 2mm fillet at top edges of the support
+
+21 D=0.000 V=0.284 C=0.994 fillet_chamfer         accept=False exec=False crit=False fail=api_code
+    instr: Remove the largest radius that is all around the part and replace it by the same size radius as others. That means in cr
+    spec: /fillet tools=[('fillet_circular_edges', {'min_radius': 12.0, 'max_radius': 15.0, 'new_radius': 0.74})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    notes: Remove the largest radius fillets (r?13-14) around the part profile and replace with the same size as other fillets (r?0
+
+22 D=0.115 V=0.859 C=0.990 feature_addition       accept=True exec=True crit=True fail=None
+    instr: Add cylindrical pin into the bearing area of the part, so it is able to rotate around it.
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=16217.422087584506 bbox={'xmin': -75.75223911228773, 'ymin': -8.189795694998338, 'zmin': -0.0021992004789810663, 'xmax': 75.75420994845835, 'ymax': 8.189802564891519, 'zmax': 15.00337142131748}
+    notes: Fallback raw script scaffold
+
+23 D=0.000 V=0.824 C=0.991 feature_addition       accept=True exec=True crit=True fail=None
+    instr: Design simple locking mechanism in the area of the hook to secure carried load.
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=16217.422087584506 bbox={'xmin': -75.75223911228773, 'ymin': -8.189795694998338, 'zmin': -0.0021992004789810663, 'xmax': 75.75420994845835, 'ymax': 8.189802564891519, 'zmax': 15.00337142131748}
+    notes: Fallback raw script scaffold
+
+24 D=0.000 V=0.798 C=0.986 boolean_modification   accept=True exec=True crit=True fail=None
+    instr: Add several cutouts into the part to decrease its weight.
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=16217.422087584506 bbox={'xmin': -75.75223911228773, 'ymin': -8.189795694998338, 'zmin': -0.0021992004789810663, 'xmax': 75.75420994845835, 'ymax': 8.189802564891519, 'zmax': 15.00337142131748}
+    notes: Fallback raw script scaffold
+
+25 D=0.133 V=0.572 C=0.992 fillet_chamfer         accept=True exec=True crit=True fail=None
+    instr: One of the long edges of the blade does not have a radius. Add radius to that long edge R=0,635cm
+    spec: /fillet tools=[('fillet_edges_by_length', {'radius': 0.5, 'min_length': 0.0, 'max_length': 1000000000.0, 'max_edges': 12})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=3 vol=208576.93428360278 bbox={'xmin': -165.87852333733142, 'ymin': -15.242295101534976, 'zmin': -190.50504689397098, 'xmax': 165.88056845977601, 'ymax': 27.942295101534977, 'zmax': 190.50504689397098}
+    notes: Heuristic fillet_edges_by_length
+
+26 D=0.045 V=0.427 C=0.954 pattern                accept=True exec=True crit=True fail=None
+    instr: Add third rotor blade to the assembly. It should have the same design as the other two. Radii should applied on all four
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=3 vol=208586.10976426743 bbox={'xmin': -165.87852333733142, 'ymin': -15.242295101534976, 'zmin': -190.50504689397098, 'xmax': 165.88056845977601, 'ymax': 27.942295101534977, 'zmax': 190.50504689397098}
+    notes: Fallback raw script scaffold
+
+27 D=0.000 V=0.610 C=0.990 feature_addition       accept=True exec=True crit=True fail=None
+    instr: Create two cover parts, that have matching outer shape to the outer contour of the central part, sit flush on its outer 
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=3 vol=208586.10976426743 bbox={'xmin': -165.87852333733142, 'ymin': -15.242295101534976, 'zmin': -190.50504689397098, 'xmax': 165.88056845977601, 'ymax': 27.942295101534977, 'zmax': 190.50504689397098}
+    notes: Fallback raw script scaffold
+
+28 D=0.243 V=0.639 C=0.978 feature_translation    accept=False exec=True crit=False fail=None
+    instr: Prolong black lever sticking out to the front by 5cm for better manipulation.
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=56 vol=31054626.553103928 bbox={'xmin': -361.2262982543012, 'ymin': -10.098677786829919, 'zmin': -61.89296492096767, 'xmax': 58.88756924228126, 'ymax': 471.1308516753778, 'zmax': 432.00454425914813}
+    notes: Fallback raw script scaffold
+
+29 D=0.260 V=0.644 C=0.976 fillet_chamfer         accept=False exec=False crit=False fail=api_code
+    instr: Add rectangular openining to the lower back of the coffee machine, which might serve as draft location for plug and main
+    spec: /fillet tools=[('boolean_cut_box', {'x': 200.0, 'y': 100.0, 'z': 30.0, 'center_x': 0.0, 'center_y': -224.97, 'center_z': 15.0})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    notes: Creating rectangular opening on lower back of coffee machine. Box positioned at rear (negative Y), centered horizontally
+
+30 D=0.269 V=0.643 C=0.977 pattern                accept=False exec=True crit=False fail=None
+    instr: Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally dista
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=56 vol=31054626.553103928 bbox={'xmin': -361.2262982543012, 'ymin': -10.098677786829919, 'zmin': -61.89296492096767, 'xmax': 58.88756924228126, 'ymax': 471.1308516753778, 'zmax': 432.00454425914813}
+    notes: Fallback raw script scaffold
+
+31 D=0.030 V=0.817 C=0.976 feature_deletion       accept=True exec=True crit=True fail=None
+    instr: Imagine the black handle is a stand. Add another one on the other side of device in approximately same distane from side
+    spec: /extrude_cut tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=20 vol=8411752.092947036 bbox={'xmin': -169.95580273734473, 'ymin': -0.05108069927341962, 'zmin': -290.7220678702432, 'xmax': 127.0468235220927, 'ymax': 362.71951042946654, 'zmax': 128.7085200804237}
+    notes: Fallback raw script scaffold
+
+32 D=0.000 V=0.838 C=0.978 fillet_chamfer         accept=True exec=True crit=True fail=None
+    instr: Change the current plug for Europlug with two round pins and try to copy the real shape.
+    spec: /fillet tools=[('fillet_edges_by_length', {'radius': 0.5, 'min_length': 0.0, 'max_length': 1000000000.0, 'max_edges': 12})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=20 vol=8412006.411570676 bbox={'xmin': -169.95580273734473, 'ymin': -0.05108069927341962, 'zmin': -290.7220678702432, 'xmax': 127.0468235220927, 'ymax': 362.71951042946654, 'zmax': 128.7085200804237}
+    notes: Heuristic fillet_edges_by_length
+
+33 D=0.000 V=0.877 C=0.978 feature_deletion       accept=True exec=True crit=True fail=None
+    instr: Remove the collision between handle and cofeepot.
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=20 vol=8411752.092947036 bbox={'xmin': -169.95580273734473, 'ymin': -0.05108069927341962, 'zmin': -290.7220678702432, 'xmax': 127.0468235220927, 'ymax': 362.71951042946654, 'zmax': 128.7085200804237}
+    notes: Fallback raw script scaffold
+
+34 D=0.037 V=0.613 C=0.981 fillet_chamfer         accept=True exec=True crit=True fail=None
+    instr: Left side of the whistle is missing radii. Add radii to the edges of the bigger part of the whistle. Radii must be same 
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=2297679.4554116586 bbox={'xmin': -0.07434638258389689, 'ymin': 199.92565359073834, 'zmin': -450.07434640926164, 'xmax': 300.0068680721987, 'ymax': 320.0743463825839, 'zmax': -339.9128809161437}
+    notes: Fallback raw script scaffold
+
+35 D=0.215 V=0.263 C=0.979 fillet_chamfer         accept=True exec=True crit=True fail=None
+    instr: Let's make this part symmetric. There is a step on one of the sides of the whistle. Move the protruding surface so that 
+    spec: /fillet tools=[('fillet_edges_by_length', {'radius': 5.0, 'min_length': 0.0, 'max_length': 1000000000.0, 'max_edges': 12})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=2297678.979552839 bbox={'xmin': -0.07434638258389689, 'ymin': 199.92565359073834, 'zmin': -450.07434640926164, 'xmax': 300.0068680721987, 'ymax': 320.0743463825839, 'zmax': -339.9340807968581}
+    notes: Heuristic fillet_edges_by_length
+
+36 D=0.044 V=0.707 C=0.982 hole_edit              accept=True exec=True crit=True fail=None
+    instr: Add circular feature that will act as a attachment for hanging rope. Outer D=4cm and feature has a concentric hole D=2cm
+    spec: /hole tools=[('drill_hole_at_point', {'x': 251.0447, 'y': 237.04, 'z': -392.5, 'diameter': 4.0, 'axis': 'Z'})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=2296454.824739095 bbox={'xmin': -0.07434638258389689, 'ymin': 199.92565359073834, 'zmin': -450.07434640926164, 'xmax': 300.0068680721987, 'ymax': 320.0743463825839, 'zmax': -339.9128809161437}
+    notes: Heuristic hole at grounded target center
+
+37 D=0.000 V=0.878 C=0.988 dimension_change       accept=False exec=True crit=False fail=None
+    instr: If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but ke
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=0.0 bbox={'xmin': -28.988858388978883, 'ymin': -0.007912365482362243, 'zmin': -150.00791236548235, 'xmax': 29.4627833185362, 'ymax': 15.007912365482362, 'zmax': 25.917638937613503}
+    notes: Fallback raw script scaffold
+
+38 D=0.000 V=0.851 C=0.989 feature_addition       accept=False exec=True crit=False fail=None
+    instr: Make the part symmetrical with respect to ZX plane by adding lowered plateau to the bottom. Then add embossed text to th
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=0.0 bbox={'xmin': -28.988858388978883, 'ymin': -0.007912365482362243, 'zmin': -150.00791236548235, 'xmax': 29.4627833185362, 'ymax': 15.007912365482362, 'zmax': 25.917638937613503}
+    notes: Fallback raw script scaffold
+
+39 D=0.132 V=0.812 C=0.988 hole_edit              accept=False exec=True crit=False fail=planning
+    instr: Use geometry of cylindrical hole defined in Sketch4 for creating inscribed hexagonal polygonal to the original hole and 
+    spec: /hole tools=[('boolean_cut_box', {'x': 0, 'y': 0, 'z': 0, 'length': 3.048, 'width': 3.048, 'height': 200, 'rotation_z': 30, 'operation': 'cut'})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=57086.69746242673 bbox={'xmin': -28.98885838898552, 'ymin': -0.007912365488338275, 'zmin': -150.00791236548835, 'xmax': 29.462783318536154, 'ymax': 15.007912365488338, 'zmax': 25.91818094093855}
+    notes: Creating inscribed hexagon in cylindrical hole from Sketch4. The largest CYLINDER face has r=1.52485. An inscribed hexag
+
+40 D=0.000 V=0.643 C=0.870 pattern                accept=True exec=True crit=True fail=None
+    instr: Mirror the part according to the plane lying on the not rounded end of the part. Merge the mirrored part together with t
+    spec: /fillet tools=[('fillet_edges_by_length', {'radius': 0.5, 'min_length': 0.0, 'max_length': 1000000000.0, 'max_edges': 12})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=6040.400680274067 bbox={'xmin': -24.81797710854416, 'ymin': 10.99949055469909, 'zmin': -3.1141096936066375, 'xmax': 80.00026743373293, 'ymax': 34.00215298505576, 'zmax': 11.115066439450114}
+    notes: Heuristic fillet_edges_by_length
+
+41 D=0.006 V=0.384 C=0.963 pattern                accept=True exec=True crit=True fail=None
+    instr: Multiply amount of cylindrical feature to 4. Imagine this is a system of plant pots, so you need to add stability to tha
+    spec: /custom tools=[('raw_cadquery', {})]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+    geom: n_solids=1 vol=6052.765227967491 bbox={'xmin': -25.00506523443281, 'ymin': 10.99493513809619, 'zmin': -3.1141096936066375, 'xmax': 79.99999972747102, 'ymax': 34.00215298505576, 'zmax': 11.115066439450114}
+    notes: Fallback raw script scaffold
+
+42 D=0.000 V=0.000 C=0.000 pattern                accept=None exec=None crit=None fail=
+    instr: Design cylindrical bearing on the flat end of the part (the one without fillet). Create another 7 instances of this desi
+    spec: / tools=[]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+
+43 D=0.000 V=0.000 C=0.000 fillet_chamfer         accept=None exec=None crit=None fail=
+    instr: Add chamfer to main/biggest cylindrical section of Heatbreak body/component. The chamfer should be same size as present 
+    spec: / tools=[]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+
+44 D=0.000 V=0.000 C=0.000 ambiguous              accept=None exec=None crit=None fail=
+    instr: Change mounting system at the back of Cyclops Plus Heatsink from 3-point mounting version to 4-points, similar to that w
+    spec: / tools=[]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+
+45 D=0.000 V=0.000 C=0.000 dimension_change       accept=None exec=None crit=None fail=
+    instr: Reduce overall height of Nozzle Volcano part by 1mm, reduction should be made in threaded area.
+    spec: / tools=[]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+
+46 D=0.000 V=0.000 C=0.000 hole_edit              accept=None exec=None crit=None fail=
+    instr: Add bigger amount of cylindrical holes into the red platforms to decrease their weights. Amount of patterns can be chose
+    spec: / tools=[]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+
+47 D=0.000 V=0.000 C=0.000 hole_edit              accept=None exec=None crit=None fail=
+    instr: Change the shape of the profile of link arms to the shape of long hole to increase its stifness. Then change the diamete
+    spec: / tools=[]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+
+48 D=0.000 V=0.000 C=0.000 feature_addition       accept=None exec=None crit=None fail=
+    instr: Add cylindrical heads on the long pins to prevent link arms against slipping off.
+    spec: / tools=[]
+    ver: unint=None dim=None pos=None topo=None sat=None diag=
+

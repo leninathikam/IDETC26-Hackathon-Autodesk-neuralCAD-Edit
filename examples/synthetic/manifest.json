@@ -1,0 +1,10 @@
+{
+  "backend": "cadquery",
+  "examples": {
+    "fillet_box": "examples\\synthetic\\fillet_box",
+    "hole_plate": "examples\\synthetic\\hole_plate",
+    "duplicate_box": "examples\\synthetic\\duplicate_box",
+    "translate_box": "examples\\synthetic\\translate_box",
+    "chamfer_box": "examples\\synthetic\\chamfer_box"
+  }
+}

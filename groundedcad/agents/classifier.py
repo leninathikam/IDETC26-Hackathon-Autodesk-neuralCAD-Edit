@@ -1,0 +1,289 @@
+"""Typed edit classifier: instruction → slots, not a bigger prompt.
+
+Example:
+  "Move the hole 5 mm to the right."
+  → TRANSLATE_FEATURE, target=hole, distance=5, direction=+X
+"""
+
+from __future__ import annotations
+
+import re
+from typing import Optional
+
+from pydantic import BaseModel, Field
+
+from groundedcad.agents.schemas import EditPattern, OperationType
+
+
+class ClassifiedEdit(BaseModel):
+    edit_type: EditPattern
+    target_kind: str = "feature"
+    action: str = "edit"
+    diameter_mm: Optional[float] = None
+    radius_mm: Optional[float] = None
+    distance_mm: Optional[float] = None
+    groove_mm: Optional[float] = None
+    count: Optional[int] = None
+    factor: Optional[float] = None
+    direction: tuple[float, float, float] = (0.0, 0.0, 0.0)
+    complete: bool = False
+    notes: str = ""
+    dimensions: dict[str, float] = Field(default_factory=dict)
+
+    def to_dimensions(self) -> dict[str, float]:
+        out = dict(self.dimensions)
+        if self.diameter_mm is not None:
+            out["diameter"] = self.diameter_mm
+        if self.radius_mm is not None:
+            out["radius"] = self.radius_mm
+        if self.distance_mm is not None:
+            out["distance"] = self.distance_mm
+            out["value_mm"] = self.distance_mm
+        if self.groove_mm is not None:
+            out["groove"] = self.groove_mm
+        if self.count is not None:
+            out["count"] = float(self.count)
+        if self.factor is not None:
+            out["factor"] = self.factor
+        return out
+
+
+_DIR = {
+    "right": (1.0, 0.0, 0.0),
+    "+x": (1.0, 0.0, 0.0),
+    "left": (-1.0, 0.0, 0.0),
+    "front": (1.0, 0.0, 0.0),
+    "back": (-1.0, 0.0, 0.0),
+    "up": (0.0, 0.0, 1.0),
+    "taller": (0.0, 0.0, 1.0),
+    "top": (0.0, 0.0, 1.0),
+    "down": (0.0, 0.0, -1.0),
+    "bottom": (0.0, 0.0, -1.0),
+    "forward": (0.0, 1.0, 0.0),
+    "+y": (0.0, 1.0, 0.0),
+    "+z": (0.0, 0.0, 1.0),
+}
+
+
+def _direction(text: str) -> tuple[float, float, float]:
+    lower = text.lower()
+    for key, vec in _DIR.items():
+        if re.search(rf"\b{re.escape(key)}\b", lower):
+            return vec
+    if re.search(r"\+\s*x\b|\bin x\b", lower):
+        return (1.0, 0.0, 0.0)
+    if re.search(r"\+\s*y\b|\bin y\b", lower):
+        return (0.0, 1.0, 0.0)
+    if re.search(r"\+\s*z\b|\bin z\b", lower):
+        return (0.0, 0.0, 1.0)
+    return (0.0, 0.0, 0.0)
+
+
+def _blend_verb(text: str) -> bool:
+    """True only when the instruction *is* a blend, not 'round pins' / 'rounded end'."""
+    if re.search(r"\b(chamfer|fillet)\b", text):
+        return True
+    if re.search(r"\badd rounds?\b|\badd radii\b|\bradii to\b|\bradius to\b", text):
+        return True
+    if re.search(r"\brounds? to all edges\b|\br\s*=", text):
+        return True
+    if re.search(r"\bradius\b", text) and re.search(r"\bremove\b|\breplace\b|\blargest\b|\bsmallest\b", text):
+        return True
+    return False
+
+
+class ParsedOp(BaseModel):
+    type: str
+    target_kind: str = "feature"
+    diameter_mm: Optional[float] = None
+    radius_mm: Optional[float] = None
+    distance_mm: Optional[float] = None
+    groove_mm: Optional[float] = None
+    count: Optional[int] = None
+    factor: Optional[float] = None
+    angle_deg: Optional[float] = None
+
+
+def parse_operations(text: str, dims: dict[str, float]) -> list[ParsedOp]:
+    """Collect every requested op. SCALE wins over 'rounds' in the same sentence."""
+    lower = text.lower()
+    ops: list[ParsedOp] = []
+    diameter = dims.get("diameter")
+    radius = dims.get("radius")
+    distance = dims.get("distance") or dims.get("value_mm")
+    groove = dims.get("groove")
+    count = int(dims["count"]) if dims.get("count") else None
+    factor = dims.get("factor")
+    if factor is None:
+        m10 = re.search(r"\b(\d+(?:\.\d+)?)x\b", lower)
+        if m10:
+            factor = float(m10.group(1))
+    angle = dims.get("angle")
+
+    if re.search(r"\bscale\b|\b10x\b", lower):
+        ops.append(ParsedOp(type="SCALE", target_kind="body", factor=factor))
+    elif re.search(r"taller by|shallower|reduce overall height", lower):
+        ops.append(ParsedOp(type="SCALE", target_kind="body", distance_mm=distance, factor=factor))
+    if re.search(r"\bdraft", lower):
+        ops.append(ParsedOp(type="DRAFT", angle_deg=angle or 2.0))
+    if re.search(r"\b(move|shift|translate|prolong)\b", lower):
+        if re.search(r"\bholes?\b", lower):
+            tk = "hole"
+        elif re.search(r"\bbody\b|\bthe part\b", lower):
+            tk = "body"
+        else:
+            tk = "feature"
+        ops.append(ParsedOp(type="TRANSLATE", target_kind=tk, distance_mm=distance))
+    if re.search(
+        r"\bpattern\b|\bmirror\b|\binstances?\b|\bmultiply\b|\bduplicate\b|\bcopies of\b|"
+        r"third rotor blade|another 7|slot pattern",
+        lower,
+    ):
+        c = count if count is not None else (2 if re.search(r"\bduplicate\b", lower) else None)
+        ops.append(ParsedOp(type="PATTERN", count=c, distance_mm=distance))
+    if re.search(r"cut through|through complete body|\bcutouts?\b|\bopening\b", lower) and not _blend_verb(lower):
+        ops.append(ParsedOp(type="CUT", distance_mm=distance))
+    if re.search(r"remove the collision|\bdelete\b", lower) and not _blend_verb(lower):
+        ops.append(ParsedOp(type="DELETE"))
+    if re.search(
+        r"connecting hole|\bdrill\b|\bbore\b|inscribed hexagonal|"
+        r"\bholes?\b.*diameter|diameter.*\bholes?\b|add a .{0,40}\bholes?\b",
+        lower,
+    ):
+        ops.append(ParsedOp(type="ADD_HOLE", target_kind="hole", diameter_mm=diameter, groove_mm=groove))
+    if _blend_verb(lower) or (re.search(r"\brounds?\b|\bradii\b", lower) and not re.search(r"round pins?|rounded end", lower)):
+        # Do not let SCALE+rounds collapse to hole. Blend is secondary.
+        is_chamfer = bool(re.search(r"\bchamfer\b|\bgrooves?\b", lower))
+        tk = "hole_edge" if re.search(r"\bholes?\b|circular|cylind", lower) else "edge"
+        if re.search(r"\bslot\b", lower):
+            tk = "slot"
+        ops.append(
+            ParsedOp(
+                type="CHAMFER" if is_chamfer else "FILLET",
+                target_kind=tk,
+                distance_mm=distance,
+                radius_mm=radius,
+                groove_mm=groove,
+            )
+        )
+    if re.search(r"\b(add|create|design|insert)\b", lower) and not any(o.type in {"ADD_HOLE", "FILLET", "CHAMFER", "PATTERN"} for o in ops):
+        ops.append(ParsedOp(type="ADD_FEATURE", distance_mm=distance, radius_mm=radius))
+    return ops
+
+
+_PRIMARY_ORDER = ["SCALE", "TRANSLATE", "PATTERN", "CUT", "ADD_HOLE", "CHAMFER", "FILLET", "DELETE", "ADD_FEATURE", "DRAFT"]
+
+
+def classify_instruction(text: str) -> ClassifiedEdit:
+    from groundedcad.agents.grounder import _extract_dimensions, _normalize_instruction
+
+    raw = _normalize_instruction(text or "")
+    lower = raw.lower()
+    dims = _extract_dimensions(raw)
+    direction = _direction(lower)
+    ops = parse_operations(raw, dims)
+    diameter = dims.get("diameter")
+    radius = dims.get("radius")
+    distance = dims.get("distance") or dims.get("value_mm")
+    groove = dims.get("groove")
+    count = int(dims["count"]) if dims.get("count") else None
+    factor = dims.get("factor")
+    if factor is None:
+        m10 = re.search(r"\b(\d+(?:\.\d+)?)x\b", lower)
+        if m10:
+            factor = float(m10.group(1))
+
+    def _done(**kwargs) -> ClassifiedEdit:
+        edit = ClassifiedEdit(dimensions=dims, direction=direction, **kwargs)
+        if edit.diameter_mm is None:
+            edit.diameter_mm = diameter
+        if edit.radius_mm is None:
+            edit.radius_mm = radius
+        if edit.distance_mm is None:
+            edit.distance_mm = distance
+        if edit.groove_mm is None:
+            edit.groove_mm = groove
+        if edit.count is None:
+            edit.count = count
+        if edit.factor is None:
+            edit.factor = factor
+        return edit
+
+    if not ops:
+        return _done(edit_type=EditPattern.AMBIGUOUS, complete=False, notes="no_strategy")
+
+    ops.sort(key=lambda o: _PRIMARY_ORDER.index(o.type) if o.type in _PRIMARY_ORDER else 99)
+    primary = ops[0]
+    extra = ",".join(o.type for o in ops[1:])
+
+    if primary.type == "SCALE":
+        complete = factor is not None or (primary.factor is not None)
+        return _done(
+            edit_type=EditPattern.DIMENSION_CHANGE,
+            target_kind="body",
+            action="scale",
+            factor=factor or primary.factor,
+            complete=bool(complete),
+            notes=f"ops=SCALE{','+extra if extra else ''}",
+        )
+    if primary.type == "TRANSLATE":
+        return _done(
+            edit_type=EditPattern.FEATURE_TRANSLATION,
+            target_kind=primary.target_kind,
+            action="move",
+            complete=distance is not None and direction != (0.0, 0.0, 0.0),
+            notes="translate_feature",
+        )
+    if primary.type == "PATTERN":
+        c = primary.count if primary.count is not None else count
+        return _done(
+            edit_type=EditPattern.PATTERN,
+            action="pattern",
+            count=c,
+            complete=c is not None or bool(re.search(r"\bmirror\b", lower)),
+            notes="pattern",
+        )
+    if primary.type == "CUT":
+        return _done(edit_type=EditPattern.BOOLEAN_MODIFICATION, action="cut", complete=True, notes="boolean_cut")
+    if primary.type == "DELETE":
+        return _done(edit_type=EditPattern.FEATURE_DELETION, action="delete", complete=False, notes="deletion")
+    if primary.type == "ADD_HOLE":
+        return _done(
+            edit_type=EditPattern.HOLE_EDIT,
+            target_kind="hole",
+            action="add",
+            complete=diameter is not None,
+            notes="add_hole" if diameter is not None else "add_hole_missing_diameter",
+        )
+    if primary.type in {"CHAMFER", "FILLET"}:
+        complete = (dims.get("distance") is not None) or (radius is not None) or (distance is not None)
+        return _done(
+            edit_type=EditPattern.FILLET_CHAMFER,
+            target_kind=primary.target_kind,
+            action="chamfer" if primary.type == "CHAMFER" else "fillet",
+            complete=complete,
+            notes="blend",
+        )
+    if primary.type == "ADD_FEATURE":
+        return _done(
+            edit_type=EditPattern.FEATURE_ADDITION,
+            action="add",
+            complete=distance is not None or radius is not None,
+            notes="feature_add",
+        )
+    return _done(edit_type=EditPattern.AMBIGUOUS, complete=False, notes="no_strategy")
+
+
+def classified_to_operation(edit: ClassifiedEdit) -> OperationType:
+    if edit.edit_type == EditPattern.FILLET_CHAMFER:
+        return OperationType.CHAMFER if edit.action == "chamfer" else OperationType.FILLET
+    return {
+        EditPattern.HOLE_EDIT: OperationType.HOLE,
+        EditPattern.PATTERN: OperationType.PATTERN,
+        EditPattern.DIMENSION_CHANGE: OperationType.SCALE,
+        EditPattern.FEATURE_TRANSLATION: OperationType.TRANSFORM,
+        EditPattern.BOOLEAN_MODIFICATION: OperationType.EXTRUDE_CUT,
+        EditPattern.FEATURE_ADDITION: OperationType.EXTRUDE_ADD,
+        EditPattern.FEATURE_DELETION: OperationType.EXTRUDE_CUT,
+        EditPattern.AMBIGUOUS: OperationType.CUSTOM,
+    }[edit.edit_type]

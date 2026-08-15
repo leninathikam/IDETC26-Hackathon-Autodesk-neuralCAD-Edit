@@ -1,0 +1,11 @@
+{
+  "request": "synth_duplicate_box",
+  "instruction": "Duplicate this part once, offset by 30mm in X.",
+  "transcript": "Copy the part and move the copy 30 mm along X.",
+  "brep_start_path": [
+    "C:\\Users\\lenin\\Downloads\\IDETC\\examples\\synthetic\\duplicate_box\\input.step"
+  ],
+  "difficulty": "easy",
+  "modality": "text",
+  "root_dir": "C:\\Users\\lenin\\Downloads\\IDETC\\examples\\synthetic\\duplicate_box"
+}

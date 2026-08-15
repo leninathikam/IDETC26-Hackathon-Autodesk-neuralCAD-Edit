@@ -1,0 +1,74 @@
+{
+  "summary": {
+    "n": 3,
+    "A": {
+      "chamfer": 0.9869333333333333,
+      "volume_f1": 0.8182999999999999,
+      "diff_f1": 0.0
+    },
+    "B": {
+      "chamfer": 0.9863333333333332,
+      "volume_f1": 0.7823666666666668,
+      "diff_f1": 0.03556666666666667
+    }
+  },
+  "rows": [
+    {
+      "id": "4E22SJE7QVTSP2E3_1758737060.465216",
+      "type": "boolean_modification",
+      "instruction": "Change that vertical slot to cut through complete body to decrease weight",
+      "A": {
+        "chamfer": 0.9832,
+        "volume_f1": 0.8381,
+        "diff_f1": 0.0,
+        "valid": true
+      },
+      "B": {
+        "chamfer": 0.9823,
+        "volume_f1": 0.8078,
+        "diff_f1": 0.0,
+        "valid": true
+      },
+      "B_accepted": false,
+      "B_tool": "Strategy boolean: one local cut box, centered on an existing feature if found"
+    },
+    {
+      "id": "3YH2WFSRM22W7DKT_1769177116.6129558",
+      "type": "feature_addition",
+      "instruction": "Design simple locking mechanism in the area of the hook to secure carried load.",
+      "A": {
+        "chamfer": 0.991,
+        "volume_f1": 0.8214,
+        "diff_f1": 0.0,
+        "valid": true
+      },
+      "B": {
+        "chamfer": 0.9909,
+        "volume_f1": 0.8091,
+        "diff_f1": 0.1067,
+        "valid": true
+      },
+      "B_accepted": true,
+      "B_tool": "llm_cadquery"
+    },
+    {
+      "id": "3YH2WFSRM22W7DKT_1769177020.525719",
+      "type": "boolean_modification",
+      "instruction": "Add several cutouts into the part to decrease its weight.",
+      "A": {
+        "chamfer": 0.9866,
+        "volume_f1": 0.7954,
+        "diff_f1": 0.0,
+        "valid": true
+      },
+      "B": {
+        "chamfer": 0.9858,
+        "volume_f1": 0.7302,
+        "diff_f1": 0.0,
+        "valid": true
+      },
+      "B_accepted": true,
+      "B_tool": "llm_cadquery"
+    }
+  ]
+}

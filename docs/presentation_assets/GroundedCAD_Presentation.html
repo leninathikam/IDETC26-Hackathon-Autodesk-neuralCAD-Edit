@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset='utf-8'>
+<title>GroundedCAD Presentation</title>
+<style>body{font-family:Arial,sans-serif;background:#0c121c;color:#e6ebf0;margin:0}
+.slide{max-width:960px;margin:24px auto;padding:32px;background:#121a28;border-radius:12px}
+h1{background:#145aa0;margin:-32px -32px 24px;padding:20px 32px}
+li{margin:10px 0;font-size:20px}</style></head><body>
+<section class='slide'><h1>GroundedCAD</h1><ul>
+<li>IDETC/CIE 2026 — Autodesk Track</li>
+<li>AI harness for real-world 3D CAD editing</li>
+<li>neuralCAD-Edit aligned, CadQuery-first</li>
+</ul><p><img src='slide_01.png' width='100%'/></p></section>
+<section class='slide'><h1>Problem</h1><ul>
+<li>Editing >> generation in engineering practice</li>
+<li>Frontier VLMs lag human CAD experts</li>
+<li>Harness design (tools/inspection/iteration) is decisive</li>
+</ul><p><img src='slide_02.png' width='100%'/></p></section>
+<section class='slide'><h1>Method</h1><ul>
+<li>1. Geometry census of input STEP</li>
+<li>2. Temporal grounding (text/cursor/drawing)</li>
+<li>3. Local EditSpec via constrained tools</li>
+<li>4. Sandbox execute + deterministic verify</li>
+<li>5. Independent critic (no false completion)</li>
+</ul><p><img src='slide_03.png' width='100%'/></p></section>
+<section class='slide'><h1>Vs baseline harness</h1><ul>
+<li>Baseline: free CadQuery rewrite + self-declare done</li>
+<li>Ours: grounded targets + typed plan + gates</li>
+<li>Best-valid retention under iteration budget</li>
+<li>Benchmark-compatible STEP/STL/settings.json</li>
+</ul><p><img src='slide_04.png' width='100%'/></p></section>
+<section class='slide'><h1>Results & examples</h1><ul>
+<li>Synthetic suite: fillet, hole, duplicate, translate, chamfer</li>
+<li>Ablations in outputs/ablations/ablation_report.json</li>
+<li>Next: full text-48 neuralCAD-Edit auto metrics</li>
+<li>Attach 5 iso views for qualitative slide</li>
+</ul><p><img src='slide_05.png' width='100%'/></p></section>
+<section class='slide'><h1>Impact & next</h1><ul>
+<li>Closer to collaborator-style CAD assistance</li>
+<li>Stronger video grounding + parametric Fusion tools</li>
+<li>Open, reproducible agent harness</li>
+</ul><p><img src='slide_06.png' width='100%'/></p></section>
+</body></html>
