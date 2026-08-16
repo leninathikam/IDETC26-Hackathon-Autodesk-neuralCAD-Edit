@@ -1,0 +1,1538 @@
+# Geometry-Aware CAD Editing Agent
+## Technical Architecture, Improvements, and Implementation Plan
+
+
+## 1. Project Goal
+
+
+Build a geometry-aware CAD editing agent that takes an existing STEP file and a natural-language edit request, modifies the existing geometry without unnecessarily rebuilding it, and automatically verifies that:
+
+
+1. The requested edit actually happened.
+2. The resulting CAD is geometrically valid.
+3. Unrelated geometry was preserved.
+4. The output does not introduce unexpected bodies/features.
+5. The visual result is consistent with the requested edit.
+
+
+### Core principle
+
+
+> Do not regenerate the CAD model from scratch. Treat the imported STEP as the source of truth and perform a minimal mutation on that geometry.
+
+
+The system should optimize for:
+
+
+```text
+SUCCESS =
+    requested change occurred
+    AND
+    resulting CAD is valid
+    AND
+    unrelated geometry was preserved
+2. High-Level Architecture
+                         USER
+                           |
+                           v
+                 Natural Language Edit
+                           |
+                           v
+                  Edit Understanding
+                           |
+                           v
+                    Edit IR / Schema
+                           |
+                +----------+----------+
+                |                     |
+                v                     v
+        Simple/High Confidence    Complex/Ambiguous
+                |                     |
+                v                     v
+          Local OCC/CQ Tool       LLM Agent
+                |                     |
+                +----------+----------+
+                           |
+                           v
+                    CAD Execution
+                           |
+                           v
+                   OCC Validation
+                           |
+                           v
+                 Geometry Critic
+                           |
+                           v
+                Edit-Delta Critic
+                           |
+                           v
+                 Visual Critic
+                           |
+                           v
+                    Score/Judge
+                     /       \
+                   PASS      FAIL
+                    |          |
+                    v          v
+                 OUTPUT      RETRY
+                               |
+                               v
+                       Updated Feedback
+                               |
+                               +----> LLM
+3. Core Design Principle: Mutate, Don't Rebuild
+
+Avoid this architecture:
+
+STEP
+  |
+  v
+Render image
+  |
+  v
+LLM
+  |
+  v
+Reconstruct entire object
+
+This risks losing:
+
+exact dimensions
+existing holes
+cavities
+ribs
+fillets
+chamfers
+complex surfaces
+topology
+manufacturing details
+original feature relationships
+
+Instead use:
+
+STEP
+  |
+  +----------------------------+
+  |                            |
+  v                            v
+OCC Geometry Analysis       Original Immutable Copy
+  |
+  v
+Structured Geometry Facts
+  +
+User Edit
+  |
+  v
+Edit IR
+  |
+  v
+Local Tool OR LLM
+  |
+  v
+Modified Copy
+  |
+  v
+Compare against Original
+
+The original STEP must remain immutable.
+
+4. Geometry Measurement Layer
+
+Before editing the STEP, analyze the geometry using OpenCASCADE/OCC.
+
+Extract as much structured information as possible.
+
+Required measurements
+Global
+number of solids
+number of shells
+number of faces
+number of edges
+number of vertices
+bounding box
+volume
+surface area
+center of mass
+principal axes if available
+Feature-level
+
+Detect or estimate:
+
+cylindrical holes
+circular edges
+planar faces
+cylindrical faces
+spherical faces
+cavities
+slots
+pockets
+ribs
+bosses
+rods
+repeated features
+symmetry
+axes
+approximate dimensions
+Topology
+
+Represent relationships such as:
+
+Solid
+ ├── Face 1
+ │    ├── Edge 1
+ │    ├── Edge 2
+ │    └── Edge 3
+ │
+ ├── Face 2
+ │    ├── Edge 4
+ │    └── Edge 5
+ │
+ └── Face 3
+
+For every relevant entity, expose semantic descriptors.
+
+Example:
+
+FACE_17
+type: planar
+normal: [0, 0, 1]
+area: 1520 mm²
+centroid: [20, 40, 80]
+
+
+EDGE_42
+type: circular
+radius: 5 mm
+length: 31.4 mm
+adjacent_faces: [17, 22]
+
+
+HOLE_3
+axis: [0, 0, 1]
+diameter: 10 mm
+depth: 20 mm
+location: [20, 40, 60]
+
+This allows the LLM to reason over geometry rather than relying only on a rendered image.
+
+5. Edit IR / Structured Operation Schema
+
+Do NOT let the LLM simultaneously determine:
+
+What the user means.
+Which geometry should be modified.
+How to implement the modification.
+
+Introduce an intermediate representation called EditIR.
+
+Example:
+
+{
+  "operation": "CHAMFER",
+  "target": {
+    "type": "EDGE",
+    "selection": "OUTER"
+  },
+  "parameters": {
+    "distance": 0.2
+  }
+}
+
+Another example:
+
+{
+  "operation": "FILLET",
+  "target": {
+    "type": "EDGE",
+    "selection": "OUTER"
+  },
+  "parameters": {
+    "radius": 2.0
+  }
+}
+
+Example:
+
+{
+  "operation": "ADD_CYLINDER",
+  "target": {
+    "type": "FACE",
+    "selection": "TOP"
+  },
+  "parameters": {
+    "diameter": 20,
+    "height": 200
+  }
+}
+
+Example:
+
+{
+  "operation": "REMOVE_HOLE",
+  "target": {
+    "type": "HOLE",
+    "selection": {
+      "diameter": 10,
+      "location": "NEAR_HANDLE"
+    }
+  }
+}
+
+The Edit IR should contain:
+
+operation
+target
+selection criteria
+dimensions
+units
+position
+direction
+expected geometry delta
+preservation requirements
+6. Operation Classification
+
+Classify edits before calling the LLM.
+
+High-confidence local operations
+
+Examples:
+
+chamfer
+fillet
+simple hole
+simple pocket
+simple cut
+simple cylinder
+simple box
+simple dimension modification
+
+These should use deterministic OCC/CadQuery tools whenever possible.
+
+Complex operations
+
+Escalate to LLM for:
+
+semantic edits
+complex ribs
+unusual blades
+mechanical handles
+complex feature combinations
+ambiguous feature selection
+edits involving multiple existing features
+edits requiring custom CadQuery logic
+
+Architecture:
+
+User Edit
+    |
+    v
+Classifier
+    |
+    +------ High Confidence ------> Local OCC/CQ
+    |
+    +------ Low Confidence -------> LLM Agent
+7. Why Deterministic-First Is Important
+
+The local tool should be attempted first whenever confidence is high.
+
+Benefits:
+
+faster
+cheaper
+deterministic
+easier to validate
+less hallucination
+fewer LLM calls
+better reproducibility
+
+The LLM should be an escalation mechanism, not the default solution for every operation.
+
+8. LLM CadQuery Generation
+
+For complex edits, ask the LLM to generate CadQuery that mutates the imported STEP.
+
+Important constraint:
+
+The LLM must never rebuild the object from primitive boxes/cylinders unless the requested operation explicitly requires a new feature.
+
+The imported STEP is the base geometry.
+
+Conceptually:
+
+imported = cq.importers.importStep("input.step")
+
+
+# Modify imported geometry
+result = ...
+
+
+cq.exporters.exportStep(result, "output.step")
+
+The generated code should operate on the imported geometry.
+
+9. Restricted Tool Environment
+
+Do not give the LLM unrestricted Python execution.
+
+Prefer a restricted set of CAD operations/tools.
+
+Example conceptual API:
+
+inspect_geometry()
+get_faces()
+get_edges()
+get_holes()
+select_faces()
+select_edges()
+select_holes()
+
+
+apply_fillet()
+apply_chamfer()
+add_hole()
+add_cylinder()
+add_box()
+cut_feature()
+union_feature()
+export_step()
+
+If direct CadQuery generation is used, execute it in a sandboxed subprocess.
+
+10. CAD Execution Safety
+
+Every generated CAD operation must run in a subprocess.
+
+Enforce:
+
+CPU timeout
+memory limit where possible
+file-size limit
+execution timeout
+process termination
+output validation
+
+If OCC/CadQuery hangs:
+
+terminate process
+mark attempt as failed
+send failure information to next iteration
+
+Never allow one CAD operation to block the entire pipeline.
+
+11. Validation Pipeline
+
+Validation should happen in this order.
+
+Generated Code
+      |
+      v
+Python/CadQuery execution
+      |
+      v
+STEP export
+      |
+      v
+OCC validity check
+      |
+      v
+Geometry validation
+      |
+      v
+Edit-delta validation
+      |
+      v
+Visual validation
+
+Do not run expensive visual validation if basic geometry validation already failed.
+
+12. Geometry Critic
+
+The first critic should be deterministic.
+
+Check:
+
+solid count
+shell count
+face count
+edge count
+vertex count
+volume
+surface area
+bounding box
+center of mass
+feature count
+hole count
+topology validity
+
+Example:
+
+Original:
+solids = 1
+volume = 12450 mm³
+bbox = 200 × 120 × 80
+
+
+Modified:
+solids = 1
+volume = 12449.7 mm³
+bbox = 200 × 120 × 80
+
+This is likely reasonable for a small chamfer.
+
+13. Edit-Delta Critic
+
+The system should explicitly compute:
+
+ΔGeometry = Modified Geometry - Original Geometry
+
+The goal is not merely:
+
+Does the output look correct?
+
+Instead ask:
+
+Did the requested change happen while preserving unrelated geometry?
+
+This should be one of the central ideas of the system.
+
+14. Operation-Specific Invariants
+
+Do NOT use one universal rule such as:
+
+if volume_change > threshold:
+    FAIL
+
+because some legitimate operations intentionally produce large changes.
+
+Instead define expected deltas per operation.
+
+Chamfer
+
+Expected:
+
+solid_count = same
+bbox ≈ same
+volume = slightly lower
+surface area = small change
+new chamfered edges/faces
+major geometry preserved
+Fillet
+
+Expected:
+
+solid_count = same
+bbox ≈ same
+volume = slightly lower
+local topology changes
+selected edges become rounded
+Hole
+
+Expected:
+
+solid_count = same
+bbox ≈ same
+volume decreases
+hole_count +1
+new cylindrical surface
+Add Rod
+
+Expected:
+
+volume increases
+bbox may increase
+cylindrical feature +1
+diameter approximately requested
+length approximately requested
+
+Solid count depends on whether the rod should be fused with the existing body.
+
+Remove Feature
+
+Expected:
+
+volume decreases
+requested feature disappears
+bbox may remain same
+unrelated geometry preserved
+15. Preservation Score
+
+Introduce a preservation score.
+
+Conceptually:
+
+Preservation =
+    how much unrelated geometry remained unchanged
+
+Possible signals:
+
+bbox preservation
+volume preservation
+surface preservation
+face preservation
+edge preservation
+feature preservation
+topological preservation
+
+For example:
+
+Preservation Score = 0.0 - 1.0
+
+A chamfer operation should generally have a very high preservation score.
+
+16. Intent Score
+
+Determine whether the requested operation actually happened.
+
+Examples:
+
+User
+
+Add a 200 mm rod.
+
+Check:
+
+cylindrical feature exists
+length ≈ 200 mm
+diameter ≈ requested value
+location ≈ requested location
+User
+
+Add a 0.2 mm chamfer.
+
+Check:
+
+target edge modified
+chamfer distance ≈ 0.2 mm
+
+This should be deterministic whenever possible.
+
+17. Visual Critic
+
+Render the original and modified STEP.
+
+Generate:
+
+Original Render
+Modified Render
+Difference Render
+
+Use vision as a secondary validation layer.
+
+The visual critic should answer:
+
+Does the output visually correspond to the requested change?
+
+However:
+
+Vision should not be the authoritative source for exact dimensions.
+
+Geometry/OCC measurements are authoritative.
+
+18. Combined Score
+
+Create an overall score.
+
+Example:
+
+Success Score =
+    0.40 * Intent Score
+  + 0.25 * Geometry Score
+  + 0.20 * Preservation Score
+  + 0.15 * Visual Score
+
+These weights can be tuned during experiments.
+
+Suggested decision policy:
+
+score >= 0.90
+    ACCEPT
+
+
+0.70 <= score < 0.90
+    RETRY
+
+
+score < 0.70
+    REJECT / ESCALATE
+
+Also allow hard failures:
+
+invalid OCC solid
+STEP export failure
+unexpected multiple bodies
+missing requested feature
+
+These should immediately fail regardless of score.
+
+19. Adaptive Iteration
+
+Do not always run 4–6 iterations.
+
+Stop as soon as the result is good enough.
+
+Example:
+
+Attempt 1
+score = 0.96
+=> ACCEPT
+
+Another:
+
+Attempt 1 = 0.42
+Attempt 2 = 0.61
+Attempt 3 = 0.83
+Attempt 4 = 0.92
+=> ACCEPT
+
+If the system is not improving:
+
+Attempt 1 = 0.40
+Attempt 2 = 0.42
+Attempt 3 = 0.38
+Attempt 4 = 0.35
+=> STOP
+
+This prevents wasting LLM calls.
+
+20. Feedback for Retry
+
+When an attempt fails, do not simply tell the LLM:
+
+Try again.
+
+Provide structured feedback.
+
+Example:
+
+ATTEMPT FAILED
+
+
+Requested:
+Add 200 mm rod to top face.
+
+
+Problems:
+- Rod length detected: 167 mm
+- Target face was not modified
+- Volume increase was 12% larger than expected
+- Visual critic: rod appears on wrong side
+
+
+Preserved:
+- solid count unchanged
+- original body preserved
+
+
+Please modify only the requested feature.
+
+This makes iterative correction much more effective.
+
+21. Topology-Aware Semantic Selection
+
+One of the hardest problems is mapping natural language to topology.
+
+Example:
+
+"Chamfer the edge near the lever."
+
+OCC sees:
+
+EDGE_137
+EDGE_138
+EDGE_139
+...
+
+The user sees:
+
+edge near the lever
+
+Therefore create a topology/geometry representation with:
+
+entity ID
+type
+position
+orientation
+size
+adjacent faces
+nearby features
+semantic labels where possible
+
+Example:
+
+EDGE_42
+type: circular
+radius: 5 mm
+center: [20, 40, 60]
+adjacent_faces: [17, 22]
+nearby_feature: LEVER_1
+
+The LLM can then select:
+
+EDGE_42
+
+instead of guessing from raw coordinates.
+
+22. Spatial Relationships
+
+Add relationships such as:
+
+near
+far
+above
+below
+left_of
+right_of
+inside
+outside
+adjacent_to
+intersects
+parallel_to
+perpendicular_to
+coaxial_with
+
+Example:
+
+HOLE_3
+near: LEVER_1
+above: BASE_1
+axis_parallel_to: Z
+
+This makes natural-language selection much easier.
+
+23. Suggested System Components
+
+Suggested project structure:
+
+cad-agent/
+│
+├── app/
+│   ├── main.py
+│   │
+│   ├── analysis/
+│   │   ├── geometry.py
+│   │   ├── topology.py
+│   │   ├── features.py
+│   │   └── measurements.py
+│   │
+│   ├── intent/
+│   │   ├── parser.py
+│   │   ├── schema.py
+│   │   └── classifier.py
+│   │
+│   ├── operations/
+│   │   ├── chamfer.py
+│   │   ├── fillet.py
+│   │   ├── holes.py
+│   │   ├── pocket.py
+│   │   ├── primitives.py
+│   │   └── registry.py
+│   │
+│   ├── llm/
+│   │   ├── planner.py
+│   │   ├── cadquery_generator.py
+│   │   └── prompts.py
+│   │
+│   ├── execution/
+│   │   ├── sandbox.py
+│   │   ├── subprocess_runner.py
+│   │   └── timeout.py
+│   │
+│   ├── validation/
+│   │   ├── geometry.py
+│   │   ├── invariants.py
+│   │   ├── edit_delta.py
+│   │   ├── intent.py
+│   │   ├── visual.py
+│   │   └── scoring.py
+│   │
+│   ├── rendering/
+│   │   └── renderer.py
+│   │
+│   └── pipeline/
+│       ├── orchestrator.py
+│       └── retry.py
+│
+├── data/
+│   ├── input/
+│   ├── output/
+│   └── renders/
+│
+├── tests/
+│
+├── benchmarks/
+│
+└── README.md
+24. Pipeline Pseudocode
+def edit_cad(step_path, user_request):
+        prompt = build_llm_prompt(
+            original_geometry=context,
+            edit_ir=edit_ir,
+            previous_feedback=get_feedback(attempt)
+        )
+
+
+        code = generate_cadquery(prompt)
+
+
+        result = execute_in_sandbox(
+            code,
+            timeout=CAD_TIMEOUT
+        )
+
+
+        if not result.success:
+            record_failure(result.error)
+            continue
+
+
+        # --------------------------------
+        # 5. OCC validation
+        # --------------------------------
+        if not is_valid_solid(result.shape):
+            record_failure("Invalid OCC solid")
+            continue
+
+
+        # --------------------------------
+        # 6. Geometry validation
+        # --------------------------------
+        geometry_score = evaluate_geometry(
+            original,
+            result.shape
+        )
+
+
+        # --------------------------------
+        # 7. Edit-delta validation
+        # --------------------------------
+        delta_score = evaluate_edit_delta(
+            original,
+            result.shape,
+            edit_ir
+        )
+
+
+        # --------------------------------
+        # 8. Intent validation
+        # --------------------------------
+        intent_score = evaluate_intent(
+            result.shape,
+            edit_ir
+        )
+
+
+        # --------------------------------
+        # 9. Visual validation
+        # --------------------------------
+        visual_score = evaluate_visual(
+            original,
+            result.shape,
+            edit_ir
+        )
+
+
+        # --------------------------------
+        # 10. Combined score
+        # --------------------------------
+        score = calculate_score(
+            intent_score,
+            geometry_score,
+            delta_score,
+            visual_score
+        )
+
+
+        if score >= ACCEPT_THRESHOLD:
+            return result
+
+
+        feedback = create_retry_feedback(
+            edit_ir,
+            geometry_score,
+            delta_score,
+            intent_score,
+            visual_score
+        )
+
+
+        save_feedback(feedback)
+
+
+    return failure("No valid solution found")
+25. Prompt Structure for the LLM
+
+The LLM should receive structured context.
+
+SYSTEM:
+
+
+You are a CAD editing agent.
+
+
+Your task is to modify an existing STEP geometry.
+
+
+CRITICAL RULES:
+
+
+1. Never reconstruct the existing object from scratch.
+2. Preserve unrelated geometry.
+3. Modify only the requested feature.
+4. Use the imported STEP as the base geometry.
+5. Do not invent dimensions.
+6. Use the supplied topology/entity IDs when selecting geometry.
+7. Export a valid STEP file.
+8. Do not create additional bodies unless explicitly requested.
+9. Prefer minimal geometric changes.
+10. If the requested edit cannot be performed safely, report failure.
+
+
+ORIGINAL GEOMETRY:
+
+
+...
+
+
+TOPOLOGY:
+
+
+...
+
+
+FEATURES:
+
+
+...
+
+
+USER REQUEST:
+
+
+...
+
+
+EDIT IR:
+
+
+...
+
+
+PREVIOUS ATTEMPT:
+
+
+...
+
+
+VALIDATION FEEDBACK:
+
+
+...
+
+
+Generate CadQuery code that modifies the imported STEP.
+26. Important Constraint: Never Rebuild From Boxes
+
+Avoid generated code such as:
+
+result = (
+    cq.Workplane("XY")
+    .box(...)
+    .union(...)
+    .cut(...)
+)
+
+when the original object already exists.
+
+Prefer:
+
+result = imported_shape
+
+
+# apply modification
+result = ...
+
+The only exception is when explicitly adding a new primitive feature.
+
+27. Benchmark Design
+
+Create a benchmark of natural-language edits.
+
+Example:
+
+Test 01
+Input: mechanical bracket
+Edit: add 0.2 mm chamfer to outer edges
+
+
+Test 02
+Input: bracket
+Edit: fillet the four outer corners
+
+
+Test 03
+Input: machine housing
+Edit: add a 10 mm hole to top face
+
+
+Test 04
+Input: blade assembly
+Edit: extend third blade
+
+
+Test 05
+Input: coffee machine
+Edit: make lever 20 mm longer
+
+Each benchmark should record:
+
+success/failure
+intent accuracy
+geometry validity
+preservation score
+visual score
+number of attempts
+LLM calls
+latency
+28. Compare Against Baselines
+
+The hackathon demo should compare your system against simpler approaches.
+
+Baseline A
+STEP → image → LLM → full reconstruction
+Baseline B
+STEP → LLM → CadQuery
+Your system
+STEP
+ ↓
+OCC analysis
+ ↓
+Edit IR
+ ↓
+deterministic operation
+or
+LLM mutation
+ ↓
+geometry validation
+ ↓
+edit-delta validation
+ ↓
+visual validation
+
+Show that your system improves:
+
+edit success
+geometry preservation
+robustness
+number of retries
+hallucination rate
+29. Main Advantages
+Advantages
+Preserves original CAD geometry.
+Avoids unnecessary reconstruction.
+Deterministic operations are fast.
+LLM is used only for difficult cases.
+Geometry-aware prompting is more reliable than image-only prompting.
+Edit-delta detects unintended changes.
+OCC provides objective geometric validation.
+Visual validation catches semantic mistakes.
+Adaptive iteration reduces token usage.
+Subprocess isolation prevents CAD hangs from crashing the pipeline.
+Architecture can support both simple and complex CAD edits.
+30. Main Risks
+Risk 1: OCC/CadQuery failures
+
+Fillets, chamfers, and booleans can fail because of topology/tolerance issues.
+
+Mitigation:
+
+subprocess
+timeout
+validation
+retry
+fallback operation
+Risk 2: Semantic feature selection
+
+User:
+
+"Make the hole near the handle bigger."
+
+OCC does not inherently know what "handle" means.
+
+Mitigation:
+
+topology map
+spatial relationships
+feature detection
+semantic labels
+LLM reasoning over structured geometry
+Risk 3: Valid but incorrect CAD
+
+Generated code can execute successfully but modify the wrong geometry.
+
+Mitigation:
+
+edit IR
+target validation
+edit-delta
+intent critic
+visual critic
+Risk 4: Visual critic can be fooled
+
+A render may look correct even if dimensions are wrong.
+
+Mitigation:
+
+Geometry measurements are authoritative; vision is secondary.
+
+Risk 5: Universal thresholds produce false failures
+
+Example:
+
+volume changed significantly
+
+does not necessarily mean failure.
+
+Mitigation:
+
+Use operation-specific invariants.
+
+Risk 6: Too many LLM calls
+
+Mitigation:
+
+deterministic-first
++
+adaptive stopping
++
+early validation
++
+retry only when needed
+31. Recommended MVP
+
+For the hackathon, do NOT attempt every possible CAD operation.
+
+Implement these first:
+
+Tier 1 — deterministic
+Chamfer
+Fillet
+Hole
+Pocket/cut
+Simple cylinder
+Simple box/feature
+Tier 2 — LLM
+Semantic feature selection
+Complex ribs
+Blades
+Mechanical levers
+Multi-feature edits
+
+The goal is not:
+
+"We can edit every CAD model."
+
+The goal is:
+
+"We can reliably perform a natural-language edit on an existing CAD model while preserving everything that was not requested."
+
+32. Hackathon Demo Flow
+
+Use one complex STEP model.
+
+Start with:
+
+Original STEP
+
+Then show:
+
+User:
+"Add a 0.2 mm chamfer to the four outer edges."
+
+System:
+
+Intent detected
+↓
+High confidence
+↓
+Local operation
+↓
+OCC validation
+↓
+Edit-delta validation
+↓
+PASS
+
+Then demonstrate a harder request:
+
+User:
+"Make the lever 20 mm longer."
+
+System:
+
+Intent detected
+↓
+Complex semantic operation
+↓
+LLM escalation
+↓
+CadQuery generated
+↓
+CAD execution
+↓
+Geometry critic
+↓
+Edit-delta critic
+↓
+Visual critic
+↓
+PASS
+
+Then intentionally create a bad LLM result.
+
+Show:
+
+Attempt 1
+FAIL
+
+
+Reason:
+- wrong target
+- bbox changed unexpectedly
+- preservation score low
+
+
+Attempt 2
+PASS
+
+This is likely more compelling to judges than simply showing one successful generation.
+
+33. Main Innovation / Pitch
+
+Do NOT pitch the project primarily as:
+
+"GPT generates CadQuery."
+
+That is not the strongest novelty.
+
+Instead pitch it as:
+
+A geometry-aware CAD editing agent that performs minimal-change modifications to existing STEP models and automatically verifies both the requested edit and preservation of unrelated geometry.
+
+The core innovation is:
+
+Traditional:
+"Does the generated CAD look right?"
+
+
+Our system:
+"Did the requested change happen,
+while everything else stayed intact?"
+34. Core Concept
+
+The central concept should be:
+
+MINIMAL-CHANGE CAD EDITING
+
+Formally:
+
+Input CAD
+    +
+Requested Edit
+    |
+    v
+Modified CAD
+
+should satisfy:
+
+Requested Geometry Change
++
+Maximum Preservation of Unrequested Geometry
+
+This gives the project a clear technical identity.
+
+35. Final Recommended Architecture
+                    ┌─────────────────────┐
+                    │     STEP INPUT      │
+                    └──────────┬──────────┘
+                               │
+                               v
+                    ┌─────────────────────┐
+                    │    OCC ANALYZER     │
+                    │                     │
+                    │ bbox                │
+                    │ volume              │
+                    │ faces               │
+                    │ edges               │
+                    │ holes               │
+                    │ topology            │
+                    │ features            │
+                    └──────────┬──────────┘
+                               │
+                               v
+                    ┌─────────────────────┐
+                    │   EDIT UNDERSTANDER │
+                    └──────────┬──────────┘
+                               │
+                               v
+                    ┌─────────────────────┐
+                    │      EDIT IR        │
+                    └──────────┬──────────┘
+                               │
+                     ┌─────────┴─────────┐
+                     │                   │
+                     v                   v
+             HIGH CONFIDENCE        COMPLEX EDIT
+                     │                   │
+                     v                   v
+               LOCAL OCC/CQ          LLM AGENT
+                     │                   │
+                     └─────────┬─────────┘
+                               │
+                               v
+                    ┌─────────────────────┐
+                    │   SANDBOX EXECUTOR  │
+                    └──────────┬──────────┘
+                               │
+                               v
+                    ┌─────────────────────┐
+                    │   OCC VALIDATION    │
+                    └──────────┬──────────┘
+                               │
+                               v
+                    ┌─────────────────────┐
+                    │  GEOMETRY CRITIC    │
+                    └──────────┬──────────┘
+                               │
+                               v
+                    ┌─────────────────────┐
+                    │   EDIT-DELTA        │
+                    │      CRITIC         │
+                    └──────────┬──────────┘
+                               │
+                               v
+                    ┌─────────────────────┐
+                    │   VISUAL CRITIC     │
+                    └──────────┬──────────┘
+                               │
+                               v
+                    ┌─────────────────────┐
+                    │   SUCCESS SCORE     │
+                    └──────────┬──────────┘
+                               │
+                      ┌────────┴────────┐
+                      │                 │
+                      v                 v
+                    PASS              FAIL
+                      │                 │
+                      v                 v
+                   OUTPUT          RETRY / STOP
+36. Implementation Priority
+
+Implement in this order:
+
+PHASE 1
+---------
+STEP import/export
+OCC geometry analysis
+basic rendering
+solid validation
+
+
+
+
+PHASE 2
+---------
+Edit IR
+operation classifier
+deterministic chamfer
+deterministic fillet
+deterministic hole
+
+
+
+
+PHASE 3
+---------
+edit-delta
+operation-specific invariants
+preservation score
+intent score
+
+
+
+
+PHASE 4
+---------
+LLM CadQuery generation
+sandbox execution
+retry loop
+
+
+
+
+PHASE 5
+---------
+topology-aware selection
+semantic feature detection
+visual critic
+
+
+
+
+PHASE 6
+---------
+benchmark
+metrics
+demo UI
+
+Do not start by building the entire LLM agent.
+
+First prove:
+
+STEP
+→ analyze
+→ edit
+→ validate
+
+Then add intelligence.
+
+37. Definition of Done
+
+The MVP is successful when the system can:
+
+Load an existing STEP.
+Analyze its geometry.
+Understand a natural-language edit.
+Convert the request into Edit IR.
+Select deterministic or LLM execution.
+Modify the imported geometry rather than rebuilding it.
+Export a valid STEP.
+Detect invalid geometry.
+Measure geometry before and after.
+Compute edit-delta.
+Verify operation-specific invariants.
+Calculate preservation.
+Verify the requested edit.
+Render before/after.
+Retry failed LLM generations.
+Stop early when the result is good.
+Produce a final explanation of why the edit was accepted or rejected.
+38. Most Important Engineering Rule
+
+At every stage ask:
+
+"What is the smallest change necessary to satisfy the user's request?"
+
+The system should prefer:
+
+minimal mutation
++
+maximum preservation
++
+objective verification
+
+over:
+
+full CAD regeneration
+
+That principle should drive the entire architecture.

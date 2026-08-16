@@ -1,0 +1,53 @@
+[
+  {
+    "id": "ZK22J6VYRKQ2RTFD_1758875163.609787",
+    "type": "fillet_chamfer",
+    "instruction": "Add 0.2 mm chamfer to the hole edges to improve fitting.",
+    "ours": {
+      "chamfer": 0.9834,
+      "volume_f1": 0.764,
+      "diff_f1": 0.039,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9843,
+      "volume_f1": 0.9572,
+      "diff_f1": 0.679,
+      "valid": true
+    }
+  },
+  {
+    "id": "4S7JQK6ZQMAD25GL_1758863141.735564",
+    "type": "fillet_chamfer",
+    "instruction": "Add a 2 millimetre fillet to the edges of the scrolling wheel slot to ensure a smooth surface.",
+    "ours": {
+      "chamfer": 0.9832,
+      "volume_f1": 0.5548,
+      "diff_f1": 0.0135,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9839,
+      "volume_f1": 0.9897,
+      "diff_f1": 0.3636,
+      "valid": true
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769779150.98797",
+    "type": "feature_addition",
+    "instruction": "Imagine the black handle is a stand. Add another one on the other side of device in approximately sa",
+    "ours": {
+      "chamfer": 0.974,
+      "volume_f1": 0.7266,
+      "diff_f1": 0.0242,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9825,
+      "volume_f1": 0.9745,
+      "diff_f1": 0.8145,
+      "valid": true
+    }
+  }
+]

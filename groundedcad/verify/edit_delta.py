@@ -27,6 +27,10 @@ def is_identity(before: dict[str, Any], after: dict[str, Any]) -> bool:
     f0, f1 = int(before.get("n_faces") or 0), int(after.get("n_faces") or 0)
     if f0 and f1 and abs(f1 - f0) > 2:
         return False
+    c0, c1 = before.get("center"), after.get("center")
+    if c0 and c1 and len(c0) == 3 and len(c1) == 3:
+        if any(abs(float(a) - float(b)) > 0.05 for a, b in zip(c0, c1)):
+            return False
     return True
 
 
@@ -171,6 +175,71 @@ def check_edit_delta_unintended(
         detail=detail,
         measured={"requested": req, "observed": obs, "unintended": bad},
     )
+
+
+def dual_critic_failures(
+    before: dict[str, Any],
+    after: dict[str, Any],
+    *,
+    classified: Optional[ClassifiedEdit] = None,
+) -> list[str]:
+    """Geometric critic Autodesk's PNG loop does not have.
+
+    identity → fail; huge volume/bbox change → fail; extra bodies when the
+    instruction did not ask for a new solid → fail.
+    """
+    failures: list[str] = []
+    if not after:
+        return ["NO_GEOMETRY: execution produced no inspectable solid"]
+    if is_identity(before, after):
+        failures.append("IDENTITY_OUTPUT: pred matches the start solid; the edit was not applied")
+
+    v0 = float(before.get("volume") or 0.0)
+    v1 = float(after.get("volume") or 0.0)
+    drop = (v0 - v1) / v0 if v0 > 1e-9 else 0.0
+    if drop > 0.35:
+        failures.append(f"OVERSIZED_CUT: removed {drop * 100:.0f}% of volume (rebuild, not an edit)")
+    elif drop > 0.15:
+        kind = classified.edit_type.value if classified else ""
+        if kind in {"fillet_chamfer", "hole_edit", "feature_addition"}:
+            failures.append(f"OVERSIZED_CUT: removed {drop * 100:.0f}% of volume on a local {kind}")
+
+    s0, s1 = _size(before), _size(after)
+    for name, a, b in zip("XYZ", s0, s1):
+        if float(b) > 3.0 * max(float(a), 1e-6):
+            failures.append(f"OVERSIZED_BBOX: {name} grew {a:.3f} → {b:.3f} (>3x); looks like a rebuild")
+
+    n0 = int(before.get("n_solids") or 0)
+    n1 = int(after.get("n_solids") or 0)
+    allow_bodies = False
+    if classified is not None:
+        allow_bodies = classified.edit_type.value in {
+            "feature_addition",
+            "pattern",
+            "feature_translation",
+        }
+    if n1 > n0 and not allow_bodies:
+        failures.append(f"EXTRA_BODIES: solid count {n0} → {n1} but the instruction did not request a new body")
+    return failures
+
+
+def dual_critic_accept(
+    failures: list[str],
+    *,
+    iteration: int,
+    cheap_high_conf: bool = False,
+    visual: bool = False,
+) -> bool:
+    """Cheap high-confidence local tools may accept on iter 0.
+    The CadQuery visual loop cannot accept on its first executed script
+    (same rule as Autodesk: first iter is never complete)."""
+    if failures:
+        return False
+    if visual:
+        return iteration > 0
+    if iteration == 0:
+        return cheap_high_conf
+    return True
 
 
 def check_not_identity(

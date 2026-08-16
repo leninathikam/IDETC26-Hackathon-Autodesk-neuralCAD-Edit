@@ -42,6 +42,7 @@ class LLMClient(ABC):
         system: str,
         user: str,
         images: Optional[list[str]] = None,
+        max_tokens: Optional[int] = None,
     ) -> LLMResponse:
         raise NotImplementedError
 
@@ -51,8 +52,14 @@ class LLMClient(ABC):
         system: str,
         user: str,
         images: Optional[list[str]] = None,
+        max_tokens: Optional[int] = None,
     ) -> dict[str, Any]:
-        resp = self.complete(system=system, user=user + "\n\nReturn JSON only.", images=images)
+        resp = self.complete(
+            system=system,
+            user=user + "\n\nReturn JSON only.",
+            images=images,
+            max_tokens=max_tokens,
+        )
         data = resp.data
         if data is None:
             data = parse_json_loose(resp.text)
@@ -84,9 +91,37 @@ class MockLLMClient(LLMClient):
         self.scripted = scripted or {}
         self.calls: list[dict[str, Any]] = []
 
-    def complete(self, *, system: str, user: str, images: Optional[list[str]] = None) -> LLMResponse:
-        self.calls.append({"system": system, "user": user, "images": images})
+    def complete(
+        self,
+        *,
+        system: str,
+        user: str,
+        images: Optional[list[str]] = None,
+        max_tokens: Optional[int] = None,
+    ) -> LLMResponse:
+        self.calls.append({"system": system, "user": user, "images": images, "max_tokens": max_tokens})
         lower = (system + user).lower()
+        if "pick one local tool" in lower:
+            data = self.scripted.get(
+                "local_edit",
+                {
+                    "tool_name": "add_box",
+                    "arguments": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 1.0,
+                        "length": 2.0,
+                        "width": 2.0,
+                        "height": 2.0,
+                        "combine": "union",
+                    },
+                    "rationale": "mock local add",
+                },
+            )
+            text = json.dumps(data)
+            counts = {"input_tokens": 60, "output_tokens": 40, "thinking_tokens": 0}
+            self._accumulate(counts)
+            return LLMResponse(text=text, data=data, token_counts=counts)
         if "ground" in lower or "temporal" in lower or "target" in lower:
             data = self.scripted.get(
                 "grounder",
@@ -127,7 +162,7 @@ class MockLLMClient(LLMClient):
                 },
             )
         elif "my_cad_function" in lower or "cadquery 2" in lower:
-            text = (
+            script = (
                 "def my_cad_function(args):\n"
                 "    import cadquery as cq\n"
                 "    import os\n"
@@ -136,7 +171,10 @@ class MockLLMClient(LLMClient):
             )
             counts = {"input_tokens": 80, "output_tokens": 40, "thinking_tokens": 0}
             self._accumulate(counts)
-            return LLMResponse(text=text, data=None, token_counts=counts)
+            if "complete" in lower and "json" in lower:
+                data = {"complete": False, "my_cad_function": script}
+                return LLMResponse(text=json.dumps(data), data=data, token_counts=counts)
+            return LLMResponse(text=script, data=None, token_counts=counts)
         else:
             data = {"ok": True}
         text = json.dumps(data)
@@ -146,7 +184,20 @@ class MockLLMClient(LLMClient):
 
 
 class OpenAIClient(LLMClient):
-    def complete(self, *, system: str, user: str, images: Optional[list[str]] = None) -> LLMResponse:
+    def complete(
+        self,
+        *,
+        system: str,
+        user: str,
+        images: Optional[list[str]] = None,
+        max_tokens: Optional[int] = None,
+    ) -> LLMResponse:
+        try:
+            from dotenv import load_dotenv
+
+            load_dotenv()
+        except Exception:
+            pass
         from openai import OpenAI
 
         client = OpenAI()
@@ -164,14 +215,22 @@ class OpenAIClient(LLMClient):
                         "image_url": {"url": f"data:{mime};base64,{b64}"},
                     }
                 )
-        resp = client.chat.completions.create(
-            model=self.model,
-            messages=[
+        max_out = int(max_tokens if max_tokens is not None else self.kwargs.get("max_tokens", 8192))
+        create_kwargs: dict[str, Any] = {
+            "model": self.model,
+            "messages": [
                 {"role": "system", "content": system},
                 {"role": "user", "content": content},
             ],
-            **{k: v for k, v in self.kwargs.items() if k in {"temperature", "max_tokens"}},
-        )
+        }
+        # GPT-5.x chat.completions rejects max_tokens; use max_completion_tokens.
+        if str(self.model).startswith("gpt-5"):
+            create_kwargs["max_completion_tokens"] = max_out
+        else:
+            if "temperature" in self.kwargs:
+                create_kwargs["temperature"] = self.kwargs["temperature"]
+            create_kwargs["max_tokens"] = max_out
+        resp = client.chat.completions.create(**create_kwargs)
         text = resp.choices[0].message.content or ""
         usage = getattr(resp, "usage", None)
         counts = {
@@ -184,7 +243,14 @@ class OpenAIClient(LLMClient):
 
 
 class AnthropicClient(LLMClient):
-    def complete(self, *, system: str, user: str, images: Optional[list[str]] = None) -> LLMResponse:
+    def complete(
+        self,
+        *,
+        system: str,
+        user: str,
+        images: Optional[list[str]] = None,
+        max_tokens: Optional[int] = None,
+    ) -> LLMResponse:
         import base64
 
         from anthropic import Anthropic
@@ -205,7 +271,7 @@ class AnthropicClient(LLMClient):
         content.append({"type": "text", "text": user})
         resp = client.messages.create(
             model=self.model,
-            max_tokens=int(self.kwargs.get("max_tokens", 4096)),
+            max_tokens=int(max_tokens if max_tokens is not None else self.kwargs.get("max_tokens", 4096)),
             system=system,
             messages=[{"role": "user", "content": content}],
         )
@@ -220,7 +286,14 @@ class AnthropicClient(LLMClient):
 
 
 class GeminiClient(LLMClient):
-    def complete(self, *, system: str, user: str, images: Optional[list[str]] = None) -> LLMResponse:
+    def complete(
+        self,
+        *,
+        system: str,
+        user: str,
+        images: Optional[list[str]] = None,
+        max_tokens: Optional[int] = None,
+    ) -> LLMResponse:
         from google import genai
         from google.genai import types
 
@@ -259,7 +332,7 @@ def auto_client_from_env(default_provider: str = "mock") -> LLMClient:
     try:
         from dotenv import load_dotenv
 
-        load_dotenv()
+        load_dotenv(override=False)
     except Exception:
         pass
     max_tokens = int(os.getenv("GROUNDEDCAD_MAX_TOKENS", "8192"))

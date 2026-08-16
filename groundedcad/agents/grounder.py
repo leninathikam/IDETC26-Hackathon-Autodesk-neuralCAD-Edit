@@ -97,8 +97,8 @@ def _extract_dimensions(text: str) -> dict[str, float]:
         ("diameter", rf"(\d+(?:\.\d+)?)\s*({_UNIT})?\s+(?:diameter|dia)"),
         ("radius", rf"(?:radius|fillet|\br\b)\s*[:=]?\s*(\d+(?:\.\d+)?)\s*({_UNIT})?"),
         ("radius", rf"(\d+(?:\.\d+)?)\s*({_UNIT})?\s+(?:radius|fillet|rounds?)"),
-        ("distance", rf"(?:chamfer|distance|offset)\s*[:=]?\s*(\d+(?:\.\d+)?)\s*({_UNIT})?"),
-        ("distance", rf"(\d+(?:\.\d+)?)\s*({_UNIT})?\s+chamfer"),
+        ("distance", rf"(?:chamfer|distance|offset|arm length|height)\s*[:=]?\s*(\d+(?:\.\d+)?)\s*({_UNIT})?"),
+        ("distance", rf"(\d+(?:\.\d+)?)\s*({_UNIT})?\s+(?:chamfer|rib|rod)"),
         ("groove", rf"(?:groove|grooves|knurl)\s*[:=]?\s*(?:of\s*)?(\d+(?:\.\d+)?)\s*({_UNIT})?"),
         ("groove", rf"(\d+(?:\.\d+)?)\s*({_UNIT})?\s+grooves?"),
         ("depth", rf"(?:depth|deep)\s*[:=]?\s*(\d+(?:\.\d+)?)\s*({_UNIT})?"),
@@ -116,7 +116,7 @@ def _extract_dimensions(text: str) -> dict[str, float]:
         dims[label] = raw if label in {"angle", "count", "factor"} else _to_mm(raw, unit)
     if "value_mm" not in dims:
         leftover = re.search(rf"(\d+(?:\.\d+)?)\s*({_UNIT})", text, flags=re.I)
-        if leftover and not dims:
+        if leftover:
             dims["value_mm"] = _to_mm(float(leftover.group(1)), leftover.group(2))
     return dims
 

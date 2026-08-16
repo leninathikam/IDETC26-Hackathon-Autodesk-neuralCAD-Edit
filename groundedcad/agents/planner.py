@@ -108,7 +108,7 @@ def heuristic_plan(intent: GroundedIntent, step_path: str, census: dict[str, Any
         edit.groove_mm = float(dims["groove"])
     if dims.get("factor") is not None:
         edit.factor = float(dims["factor"])
-    tool = apply_classified(edit, step_path, census)
+    tool = apply_classified(edit, step_path, census, text=intent.raw_instruction or intent.summary)
     op = classified_to_operation(edit)
     spec = EditSpec(
         intent_summary=intent.summary,
@@ -131,16 +131,25 @@ def llm_plan(
 ) -> tuple[EditSpec, ToolCall]:
     seed_spec, seed_tool = heuristic_plan(intent, step_path, census)
     edit = classify_instruction(intent.raw_instruction or intent.summary)
-    from groundedcad.geometry.inspect import geometry_brief
+    from groundedcad.geometry.inspect import edit_context
 
     payload = {
         "instruction": intent.raw_instruction or intent.summary,
-        "slots": edit.model_dump(),
-        "model": geometry_brief(census),
-        "failed": (revision_advice or "")[:400],
+        "slots": {
+            k: v
+            for k, v in edit.model_dump().items()
+            if k in {"edit_type", "target_kind", "action", "diameter_mm", "radius_mm", "distance_mm", "count", "direction"}
+            and v not in (None, "", [], {})
+        },
+        "model": edit_context(census, edit_type=edit.edit_type.value),
+        "failed": (revision_advice or "")[:240],
     }
     try:
-        data = client.complete_json(system=PLANNER_SYSTEM, user=json.dumps(payload, indent=2))
+        data = client.complete_json(
+            system=PLANNER_SYSTEM,
+            user=json.dumps(payload, separators=(",", ":")),
+            max_tokens=512,
+        )
     except Exception:
         return seed_spec, seed_tool
     if data.get("diameter_mm") is not None:
@@ -149,7 +158,7 @@ def llm_plan(
         edit.distance_mm = float(data["distance_mm"])
     if data.get("direction") and len(data["direction"]) == 3:
         edit.direction = tuple(float(x) for x in data["direction"])  # type: ignore[assignment]
-    tool = apply_classified(edit, step_path, census)
+    tool = apply_classified(edit, step_path, census, text=intent.raw_instruction or intent.summary)
     spec = seed_spec.model_copy(
         update={"parameters": tool.arguments, "notes": f"slot_fill {edit.notes}"}
     )

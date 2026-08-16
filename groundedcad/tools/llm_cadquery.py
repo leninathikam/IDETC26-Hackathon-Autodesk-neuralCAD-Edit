@@ -1,42 +1,71 @@
-"""LLM CadQuery only after a deterministic strategy fails. Keep the prompt small."""
+"""LLM fallback: fill a local tool call. Never rebuild the STEP from scratch."""
 
 from __future__ import annotations
 
 import json
 import re
-from typing import Any
+from typing import Any, Optional
 
+from groundedcad.agents.schemas import ToolCall
 from groundedcad.llm.base import LLMClient
 
-CADQUERY_SYSTEM = """You write CadQuery 2 that edits an existing STEP. Output Python only.
+# Whole-body ops are disallowed: they rewrite unrelated geometry and burn tokens.
+LOCAL_TOOLS = frozenset(
+    {
+        "add_box",
+        "add_cylinder",
+        "boolean_cut_box",
+        "cut_through",
+        "cut_hex",
+        "cut_radial_notches",
+        "cut_slot_pattern",
+        "drill_hole_at_point",
+        "fillet_circular_edges",
+        "fillet_edges_by_length",
+        "chamfer_circular_edges",
+        "chamfer_edges_by_length",
+    }
+)
 
-Required signature:
-def my_cad_function(args):
-    import cadquery as cq
-    import os
-    shape = cq.importers.importStep(os.path.expanduser(args["input_file"]))
-    # mutate shape
-    return shape
+LOCAL_EDIT_MAX_TOKENS = 1024
+
+LOCAL_EDIT_SYSTEM = """Pick ONE local tool to apply to the imported STEP.
+Do not write CadQuery. Do not rebuild or re-export the part from primitives.
+The original STEP is imported for you; only the requested feature is mutated.
+
+Allowed tool_name:
+- add_box: x,y,z,length,width,height,combine (union|cut)
+- add_cylinder: x,y,z,diameter,height,axis,combine
+- boolean_cut_box: x,y,z,length,width,height
+- cut_through: x,y,z,width,thickness,axis
+- cut_hex: x,y,z,radius,axis
+- cut_radial_notches: count,depth
+- cut_slot_pattern: count,both_sides
+- drill_hole_at_point: x,y,z,diameter,axis
+- fillet_circular_edges / fillet_edges_by_length: radius, max_edges, region
+- chamfer_circular_edges / chamfer_edges_by_length: distance, max_edges, region
 
 Rules:
-- The imported solid MUST change. Returning it unchanged is failure.
-- Use only cadquery, math, os. No network, no files except input_file.
-- Apply numeric values from the instruction exactly (mm unless stated).
-- Prefer transforms, holes, fillets, chamfers, and local booleans on the imported solid.
-- Do not rebuild the part from scratch unless the instruction requires a new body.
-- If the instruction refers to an EXISTING slot/hole/pocket/edge, find it in the
-  geometry brief below (its face/edge center, radius, or bbox) and cut/extend
-  exactly there. Do not place a new feature at an arbitrary/default location.
-- location_hint (if present) gives real candidate coordinates from the STEP
-  census: cavities to extend/cut, planar_sites for separate local cuts, or
-  protrusions/bbox_corners to anchor a new small feature near. Use them
-  instead of guessing a location. Never remove more than ~15% of total
-  volume in a single cut.
+- Use coordinates from model/location_hint, not an invented origin.
+- Keep new features small vs bbox. Never cut >15% of volume.
+- Optional followups: at most 2 extra local tools (e.g. second port).
+- Never choose translate_body, scale_uniform, duplicate_linear, rotate_body, or raw_cadquery.
+
+JSON only:
+{"tool_name":"...","arguments":{...},"rationale":"...","followups":[]}
 """
 
 
 def extract_python_script(text: str) -> str:
     raw = (text or "").strip()
+    try:
+        from groundedcad.llm.base import parse_json_loose
+
+        data = parse_json_loose(raw)
+        if isinstance(data, dict) and data.get("my_cad_function"):
+            raw = str(data["my_cad_function"]).strip()
+    except Exception:
+        pass
     if "```" in raw:
         m = re.search(r"```(?:python)?\s*([\s\S]*?)```", raw, flags=re.I)
         if m:
@@ -59,6 +88,155 @@ def is_identity_scaffold(script: str) -> bool:
     )
 
 
+def _clean_args(raw: Any) -> dict[str, Any]:
+    if not isinstance(raw, dict):
+        return {}
+    return {k: v for k, v in raw.items() if k != "step_path" and v is not None}
+
+
+def tool_from_llm_json(data: dict[str, Any], step_path: str) -> Optional[ToolCall]:
+    name = str(data.get("tool_name") or "")
+    if name not in LOCAL_TOOLS:
+        return None
+    args = _clean_args(data.get("arguments"))
+    args["step_path"] = step_path
+    followups: list[ToolCall] = []
+    for item in (data.get("followups") or [])[:2]:
+        if not isinstance(item, dict):
+            continue
+        fn = str(item.get("tool_name") or "")
+        if fn not in LOCAL_TOOLS:
+            continue
+        fa = _clean_args(item.get("arguments"))
+        fa["step_path"] = step_path
+        followups.append(ToolCall(tool_name=fn, arguments=fa, rationale="llm_followup"))
+    return ToolCall(
+        tool_name=name,
+        arguments=args,
+        rationale=str(data.get("rationale") or "llm_local_edit"),
+        followups=followups,
+    )
+
+
+def generate_llm_local_edit(
+    client: LLMClient,
+    *,
+    instruction: str,
+    model: dict[str, Any] | str,
+    classified: dict[str, Any],
+    failure: str = "",
+    location_hint: dict[str, Any] | None = None,
+    step_path: str = "",
+) -> Optional[ToolCall]:
+    slots = {
+        k: classified.get(k)
+        for k in (
+            "edit_type",
+            "target_kind",
+            "action",
+            "diameter_mm",
+            "radius_mm",
+            "distance_mm",
+            "count",
+            "direction",
+        )
+        if classified.get(k) not in (None, "", [], {})
+    }
+    payload = {
+        "instruction": instruction,
+        "slots": slots,
+        "model": model,
+        "failure": (failure or "")[:240],
+    }
+    if location_hint:
+        payload["location_hint"] = location_hint
+    data = client.complete_json(
+        system=LOCAL_EDIT_SYSTEM,
+        user=json.dumps(payload, separators=(",", ":")),
+        max_tokens=LOCAL_EDIT_MAX_TOKENS,
+    )
+    return tool_from_llm_json(data, step_path)
+
+
+RAW_LOCAL_EDIT_MAX_TOKENS = 2048
+
+RAW_LOCAL_EDIT_SYSTEM = """Write ONE local CadQuery edit as Python code — the
+fixed set of local tools was not expressive enough for this instruction, so you
+get real CadQuery selectors instead of a JSON tool call.
+
+def my_cad_function(args):
+    import cadquery as cq
+    import os
+    shape = cq.importers.importStep(os.path.expanduser(args["input_file"]))
+    # ... exactly one local add/cut/fillet/chamfer built from `shape` ...
+    return result  # a cq.Workplane or cq.Shape/Solid
+
+Ground every coordinate in the MODEL/location_hint facts given to you (holes,
+cavities, protrusions, planar_sites, bbox_corners) or in a CadQuery selector
+relative to the imported shape (e.g. `.faces(">Z")`, `.edges("|Z")`,
+`.vertices(cq.NearestToPointSelector(...))`) — never invent an unrelated origin.
+
+Rules:
+- Import and start from the given STEP; never rebuild the part from scratch.
+- Exactly one local feature (plus at most one follow-up cut/fillet on the same
+  feature). No global scale/rotate/translate/mirror of the whole body.
+- A cut must remove well under 15% of total volume; a new add must be small
+  relative to the part's own size (see MODEL size_mm) — a boss/rib/port, not a
+  second body.
+- No network, filesystem, subprocess, or thread access beyond the snippet above.
+- Output ONLY a single ```python fenced code block defining my_cad_function.
+  No prose outside the fence.
+"""
+
+
+def generate_llm_raw_local_edit(
+    client: LLMClient,
+    *,
+    instruction: str,
+    model: dict[str, Any] | str,
+    classified: dict[str, Any],
+    failure: str = "",
+    location_hint: dict[str, Any] | None = None,
+    step_path: str = "",
+) -> Optional[str]:
+    """Last-resort escalation: let the model write real CadQuery selectors
+    instead of filling a fixed local-tool slot. Still one local edit on the
+    imported STEP — never a from-scratch rebuild. Returns None on API failure;
+    a returned script may still be geometrically identity — the caller
+    verifies that the same way it verifies every other attempt."""
+    slots = {
+        k: classified.get(k)
+        for k in (
+            "edit_type",
+            "target_kind",
+            "action",
+            "diameter_mm",
+            "radius_mm",
+            "distance_mm",
+            "count",
+            "direction",
+        )
+        if classified.get(k) not in (None, "", [], {})
+    }
+    payload = {
+        "instruction": instruction,
+        "slots": slots,
+        "model": model,
+        "failure": (failure or "")[:400],
+    }
+    if location_hint:
+        payload["location_hint"] = location_hint
+    try:
+        resp = client.complete(
+            system=RAW_LOCAL_EDIT_SYSTEM,
+            user=json.dumps(payload, separators=(",", ":")),
+            max_tokens=RAW_LOCAL_EDIT_MAX_TOKENS,
+        )
+    except Exception:
+        return None
+    return extract_python_script(resp.text or "")
+
+
 def generate_llm_cadquery(
     client: LLMClient,
     *,
@@ -68,17 +246,109 @@ def generate_llm_cadquery(
     failure: str = "",
     location_hint: dict[str, Any] | None = None,
 ) -> str:
-    payload = {
-        "instruction": instruction,
-        "classified": classified,
-        "model": geometry_brief[:1800],
-        "failure": (failure or "")[:500],
-        "required_action": "Generate an actual geometric modification.",
-    }
-    if location_hint:
-        payload["location_hint"] = location_hint
-    resp = client.complete(
-        system=CADQUERY_SYSTEM,
-        user=json.dumps(payload, indent=2),
+    """Deprecated: kept for tests. Pipeline uses generate_llm_local_edit."""
+    tool = generate_llm_local_edit(
+        client,
+        instruction=instruction,
+        model=geometry_brief[:800],
+        classified=classified,
+        failure=failure,
+        location_hint=location_hint,
     )
-    return extract_python_script(resp.text)
+    if tool is None:
+        return extract_python_script("")
+    from groundedcad.tools.cadquery_gen import generate_cadquery
+
+    return generate_cadquery(tool, "")
+
+
+GROUNDED_CQ_MAX_TOKENS = 4096
+
+GROUNDED_CQ_SYSTEM = """You write CadQuery that EDITS an imported STEP. You do not rebuild the part.
+
+def my_cad_function(args):
+    import cadquery as cq
+    import os
+    shape = cq.importers.importStep(os.path.expanduser(args["input_file"]))
+    # mutate `shape` using coordinates from MODEL / slots / location_hint
+    return result  # cq.Workplane or Solid
+
+Hard rules:
+- Always import args["input_file"]. Never construct the whole part from Workplane().box / .cylinder / sketches of the original.
+- Use OCC facts (bbox, holes, cavities, axes) and typed slots (0.2 mm, 200 mm, …). Do not invent an origin.
+- Change only the requested feature. Preserve unrelated faces, holes, and envelope.
+- No network, subprocess, threads, or filesystem besides the import.
+
+Return JSON only, no markdown:
+{"complete": false, "my_cad_function": "def my_cad_function(args):\\n ..."}
+
+complete=true means the LAST executed solid already satisfies the instruction
+(look at the render + edit-delta). The first iteration can NEVER be complete.
+If complete is true, my_cad_function may be omitted and will not be executed.
+"""
+
+
+def generate_grounded_cadquery(
+    client: LLMClient,
+    *,
+    instruction: str,
+    geometry_brief: str,
+    classified: dict[str, Any],
+    location_hint: dict[str, Any] | None = None,
+    failure: str = "",
+    last_script: str = "",
+    stdout: str = "",
+    images: Optional[list[str]] = None,
+    iteration: int = 0,
+    visual_iters_remaining: int = 5,
+) -> dict[str, Any]:
+    """Autodesk-style script+render loop, grounded on OCC facts + edit-delta."""
+    from groundedcad.llm.base import parse_json_loose
+
+    slots = {
+        k: classified.get(k)
+        for k in (
+            "edit_type",
+            "target_kind",
+            "action",
+            "diameter_mm",
+            "radius_mm",
+            "distance_mm",
+            "count",
+            "direction",
+        )
+        if classified.get(k) not in (None, "", [], {})
+    }
+    user = {
+        "instruction": instruction,
+        "slots": slots,
+        "MODEL": geometry_brief,
+        "location_hint": location_hint or {},
+        "edit_delta": (failure or "")[:800],
+        "iteration": iteration,
+        "iterations_remaining": visual_iters_remaining,
+        "last_script": (last_script or "")[:4000],
+        "program_output": (stdout or "")[:1500],
+        "note": (
+            "First iteration complete must be false. "
+            "If edit_delta is IDENTITY/OVERSIZED/EXTRA_BODIES, fix the script; do not redraw the part."
+        ),
+    }
+    resp = client.complete(
+        system=GROUNDED_CQ_SYSTEM,
+        user=json.dumps(user, separators=(",", ":")),
+        images=images or None,
+        max_tokens=GROUNDED_CQ_MAX_TOKENS,
+    )
+    data: dict[str, Any] = {}
+    try:
+        parsed = parse_json_loose(resp.text or "")
+        if isinstance(parsed, dict):
+            data = parsed
+    except Exception:
+        data = {}
+    script = str(data.get("my_cad_function") or "").strip() or extract_python_script(resp.text or "")
+    complete = bool(data.get("complete"))
+    if iteration == 0:
+        complete = False
+    return {"complete": complete, "my_cad_function": script, "raw": resp.text}

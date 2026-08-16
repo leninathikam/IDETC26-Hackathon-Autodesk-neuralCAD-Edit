@@ -92,6 +92,25 @@ def _blend_verb(text: str) -> bool:
     return False
 
 
+def _feature_tag(text: str) -> str:
+    lower = text.lower()
+    if "rib" in lower:
+        return "rib"
+    if "rod" in lower or "arm length" in lower:
+        return "rod"
+    if "screw" in lower:
+        return "screw"
+    if "port" in lower or "inlet" in lower or "outlet" in lower:
+        return "port"
+    if "button" in lower:
+        return "button"
+    if "switch" in lower:
+        return "switch"
+    if "filling" in lower or "pour" in lower or re.search(r"\bcap\b", lower):
+        return "cap"
+    return "feature"
+
+
 class ParsedOp(BaseModel):
     type: str
     target_kind: str = "feature"
@@ -141,6 +160,10 @@ def parse_operations(text: str, dims: dict[str, float]) -> list[ParsedOp]:
     ):
         c = count if count is not None else (2 if re.search(r"\bduplicate\b", lower) else None)
         ops.append(ParsedOp(type="PATTERN", count=c, distance_mm=distance))
+    if re.search(r"hexagonal profile|flower type|flower-type", lower):
+        ops.append(ParsedOp(type="HEX_PROFILE", diameter_mm=diameter, radius_mm=radius))
+    if re.search(r"spur gear|gear teeth|into .{0,50}teeth", lower):
+        ops.append(ParsedOp(type="GEAR_TEETH", count=count))
     if re.search(r"cut through|through complete body|\bcutouts?\b|\bopening\b", lower) and not _blend_verb(lower):
         ops.append(ParsedOp(type="CUT", distance_mm=distance))
     if re.search(r"remove the collision|\bdelete\b", lower) and not _blend_verb(lower):
@@ -151,12 +174,25 @@ def parse_operations(text: str, dims: dict[str, float]) -> list[ParsedOp]:
         lower,
     ):
         ops.append(ParsedOp(type="ADD_HOLE", target_kind="hole", diameter_mm=diameter, groove_mm=groove))
-    if _blend_verb(lower) or (re.search(r"\brounds?\b|\bradii\b", lower) and not re.search(r"round pins?|rounded end", lower)):
+    skip_blend = bool(
+        re.search(r"hexagonal profile|flower type|spur gear|gear teeth|into .{0,50}teeth", lower)
+    )
+    if (
+        not skip_blend
+        and (
+            _blend_verb(lower)
+            or (re.search(r"\brounds?\b|\bradii\b", lower) and not re.search(r"round pins?|rounded end", lower))
+        )
+    ):
         # Do not let SCALE+rounds collapse to hole. Blend is secondary.
         is_chamfer = bool(re.search(r"\bchamfer\b|\bgrooves?\b", lower))
         tk = "hole_edge" if re.search(r"\bholes?\b|circular|cylind", lower) else "edge"
         if re.search(r"\bslot\b", lower):
             tk = "slot"
+        if re.search(r"all edges", lower):
+            tk = "all_edges"
+        if re.search(r"front center|front centre", lower):
+            tk = "front_center"
         ops.append(
             ParsedOp(
                 type="CHAMFER" if is_chamfer else "FILLET",
@@ -166,12 +202,27 @@ def parse_operations(text: str, dims: dict[str, float]) -> list[ParsedOp]:
                 groove_mm=groove,
             )
         )
-    if re.search(r"\b(add|create|design|insert)\b", lower) and not any(o.type in {"ADD_HOLE", "FILLET", "CHAMFER", "PATTERN"} for o in ops):
+    if re.search(r"\b(add|create|design|insert)\b", lower) and not any(
+        o.type in {"ADD_HOLE", "FILLET", "CHAMFER", "PATTERN", "HEX_PROFILE", "GEAR_TEETH"} for o in ops
+    ):
         ops.append(ParsedOp(type="ADD_FEATURE", distance_mm=distance, radius_mm=radius))
     return ops
 
 
-_PRIMARY_ORDER = ["SCALE", "TRANSLATE", "PATTERN", "CUT", "ADD_HOLE", "CHAMFER", "FILLET", "DELETE", "ADD_FEATURE", "DRAFT"]
+_PRIMARY_ORDER = [
+    "SCALE",
+    "TRANSLATE",
+    "HEX_PROFILE",
+    "GEAR_TEETH",
+    "PATTERN",
+    "CUT",
+    "ADD_HOLE",
+    "CHAMFER",
+    "FILLET",
+    "DELETE",
+    "ADD_FEATURE",
+    "DRAFT",
+]
 
 
 def classify_instruction(text: str) -> ClassifiedEdit:
@@ -234,14 +285,31 @@ def classify_instruction(text: str) -> ClassifiedEdit:
             complete=distance is not None and direction != (0.0, 0.0, 0.0),
             notes="translate_feature",
         )
+    if primary.type == "HEX_PROFILE":
+        return _done(
+            edit_type=EditPattern.BOOLEAN_MODIFICATION,
+            target_kind="hole",
+            action="hex",
+            complete=True,
+            notes="hex_profile",
+        )
+    if primary.type == "GEAR_TEETH":
+        return _done(
+            edit_type=EditPattern.BOOLEAN_MODIFICATION,
+            target_kind="profile",
+            action="gear",
+            complete=True,
+            notes="gear_teeth",
+        )
     if primary.type == "PATTERN":
         c = primary.count if primary.count is not None else count
+        slot = bool(re.search(r"\bslot", lower))
         return _done(
             edit_type=EditPattern.PATTERN,
             action="pattern",
             count=c,
-            complete=c is not None or bool(re.search(r"\bmirror\b", lower)),
-            notes="pattern",
+            complete=True,
+            notes="slot_pattern" if slot else "pattern",
         )
     if primary.type == "CUT":
         return _done(edit_type=EditPattern.BOOLEAN_MODIFICATION, action="cut", complete=True, notes="boolean_cut")
@@ -265,11 +333,12 @@ def classify_instruction(text: str) -> ClassifiedEdit:
             notes="blend",
         )
     if primary.type == "ADD_FEATURE":
+        tag = _feature_tag(lower)
         return _done(
             edit_type=EditPattern.FEATURE_ADDITION,
             action="add",
-            complete=distance is not None or radius is not None,
-            notes="feature_add",
+            complete=True,
+            notes=f"feature_add:{tag}",
         )
     return _done(edit_type=EditPattern.AMBIGUOUS, complete=False, notes="no_strategy")
 
@@ -287,3 +356,17 @@ def classified_to_operation(edit: ClassifiedEdit) -> OperationType:
         EditPattern.FEATURE_DELETION: OperationType.EXTRUDE_CUT,
         EditPattern.AMBIGUOUS: OperationType.CUSTOM,
     }[edit.edit_type]
+
+
+def high_confidence_local(edit: ClassifiedEdit) -> bool:
+    """True when a deterministic local tool is likely the whole edit.
+
+    Hole chamfer / all-edge fillet with a parsed size already beat Autodesk
+    on some of the 48; those should not spend a CadQuery visual loop.
+    """
+    if edit.edit_type == EditPattern.FILLET_CHAMFER:
+        has_size = bool(edit.radius_mm or edit.distance_mm or edit.groove_mm)
+        return has_size and edit.target_kind in {"hole", "hole_edge", "all_edges"}
+    if edit.edit_type == EditPattern.HOLE_EDIT:
+        return bool(edit.diameter_mm)
+    return False

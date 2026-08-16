@@ -1,0 +1,87 @@
+[
+  {
+    "id": "ZK22J6VYRKQ2RTFD_1758875163.609787",
+    "type": "fillet_chamfer",
+    "instruction": "Add 0.2 mm chamfer to the hole edges to improve fitting.",
+    "ours": {
+      "chamfer": 0.9838,
+      "volume_f1": 0.754,
+      "diff_f1": 0.0476,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9843,
+      "volume_f1": 0.9572,
+      "diff_f1": 0.679,
+      "valid": true
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759210049.432666",
+    "type": "boolean_modification",
+    "instruction": "Hi , Please change the center flower type profile into a hexagonal profile for better torque transfe",
+    "ours": {
+      "chamfer": 0.9681,
+      "volume_f1": 0.783,
+      "diff_f1": 0.2058,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9865,
+      "volume_f1": 0.9461,
+      "diff_f1": 0.1585,
+      "valid": true
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759209987.785593",
+    "type": "boolean_modification",
+    "instruction": "Hi , Please convert the round edges of the gear into straight spur gear teeth.",
+    "ours": {
+      "chamfer": 0.863,
+      "volume_f1": 0.1817,
+      "diff_f1": 0.0736,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9821,
+      "volume_f1": 0.9291,
+      "diff_f1": 0.3574,
+      "valid": true
+    }
+  },
+  {
+    "id": "4E22SJE7QVTSP2E3_1758737060.465216",
+    "type": "boolean_modification",
+    "instruction": "Change that vertical slot to cut through complete body to decrease weight",
+    "ours": {
+      "chamfer": 0.9819,
+      "volume_f1": 0.8332,
+      "diff_f1": 0.0874,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.981,
+      "volume_f1": 0.8517,
+      "diff_f1": 0.0,
+      "valid": true
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1769424096.996583",
+    "type": "fillet_chamfer",
+    "instruction": "Add rounds to all edges of the part. R=0,2mm",
+    "ours": {
+      "chamfer": 0.9816,
+      "volume_f1": 0.4273,
+      "diff_f1": 0.3051,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9821,
+      "volume_f1": 0.2065,
+      "diff_f1": 0.101,
+      "valid": true
+    }
+  }
+]

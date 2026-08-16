@@ -88,15 +88,14 @@ def inspect_shape(
 
     try:
         volume = float(shape.Volume())
-        ocp_valid = bool(shape.isValid()) if hasattr(shape, "isValid") else True
-        # OCCT isValid() is often false after chamfer/fillet even when the solid is usable.
-        valid = bool(ocp_valid or (volume > 1e-9 and len(solids) >= 1))
+        # Skip OCCT isValid() — it can hang for minutes on multi-solid assemblies
+        # and is often false after chamfer/fillet even when the solid is usable.
+        valid = bool(volume > 1e-9 and len(solids) >= 1)
+        validity_error = None
     except Exception as exc:  # noqa: BLE001
         volume = 0.0
         valid = False
         validity_error = str(exc)
-    else:
-        validity_error = None
 
     bbox = _bbox_from_shape(shape)
 
@@ -387,6 +386,53 @@ def cavity_span_along_axis(
     if lo is None:
         return 0.0
     return float(hi - lo)
+
+
+def _round_num(value: Any, nd: int = 2) -> Any:
+    if isinstance(value, float):
+        return round(value, nd)
+    if isinstance(value, (list, tuple)):
+        return [_round_num(v, nd) for v in value]
+    if isinstance(value, dict):
+        return {k: _round_num(v, nd) for k, v in value.items()}
+    return value
+
+
+def edit_context(
+    census: dict[str, Any],
+    *,
+    edit_type: str = "",
+    max_holes: int = 4,
+) -> dict[str, Any]:
+    """Compact census slice for LLM slot-fill. Not the full STEP / face list."""
+    census = census or {}
+    size = census.get("size") or (0, 0, 0)
+    ctx: dict[str, Any] = {
+        "size_mm": [round(float(s), 2) for s in size],
+        "volume": round(float(census.get("volume") or 0), 1),
+        "n_solids": census.get("n_solids"),
+        "shortest_axis": census.get("shortest_axis"),
+    }
+    holes = []
+    for h in (census.get("hole_candidates") or [])[:max_holes]:
+        c = h.get("center") or (0, 0, 0)
+        holes.append(
+            {
+                "d": round(float(h.get("diameter") or 0), 3),
+                "c": [round(float(x), 2) for x in c],
+                "axis": h.get("axis"),
+            }
+        )
+    if holes and edit_type in {
+        "",
+        "hole_edit",
+        "fillet_chamfer",
+        "boolean_modification",
+        "feature_deletion",
+        "ambiguous",
+    }:
+        ctx["holes"] = holes
+    return ctx
 
 
 def geometry_brief(census: dict[str, Any], max_holes: int = 8) -> str:

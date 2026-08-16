@@ -33,12 +33,13 @@ class VLM(BaseVLM):
             grounding_client=self.client,
             planning_client=self.client,
             critic_client=self.client,
-            max_iters=int(config.get("max_iters", 3)),
-            sandbox=Sandbox(render=bool(config.get("render", False))),
+            max_iters=int(config.get("max_iters", 5)),
+            sandbox=Sandbox(render=bool(config.get("render", True)), timeout_s=60.0),
             user_id=config.get("userId", "groundedcad"),
-            inprocess=bool(config.get("inprocess", True)),
+            inprocess=bool(config.get("inprocess", False)),
             use_llm_critic=bool(config.get("use_llm_critic", False)),
-            render=bool(config.get("render", False)),
+            render=bool(config.get("render", True)),
+            visual_iters=int(config.get("visual_iters", config.get("max_iters", 5))),
         )
 
     def create_messages(self, inputs: list, sys=None) -> list:

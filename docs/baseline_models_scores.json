@@ -1,0 +1,1157 @@
+[
+  {
+    "id": "ZK22J6VYRKQ2RTFD_1758875163.609787",
+    "type": "fillet_chamfer",
+    "instruction": "Add 0.2 mm chamfer to the hole edges to improve fitting.",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9843,
+      "volume_f1": 0.9572,
+      "diff_f1": 0.679,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9843,
+      "volume_f1": 0.9572,
+      "diff_f1": 0.679,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "ZK22J6VYRKQ2RTFD_1758874422.1403751",
+    "type": "hole_edit",
+    "instruction": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip a",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9805,
+      "volume_f1": 0.8951,
+      "diff_f1": 0.0542,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9814,
+      "volume_f1": 0.9478,
+      "diff_f1": 0.1105,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "ZK22J6VYRKQ2RTFD_1758873912.731081",
+    "type": "feature_addition",
+    "instruction": "Add a 1.5 millimetre rib to increase support and make the structure strong.",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9587,
+      "volume_f1": 0.9561,
+      "diff_f1": 0.0857,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.962,
+      "volume_f1": 0.9646,
+      "diff_f1": 0.0165,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.9562,
+      "volume_f1": 0.8384,
+      "diff_f1": 0.0947,
+      "valid": true
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759209917.917027",
+    "type": "fillet_chamfer",
+    "instruction": "Hi , Please remove the fillet at the front center and add a 1 millimeter chamfer instead",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9871,
+      "volume_f1": 0.9748,
+      "diff_f1": 0.2234,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9867,
+      "volume_f1": 0.969,
+      "diff_f1": 0.2115,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759210049.432666",
+    "type": "ambiguous",
+    "instruction": "Hi , Please change the center flower type profile into a hexagonal profile for better torque transfe",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9865,
+      "volume_f1": 0.9461,
+      "diff_f1": 0.1585,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9846,
+      "volume_f1": 0.9148,
+      "diff_f1": 0.3639,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759209987.785593",
+    "type": "fillet_chamfer",
+    "instruction": "Hi , Please convert the round edges of the gear into straight spur gear teeth.",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9821,
+      "volume_f1": 0.9291,
+      "diff_f1": 0.3574,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.7871,
+      "volume_f1": 0.8634,
+      "diff_f1": 0.0587,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.732,
+      "volume_f1": 0.0279,
+      "diff_f1": 0.0359,
+      "valid": true
+    }
+  },
+  {
+    "id": "4E22SJE7QVTSP2E3_1758737060.465216",
+    "type": "boolean_modification",
+    "instruction": "Change that vertical slot to cut through complete body to decrease weight",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.981,
+      "volume_f1": 0.8517,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9837,
+      "volume_f1": 0.9738,
+      "diff_f1": 0.8116,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.9799,
+      "volume_f1": 0.832,
+      "diff_f1": 0.0,
+      "valid": true
+    }
+  },
+  {
+    "id": "4E22SJE7QVTSP2E3_1758737238.499021",
+    "type": "feature_addition",
+    "instruction": "Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting prod",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.8555,
+      "volume_f1": 0.5759,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.6575,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0028,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "4E22SJE7QVTSP2E3_1758737118.288898",
+    "type": "feature_addition",
+    "instruction": "Insert screws to both holes to be able to fix tool on the table",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9765,
+      "volume_f1": 0.6868,
+      "diff_f1": 0.0236,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.9815,
+      "volume_f1": 0.7351,
+      "diff_f1": 0.0115,
+      "valid": true
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759203600.26663",
+    "type": "feature_addition",
+    "instruction": "Hi , Please create an outlet port on the top right and an inlet port on the bottom left .",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9808,
+      "volume_f1": 0.9528,
+      "diff_f1": 0.3593,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9814,
+      "volume_f1": 0.9402,
+      "diff_f1": 0.4251,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.9816,
+      "volume_f1": 0.9548,
+      "diff_f1": 0.4081,
+      "valid": true
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759203739.2515829",
+    "type": "feature_addition",
+    "instruction": "Hi , Please create a filling system on the radiator , including a pouring section and a cap.",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9781,
+      "volume_f1": 0.9404,
+      "diff_f1": 0.2895,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9779,
+      "volume_f1": 0.9442,
+      "diff_f1": 0.2684,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.9784,
+      "volume_f1": 0.9492,
+      "diff_f1": 0.3781,
+      "valid": true
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759203664.9815512",
+    "type": "pattern",
+    "instruction": "Hi , Create a slot pattern across the plastic part surface on both the top and bottom sides.",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9858,
+      "volume_f1": 0.9481,
+      "diff_f1": 0.4076,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9823,
+      "volume_f1": 0.9048,
+      "diff_f1": 0.2699,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "4S7JQK6ZQMAD25GL_1758863141.735564",
+    "type": "fillet_chamfer",
+    "instruction": "Add a 2 millimetre fillet to the edges of the scrolling wheel slot to ensure a smooth surface.",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9839,
+      "volume_f1": 0.9897,
+      "diff_f1": 0.3636,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9836,
+      "volume_f1": 0.9929,
+      "diff_f1": 0.3762,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "4S7JQK6ZQMAD25GL_1758863403.376244",
+    "type": "feature_addition",
+    "instruction": "Add a sliding switch on the bottom to provide a convenient on and off function",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9832,
+      "volume_f1": 0.989,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "4S7JQK6ZQMAD25GL_1758863286.214549",
+    "type": "feature_addition",
+    "instruction": "Add two click buttons with the height of 2 millimetre to provide a comfortable and responsive feel f",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9753,
+      "volume_f1": 0.945,
+      "diff_f1": 0.004,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9831,
+      "volume_f1": 0.9611,
+      "diff_f1": 0.0056,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1769424096.996583",
+    "type": "fillet_chamfer",
+    "instruction": "Add rounds to all edges of the part. R=0,2mm",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9821,
+      "volume_f1": 0.2065,
+      "diff_f1": 0.101,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9821,
+      "volume_f1": 0.198,
+      "diff_f1": 0.0824,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.9821,
+      "volume_f1": 0.4183,
+      "diff_f1": 0.3769,
+      "valid": true
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1770206307.074256",
+    "type": "dimension_change",
+    "instruction": "Scale the part 10x. Add drafts of 2 degrees to all vertical surfaces, with flat bottom surface as a ",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.5924,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0202,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.7186,
+      "volume_f1": 0.0244,
+      "diff_f1": 0.0475,
+      "valid": true
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1770205912.1187751",
+    "type": "feature_addition",
+    "instruction": "Add flange with thickness of 0,5mm and width of 2mm that starts on the flat bottom surface. Do not f",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9189,
+      "volume_f1": 0.4937,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.9836,
+      "volume_f1": 0.9899,
+      "diff_f1": 0.9851,
+      "valid": true
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770171470.1448698",
+    "type": "dimension_change",
+    "instruction": "Make the whole frame structure taller by 0,5cm. The area profile remains the same.",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9916,
+      "volume_f1": 0.7635,
+      "diff_f1": 0.1908,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.8685,
+      "volume_f1": 0.8881,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770172545.5244548",
+    "type": "fillet_chamfer",
+    "instruction": "If edge with bigger radius is considered as top, add supporting structure to the bottom of the frame",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.986,
+      "volume_f1": 0.6992,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770171700.697783",
+    "type": "fillet_chamfer",
+    "instruction": "Remove the largest radius that is all around the part and replace it by the same size radius as othe",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9861,
+      "volume_f1": 0.0686,
+      "diff_f1": 0.0061,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769176912.388391",
+    "type": "feature_addition",
+    "instruction": "Add cylindrical pin into the bearing area of the part, so it is able to rotate around it.",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9959,
+      "volume_f1": 0.7056,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769177116.6129558",
+    "type": "feature_addition",
+    "instruction": "Design simple locking mechanism in the area of the hook to secure carried load.",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9877,
+      "volume_f1": 0.6338,
+      "diff_f1": 0.0824,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769177020.525719",
+    "type": "boolean_modification",
+    "instruction": "Add several cutouts into the part to decrease its weight.",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9857,
+      "volume_f1": 0.75,
+      "diff_f1": 0.04,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9863,
+      "volume_f1": 0.592,
+      "diff_f1": 0.0556,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.9175,
+      "volume_f1": 0.0567,
+      "diff_f1": 0.0161,
+      "valid": true
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1770204558.429523",
+    "type": "fillet_chamfer",
+    "instruction": "One of the long edges of the blade does not have a radius. Add radius to that long edge R=0,635cm",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9927,
+      "volume_f1": 0.939,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9963,
+      "volume_f1": 0.9617,
+      "diff_f1": 0.5849,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.8428,
+      "volume_f1": 0.028,
+      "diff_f1": 0.0885,
+      "valid": true
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1769607142.566352",
+    "type": "pattern",
+    "instruction": "Add third rotor blade to the assembly. It should have the same design as the other two. Radii should",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9247,
+      "volume_f1": 0.6083,
+      "diff_f1": 0.0293,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.8308,
+      "volume_f1": 0.0272,
+      "diff_f1": 0.0223,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1770204696.542443",
+    "type": "feature_addition",
+    "instruction": "Create two cover parts, that have matching outer shape to the outer contour of the central part, sit",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9911,
+      "volume_f1": 0.9888,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9924,
+      "volume_f1": 0.9798,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770174133.012106",
+    "type": "feature_translation",
+    "instruction": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9823,
+      "volume_f1": 0.9064,
+      "diff_f1": 0.504,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9823,
+      "volume_f1": 0.9064,
+      "diff_f1": 0.504,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770174519.556716",
+    "type": "boolean_modification",
+    "instruction": "Add rectangular openining to the lower back of the coffee machine, which might serve as draft locati",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9795,
+      "volume_f1": 0.8962,
+      "diff_f1": 0.4775,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770174308.67968",
+    "type": "pattern",
+    "instruction": "Add two horizontal buttons to the front panel. One above existing one, the other below - all approxi",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9823,
+      "volume_f1": 0.8979,
+      "diff_f1": 0.4825,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9795,
+      "volume_f1": 0.8868,
+      "diff_f1": 0.4759,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769779150.98797",
+    "type": "feature_addition",
+    "instruction": "Imagine the black handle is a stand. Add another one on the other side of device in approximately sa",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9825,
+      "volume_f1": 0.9745,
+      "diff_f1": 0.8145,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769782403.586036",
+    "type": "ambiguous",
+    "instruction": "Change the current plug for Europlug with two round pins and try to copy the real shape.",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9854,
+      "volume_f1": 0.9835,
+      "diff_f1": 0.3,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769783385.069543",
+    "type": "feature_deletion",
+    "instruction": "Remove the collision between handle and cofeepot.",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9861,
+      "volume_f1": 0.9997,
+      "diff_f1": 0.8889,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9847,
+      "volume_f1": 0.9901,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1770208282.204381",
+    "type": "fillet_chamfer",
+    "instruction": "Left side of the whistle is missing radii. Add radii to the edges of the bigger part of the whistle.",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9824,
+      "volume_f1": 0.8188,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1770208398.300075",
+    "type": "feature_translation",
+    "instruction": "Let's make this part symmetric. There is a step on one of the sides of the whistle. Move the protrud",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.937,
+      "volume_f1": 0.0823,
+      "diff_f1": 0.3846,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.359,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.9788,
+      "volume_f1": 0.3358,
+      "diff_f1": 0.0063,
+      "valid": true
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1770208371.265217",
+    "type": "feature_addition",
+    "instruction": "Add circular feature that will act as a attachment for hanging rope. Outer D=4cm and feature has a c",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9802,
+      "volume_f1": 0.6791,
+      "diff_f1": 0.0458,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.9837,
+      "volume_f1": 0.8638,
+      "diff_f1": 0.2561,
+      "valid": true
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770166308.11235",
+    "type": "dimension_change",
+    "instruction": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shall",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9883,
+      "volume_f1": 0.917,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.6249,
+      "volume_f1": 0.4385,
+      "diff_f1": 0.1322,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770167800.9857888",
+    "type": "feature_addition",
+    "instruction": "Make the part symmetrical with respect to ZX plane by adding lowered plateau to the bottom. Then add",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9543,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770166901.871316",
+    "type": "boolean_modification",
+    "instruction": "Use geometry of cylindrical hole defined in Sketch4 for creating inscribed hexagonal polygonal to th",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9859,
+      "volume_f1": 0.8753,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769174947.8063738",
+    "type": "pattern",
+    "instruction": "Mirror the part according to the plane lying on the not rounded end of the part. Merge the mirrored ",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9934,
+      "volume_f1": 1.0,
+      "diff_f1": 1.0,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769175629.871246",
+    "type": "pattern",
+    "instruction": "Multiply amount of cylindrical feature to 4. Imagine this is a system of plant pots, so you need to ",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9527,
+      "volume_f1": 0.2452,
+      "diff_f1": 0.0474,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.2038,
+      "diff_f1": 0.0452,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769175216.745646",
+    "type": "pattern",
+    "instruction": "Design cylindrical bearing on the flat end of the part (the one without fillet). Create another 7 in",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.8468,
+      "volume_f1": 0.1635,
+      "diff_f1": 0.0362,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.824,
+      "volume_f1": 0.2222,
+      "diff_f1": 0.005,
+      "valid": true
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770169445.8914912",
+    "type": "fillet_chamfer",
+    "instruction": "Add chamfer to main/biggest cylindrical section of Heatbreak body/component. The chamfer should be s",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9848,
+      "volume_f1": 0.9645,
+      "diff_f1": 0.2929,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770169975.851399",
+    "type": "ambiguous",
+    "instruction": "Change mounting system at the back of Cyclops Plus Heatsink from 3-point mounting version to 4-point",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9486,
+      "volume_f1": 0.8615,
+      "diff_f1": 0.2177,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9848,
+      "volume_f1": 0.9272,
+      "diff_f1": 0.3438,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770169718.2982779",
+    "type": "dimension_change",
+    "instruction": "Reduce overall height of Nozzle Volcano part by 1mm, reduction should be made in threaded area.",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9884,
+      "volume_f1": 0.9559,
+      "diff_f1": 0.2984,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769773134.1453462",
+    "type": "feature_addition",
+    "instruction": "Add bigger amount of cylindrical holes into the red platforms to decrease their weights. Amount of p",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.973,
+      "volume_f1": 0.7341,
+      "diff_f1": 0.041,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9633,
+      "volume_f1": 0.2708,
+      "diff_f1": 0.0931,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.9734,
+      "volume_f1": 0.7739,
+      "diff_f1": 0.0505,
+      "valid": true
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769773481.491738",
+    "type": "hole_edit",
+    "instruction": "Change the shape of the profile of link arms to the shape of long hole to increase its stifness. The",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9779,
+      "volume_f1": 0.4704,
+      "diff_f1": 0.4793,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false,
+      "note": "no_pred"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769773335.525203",
+    "type": "feature_addition",
+    "instruction": "Add cylindrical heads on the long pins to prevent link arms against slipping off.",
+    "gpt-5.2_cadquery-script": {
+      "chamfer": 0.9852,
+      "volume_f1": 0.9534,
+      "diff_f1": 0.5687,
+      "valid": true
+    },
+    "gemini-3-pro_cadquery-script": {
+      "chamfer": 0.9613,
+      "volume_f1": 0.828,
+      "diff_f1": 0.0475,
+      "valid": true
+    },
+    "claude-sonnet-4.5_cadquery-script": {
+      "chamfer": 0.9771,
+      "volume_f1": 0.9227,
+      "diff_f1": 0.0622,
+      "valid": true
+    }
+  }
+]

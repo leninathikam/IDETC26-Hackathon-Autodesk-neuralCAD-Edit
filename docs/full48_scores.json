@@ -1,0 +1,155 @@
+[
+  {
+    "id": "ZK22J6VYRKQ2RTFD_1758875163.609787",
+    "type": "fillet_chamfer",
+    "instruction": "Add 0.2 mm chamfer to the hole edges to improve fitting.",
+    "ours": {
+      "chamfer": 0.9836,
+      "volume_f1": 0.7964,
+      "diff_f1": 0.2902,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9843,
+      "volume_f1": 0.9572,
+      "diff_f1": 0.679,
+      "valid": true
+    }
+  },
+  {
+    "id": "ZK22J6VYRKQ2RTFD_1758874422.1403751",
+    "type": "hole_edit",
+    "instruction": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip a",
+    "ours": {
+      "chamfer": 0.9817,
+      "volume_f1": 0.7899,
+      "diff_f1": 0.141,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9805,
+      "volume_f1": 0.8951,
+      "diff_f1": 0.0542,
+      "valid": true
+    }
+  },
+  {
+    "id": "ZK22J6VYRKQ2RTFD_1758873912.731081",
+    "type": "feature_addition",
+    "instruction": "Add a 1.5 millimetre rib to increase support and make the structure strong.",
+    "ours": {
+      "chamfer": 0.9816,
+      "volume_f1": 0.7814,
+      "diff_f1": 0.0865,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9587,
+      "volume_f1": 0.9561,
+      "diff_f1": 0.0857,
+      "valid": true
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759209917.917027",
+    "type": "fillet_chamfer",
+    "instruction": "Hi , Please remove the fillet at the front center and add a 1 millimeter chamfer instead",
+    "ours": {
+      "chamfer": 0.9871,
+      "volume_f1": 0.9419,
+      "diff_f1": 0.1523,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9871,
+      "volume_f1": 0.9748,
+      "diff_f1": 0.2234,
+      "valid": true
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759210049.432666",
+    "type": "ambiguous",
+    "instruction": "Hi , Please change the center flower type profile into a hexagonal profile for better torque transfe",
+    "ours": {
+      "chamfer": 0.9855,
+      "volume_f1": 0.923,
+      "diff_f1": 0.3602,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9865,
+      "volume_f1": 0.9461,
+      "diff_f1": 0.1585,
+      "valid": true
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759209987.785593",
+    "type": "fillet_chamfer",
+    "instruction": "Hi , Please convert the round edges of the gear into straight spur gear teeth.",
+    "ours": {
+      "chamfer": 0.9855,
+      "volume_f1": 0.8901,
+      "diff_f1": 0.2139,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9821,
+      "volume_f1": 0.9291,
+      "diff_f1": 0.3574,
+      "valid": true
+    }
+  },
+  {
+    "id": "4E22SJE7QVTSP2E3_1758737060.465216",
+    "type": "boolean_modification",
+    "instruction": "Change that vertical slot to cut through complete body to decrease weight",
+    "ours": {
+      "chamfer": 0.9823,
+      "volume_f1": 0.8078,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.981,
+      "volume_f1": 0.8517,
+      "diff_f1": 0.0,
+      "valid": true
+    }
+  },
+  {
+    "id": "4E22SJE7QVTSP2E3_1758737238.499021",
+    "type": "feature_addition",
+    "instruction": "Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting prod",
+    "ours": {
+      "chamfer": 0.9287,
+      "volume_f1": 0.6576,
+      "diff_f1": 0.0072,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.8555,
+      "volume_f1": 0.5759,
+      "diff_f1": 0.0,
+      "valid": true
+    }
+  },
+  {
+    "id": "4E22SJE7QVTSP2E3_1758737118.288898",
+    "type": "feature_addition",
+    "instruction": "Insert screws to both holes to be able to fix tool on the table",
+    "ours": {
+      "chamfer": 0.982,
+      "volume_f1": 0.7621,
+      "diff_f1": 0.293,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9765,
+      "volume_f1": 0.6868,
+      "diff_f1": 0.0236,
+      "valid": true
+    }
+  }
+]
