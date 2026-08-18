@@ -48,6 +48,11 @@ class GroundedCADPipeline:
         use_llm_cadquery: Optional[bool] = None,
         raw_escalation_budget_s: float = 100.0,
         visual_iters: Optional[int] = None,
+        hybrid_autodesk_fallback: bool = True,
+        visual_iters_min: int = 5,
+        visual_iters_max: Optional[int] = None,
+        candidate_enumeration: bool = True,
+        max_candidates: int = 4,
     ):
         default = grounding_client or planning_client or critic_client or auto_client_from_env()
         self.grounding_client = grounding_client or default
@@ -55,6 +60,12 @@ class GroundedCADPipeline:
         self.critic_client = critic_client or default
         self.max_iters = max_iters
         self.visual_iters = int(visual_iters if visual_iters is not None else max_iters)
+        self.hybrid_autodesk_fallback = bool(hybrid_autodesk_fallback)
+        self.visual_iters_min = max(1, int(visual_iters_min))
+        requested_max = self.visual_iters if visual_iters_max is None else int(visual_iters_max)
+        self.visual_iters_max = min(10, max(self.visual_iters_min, requested_max))
+        self.candidate_enumeration = bool(candidate_enumeration)
+        self.max_candidates = max(1, min(8, int(max_candidates)))
         self.sandbox = sandbox or Sandbox(render=render)
         self.user_id = user_id
         self.use_llm_critic = use_llm_critic
@@ -73,24 +84,112 @@ class GroundedCADPipeline:
         self.raw_escalation_budget_s = raw_escalation_budget_s
         self._run_start: Optional[float] = None
 
-    def _execute(self, tool_name: str, arguments: dict[str, Any], step_path: str, iter_dir: Path):
+    def _adaptive_visual_iters(self, cq_mode: str, fail_history: list[str]) -> int:
+        """Bounded retry budget for the Autodesk-style fallback."""
+        if not self.hybrid_autodesk_fallback:
+            return max(0, self.visual_iters)
+        joined = " | ".join(fail_history).upper()
+        budget = 5 if cq_mode != "reconstruct" else 7
+        if any(code in joined for code in ("IDENTITY", "NO_OP", "SLOT_MISMATCH")):
+            budget += 1
+        if any(code in joined for code in ("OVER_EDIT", "OVERSIZED", "EXTRA_BODIES")):
+            budget += 1
+        return min(self.visual_iters_max, max(self.visual_iters_min, budget))
+
+    @staticmethod
+    def _candidate_summary(
+        *,
+        iteration: int,
+        execution,
+        critique,
+        identity: bool,
+        failures: list[str],
+        before: Optional[dict[str, Any]] = None,
+        after: Optional[dict[str, Any]] = None,
+        expected_delta: Optional[dict[str, str]] = None,
+        candidate=None,
+    ) -> dict[str, Any]:
+        from groundedcad.geometry.inspect import volume_delta_ratio
+        from groundedcad.verify.edit_delta import score_expected_delta
+
+        summary = {
+            "iteration": int(iteration),
+            "success": bool(execution.success),
+            "accepted": bool(critique.accept),
+            "identity": bool(identity),
+            "score": round(float(critique.instruction_score + critique.quality_score), 3),
+            "failures": [str(x)[:240] for x in failures[:3]],
+            "delta_match": score_expected_delta(before or {}, after or {}, expected_delta or {}),
+            "volume_ratio": round(
+                float(volume_delta_ratio(before or {}, after or {})) if before and after else 1.0,
+                6,
+            ),
+            "locality_ok": not any("LOCALITY_VIOLATION" in str(x) for x in failures),
+        }
+        if candidate is not None:
+            summary.update(
+                {
+                    "anchor_id": candidate.anchor_id,
+                    "census_source": candidate.census_source,
+                    "safe": bool(candidate.safe),
+                }
+            )
+        return summary
+
+    @staticmethod
+    def _candidate_rank(summary: dict[str, Any]) -> tuple:
+        return (
+            int(bool(summary.get("success"))),
+            int(not bool(summary.get("identity"))),
+            int(not bool(summary.get("failures"))),
+            int(summary.get("delta_match") or 0),
+            int(bool(summary.get("locality_ok"))),
+            int(bool(summary.get("accepted"))),
+            int(bool(summary.get("safe", True))),
+            float(summary.get("score") or 0.0),
+            -float(summary.get("volume_ratio") or 1.0),
+            -int(summary.get("iteration") or 0),
+        )
+
+    @staticmethod
+    def _model_completion_should_stop(
+        *, complete: bool, iteration: int, last_ok: bool, failures: list[str]
+    ) -> bool:
+        """Model completion is advisory; the last executed geometry must pass."""
+        return bool(iteration > 0 and complete and last_ok and not failures)
+
+    def _execute(
+        self,
+        tool_name: str,
+        arguments: dict[str, Any],
+        step_path: str,
+        iter_dir: Path,
+        *,
+        timeout_s: float | None = None,
+    ):
         if tool_name == "raw_cadquery":
             script = arguments.get("script") or ""
-            return self.sandbox.run_script(script, step_path, iter_dir)
+            return self.sandbox.run_script(script, step_path, iter_dir, timeout_s=timeout_s)
         args = {**arguments, "step_path": arguments.get("step_path", step_path)}
         if self.inprocess:
             return self.sandbox.run_inprocess_tool(tool_name, args, iter_dir)
-        return self.sandbox.run_tool(tool_name, args, iter_dir)
+        return self.sandbox.run_tool(tool_name, args, iter_dir, timeout_s=timeout_s)
 
-    def _execute_plan(self, tool, start_step: str, iter_dir: Path):
-        execution = self._execute(tool.tool_name, tool.arguments, start_step, iter_dir)
+    def _execute_plan(
+        self, tool, start_step: str, iter_dir: Path, *, timeout_s: float | None = None
+    ):
+        execution = self._execute(
+            tool.tool_name, tool.arguments, start_step, iter_dir, timeout_s=timeout_s
+        )
         current = execution.step_path or start_step
         all_calls = list(execution.tool_calls)
         for i, follow in enumerate(tool.followups or []):
             if not execution.success or not current:
                 break
             sub = iter_dir / f"followup_{i:02d}"
-            nxt = self._execute(follow.tool_name, follow.arguments, current, sub)
+            nxt = self._execute(
+                follow.tool_name, follow.arguments, current, sub, timeout_s=timeout_s
+            )
             all_calls.extend(nxt.tool_calls)
             if nxt.success and nxt.step_path:
                 execution = nxt
@@ -121,8 +220,25 @@ class GroundedCADPipeline:
                 token_counts[k] = token_counts.get(k, 0.0) + float(v)
         return token_counts
 
-    def _dual_critique(self, *, before, execution, spec, intent, classified, instruction: str):
-        from groundedcad.verify.edit_delta import dual_critic_failures, identity_failure_report, is_identity
+    def _dual_critique(
+        self,
+        *,
+        before,
+        execution,
+        spec,
+        intent,
+        classified,
+        instruction: str,
+        history: Optional[list[str]] = None,
+        attempt: int = 0,
+    ):
+        from groundedcad.verify.edit_delta import (
+            dual_critic_failures,
+            format_retry_feedback,
+            identity_failure_report,
+            is_identity,
+            observed_changes,
+        )
 
         critique = deterministic_critique(
             before=before,
@@ -141,7 +257,20 @@ class GroundedCADPipeline:
                 identity = True
         failures = dual_critic_failures(before, after, classified=classified)
         if not execution.success:
-            failures = [execution.error or "api_code"] + failures
+            err = execution.error or "api_code"
+            if "incomplete" in err.lower():
+                failures = [f"INCOMPLETE_PLAN: {err}"] + [f for f in failures if "INCOMPLETE_PLAN" not in f]
+            else:
+                failures = [err] + failures
+        # Locality envelope from hole-rim EditPlan (geometry-only).
+        try:
+            from groundedcad.agents.edit_plan import build_edit_plan
+            from groundedcad.verify.edit_delta import locality_violation_failures
+
+            plan = build_edit_plan(classified, before, instruction)
+            failures.extend(locality_violation_failures(before, after, plan.locality_envelope, classified=classified))
+        except Exception:
+            pass
         if identity:
             if critique.verification:
                 critique.verification.correct = False
@@ -149,7 +278,16 @@ class GroundedCADPipeline:
                 critique.verification.specific_fix = json.dumps(identity_failure_report(instruction))
         if failures:
             critique.accept = False
-            critique.revision_advice = " | ".join(failures[:6])
+            critique.revision_advice = format_retry_feedback(
+                instruction=instruction,
+                failures=failures,
+                observed=observed_changes(before, after) if after else [],
+                history=history,
+                attempt=attempt,
+                before=before,
+                after=after or None,
+                classified=classified,
+            )
             if critique.verification:
                 critique.verification.correct = False
                 critique.verification.specific_fix = critique.revision_advice
@@ -187,12 +325,21 @@ class GroundedCADPipeline:
         if execution.success and execution.step_path and not identity:
             score = critique.instruction_score + critique.quality_score
             prev = -1.0
+            prev_accepted = False
             if best is not None and best.iterations and best.iterations[-1].critique:
+                prev_accepted = bool(best.accepted)
                 prev = (
                     best.iterations[-1].critique.instruction_score
                     + best.iterations[-1].critique.quality_score
                 )
-            if best is None or score >= prev:
+            # A critic-approved candidate always outranks a rejected one.
+            # Within the same acceptance class, use instruction + quality score.
+            should_replace = (
+                best is None
+                or (bool(critique.accept) and not prev_accepted)
+                or (bool(critique.accept) == prev_accepted and score >= prev)
+            )
+            if should_replace:
                 best = PipelineResult(
                     request_id=request_id,
                     accepted=critique.accept,
@@ -237,6 +384,12 @@ class GroundedCADPipeline:
             hint["cavities"] = _round_num(cavity_candidates(before, 3))
             hint["protrusions"] = _round_num(protrusion_candidates(before, 3))
             hint["planar_sites"] = _round_num(top_planar_centers(before, 3))
+            from groundedcad.geometry.inspect import fitting_hole_diameter
+
+            fit = fitting_hole_diameter(before, blend_mm=classified.distance_mm or classified.radius_mm)
+            if fit is not None:
+                hint["fitting_hole_diameter_mm"] = fit
+                hint["max_hole_rims"] = 4
             hint["note"] = "Anchor on one of the listed candidates, not an invented point."
         return hint
 
@@ -441,11 +594,41 @@ class GroundedCADPipeline:
         (out / "classified_edit.json").write_text(classified.model_dump_json(indent=2), encoding="utf-8")
 
         # 2. Geometry Inspector  (faces, edges, holes, dimensions, bounding box)
-        before = inspect_step(request.step_path)
+        # Enumeration needs the complete edge census. The compact default
+        # (120 edges) can miss legitimate full-circle rims on complex parts.
+        before = inspect_step(
+            request.step_path,
+            max_faces=400 if self.candidate_enumeration else 80,
+            max_edges=1000 if self.candidate_enumeration else 120,
+        )
         from groundedcad.geometry.inspect import edit_context, geometry_brief
 
+        blend = classified.distance_mm or classified.radius_mm
         (out / "geometry_census.json").write_text(json.dumps(before, indent=2, default=str), encoding="utf-8")
-        (out / "geometry_brief.txt").write_text(geometry_brief(before), encoding="utf-8")
+        (out / "geometry_brief.txt").write_text(geometry_brief(before, blend_mm=blend), encoding="utf-8")
+        # The first LLM pass previously saw only text.  That makes references
+        # such as "black lever", "front panel", and "other side" impossible
+        # to ground.  Render the source once and keep these views attached to
+        # every visual pass; candidate views are appended later as feedback.
+        source_images: list[str] = []
+        if self.render:
+            try:
+                from groundedcad.geometry.inspect import load_step
+
+                source_views = render_canonical_views(
+                    load_step(request.step_path),
+                    out / "source_views",
+                    views=["toprightiso", "front", "back", "left", "right", "top", "bottom"],
+                )
+                source_images = [
+                    source_views[name]
+                    for name in ("toprightiso", "front", "back", "left", "right", "top", "bottom")
+                    if source_views.get(name)
+                ]
+            except Exception:
+                # Rendering is grounding context, not a reason to reject a
+                # valid geometry-only edit on a headless machine.
+                source_images = []
         intent = heuristic_ground(request, before)
         intent.target_text = parsed.target
         intent.location = parsed.location
@@ -459,20 +642,31 @@ class GroundedCADPipeline:
         logs: list[IterationLog] = []
         best: Optional[PipelineResult] = None
         original_step = request.step_path
+        # A successful deterministic candidate is a valid starting point for
+        # the LLM to finish a compound instruction.  Keep the original only
+        # when no candidate made a real edit.
+        working_step = original_step
         failure_category = None
-        brief = geometry_brief(before)
+        brief = geometry_brief(before, blend_mm=blend)
         location_hint = self._location_hint(classified, before)
-        from groundedcad.agents.classifier import high_confidence_local
+        from groundedcad.agents.classifier import (
+            cadquery_strategy,
+            high_confidence_local,
+            skip_visual_after_local,
+        )
         from groundedcad.agents.schemas import EditPattern, ExecutionResult, ToolCall
         from groundedcad.tools.cadquery_gen import generate_cadquery
         from groundedcad.tools.llm_cadquery import generate_grounded_cadquery
         from groundedcad.verify.edit_delta import dual_critic_accept
 
         cheap_hc = high_confidence_local(classified)
+        cq_mode = cadquery_strategy(classified, request.instruction)
+        use_cheap = (
+            True
+            if self.hybrid_autodesk_fallback
+            else cheap_hc and skip_visual_after_local(classified)
+        )
 
-        # --- cheap try: high-confidence local tool on the imported STEP ---
-        iter_dir = out / "iterations" / "00"
-        iter_dir.mkdir(parents=True, exist_ok=True)
         spec, tool = plan_edit(
             intent,
             original_step,
@@ -481,110 +675,299 @@ class GroundedCADPipeline:
             revision_advice="Apply the smallest local edit that matches the instruction.",
             use_llm=False,
         )
-        script = generate_cadquery(tool, original_step)
-        (iter_dir / "my_cad_function.py").write_text(script, encoding="utf-8")
-        tool.arguments.setdefault("script", script)
-        if tool.tool_name == "incomplete_plan":
-            execution = ExecutionResult(
-                success=False,
-                error=tool.rationale or "incomplete_plan",
-                script=script,
-            )
-        elif tool.tool_name == "raw_cadquery" and (
-            "# TODO: edit shape" in script or "TODO: edit shape" in script
-        ):
-            execution = ExecutionResult(
-                success=False,
-                error="IDENTITY_OUTPUT: raw_cadquery scaffold returned the imported STEP unchanged.",
-                script=script,
-            )
-        else:
-            execution = self._execute_plan(tool, original_step, iter_dir)
-            execution.script = script
-        self._ensure_views(execution, iter_dir)
-        critique, after, identity, failures = self._dual_critique(
-            before=before,
-            execution=execution,
-            spec=spec,
-            intent=intent,
-            classified=classified,
-            instruction=request.instruction,
+        fail_history: list[str] = []
+        last_fail = (
+            "WRITE_CADQUERY: import args['input_file'] and apply the instruction; "
+            "do not copy the start STEP; do not chamfer the longest edges."
         )
-        if self.use_llm_critic and not isinstance(self.critic_client, MockLLMClient):
-            critique = llm_critique(
-                self.critic_client,
-                instruction=request.instruction,
-                intent=intent,
-                edit_spec=spec,
-                execution=execution,
-                base_critique=critique,
+        last_script = ""
+        last_stdout = ""
+        last_images: list[str] = []
+        last_ok = False
+        skip_visual = False
+        failures: list[str] = []
+        candidate_summaries: list[dict[str, Any]] = []
+        from groundedcad.agents.edit_plan import build_edit_plan
+
+        edit_plan = build_edit_plan(classified, before, request.instruction)
+        enumerated = []
+        if self.candidate_enumeration:
+            from groundedcad.agents.candidate_enum import enumerate_tool_candidates
+
+            enumerated = enumerate_tool_candidates(
+                classified,
+                original_step,
+                before,
+                request.instruction,
+                max_candidates=self.max_candidates,
+            )
+
+        # Execute every deterministic candidate independently from the original
+        # STEP. Rank after all candidates have run; do not stop at first success.
+        if enumerated:
+            use_cheap = False
+            candidate_records: list[dict[str, Any]] = []
+            for ci, candidate in enumerate(enumerated):
+                candidate_tool = candidate.tool
+                iter_dir = out / "iterations" / "00" / f"candidate_{ci:02d}"
+                iter_dir.mkdir(parents=True, exist_ok=True)
+                script = generate_cadquery(candidate_tool, original_step)
+                (iter_dir / "my_cad_function.py").write_text(script, encoding="utf-8")
+                candidate_tool.arguments.setdefault("script", script)
+                if candidate_tool.tool_name == "incomplete_plan":
+                    execution = ExecutionResult(
+                        success=False,
+                        error=candidate_tool.rationale or "incomplete_plan",
+                        script=script,
+                    )
+                else:
+                    # Candidates are speculative.  A pathological OCC boolean
+                    # must not consume the entire row budget before the
+                    # image-grounded CadQuery loop gets a chance to repair it.
+                    execution = self._execute_plan(
+                        candidate_tool, original_step, iter_dir, timeout_s=15.0
+                    )
+                    execution.script = script
+                self._ensure_views(execution, iter_dir)
+                critique, after, identity, candidate_failures = self._dual_critique(
+                    before=before,
+                    execution=execution,
+                    spec=spec,
+                    intent=intent,
+                    classified=classified,
+                    instruction=request.instruction,
+                    history=fail_history,
+                    attempt=ci,
+                )
+                critique.accept = dual_critic_accept(
+                    candidate_failures,
+                    iteration=0,
+                    cheap_high_conf=cheap_hc and candidate.safe,
+                    visual=False,
+                ) and bool(execution.success)
+                candidate_result = self._record_iteration(
+                    logs=logs,
+                    best=None,
+                    i=ci,
+                    iter_dir=iter_dir,
+                    intent=intent,
+                    spec=spec,
+                    tool=candidate_tool,
+                    execution=execution,
+                    critique=critique,
+                    identity=identity,
+                    request_id=request.request_id,
+                    out=out,
+                )
+                summary = self._candidate_summary(
+                    iteration=ci,
+                    execution=execution,
+                    critique=critique,
+                    identity=identity,
+                    failures=candidate_failures,
+                    before=before,
+                    after=after,
+                    expected_delta=edit_plan.expected_delta,
+                    candidate=candidate,
+                )
+                candidate_summaries.append(summary)
+                candidate_records.append(
+                    {
+                        "rank": self._candidate_rank(summary),
+                        "result": candidate_result,
+                        "summary": summary,
+                        "execution": execution,
+                        "critique": critique,
+                        "failures": candidate_failures,
+                        "script": script,
+                    }
+                )
+                if candidate_failures:
+                    fail_history.append(
+                        f"candidate{ci} {candidate_tool.tool_name}: "
+                        + " | ".join(candidate_failures[:4])
+                    )
+
+            chosen = max(candidate_records, key=lambda record: record["rank"])
+            best = chosen["result"]
+            chosen_execution = chosen["execution"]
+            chosen_critique = chosen["critique"]
+            failures = chosen["failures"]
+            last_fail = chosen_critique.revision_advice or last_fail
+            last_script = chosen_execution.script or chosen["script"]
+            last_stdout = (
+                (chosen_execution.stdout or "")
+                + "\n"
+                + (chosen_execution.stderr or "")
+            )[:1500]
+            last_images = [
+                path
+                for path in (chosen_execution.image_paths or {}).values()
+                if path
+            ][:7]
+            last_ok = bool(chosen_critique.accept)
+            if (
+                chosen_execution.success
+                and chosen_execution.step_path
+                and not bool(chosen["summary"].get("identity"))
+            ):
+                working_step = chosen_execution.step_path
+            skip_visual = bool(
+                chosen_critique.accept
+                and chosen_execution.success
+                and bool(chosen["summary"].get("safe"))
+                and cheap_hc
+            )
+            if skip_visual:
+                failure_category = None
+            elif not chosen_execution.success:
+                failure_category = (
+                    "timeout"
+                    if chosen_execution.error
+                    and "timeout" in chosen_execution.error.lower()
+                    else "api_code"
+                )
+            else:
+                failure_category = "planning"
+
+        if use_cheap:
+            iter_dir = out / "iterations" / "00"
+            iter_dir.mkdir(parents=True, exist_ok=True)
+            script = generate_cadquery(tool, original_step)
+            (iter_dir / "my_cad_function.py").write_text(script, encoding="utf-8")
+            tool.arguments.setdefault("script", script)
+            if tool.tool_name == "incomplete_plan":
+                execution = ExecutionResult(
+                    success=False,
+                    error=tool.rationale or "incomplete_plan",
+                    script=script,
+                )
+            elif tool.tool_name == "raw_cadquery" and (
+                "# TODO: edit shape" in script or "TODO: edit shape" in script
+            ):
+                execution = ExecutionResult(
+                    success=False,
+                    error="IDENTITY_OUTPUT: raw_cadquery scaffold returned the imported STEP unchanged.",
+                    script=script,
+                )
+            else:
+                execution = self._execute_plan(tool, original_step, iter_dir)
+                execution.script = script
+            self._ensure_views(execution, iter_dir)
+            critique, after, identity, failures = self._dual_critique(
                 before=before,
+                execution=execution,
+                spec=spec,
+                intent=intent,
+                classified=classified,
+                instruction=request.instruction,
+                history=fail_history,
+                attempt=0,
             )
-        generic_guess = (
-            tool.tool_name == "boolean_cut_box"
-            and classified.edit_type in {EditPattern.BOOLEAN_MODIFICATION, EditPattern.FEATURE_DELETION}
-        ) or (
-            classified.edit_type == EditPattern.FEATURE_ADDITION
-            and tool.tool_name == "add_box"
-            and classified.diameter_mm is None
-            and classified.radius_mm is None
-            and classified.distance_mm is None
-            and "feature_add:" not in (classified.notes or "")
-        )
-        critique.accept = dual_critic_accept(
-            failures,
-            iteration=0,
-            cheap_high_conf=cheap_hc and not generic_guess,
-            visual=False,
-        ) and bool(execution.success)
-        if generic_guess:
-            critique.accept = False
-            critique.revision_advice = (
-                (critique.revision_advice or "")
-                + " | FAILED_LOCATION: generic heuristic does not satisfy the instruction"
-            ).strip(" |")
-        if critique.verification:
-            (iter_dir / "verification.json").write_text(
-                critique.verification.model_dump_json(indent=2),
-                encoding="utf-8",
+            if self.use_llm_critic and not isinstance(self.critic_client, MockLLMClient):
+                critique = llm_critique(
+                    self.critic_client,
+                    instruction=request.instruction,
+                    intent=intent,
+                    edit_spec=spec,
+                    execution=execution,
+                    base_critique=critique,
+                    before=before,
+                )
+            generic_guess = (
+                tool.tool_name == "boolean_cut_box"
+                and classified.edit_type in {EditPattern.BOOLEAN_MODIFICATION, EditPattern.FEATURE_DELETION}
+            ) or (
+                classified.edit_type == EditPattern.FEATURE_ADDITION
+                and tool.tool_name == "add_box"
+                and classified.diameter_mm is None
+                and classified.radius_mm is None
+                and classified.distance_mm is None
+                and "feature_add:" not in (classified.notes or "")
             )
-        best = self._record_iteration(
-            logs=logs,
-            best=best,
-            i=0,
-            iter_dir=iter_dir,
-            intent=intent,
-            spec=spec,
-            tool=tool,
-            execution=execution,
-            critique=critique,
-            identity=identity,
-            request_id=request.request_id,
-            out=out,
+            critique.accept = dual_critic_accept(
+                failures,
+                iteration=0,
+                cheap_high_conf=cheap_hc and not generic_guess,
+                visual=False,
+            ) and bool(execution.success)
+            if generic_guess:
+                critique.accept = False
+                critique.revision_advice = (
+                    (critique.revision_advice or "")
+                    + " | FAILED_LOCATION: generic heuristic does not satisfy the instruction"
+                ).strip(" |")
+            if critique.verification:
+                (iter_dir / "verification.json").write_text(
+                    critique.verification.model_dump_json(indent=2),
+                    encoding="utf-8",
+                )
+            best = self._record_iteration(
+                logs=logs,
+                best=best,
+                i=0,
+                iter_dir=iter_dir,
+                intent=intent,
+                spec=spec,
+                tool=tool,
+                execution=execution,
+                critique=critique,
+                identity=identity,
+                request_id=request.request_id,
+                out=out,
+            )
+            candidate_summaries.append(
+                self._candidate_summary(
+                    iteration=0,
+                    execution=execution,
+                    critique=critique,
+                    identity=identity,
+                    failures=failures,
+                    before=before,
+                    after=after,
+                    expected_delta=edit_plan.expected_delta,
+                )
+            )
+            if identity:
+                failure_category = "false_completion"
+            elif not execution.success:
+                failure_category = "timeout" if (execution.error and "timeout" in execution.error.lower()) else "api_code"
+            else:
+                failure_category = "planning"
+            skip_visual = bool(
+                critique.accept
+                and execution.success
+                and (
+                    skip_visual_after_local(classified)
+                    or (self.hybrid_autodesk_fallback and cheap_hc and not generic_guess)
+                )
+            )
+            last_fail = critique.revision_advice or last_fail
+            last_script = execution.script or script
+            last_stdout = (execution.stdout or "") + "\n" + (execution.stderr or "")
+            last_images = [p for p in (execution.image_paths or {}).values() if p][:2]
+            last_ok = bool(critique.accept)
+            if failures:
+                fail_history.append(f"iter0 {tool.tool_name}: " + " | ".join(failures[:4]))
+
+        # --- Autodesk-style CadQuery on the imported STEP ---
+        n_visual = (
+            self._adaptive_visual_iters(cq_mode, fail_history)
+            if self.use_llm_cadquery
+            else 0
         )
-        if identity:
-            failure_category = "false_completion"
-        elif not execution.success:
-            failure_category = "timeout" if (execution.error and "timeout" in execution.error.lower()) else "api_code"
-        else:
-            failure_category = "planning"
-
-        skip_visual = bool(critique.accept and execution.success and cheap_hc)
-        last_fail = critique.revision_advice or "EDIT_FAILED"
-        last_script = execution.script or script
-        last_stdout = (execution.stdout or "") + "\n" + (execution.stderr or "")
-        last_images = [p for p in (execution.image_paths or {}).values() if p][:2]
-        last_ok = bool(critique.accept)
-
-        # --- escalate: grounded CadQuery + render + edit-delta ---
-        n_visual = self.visual_iters if self.use_llm_cadquery else 0
         if skip_visual:
             n_visual = 0
+        loop_mode = cq_mode if cq_mode in {"mutate", "reconstruct"} else "mutate"
+        visual_base = len(logs)
         for v in range(n_visual):
-            i = v + 1
+            i = visual_base + v
             iter_dir = out / "iterations" / f"{i:02d}"
             iter_dir.mkdir(parents=True, exist_ok=True)
             remaining = n_visual - v
+            if any("IDENTITY" in x or "SLOT_MISMATCH" in x for x in fail_history) and loop_mode == "mutate":
+                if classified.edit_type.value not in {"fillet_chamfer", "hole_edit"}:
+                    loop_mode = "reconstruct"
             try:
                 gen = generate_grounded_cadquery(
                     self.planning_client,
@@ -595,9 +978,15 @@ class GroundedCADPipeline:
                     failure=last_fail,
                     last_script=last_script,
                     stdout=last_stdout,
-                    images=last_images or None,
+                    images=(source_images + last_images) or None,
                     iteration=v,
                     visual_iters_remaining=remaining,
+                    mode=loop_mode,
+                    prior_candidates=sorted(
+                        candidate_summaries,
+                        key=self._candidate_rank,
+                        reverse=True,
+                    )[:2],
                 )
             except Exception as exc:  # noqa: BLE001
                 gen = {
@@ -605,7 +994,12 @@ class GroundedCADPipeline:
                     "my_cad_function": "",
                     "raw": str(exc),
                 }
-            if v > 0 and gen.get("complete") and last_ok:
+            if self._model_completion_should_stop(
+                complete=bool(gen.get("complete")),
+                iteration=v,
+                last_ok=last_ok,
+                failures=failures,
+            ):
                 failure_category = None
                 break
             cq_script = gen.get("my_cad_function") or ""
@@ -622,7 +1016,7 @@ class GroundedCADPipeline:
                     script=cq_script,
                 )
             else:
-                execution = self._execute("raw_cadquery", {"script": cq_script}, original_step, iter_dir)
+                execution = self._execute("raw_cadquery", {"script": cq_script}, working_step, iter_dir)
                 execution.script = cq_script
             self._ensure_views(execution, iter_dir)
             critique, after, identity, failures = self._dual_critique(
@@ -632,10 +1026,14 @@ class GroundedCADPipeline:
                 intent=intent,
                 classified=classified,
                 instruction=request.instruction,
+                history=fail_history,
+                attempt=i,
             )
             critique.accept = dual_critic_accept(
                 failures, iteration=v, cheap_high_conf=False, visual=True
             ) and bool(execution.success)
+            if failures:
+                fail_history.append(f"iter{i} raw_cadquery: " + " | ".join(failures[:4]))
             if critique.verification:
                 (iter_dir / "verification.json").write_text(
                     critique.verification.model_dump_json(indent=2),
@@ -655,11 +1053,25 @@ class GroundedCADPipeline:
                 request_id=request.request_id,
                 out=out,
             )
+            candidate_summaries.append(
+                self._candidate_summary(
+                    iteration=i,
+                    execution=execution,
+                    critique=critique,
+                    identity=identity,
+                    failures=failures,
+                    before=before,
+                    after=after,
+                    expected_delta=edit_plan.expected_delta,
+                )
+            )
             last_fail = critique.revision_advice or last_fail
             last_script = cq_script
             last_stdout = ((execution.stdout or "") + "\n" + (execution.stderr or ""))[:1500]
-            last_images = [p for p in (execution.image_paths or {}).values() if p][:2]
+            last_images = [p for p in (execution.image_paths or {}).values() if p][:7]
             last_ok = bool(critique.accept) and not identity
+            if execution.success and execution.step_path and not identity:
+                working_step = execution.step_path
             if identity:
                 failure_category = "false_completion"
             elif not execution.success:
@@ -720,6 +1132,16 @@ class GroundedCADPipeline:
             # Packaging still needs a STEP file, but this is not a successful edit.
             final_step = brep_end / "tmp.step"
             shutil.copy2(request.step_path, final_step)
+            # The official evaluator consumes STL.  When no valid edit was
+            # produced, preserve the exact input geometry rather than asking
+            # CadQuery to re-export an often-problematic STEP during scoring.
+            source_stl = request.metadata.get("brep_start_path_stl") or request.metadata.get("input_stl")
+            if isinstance(source_stl, list):
+                source_stl = source_stl[-1] if source_stl else None
+            source_stl_path = Path(str(source_stl)) if source_stl else Path(request.step_path).with_suffix(".stl")
+            if source_stl_path.exists():
+                final_stl = brep_end / "tmp.stl"
+                shutil.copy2(source_stl_path, final_stl)
             accepted = False
             failure_category = failure_category or "api_code"
 
@@ -738,11 +1160,20 @@ class GroundedCADPipeline:
                 "cost_estimate": ins * 3.0 / 1e6 + outs * 15.0 / 1e6,
             },
             "method": "grounded_visual_cadquery",
+            "cadquery_strategy": cq_mode,
+            "hybrid_autodesk_fallback": self.hybrid_autodesk_fallback,
+            "candidate_enumeration": self.candidate_enumeration,
+            "max_candidates": self.max_candidates,
             "max_iters": self.max_iters,
             "visual_iters": self.visual_iters,
+            "visual_iters_min": self.visual_iters_min,
+            "visual_iters_max": self.visual_iters_max,
+            "adaptive_visual_iters": n_visual,
+            "candidate_summaries": candidate_summaries[-10:],
             "best_iteration": best_iter,
             "accepted": accepted,
             "failure_category": failure_category,
+            "retry_history": fail_history[-8:],
             "valid_start_copy": not bool(best and best.step_path),
             "intent_summary": intent.summary if intent else "",
             "used_llm": any(

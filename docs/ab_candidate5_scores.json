@@ -1,0 +1,92 @@
+[
+  {
+    "id": "ZK22J6VYRKQ2RTFD_1758875163.609787",
+    "type": "fillet_chamfer",
+    "instruction": "Add 0.2 mm chamfer to the hole edges to improve fitting.",
+    "ours": {
+      "chamfer": 0.9837,
+      "volume_f1": 0.8008,
+      "diff_f1": 0.3136,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9843,
+      "volume_f1": 0.9572,
+      "diff_f1": 0.679,
+      "valid": true
+    },
+    "failure_bucket": "wrong_edge_or_scope"
+  },
+  {
+    "id": "ZK22J6VYRKQ2RTFD_1758874422.1403751",
+    "type": "hole_edit",
+    "instruction": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip a",
+    "ours": {
+      "chamfer": 0.9817,
+      "volume_f1": 0.7885,
+      "diff_f1": 0.0795,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9805,
+      "volume_f1": 0.8951,
+      "diff_f1": 0.0542,
+      "valid": true
+    },
+    "failure_bucket": "identity"
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769779150.98797",
+    "type": "feature_addition",
+    "instruction": "Imagine the black handle is a stand. Add another one on the other side of device in approximately sa",
+    "ours": {
+      "chamfer": 0.9731,
+      "volume_f1": 0.7593,
+      "diff_f1": 0.0785,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9825,
+      "volume_f1": 0.9745,
+      "diff_f1": 0.8145,
+      "valid": true
+    },
+    "failure_bucket": "misclassify"
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769783385.069543",
+    "type": "feature_deletion",
+    "instruction": "Remove the collision between handle and cofeepot.",
+    "ours": {
+      "chamfer": 0.977,
+      "volume_f1": 0.81,
+      "diff_f1": 0.0114,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9861,
+      "volume_f1": 0.9997,
+      "diff_f1": 0.8889,
+      "valid": true
+    },
+    "failure_bucket": "identity"
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769174947.8063738",
+    "type": "pattern",
+    "instruction": "Mirror the part according to the plane lying on the not rounded end of the part. Merge the mirrored ",
+    "ours": {
+      "chamfer": 0.6635,
+      "volume_f1": 0.2476,
+      "diff_f1": 0.0595,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9934,
+      "volume_f1": 1.0,
+      "diff_f1": 1.0,
+      "valid": true
+    },
+    "failure_bucket": "misclassify"
+  }
+]

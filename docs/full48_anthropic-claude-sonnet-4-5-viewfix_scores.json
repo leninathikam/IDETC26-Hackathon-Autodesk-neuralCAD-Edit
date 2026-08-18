@@ -1,0 +1,416 @@
+[
+  {
+    "id": "ZK22J6VYRKQ2RTFD_1758875163.609787",
+    "type": "fillet_chamfer",
+    "instruction": "Add 0.2 mm chamfer to the hole edges to improve fitting.",
+    "ours": {
+      "chamfer": 0.9837,
+      "volume_f1": 0.8004,
+      "diff_f1": 0.3099,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9843,
+      "volume_f1": 0.9572,
+      "diff_f1": 0.679,
+      "valid": true
+    },
+    "failure_bucket": "occ_fail"
+  },
+  {
+    "id": "ZK22J6VYRKQ2RTFD_1758874422.1403751",
+    "type": "hole_edit",
+    "instruction": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip a",
+    "ours": {
+      "chamfer": 0.9817,
+      "volume_f1": 0.7885,
+      "diff_f1": 0.0795,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9805,
+      "volume_f1": 0.8951,
+      "diff_f1": 0.0542,
+      "valid": true
+    },
+    "failure_bucket": "identity"
+  },
+  {
+    "id": "ZK22J6VYRKQ2RTFD_1758873912.731081",
+    "type": "feature_addition",
+    "instruction": "Add a 1.5 millimetre rib to increase support and make the structure strong.",
+    "ours": {
+      "chamfer": 0.9504,
+      "volume_f1": 0.7715,
+      "diff_f1": 0.0724,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9587,
+      "volume_f1": 0.9561,
+      "diff_f1": 0.0857,
+      "valid": true
+    },
+    "failure_bucket": "identity"
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759209917.917027",
+    "type": "fillet_chamfer",
+    "instruction": "Hi , Please remove the fillet at the front center and add a 1 millimeter chamfer instead",
+    "ours": {
+      "chamfer": 0.9876,
+      "volume_f1": 0.9422,
+      "diff_f1": 0.1493,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9871,
+      "volume_f1": 0.9748,
+      "diff_f1": 0.2234,
+      "valid": true
+    },
+    "failure_bucket": "occ_fail"
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759210049.432666",
+    "type": "boolean_modification",
+    "instruction": "Hi , Please change the center flower type profile into a hexagonal profile for better torque transfe",
+    "ours": {
+      "chamfer": 0.9869,
+      "volume_f1": 0.9238,
+      "diff_f1": 0.1188,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9865,
+      "volume_f1": 0.9461,
+      "diff_f1": 0.1585,
+      "valid": true
+    },
+    "failure_bucket": "wrong_edge_or_scope"
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759209987.785593",
+    "type": "boolean_modification",
+    "instruction": "Hi , Please convert the round edges of the gear into straight spur gear teeth.",
+    "ours": {
+      "chamfer": 0.9867,
+      "volume_f1": 0.9352,
+      "diff_f1": 0.2054,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9821,
+      "volume_f1": 0.9291,
+      "diff_f1": 0.3574,
+      "valid": true
+    },
+    "failure_bucket": "wrong_edge_or_scope"
+  },
+  {
+    "id": "4E22SJE7QVTSP2E3_1758737060.465216",
+    "type": "boolean_modification",
+    "instruction": "Change that vertical slot to cut through complete body to decrease weight",
+    "ours": {
+      "chamfer": 0.9818,
+      "volume_f1": 0.7614,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.981,
+      "volume_f1": 0.8517,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "failure_bucket": "identity"
+  },
+  {
+    "id": "4E22SJE7QVTSP2E3_1758737238.499021",
+    "type": "feature_addition",
+    "instruction": "Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting prod",
+    "ours": {
+      "chamfer": 0.0,
+      "volume_f1": 0.5517,
+      "diff_f1": 0.0299,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.8555,
+      "volume_f1": 0.5759,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "failure_bucket": "over_edit"
+  },
+  {
+    "id": "4E22SJE7QVTSP2E3_1758737118.288898",
+    "type": "feature_addition",
+    "instruction": "Insert screws to both holes to be able to fix tool on the table",
+    "ours": {
+      "chamfer": 0.9595,
+      "volume_f1": 0.6578,
+      "diff_f1": 0.0673,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9765,
+      "volume_f1": 0.6868,
+      "diff_f1": 0.0236,
+      "valid": true
+    },
+    "failure_bucket": "identity"
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759203600.26663",
+    "type": "feature_addition",
+    "instruction": "Hi , Please create an outlet port on the top right and an inlet port on the bottom left .",
+    "ours": {
+      "chamfer": 0.9801,
+      "volume_f1": 0.7247,
+      "diff_f1": 0.1865,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9808,
+      "volume_f1": 0.9528,
+      "diff_f1": 0.3593,
+      "valid": true
+    },
+    "failure_bucket": "wrong_edge_or_scope"
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759203739.2515829",
+    "type": "feature_addition",
+    "instruction": "Hi , Please create a filling system on the radiator , including a pouring section and a cap.",
+    "ours": {
+      "chamfer": 0.9779,
+      "volume_f1": 0.7554,
+      "diff_f1": 0.1097,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9781,
+      "volume_f1": 0.9404,
+      "diff_f1": 0.2895,
+      "valid": true
+    },
+    "failure_bucket": "wrong_edge_or_scope"
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759203664.9815512",
+    "type": "pattern",
+    "instruction": "Hi , Create a slot pattern across the plastic part surface on both the top and bottom sides.",
+    "ours": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false
+    },
+    "gpt52": {
+      "chamfer": 0.9858,
+      "volume_f1": 0.9481,
+      "diff_f1": 0.4076,
+      "valid": true
+    },
+    "failure_bucket": "identity"
+  },
+  {
+    "id": "4S7JQK6ZQMAD25GL_1758863141.735564",
+    "type": "fillet_chamfer",
+    "instruction": "Add a 2 millimetre fillet to the edges of the scrolling wheel slot to ensure a smooth surface.",
+    "ours": {
+      "chamfer": 0.9831,
+      "volume_f1": 0.5495,
+      "diff_f1": 0.0154,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9839,
+      "volume_f1": 0.9897,
+      "diff_f1": 0.3636,
+      "valid": true
+    },
+    "failure_bucket": "occ_fail"
+  },
+  {
+    "id": "4S7JQK6ZQMAD25GL_1758863403.376244",
+    "type": "feature_addition",
+    "instruction": "Add a sliding switch on the bottom to provide a convenient on and off function",
+    "ours": {
+      "chamfer": 0.9827,
+      "volume_f1": 0.5468,
+      "diff_f1": 0.0043,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9832,
+      "volume_f1": 0.989,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "failure_bucket": "identity"
+  },
+  {
+    "id": "4S7JQK6ZQMAD25GL_1758863286.214549",
+    "type": "feature_addition",
+    "instruction": "Add two click buttons with the height of 2 millimetre to provide a comfortable and responsive feel f",
+    "ours": {
+      "chamfer": 0.9815,
+      "volume_f1": 0.5157,
+      "diff_f1": 0.0006,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9753,
+      "volume_f1": 0.945,
+      "diff_f1": 0.004,
+      "valid": true
+    },
+    "failure_bucket": "identity"
+  },
+  {
+    "id": "F332D3FXML85WLR2_1769424096.996583",
+    "type": "fillet_chamfer",
+    "instruction": "Add rounds to all edges of the part. R=0,2mm",
+    "ours": {
+      "chamfer": 0.9811,
+      "volume_f1": 0.1721,
+      "diff_f1": 0.0648,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9821,
+      "volume_f1": 0.2065,
+      "diff_f1": 0.101,
+      "valid": true
+    },
+    "failure_bucket": "identity"
+  },
+  {
+    "id": "F332D3FXML85WLR2_1770206307.074256",
+    "type": "dimension_change",
+    "instruction": "Scale the part 10x. Add drafts of 2 degrees to all vertical surfaces, with flat bottom surface as a ",
+    "ours": {
+      "chamfer": 0.5696,
+      "volume_f1": 0.0044,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.5924,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0202,
+      "valid": true
+    },
+    "failure_bucket": "occ_fail"
+  },
+  {
+    "id": "F332D3FXML85WLR2_1770205912.1187751",
+    "type": "feature_addition",
+    "instruction": "Add flange with thickness of 0,5mm and width of 2mm that starts on the flat bottom surface. Do not f",
+    "ours": {
+      "chamfer": 0.8206,
+      "volume_f1": 0.4867,
+      "diff_f1": 0.3077,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9189,
+      "volume_f1": 0.4937,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "failure_bucket": "misclassify"
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770171470.1448698",
+    "type": "dimension_change",
+    "instruction": "Make the whole frame structure taller by 0,5cm. The area profile remains the same.",
+    "ours": {
+      "chamfer": 0.9916,
+      "volume_f1": 0.3408,
+      "diff_f1": 0.1446,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9916,
+      "volume_f1": 0.7635,
+      "diff_f1": 0.1908,
+      "valid": true
+    },
+    "failure_bucket": "misclassify"
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770172545.5244548",
+    "type": "fillet_chamfer",
+    "instruction": "If edge with bigger radius is considered as top, add supporting structure to the bottom of the frame",
+    "ours": {
+      "chamfer": 0.972,
+      "volume_f1": 0.2338,
+      "diff_f1": 0.3156,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.986,
+      "volume_f1": 0.6992,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "failure_bucket": "occ_fail"
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770171700.697783",
+    "type": "fillet_chamfer",
+    "instruction": "Remove the largest radius that is all around the part and replace it by the same size radius as othe",
+    "ours": {
+      "chamfer": 0.9937,
+      "volume_f1": 0.2842,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9861,
+      "volume_f1": 0.0686,
+      "diff_f1": 0.0061,
+      "valid": true
+    },
+    "failure_bucket": "misclassify"
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769176912.388391",
+    "type": "feature_addition",
+    "instruction": "Add cylindrical pin into the bearing area of the part, so it is able to rotate around it.",
+    "ours": {
+      "chamfer": 0.9912,
+      "volume_f1": 0.7597,
+      "diff_f1": 0.0792,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9959,
+      "volume_f1": 0.7056,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "failure_bucket": "misclassify"
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769177116.6129558",
+    "type": "feature_addition",
+    "instruction": "Design simple locking mechanism in the area of the hook to secure carried load.",
+    "ours": {
+      "chamfer": 0.9896,
+      "volume_f1": 0.7377,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9877,
+      "volume_f1": 0.6338,
+      "diff_f1": 0.0824,
+      "valid": true
+    },
+    "failure_bucket": "misclassify"
+  }
+]

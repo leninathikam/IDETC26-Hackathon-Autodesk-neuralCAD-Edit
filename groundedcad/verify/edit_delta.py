@@ -220,7 +220,244 @@ def dual_critic_failures(
         }
     if n1 > n0 and not allow_bodies:
         failures.append(f"EXTRA_BODIES: solid count {n0} → {n1} but the instruction did not request a new body")
+    failures.extend(slot_mismatch_failures(before, after, classified=classified))
     return failures
+
+
+def locality_violation_failures(
+    before: dict[str, Any],
+    after: dict[str, Any],
+    envelope: Optional[dict[str, Any]],
+    *,
+    classified: Optional[ClassifiedEdit] = None,
+) -> list[str]:
+    """Flag edits whose bbox change far exceeds the target locality envelope."""
+    if not envelope or not after or not before:
+        return []
+    if is_identity(before, after):
+        return []
+    kind = classified.edit_type.value if classified else ""
+    if kind not in {"fillet_chamfer", "hole_edit"}:
+        return []
+    s0, s1 = _size(before), _size(after)
+    env_span = max(
+        float(envelope.get("xmax", 0)) - float(envelope.get("xmin", 0)),
+        float(envelope.get("ymax", 0)) - float(envelope.get("ymin", 0)),
+        float(envelope.get("zmax", 0)) - float(envelope.get("zmin", 0)),
+        1e-6,
+    )
+    # Local blend/hole should keep global bbox nearly fixed.
+    for a, b in zip(s0, s1):
+        if abs(float(b) - float(a)) > max(0.5 * env_span, 0.5):
+            return [
+                f"LOCALITY_VIOLATION: bbox change {s0}→{s1} exceeds target envelope span {env_span:.3f}"
+            ]
+    return []
+
+
+def score_expected_delta(
+    before: dict[str, Any],
+    after: dict[str, Any],
+    expected_delta: dict[str, str],
+) -> int:
+    """Count instruction-specific geometric delta predicates that are satisfied."""
+    if not before or not after or not expected_delta:
+        return 0
+    score = 0
+    v0 = float(before.get("volume") or 0.0)
+    v1 = float(after.get("volume") or 0.0)
+    signed = (v1 - v0) / v0 if v0 > 1e-9 else 0.0
+    volume_rule = expected_delta.get("volume")
+    if volume_rule == "decrease_small" and -0.05 < signed < -1e-8:
+        score += 1
+    elif volume_rule == "decrease" and signed < -1e-8:
+        score += 1
+    elif volume_rule == "increase" and signed > 1e-8:
+        score += 1
+    elif volume_rule == "change" and abs(signed) > 1e-8:
+        score += 1
+
+    s0, s1 = _size(before), _size(after)
+    ratios = [
+        float(b) / max(float(a), 1e-9)
+        for a, b in zip(s0, s1)
+    ]
+    bbox_rule = expected_delta.get("bbox")
+    if bbox_rule == "unchanged" and all(abs(r - 1.0) < 0.01 for r in ratios):
+        score += 1
+    elif bbox_rule == "unchanged_or_shrink" and all(r <= 1.01 for r in ratios):
+        score += 1
+    elif bbox_rule == "possibly_increase" and all(r < 2.0 for r in ratios):
+        score += 1
+
+    f0 = int(before.get("n_faces") or 0)
+    f1 = int(after.get("n_faces") or 0)
+    face_rule = expected_delta.get("faces")
+    if face_rule == "increase" and f1 > f0:
+        score += 1
+    elif face_rule == "change" and f1 != f0:
+        score += 1
+    return score
+
+
+def _hole_diameters(census: dict[str, Any]) -> list[float]:
+    holes = census.get("hole_candidates") or census.get("holes") or []
+    out: list[float] = []
+    for h in holes:
+        if h.get("diameter"):
+            out.append(float(h["diameter"]))
+        elif h.get("radius"):
+            out.append(2.0 * float(h["radius"]))
+    return out
+
+
+def slot_mismatch_failures(
+    before: dict[str, Any],
+    after: dict[str, Any],
+    *,
+    classified: Optional[ClassifiedEdit] = None,
+) -> list[str]:
+    """OCC vs typed slots — retry signal, never a visual/LLM accept."""
+    if classified is None or not after:
+        return []
+    fails: list[str] = []
+    kind = classified.edit_type.value
+    d0, d1 = _hole_diameters(before), _hole_diameters(after)
+    want_d = classified.diameter_mm
+    if want_d is not None:
+        close = any(abs(d - want_d) <= 0.25 for d in d1)
+        if kind in {"hole_edit", "feature_addition"} and classified.action == "add":
+            if len(d1) <= len(d0) and not close:
+                fails.append(
+                    f"SLOT_MISMATCH: requested new hole Ø{want_d} mm; "
+                    f"hole_count {len(d0)}→{len(d1)} max_d={max(d1) if d1 else None}"
+                )
+        elif d1 and not close:
+            still = max(d1)
+            prev = max(d0) if d0 else None
+            if prev is None or abs(still - prev) < 0.05:
+                fails.append(
+                    f"SLOT_MISMATCH: hole diameter still {still:.3f} mm, instruction asked Ø{want_d} mm"
+                )
+    want_r = classified.radius_mm or classified.distance_mm
+    if kind == "fillet_chamfer" and want_r and not is_identity(before, after):
+        f0, f1 = int(before.get("n_faces") or 0), int(after.get("n_faces") or 0)
+        if f0 and f1 and f1 <= f0:
+            fails.append(
+                f"SLOT_MISMATCH: blend {want_r} mm did not add faces ({f0}→{f1}); wrong edges or no-op blend"
+            )
+    if kind == "dimension_change" and classified.factor and classified.factor > 1.05:
+        s0, s1 = _size(before), _size(after)
+        grew = any(float(b) > 1.5 * max(float(a), 1e-6) for a, b in zip(s0, s1))
+        if not grew:
+            fails.append(
+                f"SLOT_MISMATCH: scale factor {classified.factor} but bbox stayed {s0} → {s1}"
+            )
+    if kind == "feature_addition" and is_identity(before, after):
+        fails.append("SLOT_MISMATCH: feature_addition produced identity; add/cut/fuse on the imported STEP")
+    return fails
+
+
+def failure_bucket(failures: list[str]) -> str:
+    """Map dual-critic codes to actionable rewrite buckets."""
+    joined = " | ".join(failures or [])
+    upper = joined.upper()
+    if "INCOMPLETE_PLAN" in upper:
+        return "INCOMPLETE"
+    if "IDENTITY_OUTPUT" in upper or "NO_GEOMETRY" in upper:
+        return "NO_OP"
+    if "OVERSIZED_CUT" in upper or "OVERSIZED_BBOX" in upper or "EXTRA_BODIES" in upper:
+        return "OVER_EDIT"
+    if "SLOT_MISMATCH" in upper or "LOCALITY_VIOLATION" in upper or "WRONG_SCOPE" in upper:
+        return "WRONG_SCOPE"
+    if "OCC" in upper or "NO CIRCULAR" in upper or "CHAMFER" in upper or "FILLET" in upper:
+        if "FAILED" in upper or "ERROR" in upper or "NO CIRCULAR" in upper:
+            return "OCC_FAIL"
+    if any("error" in (f or "").lower() for f in (failures or [])):
+        return "OCC_FAIL"
+    return "NO_OP" if failures else "OK"
+
+
+def _delta_lines(before: Optional[dict[str, Any]], after: Optional[dict[str, Any]]) -> list[str]:
+    if not before or not after:
+        return []
+    lines: list[str] = []
+    f0, f1 = int(before.get("n_faces") or 0), int(after.get("n_faces") or 0)
+    if f0 or f1:
+        lines.append(f"faces {f0}→{f1}")
+    v0, v1 = float(before.get("volume") or 0), float(after.get("volume") or 0)
+    if v0 > 1e-9:
+        lines.append(f"volume_delta {(v1 - v0) / v0 * 100:.2f}%")
+    s0, s1 = _size(before), _size(after)
+    if any(abs(a - b) > 1e-3 for a, b in zip(s0, s1)):
+        lines.append(f"bbox {s0}→{s1}")
+    else:
+        lines.append("bbox unchanged")
+    return lines
+
+
+def format_retry_feedback(
+    *,
+    instruction: str,
+    failures: list[str],
+    observed: Optional[list[str]] = None,
+    history: Optional[list[str]] = None,
+    attempt: int = 0,
+    before: Optional[dict[str, Any]] = None,
+    after: Optional[dict[str, Any]] = None,
+    classified: Optional[ClassifiedEdit] = None,
+) -> str:
+    """Text the CadQuery writer sees on the next loop. Failures stay in the loop."""
+    bucket = failure_bucket(failures)
+    target = ""
+    if classified is not None:
+        target = f"{classified.edit_type.value}/{classified.target_kind}/{classified.action}"
+    lines = [
+        f"RETRY attempt={attempt}: previous solid FAILED. complete must be false. Rewrite my_cad_function.",
+        "instruction: " + (instruction or "")[:240],
+        f"failure_bucket: {bucket}",
+        "failures: " + " | ".join(failures[:8]),
+    ]
+    if target:
+        lines.append(f"classified_target: {target}")
+    deltas = _delta_lines(before, after)
+    if deltas:
+        lines.append("geometry_delta: " + "; ".join(deltas))
+    if observed:
+        lines.append("observed_vs_start: " + "; ".join(observed[:8]))
+    if history:
+        lines.append("prior_attempts: " + " || ".join(history[-4:]))
+    if bucket == "NO_OP":
+        lines.append(
+            "required_action: no-op detected — must alter geometry near the classified target; "
+            "import args['input_file']; do not return the start STEP unchanged."
+        )
+    elif bucket == "OVER_EDIT":
+        lines.append(
+            "required_action: narrow scope / preserve unrelated geometry; "
+            "one local boolean or blend on the imported STEP only."
+        )
+    elif bucket == "WRONG_SCOPE":
+        lines.append(
+            "required_action: rebind to the correct hole/edge candidates from the census; "
+            "do not chamfer unrelated circular edges."
+        )
+    elif bucket == "OCC_FAIL":
+        lines.append(
+            "required_action: reduce blend distance under 0.28× rim radius or select fewer legal edges; "
+            "keep the same target family."
+        )
+    elif bucket == "INCOMPLETE":
+        lines.append(
+            "required_action: use census fitting-hole diameter and parsed dims; "
+            "do not invent a whole-part rebuild."
+        )
+    else:
+        lines.append(
+            "required_action: import args['input_file']; apply the instruction; "
+            "do not copy the start STEP; do not replace the whole part with a box."
+        )
+    return "\n".join(lines)
 
 
 def dual_critic_accept(

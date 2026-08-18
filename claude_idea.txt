@@ -1,0 +1,37 @@
+## Ranked improvement ideas
+
+### Tier 1 — high Diff F1 leverage, low/moderate cost
+
+**1. Confidence-scored hole/edge disambiguation on multi-diameter parts** (`geometry/inspect.py` → `agents/patterns.py`)
+This is your most-cited failure mode and the cheapest to fix, since the census already has the candidate edges. When `fitting_hole_diameter` matches more than one hole family, don't blindly chamfer/fillet every radius-matching edge. Score each candidate hole by: radius match tightness, proximity to `location_hint` centroid, and face-normal/orientation consistency with the instruction text. Commit the cheap OCC tool only above a confidence threshold; below it, downgrade straight to `mutate` rather than risk `SLOT_MISMATCH` or an over-broad edit. This should directly cut "wrong edge/hole binding" and reduce the false-accept risk that's currently dragging Chamfer up while Diff F1 stays near zero.
+
+**2. Instruction-value-first blend distance, not just the 0.28× radius cap** (`tools/cadquery_tools.py`)
+Right now the 0.28× cap is a safety heuristic, but it should be a *fallback*, not the default target. Parse the explicit numeric dimension from the instruction (e.g. "0.2 mm chamfer") as ground truth; only fall back to the radius-ratio heuristic when dims are missing or ambiguous. Add a fallback ladder before failing outright: try requested distance → 90% → 75% on the *same* edge set before widening selection or bailing to LLM. This targets both "OCC blend fails" and cases where you're technically succeeding geometrically but at the wrong magnitude relative to GT.
+
+**3. Two-stage classify-then-verify-against-census** (`agents/classifier.py`)
+Keep the cheap keyword classifier as pass one, but before committing a tool, cross-check the inferred `edit_type`/`target_kind` against the census (e.g. instruction implies "hole" but census shows none near the location hint → flag mismatch, don't proceed). This is nearly free since census is already computed before classification commits, and it directly targets "keyword misclassify," which is otherwise silent until the dual critic catches it three iterations later.
+
+### Tier 2 — solid gains, more implementation surface
+
+**4. Diff-based retry feedback instead of failure-code feedback** (`verify/edit_delta.py`)
+`SLOT_MISMATCH` as a bare code gives the rewrite LLM nothing to act on. Since edit_delta already computes face/edge/bbox deltas for the critic, surface that same diff as retry text: "expected +1 face near edge cluster at (x,y,z), r≈0.63mm; observed 0 new faces, bbox unchanged." Also split `IDENTITY_OUTPUT` retry text explicitly from `SLOT_MISMATCH` — identity retries should say "no-op detected, must alter geometry near ⟨location hint⟩," since a generic mismatch message tends to reproduce the same no-op.
+
+**5. Incomplete-plan branch when dims + target are both weak** (`agents/classifier.py` / `patterns.py`)
+Add a distinct slot state (not just local/mutate/reconstruct) for "under-specified": ambiguous target_kind *and* missing dims. Route this to a conservative default (largest qualifying, most locally-scoped candidate set) rather than letting `reconstruct` invent geometry to fill the gap. This is aimed squarely at "reconstruct invents geometry instead of local edit."
+
+**6. Adaptive iteration budget** (`groundedcad/pipeline.py`)
+If iter 1 comes back `IDENTITY_OUTPUT` under `mutate`, don't spend iters 2–3 repeating the same strategy — jump to `reconstruct` (or fail fast with a clearly tagged no-op rather than "packaged as done"). Saves budget and directly reduces the "identity packaged as done" bucket, though see risk note below.
+
+### Tier 3 — addition/boolean handling and eval infrastructure
+
+**7. Templated local-boolean tier between "local" and "reconstruct"**
+For common addition patterns (boss, tab, small pocket) anchored to the nearest face/edge from census, add a parametrized cheap-tool tier before falling to free-form LLM reconstruct. For cases that do need `reconstruct`, constrain the prompt/tool-call scaffold to "load original solid, one boolean op, primitive positioned via census reference face" rather than fully open-ended generation — tightens the *existing* reconstruct path rather than introducing whole-body rebuild.
+
+**8. Failure-mode auto-tagging on the 48/28 sets** (`scripts/run_full48.py`)
+Auto-bucket each result (identity / misclassify / wrong-edge / invented-geometry / OCC-fail) from existing Chamfer/VolF1/Diff F1 signatures, and report hard28 separately from the aggregate — this won't move F1 directly but will tell you which of the above fixes to prioritize first instead of guessing from the one example you've got (ZK22J6...).
+
+### Risks to watch
+
+- **Diameter-matching over-trust**: leaning on `fitting_hole_diameter` similarity for disambiguation can produce a confident-but-wrong hole pick — a plausible false accept, which is worse than a flagged low-confidence case.
+- **Reconstruct scaffolding under-fit**: templated boss/pocket primitives won't cover every addition instruction; keep a graceful fallback to free-form reconstruct rather than forcing every addition through the template.
+- **Adaptive iteration-skip over-editing**: jumping to `reconstruct` after one identity failure trades a no-op risk for an `EXTRA_BODIES`/over-editing risk, since reconstruct is inherently more prone to that failure mode than mutate — worth confirming this tradeoff empirically on the hard28 before making it default behavior.

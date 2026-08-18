@@ -1,0 +1,189 @@
+[
+  {
+    "id": "ZK22J6VYRKQ2RTFD_1758875163.609787",
+    "type": "fillet_chamfer",
+    "instruction": "Add 0.2 mm chamfer to the hole edges to improve fitting.",
+    "ours": {
+      "chamfer": 0.9838,
+      "volume_f1": 0.754,
+      "diff_f1": 0.0476,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9843,
+      "volume_f1": 0.9572,
+      "diff_f1": 0.679,
+      "valid": true
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759209917.917027",
+    "type": "fillet_chamfer",
+    "instruction": "Hi , Please remove the fillet at the front center and add a 1 millimeter chamfer instead",
+    "ours": {
+      "chamfer": 0.9876,
+      "volume_f1": 0.9444,
+      "diff_f1": 0.1578,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9871,
+      "volume_f1": 0.9748,
+      "diff_f1": 0.2234,
+      "valid": true
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759209987.785593",
+    "type": "boolean_modification",
+    "instruction": "Hi , Please convert the round edges of the gear into straight spur gear teeth.",
+    "ours": {
+      "chamfer": 0.9868,
+      "volume_f1": 0.9293,
+      "diff_f1": 0.1449,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9821,
+      "volume_f1": 0.9291,
+      "diff_f1": 0.3574,
+      "valid": true
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759203600.26663",
+    "type": "feature_addition",
+    "instruction": "Hi , Please create an outlet port on the top right and an inlet port on the bottom left .",
+    "ours": {
+      "chamfer": 0.9811,
+      "volume_f1": 0.6992,
+      "diff_f1": 0.1859,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9808,
+      "volume_f1": 0.9528,
+      "diff_f1": 0.3593,
+      "valid": true
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759203739.2515829",
+    "type": "feature_addition",
+    "instruction": "Hi , Please create a filling system on the radiator , including a pouring section and a cap.",
+    "ours": {
+      "chamfer": 0.9789,
+      "volume_f1": 0.7553,
+      "diff_f1": 0.117,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9781,
+      "volume_f1": 0.9404,
+      "diff_f1": 0.2895,
+      "valid": true
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759203664.9815512",
+    "type": "pattern",
+    "instruction": "Hi , Create a slot pattern across the plastic part surface on both the top and bottom sides.",
+    "ours": {
+      "chamfer": 0.9813,
+      "volume_f1": 0.7045,
+      "diff_f1": 0.1242,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9858,
+      "volume_f1": 0.9481,
+      "diff_f1": 0.4076,
+      "valid": true
+    }
+  },
+  {
+    "id": "4S7JQK6ZQMAD25GL_1758863141.735564",
+    "type": "fillet_chamfer",
+    "instruction": "Add a 2 millimetre fillet to the edges of the scrolling wheel slot to ensure a smooth surface.",
+    "ours": {
+      "chamfer": 0.9833,
+      "volume_f1": 0.553,
+      "diff_f1": 0.019,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9839,
+      "volume_f1": 0.9897,
+      "diff_f1": 0.3636,
+      "valid": true
+    }
+  },
+  {
+    "id": "4S7JQK6ZQMAD25GL_1758863286.214549",
+    "type": "feature_addition",
+    "instruction": "Add two click buttons with the height of 2 millimetre to provide a comfortable and responsive feel f",
+    "ours": {
+      "chamfer": 0.9807,
+      "volume_f1": 0.5118,
+      "diff_f1": 0.0006,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9753,
+      "volume_f1": 0.945,
+      "diff_f1": 0.004,
+      "valid": true
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1770206307.074256",
+    "type": "dimension_change",
+    "instruction": "Scale the part 10x. Add drafts of 2 degrees to all vertical surfaces, with flat bottom surface as a ",
+    "ours": {
+      "chamfer": 0.5696,
+      "volume_f1": 0.0044,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.5924,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0202,
+      "valid": true
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770171470.1448698",
+    "type": "dimension_change",
+    "instruction": "Make the whole frame structure taller by 0,5cm. The area profile remains the same.",
+    "ours": {
+      "chamfer": 0.9922,
+      "volume_f1": 0.3648,
+      "diff_f1": 0.2648,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9916,
+      "volume_f1": 0.7635,
+      "diff_f1": 0.1908,
+      "valid": true
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770171700.697783",
+    "type": "fillet_chamfer",
+    "instruction": "Remove the largest radius that is all around the part and replace it by the same size radius as othe",
+    "ours": {
+      "chamfer": 0.9937,
+      "volume_f1": 0.2842,
+      "diff_f1": 0.0,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9861,
+      "volume_f1": 0.0686,
+      "diff_f1": 0.0061,
+      "valid": true
+    }
+  }
+]

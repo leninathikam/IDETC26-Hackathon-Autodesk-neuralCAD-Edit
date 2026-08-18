@@ -21,13 +21,9 @@ CANONICAL_VIEWS = ["toprightiso", "front", "back", "left", "right", "top", "bott
 
 
 def _get_shape(result):
-    from groundedcad.geometry.fallback import SimpleSolid
+    from groundedcad.geometry.inspect import shape_from_workplane
 
-    if isinstance(result, SimpleSolid):
-        return result
-    if hasattr(result, "val"):
-        return result.val()
-    return result
+    return shape_from_workplane(result)
 
 
 def export_step(result, output_dir: str | Path, filename: str = "tmp.step") -> Path:
@@ -95,11 +91,27 @@ def render_png(
         except Exception:
             return None
 
-    # Strategy 1: CadQuery vis.show screenshot
+    # Strategy 1: CadQuery's VTK renderer (the reliable Windows path).
+    # ``show`` otherwise uses its default isometric camera and silently
+    # produces the same PNG for every named projection.
     try:
         from cadquery.vis import show
 
-        show(shape, screenshot=str(png_path), width=width, height=height, interact=False)
+        wrapped = shape.wrapped if hasattr(shape, "wrapped") else shape
+        distance = 10.0
+        position = tuple(float(component) * distance for component in proj)
+        show(
+            wrapped,
+            screenshot=str(png_path),
+            width=width,
+            height=height,
+            interact=False,
+            position=position,
+            focus=(0.0, 0.0, 0.0),
+            trihedron=False,
+            gradient=False,
+            bgcolor=(1.0, 1.0, 1.0),
+        )
         if png_path.exists():
             return png_path
     except Exception:
@@ -164,19 +176,15 @@ def render_png(
     except Exception:
         pass
 
-    # Strategy 3: SVG fallback then convert with Pillow if possible
+    # Do not manufacture a text-placeholder PNG as if it were visual model
+    # evidence.  A missing view is safer than sending the LLM a misleading
+    # image labelled as a front/back/top projection.
     try:
         from cadquery import exporters
-        from PIL import Image, ImageDraw
 
         svg_path = png_path.with_suffix(".svg")
         exporters.export(shape, str(svg_path), exportType="SVG")
-        # Create a simple placeholder PNG noting SVG was written
-        img = Image.new("RGB", (width, height), "white")
-        draw = ImageDraw.Draw(img)
-        draw.text((20, 20), f"SVG fallback: {svg_path.name}", fill="black")
-        img.save(png_path)
-        return png_path if png_path.exists() else None
+        return None
     except Exception:
         return None
 

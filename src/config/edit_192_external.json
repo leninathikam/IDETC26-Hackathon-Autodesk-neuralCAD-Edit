@@ -12,7 +12,7 @@
     "models_dir": {
         "type": "local",
         "paths": [
-            "data/model_outputs"
+            "data/model_outputs_official48"
         ]
     },
     "storage_dir": {
@@ -192,18 +192,23 @@
         "groundedcad":{
             "family": "groundedcad",
             "model": "groundedcad",
-            "llm_provider": "anthropic",
-            "llm_model": "claude-sonnet-4-5",
+            "llm_provider": "openai",
+            "llm_model": "gpt-5.2-2025-12-11",
             "max_iters": 5,
             "visual_iters": 5,
+            "visual_iters_min": 5,
+            "visual_iters_max": 8,
+            "hybrid_autodesk_fallback": true,
+            "candidate_enumeration": true,
+            "max_candidates": 4,
             "inprocess": false,
             "render": true,
             "use_llm_critic": false,
             "system_prompt": "Measure then edit. Import the start STEP. OCC facts plus typed slots ground CadQuery. Dual critic: render plus edit-delta (identity, oversized cut/bbox, extra bodies). First visual iter is never complete. Do not rebuild the part from primitives.",
             "request_types": [
             ],
-            "1m_token_cost_input": 2.00,
-            "1m_token_cost_output": 8.00,
+            "1m_token_cost_input": 1.75,
+            "1m_token_cost_output": 14.00,
             "function": "groundedcad_edit"
         }
     }

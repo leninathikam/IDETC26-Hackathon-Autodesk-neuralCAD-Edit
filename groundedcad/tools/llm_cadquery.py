@@ -50,6 +50,8 @@ Rules:
 - Keep new features small vs bbox. Never cut >15% of volume.
 - Optional followups: at most 2 extra local tools (e.g. second port).
 - Never choose translate_body, scale_uniform, duplicate_linear, rotate_body, or raw_cadquery.
+- When `operations` contains multiple items, choose the first operation that
+  has not already been completed; do not reinterpret it as a whole-body edit.
 
 JSON only:
 {"tool_name":"...","arguments":{...},"rationale":"...","followups":[]}
@@ -145,6 +147,7 @@ def generate_llm_local_edit(
     payload = {
         "instruction": instruction,
         "slots": slots,
+        "operations": classified.get("operations", []),
         "model": model,
         "failure": (failure or "")[:240],
     }
@@ -186,6 +189,8 @@ Rules:
 - No network, filesystem, subprocess, or thread access beyond the snippet above.
 - Output ONLY a single ```python fenced code block defining my_cad_function.
   No prose outside the fence.
+- `operations` is the complete parsed instruction.  Implement its next unmet
+  local operation, not merely the primary `slots` classification.
 """
 
 
@@ -221,6 +226,7 @@ def generate_llm_raw_local_edit(
     payload = {
         "instruction": instruction,
         "slots": slots,
+        "operations": classified.get("operations", []),
         "model": model,
         "failure": (failure or "")[:400],
     }
@@ -266,25 +272,68 @@ GROUNDED_CQ_MAX_TOKENS = 4096
 
 GROUNDED_CQ_SYSTEM = """You write CadQuery that EDITS an imported STEP. You do not rebuild the part.
 
+cq.importers.importStep returns a Workplane. Do not wrap it again with newObject([shape]).
+Workplane uses .edges() / .val() (lowercase). OCC Solid uses .Edges() / .BoundingBox().
+
 def my_cad_function(args):
     import cadquery as cq
     import os
-    shape = cq.importers.importStep(os.path.expanduser(args["input_file"]))
-    # mutate `shape` using coordinates from MODEL / slots / location_hint
-    return result  # cq.Workplane or Solid
+    wp = cq.importers.importStep(os.path.expanduser(args["input_file"]))
+    solid = wp.val()
+    # mutate solid using MODEL hole diameters; return a Workplane
+    return cq.Workplane("XY").newObject([solid])
 
 Hard rules:
-- Always import args["input_file"]. Never construct the whole part from Workplane().box / .cylinder / sketches of the original.
-- Use OCC facts (bbox, holes, cavities, axes) and typed slots (0.2 mm, 200 mm, …). Do not invent an origin.
-- Change only the requested feature. Preserve unrelated faces, holes, and envelope.
-- No network, subprocess, threads, or filesystem besides the import.
+- Always import args["input_file"]. Never rebuild the part with Workplane().box / .cylinder.
+- Hole-edge chamfer/fillet: use ONLY MODEL "Fitting hole" diameter. Match |2*radius - that diameter| < 0.05 mm. Chamfer at most 4 rims. Never loop a list of Feature diameters.
+- Change only the requested feature. Preserve unrelated faces and envelope.
+- No network, subprocess, threads, or extra filesystem use.
+- `operations` lists every requested operation.  Apply the next unmet one;
+  do not silently drop secondary operations in a compound instruction.
 
 Return JSON only, no markdown:
 {"complete": false, "my_cad_function": "def my_cad_function(args):\\n ..."}
 
-complete=true means the LAST executed solid already satisfies the instruction
-(look at the render + edit-delta). The first iteration can NEVER be complete.
-If complete is true, my_cad_function may be omitted and will not be executed.
+complete=true means the LAST executed solid already satisfies the instruction.
+The first iteration can NEVER be complete. If complete is true, omit my_cad_function.
+"""
+
+RECONSTRUCT_CQ_SYSTEM = """You write CadQuery that implements the FULL instruction on an imported STEP.
+
+The input file is whatever STEP the user supplied (a new part is normal). Always:
+
+def my_cad_function(args):
+    import cadquery as cq
+    import os
+    wp = cq.importers.importStep(os.path.expanduser(args["input_file"]))
+    solid = wp.val()
+    # Reconstruct the EDIT VOLUME only: one local add/cut/boolean positioned from
+    # MODEL bbox / holes / cavities / location_hint — then fuse or cut with solid.
+    return cq.Workplane("XY").newObject([solid])
+
+importStep returns a Workplane. Do not newObject([wp]). Use .val() for the solid, .edges() on a Workplane.
+
+Allowed (this is the reconstructive path):
+- New sketches, extrudes, lofts, holes, bosses, handles, pin heads, hex profiles.
+- Fuse or cut the new feature with the imported solid.
+- Rebuild a LOCAL region from primitives, then boolean it onto the import.
+- Polar/linear patterns of a feature you created.
+
+Forbidden:
+- Discard the import and replace the WHOLE part with a box/cylinder approximation.
+- Invent an origin unrelated to MODEL bbox / holes / cavities / location_hint.
+- Network, subprocess, threads, or extra filesystem use.
+- `operations` lists every requested operation.  Apply the next unmet one;
+  do not silently drop secondary operations in a compound instruction.
+
+Preserve overall envelope unless the instruction changes size. Extra solids are
+OK only if the instruction adds a body/feature; otherwise fuse into one solid.
+
+Return JSON only, no markdown:
+{"complete": false, "my_cad_function": "def my_cad_function(args):\\n ..."}
+
+complete=true means the LAST executed solid already satisfies the instruction.
+The first iteration can NEVER be complete.
 """
 
 
@@ -301,9 +350,13 @@ def generate_grounded_cadquery(
     images: Optional[list[str]] = None,
     iteration: int = 0,
     visual_iters_remaining: int = 5,
+    mode: str = "mutate",
+    prior_candidates: Optional[list[dict[str, Any]]] = None,
 ) -> dict[str, Any]:
     """Autodesk-style script+render loop, grounded on OCC facts + edit-delta."""
     from groundedcad.llm.base import parse_json_loose
+
+    system = RECONSTRUCT_CQ_SYSTEM if mode == "reconstruct" else GROUNDED_CQ_SYSTEM
 
     slots = {
         k: classified.get(k)
@@ -322,20 +375,38 @@ def generate_grounded_cadquery(
     user = {
         "instruction": instruction,
         "slots": slots,
+        "operations": classified.get("operations", []),
         "MODEL": geometry_brief,
         "location_hint": location_hint or {},
-        "edit_delta": (failure or "")[:800],
+        "edit_delta": (failure or "")[:2400],
         "iteration": iteration,
         "iterations_remaining": visual_iters_remaining,
         "last_script": (last_script or "")[:4000],
         "program_output": (stdout or "")[:1500],
+        "prior_candidates": (prior_candidates or [])[:2],
+        "image_order": (
+            "When images are attached, the canonical views of the original "
+            "input model come first. Any images after those show the current "
+            "best partial edit. Use the original views to identify the named "
+            "feature and preserve it; use the current-edit views only to "
+            "continue or correct work already applied."
+        ),
         "note": (
             "First iteration complete must be false. "
-            "If edit_delta is IDENTITY/OVERSIZED/EXTRA_BODIES, fix the script; do not redraw the part."
+            "mode=" + ("reconstruct" if mode == "reconstruct" else "mutate") + ". "
+            "Always import the given STEP. It may be the original model or a "
+            "validated partial edit from an earlier iteration; preserve and "
+            "continue that partial edit rather than starting over. "
+            + (
+                "You may add/cut/sketch/pattern and rebuild a local region; do not replace the whole part."
+                if mode == "reconstruct"
+                else "If edit_delta is IDENTITY/OVERSIZED/EXTRA_BODIES, fix the script; do not redraw the part. "
+                "For hole-edge blends, chamfer only the Fitting hole diameter (max 4 rims)."
+            )
         ),
     }
     resp = client.complete(
-        system=GROUNDED_CQ_SYSTEM,
+        system=system,
         user=json.dumps(user, separators=(",", ":")),
         images=images or None,
         max_tokens=GROUNDED_CQ_MAX_TOKENS,

@@ -8,7 +8,7 @@ Example:
 from __future__ import annotations
 
 import re
-from typing import Optional
+from typing import Any, Optional
 
 from pydantic import BaseModel, Field
 
@@ -27,8 +27,13 @@ class ClassifiedEdit(BaseModel):
     factor: Optional[float] = None
     direction: tuple[float, float, float] = (0.0, 0.0, 0.0)
     complete: bool = False
+    plan_status: str = "INCOMPLETE"  # COMPLETE | INCOMPLETE | AMBIGUOUS
     notes: str = ""
     dimensions: dict[str, float] = Field(default_factory=dict)
+    # Keep every parsed request available to downstream planners.  ``edit_type``
+    # remains the primary routing hint, but a compound instruction must not
+    # lose its secondary operations merely because one was sorted first.
+    operations: list[dict[str, Any]] = Field(default_factory=list)
 
     def to_dimensions(self) -> dict[str, float]:
         out = dict(self.dimensions)
@@ -52,13 +57,16 @@ _DIR = {
     "right": (1.0, 0.0, 0.0),
     "+x": (1.0, 0.0, 0.0),
     "left": (-1.0, 0.0, 0.0),
-    "front": (1.0, 0.0, 0.0),
-    "back": (-1.0, 0.0, 0.0),
+    # Match geometry.render.VIEW_PROJECTIONS exactly: a feature described as
+    # "front" must be on the face visible in the image named front, rather
+    # than an unrelated X-axis face.
+    "front": (0.0, 0.0, 1.0),
+    "back": (0.0, 0.0, -1.0),
     "up": (0.0, 0.0, 1.0),
     "taller": (0.0, 0.0, 1.0),
-    "top": (0.0, 0.0, 1.0),
+    "top": (0.0, 1.0, 0.0),
     "down": (0.0, 0.0, -1.0),
-    "bottom": (0.0, 0.0, -1.0),
+    "bottom": (0.0, -1.0, 0.0),
     "forward": (0.0, 1.0, 0.0),
     "+y": (0.0, 1.0, 0.0),
     "+z": (0.0, 0.0, 1.0),
@@ -246,6 +254,7 @@ def classify_instruction(text: str) -> ClassifiedEdit:
 
     def _done(**kwargs) -> ClassifiedEdit:
         edit = ClassifiedEdit(dimensions=dims, direction=direction, **kwargs)
+        edit.operations = [op.model_dump(exclude_none=True) for op in ops]
         if edit.diameter_mm is None:
             edit.diameter_mm = diameter
         if edit.radius_mm is None:
@@ -258,6 +267,18 @@ def classify_instruction(text: str) -> ClassifiedEdit:
             edit.count = count
         if edit.factor is None:
             edit.factor = factor
+        # plan_status: COMPLETE when slots are filled; AMBIGUOUS for unknown type;
+        # INCOMPLETE when dims/target weak.
+        if "plan_status" not in kwargs:
+            if edit.edit_type == EditPattern.AMBIGUOUS:
+                edit.plan_status = "AMBIGUOUS"
+            elif not edit.complete:
+                edit.plan_status = "INCOMPLETE"
+            elif edit.target_kind == "feature" and edit.edit_type == EditPattern.FILLET_CHAMFER:
+                # Blend with size but vague target — still usable as COMPLETE for mutate.
+                edit.plan_status = "COMPLETE"
+            else:
+                edit.plan_status = "COMPLETE"
         return edit
 
     if not ops:
@@ -370,3 +391,52 @@ def high_confidence_local(edit: ClassifiedEdit) -> bool:
     if edit.edit_type == EditPattern.HOLE_EDIT:
         return bool(edit.diameter_mm)
     return False
+
+
+_RECONSTRUCT_HINT = re.compile(
+    r"\b(handle|second|plug|europlug|collision|pin heads?|bearing|"
+    r"mounting|flower|hexagon|profile|replace|redesign|design |"
+    r"coffeepot|heatsink|threaded|platforms?|rib|boss|knob)\b",
+    re.I,
+)
+
+
+def cadquery_strategy(edit: ClassifiedEdit, instruction: str = "") -> str:
+    """Pick local / mutate / reconstruct from THIS instruction, never row IDs.
+
+    local: sized all-edge fillet/chamfer or sized hole — keep the cheap OCC tool.
+    mutate: import STEP and change only the named feature (typical blend/move).
+    reconstruct: Autodesk-style CadQuery may add/cut/sketch/pattern and rebuild
+    a local region, still starting from the imported STEP of whatever new file
+    was given.
+    """
+    if edit.edit_type == EditPattern.FILLET_CHAMFER:
+        has_size = bool(edit.radius_mm or edit.distance_mm or edit.groove_mm)
+        if has_size and edit.target_kind == "all_edges":
+            return "local"
+        return "mutate"
+    if edit.edit_type == EditPattern.HOLE_EDIT and edit.diameter_mm and not _RECONSTRUCT_HINT.search(
+        instruction or ""
+    ):
+        return "mutate"
+    if edit.edit_type in {
+        EditPattern.FEATURE_ADDITION,
+        EditPattern.FEATURE_DELETION,
+        EditPattern.BOOLEAN_MODIFICATION,
+        EditPattern.PATTERN,
+        EditPattern.AMBIGUOUS,
+        EditPattern.DIMENSION_CHANGE,
+    }:
+        return "reconstruct"
+    if _RECONSTRUCT_HINT.search(instruction or ""):
+        return "reconstruct"
+    return "mutate"
+
+
+def skip_visual_after_local(edit: ClassifiedEdit) -> bool:
+    """Skip CadQuery when a sized local blend is the whole instruction."""
+    return (
+        edit.edit_type == EditPattern.FILLET_CHAMFER
+        and edit.target_kind in {"all_edges", "hole", "hole_edge"}
+        and bool(edit.radius_mm or edit.distance_mm or edit.groove_mm)
+    )

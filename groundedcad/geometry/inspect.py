@@ -47,13 +47,24 @@ def load_step(step_path: str | Path):
 
 
 def shape_from_workplane(wp):
+    """Peel CadQuery Workplanes until an OCC Shape/Solid (importStep returns a Workplane)."""
     from groundedcad.geometry.fallback import SimpleSolid
 
     if isinstance(wp, SimpleSolid):
         return wp
-    if hasattr(wp, "val"):
-        return wp.val()
-    return wp
+    obj = wp
+    for _ in range(8):
+        if obj is None:
+            return obj
+        name = type(obj).__name__
+        if name in {"Workplane", "CQ"} or hasattr(obj, "newObject"):
+            nxt = obj.val() if hasattr(obj, "val") else None
+            if nxt is None or nxt is obj:
+                break
+            obj = nxt
+            continue
+        break
+    return obj
 
 
 def inspect_step(step_path: str | Path, max_faces: int = 80, max_edges: int = 120) -> dict[str, Any]:
@@ -80,6 +91,8 @@ def inspect_shape(
         census = inspect_simple(shape)
         census["source"] = source or census.get("source", "")
         return census
+
+    shape = shape_from_workplane(shape)
 
     solids = list(shape.Solids()) if hasattr(shape, "Solids") else []
     faces = list(shape.Faces()) if hasattr(shape, "Faces") else []
@@ -171,12 +184,17 @@ def inspect_shape(
         except Exception:  # noqa: BLE001
             pass
         if "CIRCLE" in geom.upper() or "ARC" in geom.upper():
-            if length and length > 1e-9:
-                radius = length / (2.0 * math.pi)
-            else:
-                sx, sy, sz = eb.size
-                dims = sorted(x for x in (sx, sy, sz) if x > 1e-6)
-                radius = 0.5 * dims[-1] if dims else None
+            try:
+                radius = float(edge.radius())
+            except Exception:  # noqa: BLE001
+                radius = None
+            if radius is None or radius < 1e-9:
+                if length and length > 1e-9:
+                    radius = length / (2.0 * math.pi)
+                else:
+                    sx, sy, sz = eb.size
+                    dims = sorted(x for x in (sx, sy, sz) if x > 1e-6)
+                    radius = 0.5 * dims[-1] if dims else None
         edge_refs.append(
             EntityRef(
                 entity_id=f"edge_{i}",
@@ -285,6 +303,262 @@ def _hole_candidates(face_refs: list[EntityRef], edge_refs: list[EntityRef], bbo
             g["face_normal"] = f.normal
     holes = sorted(groups.values(), key=lambda h: -float(h["diameter"]))[:16]
     return holes
+
+
+def _circle_diameter_counts(census: dict[str, Any], *, near_full_only: bool = False) -> dict[float, int]:
+    counts: dict[float, int] = {}
+    for e in census.get("circular_edges") or []:
+        r = e.get("radius")
+        if not r:
+            continue
+        if near_full_only:
+            length = e.get("length")
+            if length is None:
+                continue
+            full = 2.0 * math.pi * float(r)
+            if full < 1e-12 or float(length) / full < 0.85:
+                continue
+        d = round(2.0 * float(r), 2)
+        if d < 0.4:
+            continue
+        counts[d] = counts.get(d, 0) + 1
+    return counts
+
+
+def through_hole_candidates(census: dict[str, Any]) -> list[dict[str, Any]]:
+    """Cylinders that look like through-bores, not fillet/boss rounds."""
+    census = census or {}
+    holes = list(census.get("hole_candidates") or [])
+    size = census.get("size") or (1.0, 1.0, 1.0)
+    spans = [float(s) for s in size if float(s) > 1e-9]
+    outer_cap = 0.7 * max(spans) if spans else 1e9
+    inner = [
+        h
+        for h in holes
+        if 0.4 <= float(h.get("diameter") or 0) <= outer_cap
+    ]
+    through = [
+        h
+        for h in inner
+        if str(h.get("depth") or "") == "through" or int(h.get("n_circles") or 0) >= 2
+    ]
+    return through or inner
+
+
+def fitting_hole_diameter(
+    census: dict[str, Any],
+    *,
+    min_diameter_mm: Optional[float] = None,
+    blend_mm: Optional[float] = None,
+) -> Optional[float]:
+    """Through-bore diameter large enough to take the blend, not micro-arcs."""
+    census = census or {}
+    size = census.get("size") or (1.0, 1.0, 1.0)
+    spans = [float(s) for s in size if float(s) > 1e-9]
+    outer_cap = 0.7 * max(spans) if spans else 1e9
+    floor = 0.8
+    if blend_mm:
+        # OCC chamfer fails if distance ≳ 0.32 * radius → diameter ≳ 6 * blend
+        floor = max(floor, 6.0 * float(blend_mm))
+    if min_diameter_mm is not None:
+        floor = max(floor, float(min_diameter_mm))
+    counts = {
+        d: n
+        for d, n in _circle_diameter_counts(census, near_full_only=True).items()
+        if floor <= d <= outer_cap
+    }
+    if not counts:
+        counts = {
+            d: n
+            for d, n in _circle_diameter_counts(census).items()
+            if floor <= d <= outer_cap
+        }
+    pairish = [(d, n) for d, n in counts.items() if 2 <= n <= 24]
+    if pairish:
+        return min(pairish, key=lambda kv: (kv[1], kv[0]))[0]
+    ranked = rank_hole_rims(census, blend_mm=blend_mm, min_diameter_mm=min_diameter_mm)
+    if ranked:
+        return float(ranked[0]["diameter"])
+    holes = through_hole_candidates(census)
+    if not holes:
+        return None
+    score: dict[float, int] = {}
+    for h in holes:
+        d = round(float(h.get("diameter") or 0), 2)
+        if d < floor:
+            continue
+        score[d] = score.get(d, 0) + int(h.get("n_circles") or 1)
+    if not score:
+        return None
+    return max(score.items(), key=lambda kv: (kv[1], -kv[0]))[0]
+
+
+def rank_hole_rims(
+    census: dict[str, Any] | None,
+    *,
+    blend_mm: Optional[float] = None,
+    min_diameter_mm: Optional[float] = None,
+    location_hint: Optional[tuple[float, float, float]] = None,
+    max_families: int = 4,
+) -> list[dict[str, Any]]:
+    """Rank hole families from cylindrical faces + matching circular rim edges.
+
+    Returns dicts with diameter, centers (rim centers), n_rims, score, axis.
+    Prefers through-bores large enough for the blend and inset from the outer bbox.
+    """
+    census = census or {}
+    size = census.get("size") or (1.0, 1.0, 1.0)
+    spans = [float(s) for s in size if float(s) > 1e-9]
+    outer_cap = 0.7 * max(spans) if spans else 1e9
+    floor = 0.8
+    if blend_mm:
+        floor = max(floor, 6.0 * float(blend_mm))
+    if min_diameter_mm is not None:
+        floor = max(floor, float(min_diameter_mm))
+
+    bbox = census.get("bbox") or {}
+    mid = (
+        0.5 * (float(bbox.get("xmin", 0)) + float(bbox.get("xmax", 0))),
+        0.5 * (float(bbox.get("ymin", 0)) + float(bbox.get("ymax", 0))),
+        0.5 * (float(bbox.get("zmin", 0)) + float(bbox.get("zmax", 0))),
+    )
+    half = (
+        0.5 * max(float(bbox.get("xmax", 1)) - float(bbox.get("xmin", 0)), 1e-6),
+        0.5 * max(float(bbox.get("ymax", 1)) - float(bbox.get("ymin", 0)), 1e-6),
+        0.5 * max(float(bbox.get("zmax", 1)) - float(bbox.get("zmin", 0)), 1e-6),
+    )
+
+    # Family key: rounded (cx, cy or axis-aware) + radius
+    families: dict[tuple, dict[str, Any]] = {}
+
+    for f in census.get("cylindrical_faces") or []:
+        r = f.get("radius")
+        c = f.get("center")
+        if not r or not c or float(r) < 0.15:
+            continue
+        d = round(2.0 * float(r), 2)
+        if not (floor <= d <= outer_cap):
+            continue
+        cx, cy, cz = (float(c[0]), float(c[1]), float(c[2]))
+        key = (round(cx, 1), round(cy, 1), round(float(r), 2))
+        fam = families.setdefault(
+            key,
+            {
+                "diameter": d,
+                "radius": float(r),
+                "centers": [],
+                "n_rims": 0,
+                "has_cylinder": False,
+                "axis": "Z",
+            },
+        )
+        fam["has_cylinder"] = True
+        meta = f.get("metadata") or {}
+        bb = meta.get("bbox") or {}
+        if bb:
+            size_f = (
+                float(bb.get("xmax", 0) - bb.get("xmin", 0)),
+                float(bb.get("ymax", 0) - bb.get("ymin", 0)),
+                float(bb.get("zmax", 0) - bb.get("zmin", 0)),
+            )
+            fam["axis"] = _axis_from_size(size_f)
+
+    for e in census.get("circular_edges") or []:
+        r = e.get("radius")
+        c = e.get("center")
+        if not r or not c or float(r) < 0.15:
+            continue
+        d = round(2.0 * float(r), 2)
+        if not (floor <= d <= outer_cap):
+            continue
+        cx, cy, cz = (float(c[0]), float(c[1]), float(c[2]))
+        key = (round(cx, 1), round(cy, 1), round(float(r), 2))
+        fam = families.setdefault(
+            key,
+            {
+                "diameter": d,
+                "radius": float(r),
+                "centers": [],
+                "n_rims": 0,
+                "has_cylinder": False,
+                "axis": "Z",
+            },
+        )
+        center = (round(cx, 3), round(cy, 3), round(cz, 3))
+        if center not in fam["centers"]:
+            fam["centers"].append(center)
+            fam["n_rims"] = len(fam["centers"])
+
+    # Also fold hole_candidates that may lack face dumps
+    for h in census.get("hole_candidates") or []:
+        d = round(float(h.get("diameter") or 0), 2)
+        c = h.get("center")
+        if not c or not (floor <= d <= outer_cap):
+            continue
+        r = d / 2.0
+        cx, cy, cz = (float(c[0]), float(c[1]), float(c[2]))
+        key = (round(cx, 1), round(cy, 1), round(r, 2))
+        fam = families.setdefault(
+            key,
+            {
+                "diameter": d,
+                "radius": r,
+                "centers": [],
+                "n_rims": int(h.get("n_circles") or 0),
+                "has_cylinder": True,
+                "axis": str(h.get("axis") or "Z"),
+            },
+        )
+        fam["has_cylinder"] = True
+        center = (round(cx, 3), round(cy, 3), round(cz, 3))
+        if center not in fam["centers"]:
+            fam["centers"].append(center)
+            fam["n_rims"] = max(fam["n_rims"], len(fam["centers"]), int(h.get("n_circles") or 0))
+
+    ranked: list[dict[str, Any]] = []
+    for fam in families.values():
+        if fam["n_rims"] < 1 and not fam["has_cylinder"]:
+            continue
+        if not fam["centers"]:
+            # Cylinder without rim centers yet — use family key center
+            continue
+        # Representative center = mean of rim centers
+        n = len(fam["centers"])
+        mx = sum(c[0] for c in fam["centers"]) / n
+        my = sum(c[1] for c in fam["centers"]) / n
+        mz = sum(c[2] for c in fam["centers"]) / n
+        # Inset score: distance from bbox mid relative to half-span (inner better)
+        inset = min(
+            abs(mx - mid[0]) / half[0],
+            abs(my - mid[1]) / half[1],
+            abs(mz - mid[2]) / half[2],
+        )
+        through = 1.0 if fam["n_rims"] >= 2 else 0.0
+        cyl = 1.0 if fam["has_cylinder"] else 0.0
+        loc = 0.0
+        if location_hint is not None:
+            hx, hy, hz = location_hint
+            dist = math.sqrt((mx - hx) ** 2 + (my - hy) ** 2 + (mz - hz) ** 2)
+            loc = 1.0 / (1.0 + dist)
+        # Prefer through + cylinder + inset (small inset value) + location
+        score = 3.0 * through + 2.0 * cyl + (1.0 - min(inset, 1.0)) + loc
+        # Prefer smaller diameters among equal scores (fitting bore, not outer round)
+        score -= 0.01 * float(fam["diameter"])
+        ranked.append(
+            {
+                "diameter": float(fam["diameter"]),
+                "radius": float(fam["radius"]),
+                "centers": list(fam["centers"]),
+                "n_rims": int(fam["n_rims"]),
+                "axis": fam["axis"],
+                "score": float(score),
+            }
+        )
+
+    ranked.sort(key=lambda r: (-r["score"], r["diameter"]))
+    # Collapse same diameter families: keep top family per diameter for tool args,
+    # but also return top families overall for rim_centers.
+    return ranked[: max(1, int(max_families))]
 
 
 _AXIS_INDEX = {"x": 0, "y": 1, "z": 2}
@@ -414,7 +688,12 @@ def edit_context(
         "shortest_axis": census.get("shortest_axis"),
     }
     holes = []
-    for h in (census.get("hole_candidates") or [])[:max_holes]:
+    src = through_hole_candidates(census)
+    fit = fitting_hole_diameter(census)
+    if edit_type == "fillet_chamfer" and fit is not None:
+        src = [h for h in src if abs(float(h.get("diameter") or 0) - fit) <= 0.02]
+        src = src[:2]
+    for h in src[:max_holes]:
         c = h.get("center") or (0, 0, 0)
         holes.append(
             {
@@ -435,7 +714,12 @@ def edit_context(
     return ctx
 
 
-def geometry_brief(census: dict[str, Any], max_holes: int = 8) -> str:
+def geometry_brief(
+    census: dict[str, Any],
+    max_holes: int = 8,
+    *,
+    blend_mm: Optional[float] = None,
+) -> str:
     """Structured MODEL block for the LLM — facts from OCC, not from an image."""
     census = census or {}
     bb = census.get("bbox") or {}
@@ -458,9 +742,18 @@ def geometry_brief(census: dict[str, Any], max_holes: int = 8) -> str:
         f"Symmetry: {', '.join(census.get('symmetry_hints') or []) or 'none'}",
         f"Longest axis: {census.get('longest_axis')}  Shortest axis: {census.get('shortest_axis')}",
         "",
-        "Cylindrical / hole features:",
+        "Through-holes only (ignore fillets, bosses, and other cylinders):",
     ]
-    holes = census.get("hole_candidates") or []
+    holes = through_hole_candidates(census)
+    fit = fitting_hole_diameter(census, blend_mm=blend_mm)
+    if fit is not None:
+        lines.append(
+            f"Fitting hole: diameter {fit:.3f} mm. "
+            "Chamfer/fillet at most 4 circular rims of THIS diameter only. "
+            "Do not OR together other diameters."
+        )
+        holes = [h for h in holes if abs(float(h.get("diameter") or 0) - fit) <= 0.02]
+        holes = holes[:2]
     if not holes:
         lines.append("(none clustered)")
     for i, h in enumerate(holes[:max_holes], 1):

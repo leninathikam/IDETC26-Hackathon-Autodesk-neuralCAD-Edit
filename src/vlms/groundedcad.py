@@ -40,6 +40,11 @@ class VLM(BaseVLM):
             use_llm_critic=bool(config.get("use_llm_critic", False)),
             render=bool(config.get("render", True)),
             visual_iters=int(config.get("visual_iters", config.get("max_iters", 5))),
+            hybrid_autodesk_fallback=bool(config.get("hybrid_autodesk_fallback", True)),
+            visual_iters_min=int(config.get("visual_iters_min", 5)),
+            visual_iters_max=int(config.get("visual_iters_max", 8)),
+            candidate_enumeration=bool(config.get("candidate_enumeration", True)),
+            max_candidates=int(config.get("max_candidates", 4)),
         )
 
     def create_messages(self, inputs: list, sys=None) -> list:

@@ -79,6 +79,16 @@ WORKER_SCRIPT = textwrap.dedent(
             artifacts = export_all_artifacts(result, out_dir, render=payload.get("render", True))
             shape = shape_from_workplane(result)
             census = inspect_shape(shape, source=artifacts["step"])
+            # A non-empty exported solid is not proof of a valid B-Rep.  Run
+            # OCC's topology check inside this already time-bounded worker so
+            # a pathological shape cannot freeze the parent pipeline.
+            try:
+                topology_valid = bool(shape.isValid()) if hasattr(shape, "isValid") else False
+            except Exception as topology_exc:
+                topology_valid = False
+                census["topology_validity_error"] = str(topology_exc)
+            census["topology_valid"] = topology_valid
+            census["valid"] = bool(census.get("valid")) and topology_valid
             result_meta.update({
                 "success": True,
                 "step_path": artifacts["step"],
@@ -107,7 +117,13 @@ class Sandbox:
         self.timeout_s = timeout_s
         self.render = render
 
-    def _run_worker(self, payload: dict[str, Any], output_dir: Path) -> ExecutionResult:
+    def _run_worker(
+        self,
+        payload: dict[str, Any],
+        output_dir: Path,
+        *,
+        timeout_s: float | None = None,
+    ) -> ExecutionResult:
         output_dir.mkdir(parents=True, exist_ok=True)
         start = time.time()
         with tempfile.TemporaryDirectory(prefix="groundedcad_") as tmp:
@@ -125,11 +141,12 @@ class Sandbox:
             payload_path.write_text(json.dumps(payload), encoding="utf-8")
             worker_path.write_text(WORKER_SCRIPT, encoding="utf-8")
             try:
+                effective_timeout = float(timeout_s if timeout_s is not None else self.timeout_s)
                 proc = subprocess.run(
                     [sys.executable, str(worker_path), str(payload_path)],
                     capture_output=True,
                     text=True,
-                    timeout=self.timeout_s,
+                    timeout=effective_timeout,
                     cwd=self.project_root,
                 )
                 stdout = proc.stdout
@@ -139,7 +156,7 @@ class Sandbox:
                     success=False,
                     stdout=exc.stdout or "",
                     stderr=exc.stderr or "",
-                    error=f"Sandbox timeout after {self.timeout_s}s",
+                    error=f"Sandbox timeout after {effective_timeout}s",
                     duration_s=time.time() - start,
                 )
 
@@ -178,6 +195,8 @@ class Sandbox:
         tool_name: str,
         arguments: dict[str, Any],
         output_dir: str | Path,
+        *,
+        timeout_s: float | None = None,
     ) -> ExecutionResult:
         # Snapshot for rollback if previous step exists
         out = Path(output_dir)
@@ -189,6 +208,7 @@ class Sandbox:
         result = self._run_worker(
             {"mode": "tool", "tool_name": tool_name, "arguments": arguments},
             out,
+            timeout_s=timeout_s,
         )
         if not result.success and backup and backup.exists():
             shutil.copy2(backup, existing)
@@ -199,6 +219,8 @@ class Sandbox:
         script: str,
         input_file: str,
         output_dir: str | Path,
+        *,
+        timeout_s: float | None = None,
     ) -> ExecutionResult:
         from groundedcad.geometry.fallback import cadquery_available
 
@@ -236,6 +258,7 @@ class Sandbox:
                 "input_file": input_file,
             },
             out,
+            timeout_s=timeout_s,
         )
         if not result.success and backup and backup.exists():
             shutil.copy2(backup, existing)
@@ -252,7 +275,15 @@ class Sandbox:
         try:
             result = execute_tool(tool_name, arguments)
             artifacts = export_all_artifacts(result, out, render=self.render)
-            census = inspect_shape(shape_from_workplane(result), source=artifacts["step"])
+            shape = shape_from_workplane(result)
+            census = inspect_shape(shape, source=artifacts["step"])
+            try:
+                topology_valid = bool(shape.isValid()) if hasattr(shape, "isValid") else False
+            except Exception as topology_exc:
+                topology_valid = False
+                census["topology_validity_error"] = str(topology_exc)
+            census["topology_valid"] = topology_valid
+            census["valid"] = bool(census.get("valid")) and topology_valid
             return ExecutionResult(
                 success=True,
                 step_path=artifacts["step"],

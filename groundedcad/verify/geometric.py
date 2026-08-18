@@ -12,13 +12,16 @@ def check_valid_brep(execution: ExecutionResult, params: dict[str, Any] | None =
     summary = execution.geometry_summary or {}
     volume = float(summary.get("volume") or 0.0)
     n_solids = int(summary.get("n_solids") or 0)
-    usable = bool(summary.get("valid")) or (volume > 1e-9 and n_solids >= 1)
+    # ``valid`` is populated by the sandbox after OCC ``Shape.isValid``.
+    # Do not accept a merely non-empty export as a valid B-Rep.
+    topology_valid = summary.get("topology_valid")
+    usable = bool(summary.get("valid")) and topology_valid is True and volume > 1e-9 and n_solids >= 1
     ok = bool(execution.success and usable and execution.step_path)
     return CheckResult(
         name="valid_brep",
         passed=ok,
         detail="Valid STEP produced" if ok else f"Invalid/missing geometry: {execution.error}",
-        measured={"valid": summary.get("valid"), "volume": volume, "n_solids": n_solids, "step_path": execution.step_path},
+        measured={"valid": summary.get("valid"), "topology_valid": topology_valid, "volume": volume, "n_solids": n_solids, "step_path": execution.step_path},
     )
 
 

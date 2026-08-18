@@ -107,6 +107,90 @@ def test_hole_tool(examples):
     assert after["volume"] < before["volume"]
 
 
+def test_chamfer_circular_edges_picks_rims_and_caps_distance(tmp_path):
+    import cadquery as cq
+
+    from groundedcad.geometry.inspect import inspect_shape, shape_from_workplane
+    from groundedcad.tools.cadquery_tools import (
+        _distance_candidates,
+        _occ_radius,
+        _pick_circular_edges,
+        chamfer_circular_edges,
+    )
+
+    wp = cq.Workplane("XY").box(13, 5, 8).faces(">Z").workplane().hole(1.26)
+    step = tmp_path / "fitting_hole.step"
+    cq.exporters.export(wp, str(step))
+    shape = wp.val()
+    picked = _pick_circular_edges(
+        shape, 0.0, 1e9, 8, hole_rims=True, hole_diameters=[1.26], blend_mm=0.2
+    )
+    assert len(picked) >= 2
+    assert all(abs(_occ_radius(e) - 0.63) < 0.02 for e in picked)
+    dists = _distance_candidates(0.2, picked)
+    # 0.2 > 0.28*0.63 → first try is OCC-legal cap, then smaller fallbacks
+    assert dists[0] == pytest.approx(0.28 * 0.63, rel=1e-3)
+    assert max(dists) <= 0.28 * 0.63 + 1e-9
+    assert min(dists) >= 1e-5
+    # Larger hole: requested stays first and uncapped-down incorrectly
+    big = _distance_candidates(0.2, [type("E", (), {"radius": lambda self: 2.0})()])
+    assert big[0] == pytest.approx(0.2)
+
+    before = inspect_shape(shape)
+    after = inspect_shape(shape_from_workplane(chamfer_circular_edges(str(step), 0.2, max_edges=4)))
+    assert after["valid"] is True
+    assert after["n_faces"] > before["n_faces"]
+
+
+def test_chamfer_skips_outer_circular_edge(tmp_path):
+    import cadquery as cq
+
+    from groundedcad.geometry.inspect import inspect_shape, rank_hole_rims, shape_from_workplane
+    from groundedcad.tools.cadquery_tools import _pick_circular_edges, chamfer_circular_edges
+
+    # Outer silhouette circle (boss) + inner through-hole of fitting size.
+    wp = (
+        cq.Workplane("XY")
+        .circle(6)
+        .extrude(8)
+        .faces(">Z")
+        .workplane()
+        .hole(1.26)
+    )
+    step = tmp_path / "outer_and_hole.step"
+    cq.exporters.export(wp, str(step))
+    shape = wp.val()
+    census = inspect_shape(shape)
+    ranked = rank_hole_rims(census, blend_mm=0.2)
+    assert ranked
+    assert abs(ranked[0]["diameter"] - 1.26) < 0.05
+    picked = _pick_circular_edges(
+        shape,
+        0.0,
+        1e9,
+        8,
+        hole_rims=True,
+        hole_diameters=[ranked[0]["diameter"]],
+        blend_mm=0.2,
+        rim_centers=ranked[0]["centers"],
+    )
+    assert len(picked) >= 2
+    assert all(abs(2.0 * float(e.radius()) - 1.26) < 0.1 for e in picked)
+    before = inspect_shape(shape)
+    after = inspect_shape(
+        shape_from_workplane(
+            chamfer_circular_edges(
+                str(step),
+                0.2,
+                max_edges=4,
+                hole_diameters=[ranked[0]["diameter"]],
+                rim_centers=ranked[0]["centers"],
+            )
+        )
+    )
+    assert after["n_faces"] > before["n_faces"]
+
+
 def test_local_edit_tools_change_geometry(examples):
     step = Path(examples["fillet_box"]) / "input.step"
     before = inspect_step(step)
@@ -215,6 +299,24 @@ def test_classify_edit_patterns():
     assert tool.tool_name == "drill_hole_at_point"
     assert tool.arguments["diameter"] == 1.7
 
+    ch_text = "Add 0.2 mm chamfer to the hole edges to improve fitting."
+    intent = GroundedIntent(summary=ch_text, raw_instruction=ch_text, dimensions={"distance": 0.2})
+    _spec, tool = heuristic_plan(
+        intent,
+        "in.step",
+        {
+            "center": (0, 0, 0),
+            "size": (80.0, 40.0, 20.0),
+            "hole_candidates": [
+                {"center": (0, 0, 0), "diameter": 8.0, "depth": "through"},
+                {"center": (0, 0, 0), "diameter": 40.0, "depth": "through"},
+            ],
+        },
+    )
+    assert tool.tool_name == "chamfer_circular_edges"
+    assert tool.arguments["max_edges"] <= 8
+    assert 8.0 in tool.arguments["hole_diameters"]
+
 
 def test_heuristic_ground_and_plan(examples):
     req = load_request_json(Path(examples["fillet_box"]) / "request.json")
@@ -277,6 +379,44 @@ def test_pipeline_demo(examples, tmp_path):
     assert data["isHuman"] is False
 
 
+def test_hybrid_pipeline_helpers_and_cheap_first(examples, tmp_path):
+    req = load_request_json(Path(examples["duplicate_box"]) / "request.json")
+    client = MockLLMClient()
+    pipe = GroundedCADPipeline(
+        grounding_client=client,
+        planning_client=client,
+        critic_client=client,
+        max_iters=2,
+        visual_iters=2,
+        visual_iters_min=5,
+        visual_iters_max=8,
+        hybrid_autodesk_fallback=True,
+        use_llm_cadquery=False,
+        sandbox=Sandbox(render=False),
+        inprocess=True,
+        render=False,
+    )
+    assert pipe._adaptive_visual_iters("mutate", []) == 5
+    assert pipe._adaptive_visual_iters("reconstruct", []) == 7
+    assert pipe._adaptive_visual_iters("reconstruct", ["IDENTITY_OUTPUT"]) == 8
+    assert pipe._model_completion_should_stop(
+        complete=True, iteration=1, last_ok=True, failures=[]
+    )
+    assert not pipe._model_completion_should_stop(
+        complete=True, iteration=1, last_ok=False, failures=[]
+    )
+    assert not pipe._model_completion_should_stop(
+        complete=True, iteration=1, last_ok=True, failures=["IDENTITY_OUTPUT"]
+    )
+
+    result = pipe.run(req, tmp_path / "hybrid_pipe")
+    assert result.iterations
+    assert result.iterations[0].iteration == 0
+    assert result.settings["hybrid_autodesk_fallback"] is True
+    assert result.settings["adaptive_visual_iters"] == 0
+    assert result.settings["candidate_summaries"][0]["iteration"] == 0
+
+
 def test_identity_rejected():
     from groundedcad.verify.edit_delta import check_not_identity, is_identity
 
@@ -295,7 +435,7 @@ def test_extract_llm_cadquery_script():
 
 
 def test_edit_context_is_compact():
-    from groundedcad.geometry.inspect import edit_context, geometry_brief
+    from groundedcad.geometry.inspect import edit_context, fitting_hole_diameter, geometry_brief
 
     census = {
         "size": (100.0, 20.0, 8.0),
@@ -303,13 +443,37 @@ def test_edit_context_is_compact():
         "n_solids": 1,
         "shortest_axis": "z",
         "hole_candidates": [
-            {"diameter": 8.0, "center": (1.111, 2.222, 3.333), "axis": "Z"},
-            {"diameter": 4.0, "center": (0, 0, 0), "axis": "X"},
+            {"diameter": 8.0, "center": (1.111, 2.222, 3.333), "axis": "Z", "depth": "through", "n_circles": 2},
+            {"diameter": 4.0, "center": (0, 0, 0), "axis": "X", "depth": "blind", "n_circles": 1},
+            {"diameter": 7.9, "center": (2, 2, 2), "axis": "Z", "depth": "unknown", "n_circles": 1},
         ],
     }
-    ctx = edit_context(census, edit_type="hole_edit")
+    ctx = edit_context(census, edit_type="fillet_chamfer")
     assert ctx["holes"][0]["d"] == 8.0
-    assert len(json.dumps(ctx, separators=(",", ":"))) < len(geometry_brief(census))
+    assert all(abs(h["d"] - 8.0) < 0.05 for h in ctx["holes"])
+    brief = geometry_brief(census)
+    assert "Fitting hole: diameter 8.000 mm" in brief
+    assert "1.633" not in brief
+    assert "Through-holes only" in brief
+    circ = {
+        "size": (13.0, 5.0, 8.0),
+        "hole_candidates": [
+            {"diameter": 1.17, "center": (0, 0, 0), "axis": "Z", "depth": "unknown", "n_circles": 1},
+        ],
+        "circular_edges": (
+            [{"radius": 2.5}] * 2
+            + [{"radius": 0.585}] * 20
+        ),
+    }
+    assert fitting_hole_diameter(circ) == 5.0
+    micro = {
+        "size": (13.0, 5.0, 8.0),
+        "circular_edges": [{"radius": 0.215}] * 4 + [{"radius": 0.7}] * 12,
+    }
+    assert fitting_hole_diameter(micro, blend_mm=0.2) == 1.4
+    ctx_h = edit_context(census, edit_type="hole_edit")
+    assert ctx_h["holes"][0]["d"] == 8.0
+    assert len(json.dumps(ctx, separators=(",", ":"))) < len(brief)
 
 
 def test_llm_local_edit_rejects_whole_body_ops():
@@ -449,6 +613,17 @@ def test_high_confidence_local_and_dual_critic():
     assert high_confidence_local(all_r)
     rib = classify_instruction("Add a 1.5 millimetre rib to increase support.")
     assert not high_confidence_local(rib)
+    from groundedcad.agents.classifier import cadquery_strategy, skip_visual_after_local
+
+    assert cadquery_strategy(all_r, "Add rounds to all edges of the part. R=0,2mm") == "local"
+    assert skip_visual_after_local(all_r)
+    assert cadquery_strategy(hole_ch, "Add 0.2 mm chamfer to the hole edges") == "mutate"
+    assert skip_visual_after_local(hole_ch)
+    assert cadquery_strategy(rib, "Add a 1.5 millimetre rib") == "reconstruct"
+    handle = classify_instruction("Add a second handle opposite the existing one.")
+    assert cadquery_strategy(handle, "Add a second handle opposite the existing one.") == "reconstruct"
+    new_part = classify_instruction("Add rounds to all edges of the part. R=0.5mm")
+    assert cadquery_strategy(new_part, "Add rounds to all edges of the part. R=0.5mm") == "local"
 
     before = {"volume": 100.0, "size": (10, 10, 10), "n_solids": 1, "n_faces": 6, "center": (0, 0, 0)}
     assert dual_critic_failures(before, dict(before))[0].startswith("IDENTITY")
@@ -463,6 +638,280 @@ def test_high_confidence_local_and_dual_critic():
     assert dual_critic_accept([], iteration=1, visual=True) is True
     assert dual_critic_accept([], iteration=0, cheap_high_conf=True, visual=False) is True
     assert dual_critic_accept(["IDENTITY"], iteration=1, visual=True) is False
+
+    hole_add = ClassifiedEdit(
+        edit_type=EditPattern.HOLE_EDIT, action="add", diameter_mm=1.7
+    )
+    same_holes = dict(before, volume=99.0, n_faces=8)
+    same_holes["hole_candidates"] = [{"diameter": 10.0}]
+    before_h = dict(before, hole_candidates=[{"diameter": 10.0}])
+    assert any("SLOT_MISMATCH" in f for f in dual_critic_failures(before_h, same_holes, classified=hole_add))
+    from groundedcad.verify.edit_delta import format_retry_feedback
+
+    fb = format_retry_feedback(
+        instruction="Add a 1.7 mm hole",
+        failures=["IDENTITY_OUTPUT: pred matches start"],
+        history=["iter0 drill: IDENTITY_OUTPUT"],
+        attempt=1,
+    )
+    assert "RETRY" in fb
+    assert "prior_attempts" in fb
+    assert "1.7" in fb
+    assert "failure_bucket: NO_OP" in fb
+    assert "no-op" in fb.lower()
+    over = format_retry_feedback(
+        instruction="blend",
+        failures=["OVERSIZED_CUT: removed 40% of volume"],
+        attempt=1,
+    )
+    assert "failure_bucket: OVER_EDIT" in over
+    assert "narrow scope" in over.lower()
+
+
+def test_incomplete_plan_status_and_chamfer_without_size():
+    from groundedcad.agents.classifier import classify_instruction
+    from groundedcad.agents.patterns import apply_classified
+
+    edit = classify_instruction("Chamfer the hole")
+    assert edit.plan_status == "INCOMPLETE"
+    assert edit.complete is False
+    tool = apply_classified(edit, "a.step", census={})
+    assert tool.tool_name == "incomplete_plan"
+
+
+def test_edit_plan_and_locality_envelope():
+    from groundedcad.agents.classifier import ClassifiedEdit
+    from groundedcad.agents.edit_plan import build_edit_plan
+    from groundedcad.agents.schemas import EditPattern
+    from groundedcad.verify.edit_delta import locality_violation_failures
+
+    edit = ClassifiedEdit(
+        edit_type=EditPattern.FILLET_CHAMFER,
+        target_kind="hole_edge",
+        action="chamfer",
+        distance_mm=0.2,
+        complete=True,
+        plan_status="COMPLETE",
+    )
+    census = {
+        "size": (13.0, 5.0, 8.0),
+        "bbox": {"xmin": 0, "xmax": 13, "ymin": 0, "ymax": 5, "zmin": 0, "zmax": 8},
+        "cylindrical_faces": [
+            {"radius": 0.63, "center": (6.5, 2.5, 4.0), "metadata": {"geom": "CYLINDER", "bbox": {"xmin": 5, "xmax": 8, "ymin": 1, "ymax": 4, "zmin": 0, "zmax": 8}}},
+        ],
+        "circular_edges": [
+            {"radius": 0.63, "center": (6.5, 2.5, 0.0)},
+            {"radius": 0.63, "center": (6.5, 2.5, 8.0)},
+        ],
+        "hole_candidates": [{"diameter": 1.26, "center": (6.5, 2.5, 4.0), "n_circles": 2, "depth": "through"}],
+    }
+    plan = build_edit_plan(edit, census)
+    assert plan.locality_envelope is not None
+    assert plan.expected_delta.get("faces") == "increase"
+    before = {"size": (13.0, 5.0, 8.0), "volume": 100.0, "n_faces": 10, "n_solids": 1}
+    after_ok = {"size": (13.0, 5.0, 8.0), "volume": 99.9, "n_faces": 12, "n_solids": 1}
+    assert locality_violation_failures(before, after_ok, plan.locality_envelope, classified=edit) == []
+    after_bad = {"size": (40.0, 5.0, 8.0), "volume": 99.0, "n_faces": 20, "n_solids": 1}
+    assert any("LOCALITY_VIOLATION" in f for f in locality_violation_failures(before, after_bad, plan.locality_envelope, classified=edit))
+
+
+def test_feature_add_prefers_cylinder_when_diameter_known():
+    from groundedcad.agents.classifier import ClassifiedEdit
+    from groundedcad.agents.patterns import strategy_feature_add
+    from groundedcad.agents.schemas import EditPattern
+
+    edit = ClassifiedEdit(
+        edit_type=EditPattern.FEATURE_ADDITION,
+        action="add",
+        diameter_mm=3.0,
+        complete=True,
+        plan_status="COMPLETE",
+        notes="feature_add:feature",
+    )
+    census = {
+        "size": (20.0, 20.0, 10.0),
+        "planar_faces": [{"center": (0, 0, 5), "area": 100.0, "metadata": {"geom": "PLANE"}}],
+        "faces": [{"center": (0, 0, 5), "area": 100.0, "metadata": {"geom": "PLANE"}}],
+    }
+    tool = strategy_feature_add(edit, "a.step", census, text="Add a 3 mm boss")
+    assert tool.tool_name == "add_cylinder"
+    hole = strategy_feature_add(edit, "a.step", census, text="Add a 3 mm hole near the top")
+    assert hole.tool_name == "drill_hole_at_point"
+
+
+def test_failure_bucket_tagging():
+    from scripts.failure_buckets import summarize_buckets, tag_failure_bucket
+
+    assert tag_failure_bucket(ours={"diff_f1": 0.05, "chamfer": 0.95, "volume_f1": 0.9}) == "identity"
+    assert tag_failure_bucket(ours={"diff_f1": 0.5, "chamfer": 0.9, "volume_f1": 0.9}) == "ok"
+    assert tag_failure_bucket(
+        ours={"diff_f1": 0.2, "chamfer": 0.9, "volume_f1": 0.8},
+        pipeline_result={"retry_history": ["iter0: SLOT_MISMATCH faces"]},
+    ) == "wrong_edge_or_scope"
+    assert summarize_buckets([{"failure_bucket": "identity"}, {"failure_bucket": "identity"}, {"failure_bucket": "ok"}])["identity"] == 2
+
+
+def test_candidate_enumeration_rims_sites_and_safeguards():
+    import math
+
+    from groundedcad.agents.candidate_enum import enumerate_tool_candidates
+    from groundedcad.agents.classifier import ClassifiedEdit
+    from groundedcad.agents.schemas import EditPattern
+
+    census = {
+        "size": (20.0, 10.0, 5.0),
+        "shortest_axis": "Z",
+        "circular_edges": [
+            {"radius": 1.0, "length": 2 * math.pi, "center": (2, 2, 0)},
+            {"radius": 1.0, "length": 2 * math.pi, "center": (2, 2, 5)},
+            {"radius": 1.5, "length": 3 * math.pi, "center": (8, 2, 0)},
+            # Partial arc must not become a rim family.
+            {"radius": 0.8, "length": 1.0, "center": (5, 5, 0)},
+        ],
+        "hole_candidates": [
+            {"diameter": 2.0, "center": (2, 2, 2.5)},
+            {"diameter": 3.0, "center": (8, 2, 2.5)},
+        ],
+        "planar_faces": [
+            {"center": (10, 5, 5), "area": 200.0},
+            {"center": (0, 5, 2.5), "area": 50.0},
+        ],
+    }
+    blend = ClassifiedEdit(
+        edit_type=EditPattern.FILLET_CHAMFER,
+        target_kind="hole_edge",
+        action="chamfer",
+        distance_mm=0.2,
+        complete=True,
+        plan_status="COMPLETE",
+    )
+    rims = enumerate_tool_candidates(blend, "original.step", census, "chamfer holes")
+    assert [c.tool.arguments["hole_diameters"] for c in rims] == [[2.0], [3.0]]
+    assert all(c.tool.arguments["step_path"] == "original.step" for c in rims)
+
+    hole = ClassifiedEdit(
+        edit_type=EditPattern.HOLE_EDIT,
+        target_kind="hole",
+        action="add",
+        diameter_mm=1.7,
+        complete=True,
+        plan_status="COMPLETE",
+    )
+    sites = enumerate_tool_candidates(hole, "original.step", census, "add hole")
+    assert 2 <= len(sites) <= 4
+    assert all(c.tool.tool_name == "drill_hole_at_point" for c in sites)
+    assert len({c.anchor_id for c in sites}) == len(sites)
+
+    undimensioned = ClassifiedEdit(
+        edit_type=EditPattern.FEATURE_ADDITION,
+        action="add",
+        complete=True,
+        plan_status="COMPLETE",
+        notes="feature_add:feature",
+    )
+    guarded = enumerate_tool_candidates(
+        undimensioned, "original.step", census, "add another stand"
+    )
+    assert len(guarded) == 1
+    assert guarded[0].tool.tool_name == "incomplete_plan"
+
+    mirror = ClassifiedEdit(
+        edit_type=EditPattern.PATTERN,
+        action="pattern",
+        complete=True,
+        plan_status="COMPLETE",
+    )
+    mirrored = enumerate_tool_candidates(
+        mirror, "original.step", census, "mirror and merge the part"
+    )
+    assert mirrored[0].tool.tool_name == "incomplete_plan"
+    assert "mirror" in mirrored[0].tool.arguments["reason"]
+
+
+def test_expected_delta_and_candidate_rank():
+    from groundedcad.verify.edit_delta import score_expected_delta
+
+    before = {
+        "volume": 100.0,
+        "size": (10.0, 10.0, 5.0),
+        "n_faces": 8,
+    }
+    after = {
+        "volume": 99.0,
+        "size": (10.0, 10.0, 5.0),
+        "n_faces": 10,
+    }
+    expected = {
+        "volume": "decrease_small",
+        "bbox": "unchanged",
+        "faces": "increase",
+    }
+    assert score_expected_delta(before, after, expected) == 3
+    good = {
+        "iteration": 1,
+        "success": True,
+        "identity": False,
+        "failures": [],
+        "delta_match": 3,
+        "locality_ok": True,
+        "accepted": True,
+        "safe": True,
+        "score": 8.0,
+        "volume_ratio": 0.01,
+    }
+    wrong_delta = dict(good, delta_match=1, score=12.0)
+    failed = dict(good, failures=["SLOT_MISMATCH"], score=13.0)
+    assert GroundedCADPipeline._candidate_rank(good) > GroundedCADPipeline._candidate_rank(wrong_delta)
+    assert GroundedCADPipeline._candidate_rank(good) > GroundedCADPipeline._candidate_rank(failed)
+
+
+def test_candidate_pipeline_executes_independently_from_original(examples, tmp_path):
+    req = load_request_json(Path(examples["hole_plate"]) / "request.json")
+    client = MockLLMClient()
+    pipe = GroundedCADPipeline(
+        grounding_client=client,
+        planning_client=client,
+        critic_client=client,
+        max_iters=1,
+        visual_iters=1,
+        hybrid_autodesk_fallback=True,
+        candidate_enumeration=True,
+        max_candidates=2,
+        use_llm_cadquery=False,
+        sandbox=Sandbox(render=False),
+        inprocess=True,
+        render=False,
+    )
+    result = pipe.run(req, tmp_path / "candidate_pipe")
+    summaries = result.settings["candidate_summaries"]
+    assert result.settings["candidate_enumeration"] is True
+    assert 1 <= len(summaries) <= 2
+    assert all("anchor_id" in summary for summary in summaries)
+    for log in result.iterations:
+        if not log.execution:
+            continue
+        for call in log.execution.tool_calls:
+            assert call.arguments.get("step_path") == req.step_path
+
+
+def test_shape_from_workplane_peels_nested():
+    from groundedcad.geometry.inspect import shape_from_workplane
+
+    class Solid:
+        pass
+
+    class WP:
+        def __init__(self, inner):
+            self._inner = inner
+
+        def newObject(self, *_a, **_k):
+            return self
+
+        def val(self):
+            return self._inner
+
+    solid = Solid()
+    assert shape_from_workplane(WP(WP(solid))) is solid
 
 
 def test_generate_grounded_cadquery_uses_occ_facts_and_blocks_first_complete():
@@ -482,6 +931,16 @@ def test_generate_grounded_cadquery_uses_occ_facts_and_blocks_first_complete():
         images=None,
         iteration=0,
         visual_iters_remaining=5,
+        prior_candidates=[
+            {
+                "iteration": 0,
+                "success": True,
+                "accepted": False,
+                "identity": True,
+                "score": 2.0,
+                "failures": ["IDENTITY_OUTPUT"],
+            }
+        ],
     )
     assert out["complete"] is False
     assert "def my_cad_function" in out["my_cad_function"]
@@ -491,6 +950,10 @@ def test_generate_grounded_cadquery_uses_occ_facts_and_blocks_first_complete():
     assert "protrusions" in payload
     assert "IDENTITY_OUTPUT" in payload
     assert "Bounding box" in payload
+    assert "prior_candidates" in payload
+    assert "IDENTITY_OUTPUT" in payload
+    assert "image_order" in payload
+    assert "partial edit" in payload
     assert client.calls[-1]["max_tokens"] == GROUNDED_CQ_MAX_TOKENS
     out2 = generate_grounded_cadquery(
         client,
@@ -499,6 +962,32 @@ def test_generate_grounded_cadquery_uses_occ_facts_and_blocks_first_complete():
         classified={"edit_type": "feature_addition"},
         iteration=1,
         visual_iters_remaining=4,
+        mode="reconstruct",
     )
     # Mock always returns complete=false; first-iter force is the important lock.
     assert "complete" in client.calls[-1]["system"].lower()
+    assert "Rebuild a LOCAL region" in client.calls[-1]["system"]
+
+
+def test_classifier_preserves_compound_operations_for_cadquery():
+    from groundedcad.agents.classifier import classify_instruction
+    from groundedcad.tools.llm_cadquery import generate_grounded_cadquery
+    from groundedcad.llm.base import MockLLMClient
+
+    edit = classify_instruction("Add a 3 mm hole and chamfer it by 0.2 mm.")
+    kinds = [op["type"] for op in edit.operations]
+    assert "ADD_HOLE" in kinds
+    assert "CHAMFER" in kinds
+    assert edit.diameter_mm == 3.0
+    assert edit.distance_mm == 0.2
+
+    client = MockLLMClient()
+    generate_grounded_cadquery(
+        client,
+        instruction="Add a 3 mm hole and chamfer it by 0.2 mm.",
+        geometry_brief="MODEL",
+        classified=edit.model_dump(),
+        iteration=0,
+    )
+    assert '"operations"' in client.calls[-1]["user"]
+    assert "ADD_HOLE" in client.calls[-1]["user"]

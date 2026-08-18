@@ -95,8 +95,13 @@ def _extract_dimensions(text: str) -> dict[str, float]:
     patterns = [
         ("diameter", rf"(?:diameter|dia|ø)\s*[:=]?\s*(\d+(?:\.\d+)?)\s*({_UNIT})?"),
         ("diameter", rf"(\d+(?:\.\d+)?)\s*({_UNIT})?\s+(?:diameter|dia)"),
+        # Natural edit language commonly omits the word "diameter":
+        # "add a 3 mm hole".  Keep this scoped to a hole noun so unrelated
+        # measurements do not become an implicit bore size.
+        ("diameter", rf"(\d+(?:\.\d+)?)\s*({_UNIT})\s+(?:through\s+)?holes?\b"),
         ("radius", rf"(?:radius|fillet|\br\b)\s*[:=]?\s*(\d+(?:\.\d+)?)\s*({_UNIT})?"),
         ("radius", rf"(\d+(?:\.\d+)?)\s*({_UNIT})?\s+(?:radius|fillet|rounds?)"),
+        ("distance", rf"(?:chamfer|fillet|bevel)\b(?:\s+\w+){{0,4}}\s+(?:by|of)\s*(\d+(?:\.\d+)?)\s*({_UNIT})?"),
         ("distance", rf"(?:chamfer|distance|offset|arm length|height)\s*[:=]?\s*(\d+(?:\.\d+)?)\s*({_UNIT})?"),
         ("distance", rf"(\d+(?:\.\d+)?)\s*({_UNIT})?\s+(?:chamfer|rib|rod)"),
         ("groove", rf"(?:groove|grooves|knurl)\s*[:=]?\s*(?:of\s*)?(\d+(?:\.\d+)?)\s*({_UNIT})?"),

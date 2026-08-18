@@ -156,8 +156,13 @@ def strategy_hole_edit(edit: ClassifiedEdit, step_path: str, census: dict[str, A
     if edit.groove_mm:
         tool.followups.append(
             ToolCall(
-                tool_name="chamfer_circular_edges",
-                arguments={"step_path": step_path, "distance": float(edit.groove_mm), "max_edges": 8},
+        tool_name="chamfer_circular_edges",
+                arguments={
+                    "step_path": step_path,
+                    "distance": float(edit.groove_mm),
+                    "max_edges": 4,
+                    "hole_diameters": [float(diameter)],
+                },
                 rationale="Strategy hole_add: grooves as local chamfer on hole rims",
             )
         )
@@ -206,10 +211,24 @@ def strategy_fillet_chamfer(edit: ClassifiedEdit, step_path: str, census: dict[s
         if dist <= 0:
             return _incomplete("chamfer requires parsed distance")
         if edit.target_kind in {"hole_edge", "hole"}:
+            from groundedcad.geometry.inspect import fitting_hole_diameter, rank_hole_rims
+
+            ranked = rank_hole_rims(census or {}, blend_mm=dist)
+            fit = float(ranked[0]["diameter"]) if ranked else fitting_hole_diameter(census or {}, blend_mm=dist)
+            holes = _existing_holes(census)
+            diameters = [fit] if fit else [d for _c, d in holes]
+            args: dict[str, Any] = {
+                "step_path": step_path,
+                "distance": dist,
+                "max_edges": 4,
+                "hole_diameters": diameters[:4],
+            }
+            if ranked and ranked[0].get("centers"):
+                args["rim_centers"] = ranked[0]["centers"]
             return ToolCall(
                 tool_name="chamfer_circular_edges",
-                arguments={"step_path": step_path, "distance": dist, "max_edges": 12},
-                rationale="Strategy blend: hole rims only",
+                arguments=args,
+                rationale="Strategy blend: fitting-hole rims only",
             )
         max_edges = 48 if region == "all" else (6 if region in {"slot", "front_center"} else 12)
         return ToolCall(
@@ -221,10 +240,24 @@ def strategy_fillet_chamfer(edit: ClassifiedEdit, step_path: str, census: dict[s
     if radius <= 0:
         return _incomplete("fillet requires parsed radius")
     if edit.target_kind in {"hole_edge", "hole"}:
+        from groundedcad.geometry.inspect import fitting_hole_diameter, rank_hole_rims
+
+        ranked = rank_hole_rims(census or {}, blend_mm=radius)
+        fit = float(ranked[0]["diameter"]) if ranked else fitting_hole_diameter(census or {}, blend_mm=radius)
+        holes = _existing_holes(census)
+        diameters = [fit] if fit else [d for _c, d in holes]
+        args = {
+            "step_path": step_path,
+            "radius": radius,
+            "max_edges": min(8, max(2, 2 * max(1, len({round(d, 2) for d in diameters})))),
+            "hole_diameters": diameters[:8],
+        }
+        if ranked and ranked[0].get("centers"):
+            args["rim_centers"] = ranked[0]["centers"]
         return ToolCall(
             tool_name="fillet_circular_edges",
-            arguments={"step_path": step_path, "radius": radius, "max_edges": 12},
-            rationale="Strategy blend: circular hole rims",
+            arguments=args,
+            rationale="Strategy blend: fitting-hole rims only",
         )
     max_edges = 64 if region == "all" else (8 if region in {"slot", "front_center"} else 16)
     return ToolCall(
@@ -513,6 +546,38 @@ def strategy_feature_add(
     # cues actually move the anchor; only fall back to the tag when the
     # instruction itself doesn't name a side.
     cx, cy, cz = _named_sites(census, text or tag, 1)[0]
+    # Prefer local cylinder/hole when diameter is known — edit volume, not rebuild.
+    if edit.diameter_mm and edit.diameter_mm > 0:
+        dia = float(edit.diameter_mm)
+        height = h if h > 0 else max(0.12 * smallest, dia)
+        lower = (text or "").lower()
+        if any(w in lower for w in ("hole", "bore", "drill", "cutout", "pocket")):
+            return ToolCall(
+                tool_name="drill_hole_at_point",
+                arguments={
+                    "step_path": step_path,
+                    "x": cx,
+                    "y": cy,
+                    "z": cz,
+                    "diameter": dia,
+                    "axis": "Z",
+                },
+                rationale="Strategy feature_add: local hole from parsed diameter on planar face",
+            )
+        return ToolCall(
+            tool_name="add_cylinder",
+            arguments={
+                "step_path": step_path,
+                "x": cx,
+                "y": cy,
+                "z": cz + height / 2,
+                "diameter": dia,
+                "height": height,
+                "axis": "Z",
+                "combine": "union",
+            },
+            rationale="Strategy feature_add: local cylinder from parsed diameter",
+        )
     hh = h if h > 0 else max(0.06 * smallest, 2.0)
     return ToolCall(
         tool_name="add_box",

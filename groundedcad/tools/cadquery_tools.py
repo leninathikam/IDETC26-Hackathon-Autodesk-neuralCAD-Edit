@@ -212,19 +212,144 @@ def _is_circular(edge) -> bool:
     return "CIRCLE" in geom or "ARC" in geom
 
 
-def _pick_circular_edges(shape, min_length: float, max_length: float, max_edges: int, hole_rims: bool = False):
-    circ = []
-    if hole_rims:
-        seen = set()
-        for face in shape.Faces():
+def _occ_radius(edge) -> float:
+    try:
+        return float(edge.radius())
+    except Exception:
+        return _edge_radius(edge)
+
+
+def _is_near_full_circle(edge, min_frac: float = 0.85) -> bool:
+    """True when edge length is most of the supporting circle (real rim, not a short arc)."""
+    try:
+        r = _occ_radius(edge)
+        length = float(edge.Length())
+    except Exception:
+        return False
+    full = 2.0 * math.pi * max(r, 1e-12)
+    return (length / full) >= min_frac
+
+
+def _inner_hole_diameter(shape, diameters: Optional[list[float]] = None, blend_mm: float = 0.0) -> Optional[float]:
+    """Pick a bore large enough for the blend that has near-full circular rims."""
+    bb = shape.BoundingBox()
+    spans = [s for s in (float(bb.xlen), float(bb.ylen), float(bb.zlen)) if s > 1e-9]
+    outer_cap = 0.7 * max(spans) if spans else 1e9
+    floor = max(0.8, 6.0 * float(blend_mm)) if blend_mm else 0.8
+    counts: dict[float, int] = {}
+    # Prefer diameters that appear as near-full circles on the solid.
+    for e in shape.Edges():
+        if not _is_circular(e) or not _is_near_full_circle(e):
+            continue
+        d = round(2.0 * _occ_radius(e), 2)
+        if floor <= d <= outer_cap:
+            counts[d] = counts.get(d, 0) + 1
+    if diameters:
+        # An explicit diameter is a target constraint, not a feasibility
+        # heuristic.  In particular, the old ``6 * blend_mm`` floor silently
+        # discarded a requested small hole, then selected an unrelated larger
+        # circular boss.  OCC feasibility is handled later by
+        # ``_distance_candidates`` after the requested rim has been selected.
+        forced = {round(float(d), 2) for d in diameters if 0.0 < float(d) <= outer_cap}
+        overlap = {d: counts[d] for d in forced if d in counts}
+        if overlap:
+            return min(overlap, key=lambda d: (overlap[d], d))
+        # Do not substitute another diameter when the caller explicitly
+        # specified one.  Returning None causes the blend tool to fail safely.
+        return None
+    if not counts:
+        return None
+    pairish = [(d, n) for d, n in counts.items() if 2 <= n <= 24]
+    if pairish:
+        return min(pairish, key=lambda kv: (kv[1], kv[0]))[0]
+    return min(counts)
+
+
+def _near_center(edge, centers: list[tuple[float, float, float]], tol: float) -> bool:
+    if not centers:
+        return True
+    cx, cy, cz = _edge_center(edge)
+    for tx, ty, tz in centers:
+        if (cx - tx) ** 2 + (cy - ty) ** 2 + (cz - tz) ** 2 <= tol * tol:
+            return True
+    return False
+
+
+def _edges_from_cylinder_rims(
+    shape,
+    want_d: Optional[float],
+    min_length: float,
+    max_length: float,
+    rim_centers: Optional[list[tuple[float, float, float]]] = None,
+):
+    """Collect circular edges that bound cylindrical faces (true hole rims)."""
+    bb = shape.BoundingBox()
+    span = max(float(bb.xlen), float(bb.ylen), float(bb.zlen), 1e-6)
+    center_tol = max(0.25, 0.05 * span)
+    diam_tol = max(0.15, 0.08 * float(want_d)) if want_d else 1e9
+    seen = set()
+    out = []
+    faces = list(shape.Faces()) if hasattr(shape, "Faces") else []
+    for face in faces:
+        try:
+            geom = str(face.geomType()).upper()
+        except Exception:
+            continue
+        if "CYLINDER" not in geom:
+            continue
+        for e in face.Edges():
+            if not _is_circular(e) or not _is_near_full_circle(e):
+                continue
             try:
-                geom = str(face.geomType()).upper()
+                length = float(e.Length())
             except Exception:
                 continue
-            if "CYLINDER" not in geom:
+            if not (min_length <= length <= max_length):
                 continue
-            for e in face.Edges():
-                if not _is_circular(e):
+            d = 2.0 * _occ_radius(e)
+            if want_d is not None and abs(d - want_d) > diam_tol:
+                continue
+            if rim_centers and not _near_center(e, rim_centers, center_tol):
+                continue
+            cx, cy, cz = _edge_center(e)
+            key = (round(cx, 3), round(cy, 3), round(cz, 3), round(length, 3))
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(e)
+    return out
+
+
+def _pick_circular_edges(
+    shape,
+    min_length: float,
+    max_length: float,
+    max_edges: int,
+    hole_rims: bool = False,
+    hole_diameters: Optional[list[float]] = None,
+    blend_mm: float = 0.0,
+    rim_centers: Optional[list[tuple[float, float, float]]] = None,
+):
+    circ = []
+    if hole_rims:
+        want_d = _inner_hole_diameter(shape, hole_diameters, blend_mm=blend_mm)
+        bb = shape.BoundingBox()
+        span = max(float(bb.xlen), float(bb.ylen), float(bb.zlen), 1e-6)
+        # Soft preference only — census hole centers are often mid-cylinder, not rim centers.
+        center_tol = max(1.5, 0.25 * span)
+
+        def _collect(use_centers: bool):
+            centers = rim_centers if use_centers else None
+            edges = _edges_from_cylinder_rims(
+                shape, want_d, min_length, max_length, rim_centers=centers
+            )
+            seen_keys = set()
+            for e in edges:
+                cx, cy, cz = _edge_center(e)
+                seen_keys.add((round(cx, 3), round(cy, 3), round(cz, 3), round(float(e.Length()), 3)))
+            diam_tol = max(0.25, 0.15 * float(want_d)) if want_d else 1e9
+            for e in shape.Edges():
+                if not _is_circular(e) or not _is_near_full_circle(e):
                     continue
                 try:
                     length = float(e.Length())
@@ -232,20 +357,43 @@ def _pick_circular_edges(shape, min_length: float, max_length: float, max_edges:
                     continue
                 if not (min_length <= length <= max_length):
                     continue
+                if want_d is not None:
+                    d = 2.0 * _occ_radius(e)
+                    if abs(d - want_d) > diam_tol:
+                        continue
+                if centers and not _near_center(e, centers, center_tol):
+                    continue
                 cx, cy, cz = _edge_center(e)
                 key = (round(cx, 3), round(cy, 3), round(cz, 3), round(length, 3))
-                if key in seen:
+                if key in seen_keys:
                     continue
-                seen.add(key)
-                circ.append(e)
+                seen_keys.add(key)
+                edges.append(e)
+            return edges
+
+        # Center locations identify the requested hole family.  Only relax
+        # this filter when inspection supplied imprecise mid-cylinder centers
+        # and it produces no usable rims at all.
+        circ = _collect(use_centers=bool(rim_centers))
+        if not circ and rim_centers:
+            circ = _collect(use_centers=False)
+        if circ and rim_centers:
+            circ.sort(
+                key=lambda e: (
+                    min(
+                        (_edge_center(e)[0] - c[0]) ** 2
+                        + (_edge_center(e)[1] - c[1]) ** 2
+                        + (_edge_center(e)[2] - c[2]) ** 2
+                        for c in rim_centers
+                    ),
+                    _occ_radius(e),
+                )
+            )
+        elif circ:
+            circ.sort(key=lambda e: _occ_radius(e))
         if circ:
-            circ.sort(key=lambda e: float(e.Length()))
-            # Hole rims: skip decorative micro-arcs and the outer silhouette.
-            if len(circ) > 4:
-                lo = max(1, len(circ) // 5)
-                hi = max(lo + 1, (4 * len(circ)) // 5)
-                circ = circ[lo:hi] or circ
-            return circ[: max(1, int(max_edges))]
+            return circ[: max(2, min(int(max_edges), 8))]
+        return []
     for e in shape.Edges():
         if not _is_circular(e):
             continue
@@ -270,16 +418,22 @@ def _pick_circular_edges(shape, min_length: float, max_length: float, max_edges:
 
 
 def _distance_candidates(requested: float, edges) -> list[float]:
-    radii = [_edge_radius(e) for e in edges] or [0.5]
+    """Try the instruction distance first; only then fall back under OCC's ~0.28r cap."""
+    radii = [_occ_radius(e) for e in edges] or [0.5]
     rmin = min(radii)
-    cap = 0.32 * rmin
+    cap = 0.28 * rmin
+    req = abs(float(requested))
     out: list[float] = []
-    for raw in (requested, requested / 10.0, requested / 1000.0):
-        d = min(abs(float(raw)), cap)
-        if d >= 1e-5 and d not in out:
+    for raw in (req, 0.9 * req, 0.75 * req, cap, 0.9 * cap):
+        d = abs(float(raw))
+        if req <= cap + 1e-12:
+            # Requested is already legal — keep candidates ≤ req (don't jump to larger cap).
+            d = min(d, req)
+        else:
+            # Requested illegal — never exceed OCC cap.
+            d = min(d, cap)
+        if d >= 1e-5 and all(abs(d - x) > 1e-9 for x in out):
             out.append(d)
-    if cap >= 1e-5 and cap not in out:
-        out.append(cap)
     return out
 
 
@@ -300,35 +454,55 @@ def _near_selector(cq, x: float, y: float, z: float, tol: float):
     return _Near()
 
 
-def _apply_circular_blend(shape, kind: str, size: float, min_length: float, max_length: float, max_edges: int, hole_rims: bool = False):
+def _apply_circular_blend(
+    shape,
+    kind: str,
+    size: float,
+    min_length: float,
+    max_length: float,
+    max_edges: int,
+    hole_rims: bool = False,
+    hole_diameters: Optional[list[float]] = None,
+    rim_centers: Optional[list[tuple[float, float, float]]] = None,
+):
     import cadquery as cq
 
-    picked = _pick_circular_edges(shape, min_length, max_length, max_edges, hole_rims=hole_rims)
+    if hasattr(shape, "Solids"):
+        solids = list(shape.Solids())
+        if len(solids) == 1:
+            shape = solids[0]
+    picked = _pick_circular_edges(
+        shape,
+        min_length,
+        max_length,
+        max_edges,
+        hole_rims=hole_rims,
+        hole_diameters=hole_diameters,
+        blend_mm=size,
+        rim_centers=rim_centers,
+    )
     if not picked:
         raise ValueError("No circular edges")
     distances = _distance_candidates(size, picked)
-    current = shape
-    applied = 0
     last_err: Exception | None = None
-    for edge in picked:
-        cx, cy, cz = _edge_center(edge)
-        tol = max(0.03, 0.15 * _edge_radius(edge))
-        ok = False
+    # Also try each edge alone — multi-edge chamfer often fails on noisy STEP topology.
+    edge_sets: list[list] = []
+    for n in (len(picked), min(4, len(picked)), min(2, len(picked)), 1):
+        if n < 1:
+            continue
+        chunk = picked[:n]
+        if chunk and chunk not in edge_sets:
+            edge_sets.append(chunk)
+    for edges in edge_sets:
         for d in distances:
             try:
-                wp = cq.Workplane("XY").newObject([current]).edges(_near_selector(cq, cx, cy, cz, tol))
-                nxt = wp.chamfer(d) if kind == "chamfer" else wp.fillet(d)
+                nxt = shape.chamfer(d, None, edges) if kind == "chamfer" else shape.fillet(d, edges)
                 current = nxt.val() if hasattr(nxt, "val") else nxt
-                applied += 1
-                ok = True
-                break
+                return cq.Workplane("XY").newObject([current])
             except Exception as exc:  # noqa: BLE001
                 last_err = exc
-        if not ok:
-            continue
-    if applied == 0:
-        raise last_err or ValueError(f"circular {kind} failed")
-    return cq.Workplane("XY").newObject([current])
+                continue
+    raise last_err or ValueError(f"circular {kind} failed")
 
 
 @tool("chamfer_circular_edges")
@@ -337,19 +511,50 @@ def chamfer_circular_edges(
     distance: float,
     min_length: float = 0.0,
     max_length: float = 1e9,
-    max_edges: int = 16,
+    max_edges: int = 4,
+    hole_diameters: Optional[list[float]] = None,
+    rim_centers: Optional[list] = None,
     **_: Any,
 ):
-    """Chamfer hole/circle rims — local edit, better Chamfer/DINO vs rebuilding."""
+    """Chamfer inner hole rims only — not every circular edge on the part."""
     if not cadquery_available():
         solid = load_simple(step_path).copy()
         solid.chamfers.append({"distance": float(distance), "circular": True, "max_edges": max_edges})
         return solid
 
-    import cadquery as cq
-
     shape = _as_shape(_load_wp(step_path))
-    return _apply_circular_blend(shape, "chamfer", float(distance), min_length, max_length, max_edges, hole_rims=True)
+    centers = None
+    if rim_centers:
+        centers = [tuple(float(x) for x in c) for c in rim_centers]  # type: ignore[misc]
+    if not hole_diameters:
+        try:
+            from groundedcad.geometry.inspect import inspect_shape, rank_hole_rims
+
+            census = inspect_shape(shape)
+            ranked = rank_hole_rims(census, blend_mm=float(distance))
+            if ranked:
+                hole_diameters = [float(ranked[0]["diameter"])]
+                if centers is None:
+                    centers = list(ranked[0].get("centers") or [])
+            else:
+                hole_diameters = [
+                    float(h["diameter"])
+                    for h in (census.get("hole_candidates") or [])
+                    if h.get("diameter")
+                ]
+        except Exception:
+            hole_diameters = []
+    return _apply_circular_blend(
+        shape,
+        "chamfer",
+        float(distance),
+        min_length,
+        max_length,
+        max_edges,
+        hole_rims=True,
+        hole_diameters=hole_diameters,
+        rim_centers=centers,
+    )
 
 
 @tool("fillet_circular_edges")
@@ -358,7 +563,9 @@ def fillet_circular_edges(
     radius: float,
     min_length: float = 0.0,
     max_length: float = 1e9,
-    max_edges: int = 16,
+    max_edges: int = 4,
+    hole_diameters: Optional[list[float]] = None,
+    rim_centers: Optional[list] = None,
     **_: Any,
 ):
     if not cadquery_available():
@@ -366,10 +573,33 @@ def fillet_circular_edges(
         solid.fillets.append({"radius": float(radius), "circular": True, "max_edges": max_edges})
         return solid
 
-    import cadquery as cq
-
     shape = _as_shape(_load_wp(step_path))
-    return _apply_circular_blend(shape, "fillet", float(radius), min_length, max_length, max_edges, hole_rims=True)
+    centers = None
+    if rim_centers:
+        centers = [tuple(float(x) for x in c) for c in rim_centers]  # type: ignore[misc]
+    if not hole_diameters:
+        try:
+            from groundedcad.geometry.inspect import inspect_shape, rank_hole_rims
+
+            census = inspect_shape(shape)
+            ranked = rank_hole_rims(census, blend_mm=float(radius))
+            if ranked:
+                hole_diameters = [float(ranked[0]["diameter"])]
+                if centers is None:
+                    centers = list(ranked[0].get("centers") or [])
+        except Exception:
+            pass
+    return _apply_circular_blend(
+        shape,
+        "fillet",
+        float(radius),
+        min_length,
+        max_length,
+        max_edges,
+        hole_rims=True,
+        hole_diameters=hole_diameters,
+        rim_centers=centers,
+    )
 
 
 @tool("drill_hole_at_point")
