@@ -54,6 +54,18 @@ GPT_USER = "gpt-5.2_cadquery-script"
 ROW_TIMEOUT_S = 420
 
 
+def _load_run_env() -> None:
+    """Load model configuration before deriving artifact provenance."""
+    try:
+        from dotenv import load_dotenv
+
+        load_dotenv(ROOT / ".env", override=False)
+    except Exception:
+        # The client will report a clear configuration error if credentials are
+        # unavailable; never silently mislabel a configured run as mock.
+        pass
+
+
 def _run_slug() -> str:
     """Stable output identity for a provider/model benchmark run.
 
@@ -157,7 +169,7 @@ def run_one_row(payload_path: Path, out: Path) -> None:
     pipe.run(req, out, inplace=True)
 
 
-def run_row_isolated(row: dict, out: Path) -> Path | None:
+def run_row_isolated(row: dict, out: Path) -> tuple[Path | None, bool]:
     """Run one edit in a child process so a hung OCC call cannot freeze the batch."""
     out.mkdir(parents=True, exist_ok=True)
     payload_path = OUT_DIR / f"_payload_{out.name}.json"
@@ -168,9 +180,11 @@ def run_row_isolated(row: dict, out: Path) -> Path | None:
         cwd=str(ROOT),
         env=env,
     )
+    timed_out = False
     try:
         proc.wait(timeout=ROW_TIMEOUT_S)
     except subprocess.TimeoutExpired:
+        timed_out = True
         print(f"ROW TIMEOUT {out.name} after {ROW_TIMEOUT_S}s", flush=True)
         subprocess.run(
             ["taskkill", "/F", "/T", "/PID", str(proc.pid)],
@@ -183,12 +197,30 @@ def run_row_isolated(row: dict, out: Path) -> Path | None:
             proc.kill()
     finally:
         payload_path.unlink(missing_ok=True)
+    # The pipeline writes tmp.step during input preparation.  It is not an
+    # edited prediction when the child is killed by the outer watchdog.
+    # Returning it here silently scores a start/partial STEP as a valid edit.
+    if timed_out:
+        return None, True
     pred = _latest_step(out)
     dest = out / "tmp.step"
     if pred and pred.resolve() != dest.resolve():
         shutil.copy2(pred, dest)
-        return dest
-    return pred
+        return dest, False
+    return pred, False
+
+
+def clear_incomplete_row_artifacts(out: Path) -> None:
+    """Remove artifacts from an unfinished row before a resume retry.
+
+    A row without ``pipeline_result.json`` is not a completed pipeline run.
+    In particular, it may contain ``tmp.step`` copied from an earlier attempt.
+    Reusing that file after a later timeout makes the score look valid while it
+    measures geometry produced by a different execution.
+    """
+    if not out.exists():
+        return
+    shutil.rmtree(out)
 
 
 def main():
@@ -215,6 +247,7 @@ def main():
     parser.add_argument("--max-candidates", type=int, default=4)
     parser.add_argument("--fresh", action="store_true", help="Wipe prior row folders and the report")
     args = parser.parse_args()
+    _load_run_env()
 
     global OUT_DIR, REPORT
     # Default to a model-specific location.  Explicit --out/--report values
@@ -311,11 +344,17 @@ def main():
             print(f"RESUME {rid[:24]} (existing pipeline_result.json)", flush=True)
             pred = out / "tmp.step"
         else:
+            # A partial directory is never a cache entry.  Clear it before a
+            # retry so a timeout cannot be scored against an old tmp.step.
+            clear_incomplete_row_artifacts(out)
             try:
-                pred = run_row_isolated(row, out)
+                pred, row_timed_out = run_row_isolated(row, out)
             except Exception as exc:  # noqa: BLE001
                 print(f"ROW FAIL {rid}: {exc}", flush=True)
                 pred = _latest_step(out)
+                row_timed_out = False
+        if result_path.exists():
+            row_timed_out = False
 
         db_req = requests.get(rid)
         gt_user = db_req.get("user") if db_req else None
@@ -360,11 +399,16 @@ def main():
             "type": classify(text),
             "instruction": " ".join(text.split())[:100],
             "ours": ours,
+            "execution_status": "row_timeout" if row_timed_out else "completed",
             "gpt52": gpt,
-            "failure_bucket": tag_failure_bucket(
-                ours=ours,
-                pipeline_result=load_pipeline_result(out),
-                instruction=text,
+            "failure_bucket": (
+                "row_timeout"
+                if row_timed_out
+                else tag_failure_bucket(
+                    ours=ours,
+                    pipeline_result=load_pipeline_result(out),
+                    instruction=text,
+                )
             ),
         })
         REPORT.write_text(json.dumps(rows, indent=2), encoding="utf-8")
@@ -376,8 +420,9 @@ def main():
         mean_ours = np.mean([r["ours"]["diff_f1"] for r in rows])
         mean_gpt = np.mean([r["gpt52"]["diff_f1"] for r in rows])
         print(
-            f"{n:02d}/{cap} {rid[:24]:26s} ours D={ours['diff_f1']:.3f} gpt5.2 D={gpt['diff_f1']:.3f} "
-            f"| running mean: ours={mean_ours:.4f} gpt5.2={mean_gpt:.4f}",
+            f"{n:02d}/{cap} {rid[:24]:26s} ours D={ours['diff_f1']:.3f} "
+            f"Autodesk GPT-5.2 baseline D={gpt['diff_f1']:.3f} "
+            f"| running mean: ours={mean_ours:.4f} Autodesk GPT-5.2={mean_gpt:.4f}",
             flush=True,
         )
 
@@ -389,7 +434,7 @@ def main():
           f"volf1={np.mean([r['ours']['volume_f1'] for r in rows]):.4f} "
           f"diff_f1={np.mean([r['ours']['diff_f1'] for r in rows]):.4f} "
           f"valid={sum(r['ours']['valid'] for r in rows)}/{len(rows)}")
-    print(f"gpt5.2: chamfer={np.mean([r['gpt52']['chamfer'] for r in rows]):.4f} "
+    print(f"Autodesk GPT-5.2 baseline: chamfer={np.mean([r['gpt52']['chamfer'] for r in rows]):.4f} "
           f"volf1={np.mean([r['gpt52']['volume_f1'] for r in rows]):.4f} "
           f"diff_f1={np.mean([r['gpt52']['diff_f1'] for r in rows]):.4f} "
           f"valid={sum(r['gpt52']['valid'] for r in rows)}/{len(rows)}")

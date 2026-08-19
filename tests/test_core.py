@@ -748,6 +748,18 @@ def test_failure_bucket_tagging():
         ours={"diff_f1": 0.2, "chamfer": 0.9, "volume_f1": 0.8},
         pipeline_result={"retry_history": ["iter0: SLOT_MISMATCH faces"]},
     ) == "wrong_edge_or_scope"
+    # A discarded speculative candidate is not the terminal failure mode.
+    assert tag_failure_bucket(
+        ours={"diff_f1": 0.5, "chamfer": 0.9, "volume_f1": 0.9},
+        pipeline_result={"retry_history": ["candidate0 incomplete_plan: no safe tool"]},
+    ) == "ok"
+    assert tag_failure_bucket(
+        ours={"diff_f1": 0.02, "chamfer": 0.95, "volume_f1": 0.9},
+        pipeline_result={"retry_history": [
+            "candidate0 incomplete_plan: no safe tool",
+            "iter1 raw_cadquery: IDENTITY_OUTPUT: pred matches start",
+        ]},
+    ) == "identity"
     assert summarize_buckets([{"failure_bucket": "identity"}, {"failure_bucket": "identity"}, {"failure_bucket": "ok"}])["identity"] == 2
 
 

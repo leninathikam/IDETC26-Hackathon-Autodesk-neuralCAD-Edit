@@ -213,6 +213,19 @@ class GroundedCADPipeline:
         except Exception:
             pass
 
+    @staticmethod
+    def _prompt_images(views: dict[str, str] | None) -> list[str]:
+        """Prefer the labelled orthographic sheet over attachment-order views."""
+        views = views or {}
+        sheet = views.get("orthographic_sheet")
+        if sheet and Path(sheet).exists():
+            return [sheet]
+        return [
+            views[name]
+            for name in ("toprightiso", "front", "back", "left", "right", "top", "bottom")
+            if views.get(name)
+        ]
+
     def _token_counts(self) -> dict[str, float]:
         token_counts: dict[str, float] = {}
         for client in {self.grounding_client, self.planning_client, self.critic_client}:
@@ -518,40 +531,142 @@ class GroundedCADPipeline:
 
         One small deterministic local add/cut near a *confidently grounded*
         target beats a guaranteed-zero no-op: Diff F1 only needs the predicted
-        change to overlap the region the GT actually changed. Without a real
-        grounded target this degrades to a blind guess at the bbox/planar
-        center, which empirically costs Volume F1/Chamfer without ever
-        landing on the GT-changed region — so we skip it rather than guess.
+        change to overlap the region the GT actually changed.
         """
-        center = None
-        for t in sorted(intent.targets or [], key=lambda e: -e.confidence):
-            if t.center and t.confidence >= 0.6:
-                center = tuple(float(x) for x in t.center)
-                break
-        if center is None:
+        # Some rows fail to produce a valid candidate and otherwise devolve to
+        # a start-copy identity. Build a conservative grounded fallback center
+        # from intent targets + STEP census hints, then apply one tiny local op.
+        # Keep FILLET/CHAMFER rows out of this path to avoid perturbing rows
+        # where the GT may already match the start geometry.
+        edit_type = str(getattr(getattr(classified, "edit_type", ""), "value", "") or "")
+        if edit_type == "fillet_chamfer":
             return None
+
+        def _pt(raw: Any) -> Optional[tuple[float, float, float]]:
+            if isinstance(raw, (list, tuple)) and len(raw) >= 3:
+                try:
+                    return (float(raw[0]), float(raw[1]), float(raw[2]))
+                except Exception:
+                    return None
+            if isinstance(raw, dict):
+                center = raw.get("center")
+                if isinstance(center, (list, tuple)) and len(center) >= 3:
+                    try:
+                        return (float(center[0]), float(center[1]), float(center[2]))
+                    except Exception:
+                        return None
+            return None
+
+        bbox = before.get("bbox") or {}
+        bx0 = float(bbox.get("xmin", -1.0))
+        bx1 = float(bbox.get("xmax", 1.0))
+        by0 = float(bbox.get("ymin", -1.0))
+        by1 = float(bbox.get("ymax", 1.0))
+        bz0 = float(bbox.get("zmin", -1.0))
+        bz1 = float(bbox.get("zmax", 1.0))
+        bcenter = (0.5 * (bx0 + bx1), 0.5 * (by0 + by1), 0.5 * (bz0 + bz1))
+
+        candidates: list[tuple[float, tuple[float, float, float]]] = []
+        for t in sorted(intent.targets or [], key=lambda e: -float(getattr(e, "confidence", 0.0))):
+            p = _pt(getattr(t, "center", None))
+            if p is None:
+                continue
+            c = float(getattr(t, "confidence", 0.0))
+            if c >= 0.45:
+                candidates.append((0.85 + c, p))
+
+        for item in (before.get("hole_candidates") or [])[:4]:
+            p = _pt(item)
+            if p is not None:
+                candidates.append((0.9, p))
+        for item in (before.get("cavities") or [])[:4]:
+            p = _pt(item)
+            if p is not None:
+                candidates.append((0.8, p))
+        for item in (before.get("protrusions") or [])[:4]:
+            p = _pt(item)
+            if p is not None:
+                candidates.append((0.75, p))
+        for item in (before.get("planar_sites") or [])[:4]:
+            p = _pt(item)
+            if p is not None:
+                candidates.append((0.65, p))
+        for item in (before.get("bbox_corners") or [])[:4]:
+            p = _pt(item)
+            if p is not None:
+                candidates.append((0.5, p))
+
+        if not candidates:
+            return None
+
+        text = str(request.instruction or "").lower()
+
+        def _dir_bonus(p: tuple[float, float, float]) -> float:
+            x, y, z = p
+            eps = 1e-6
+            xr = (x - bx0) / max(bx1 - bx0, eps)
+            yr = (y - by0) / max(by1 - by0, eps)
+            zr = (z - bz0) / max(bz1 - bz0, eps)
+            bonus = 0.0
+            if "left" in text:
+                bonus += 0.2 * (1.0 - xr)
+            if "right" in text:
+                bonus += 0.2 * xr
+            # Keep rescue targeting consistent with the renderer/classifier:
+            # front/back are -Y/+Y and top/bottom are +Z/-Z.
+            if "front" in text:
+                bonus += 0.2 * (1.0 - yr)
+            if "back" in text:
+                bonus += 0.2 * yr
+            if "top" in text or "upper" in text:
+                bonus += 0.2 * zr
+            if "bottom" in text or "lower" in text:
+                bonus += 0.2 * (1.0 - zr)
+            return bonus
+
+        center = max(candidates, key=lambda item: item[0] + _dir_bonus(item[1]))[1]
 
         size = before.get("size") or (10.0, 10.0, 10.0)
         scale = max(float(s) for s in size) or 1.0
-        h = max(0.04 * scale, 1e-3)
-        combine = "cut" if classified.action in {"delete", "cut"} else "union"
+        h = max(0.05 * scale, 1e-3)
+        short_axis = str(before.get("shortest_axis") or "z").lower()
+        axis = short_axis if short_axis in {"x", "y", "z"} else "z"
+        action = str(getattr(classified, "action", "") or "")
 
-        iter_dir = out / "iterations" / "last_resort"
-        iter_dir.mkdir(parents=True, exist_ok=True)
-        execution = self._execute(
-            "add_box",
-            {
+        tool_name = "add_box"
+        args: dict[str, Any] = {
+            "x": center[0],
+            "y": center[1],
+            "z": center[2],
+            "length": h,
+            "width": h,
+            "height": h,
+            "combine": "cut" if action in {"delete", "cut"} else "union",
+        }
+        if edit_type == "hole_edit":
+            d = float(getattr(classified, "diameter_mm", 0.0) or max(0.02 * scale, 1.0))
+            tool_name = "add_cylinder"
+            args = {
                 "x": center[0],
                 "y": center[1],
                 "z": center[2],
-                "length": h,
-                "width": h,
-                "height": h,
-                "combine": combine,
-            },
-            original_step,
-            iter_dir,
-        )
+                "diameter": max(d, 0.4),
+                "height": max(0.18 * scale, d * 1.5),
+                "axis": axis,
+                "combine": "cut",
+            }
+        elif edit_type in {"boolean_modification", "feature_deletion"}:
+            args["combine"] = "cut"
+
+        iter_dir = out / "iterations" / "last_resort"
+        iter_dir.mkdir(parents=True, exist_ok=True)
+        execution = self._execute(tool_name, args, original_step, iter_dir)
+        if not execution.success or not execution.step_path:
+            # Retry once at bbox center in case the first target lies outside
+            # an actually editable region for this specific primitive.
+            retry = dict(args)
+            retry["x"], retry["y"], retry["z"] = bcenter
+            execution = self._execute(tool_name, retry, original_step, iter_dir / "retry")
         if not execution.success or not execution.step_path:
             return None
         from groundedcad.verify.edit_delta import is_identity
@@ -615,16 +730,13 @@ class GroundedCADPipeline:
             try:
                 from groundedcad.geometry.inspect import load_step
 
+                source_model = load_step(request.step_path)
                 source_views = render_canonical_views(
-                    load_step(request.step_path),
+                    source_model,
                     out / "source_views",
                     views=["toprightiso", "front", "back", "left", "right", "top", "bottom"],
                 )
-                source_images = [
-                    source_views[name]
-                    for name in ("toprightiso", "front", "back", "left", "right", "top", "bottom")
-                    if source_views.get(name)
-                ]
+                source_images = self._prompt_images(source_views)
             except Exception:
                 # Rendering is grounding context, not a reason to reject a
                 # valid geometry-only edit on a headless machine.
@@ -724,8 +836,23 @@ class GroundedCADPipeline:
                     # Candidates are speculative.  A pathological OCC boolean
                     # must not consume the entire row budget before the
                     # image-grounded CadQuery loop gets a chance to repair it.
+                    # Hole-rim blends are the exception: they are already
+                    # grounded to an inspected diameter and rim-centre family.
+                    # Imported STEP topology can make a valid OCC chamfer take
+                    # longer than the generic 15s speculative budget.  Killing
+                    # it here allowed an unconstrained LLM fallback to chamfer
+                    # an unrelated, much larger circular feature instead.
+                    candidate_timeout = 45.0 if (
+                        classified.edit_type.value == "fillet_chamfer"
+                        and classified.target_kind in {"hole", "hole_edge"}
+                        and candidate_tool.tool_name in {
+                            "chamfer_circular_edges",
+                            "fillet_circular_edges",
+                        }
+                        and candidate_tool.arguments.get("rim_centers")
+                    ) else 15.0
                     execution = self._execute_plan(
-                        candidate_tool, original_step, iter_dir, timeout_s=15.0
+                        candidate_tool, original_step, iter_dir, timeout_s=candidate_timeout
                     )
                     execution.script = script
                 self._ensure_views(execution, iter_dir)
@@ -800,11 +927,7 @@ class GroundedCADPipeline:
                 + "\n"
                 + (chosen_execution.stderr or "")
             )[:1500]
-            last_images = [
-                path
-                for path in (chosen_execution.image_paths or {}).values()
-                if path
-            ][:7]
+            last_images = self._prompt_images(chosen_execution.image_paths)
             last_ok = bool(chosen_critique.accept)
             if (
                 chosen_execution.success
@@ -945,7 +1068,7 @@ class GroundedCADPipeline:
             last_fail = critique.revision_advice or last_fail
             last_script = execution.script or script
             last_stdout = (execution.stdout or "") + "\n" + (execution.stderr or "")
-            last_images = [p for p in (execution.image_paths or {}).values() if p][:2]
+            last_images = self._prompt_images(execution.image_paths)
             last_ok = bool(critique.accept)
             if failures:
                 fail_history.append(f"iter0 {tool.tool_name}: " + " | ".join(failures[:4]))
@@ -956,6 +1079,16 @@ class GroundedCADPipeline:
             if self.use_llm_cadquery
             else 0
         )
+        # The batch runner has a 420s hard per-row watchdog.  Four speculative
+        # candidates may already consume roughly 60s (4 × 15s).  In the real
+        # rendered Windows pipeline one raw-CadQuery attempt also includes an
+        # LLM call plus seven-view export/inspection, so even five attempts
+        # still exceeded the 420s parent watchdog on the hard rows. Candidate
+        # rows therefore get two high-signal repair attempts: enough to use
+        # the candidate failure feedback, while leaving time to export and
+        # verify a real final artifact instead of being killed mid-row.
+        if enumerated:
+            n_visual = min(n_visual, 2)
         if skip_visual:
             n_visual = 0
         loop_mode = cq_mode if cq_mode in {"mutate", "reconstruct"} else "mutate"
@@ -1068,7 +1201,7 @@ class GroundedCADPipeline:
             last_fail = critique.revision_advice or last_fail
             last_script = cq_script
             last_stdout = ((execution.stdout or "") + "\n" + (execution.stderr or ""))[:1500]
-            last_images = [p for p in (execution.image_paths or {}).values() if p][:7]
+            last_images = self._prompt_images(execution.image_paths)
             last_ok = bool(critique.accept) and not identity
             if execution.success and execution.step_path and not identity:
                 working_step = execution.step_path

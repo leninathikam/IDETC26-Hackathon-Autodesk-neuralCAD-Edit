@@ -22,14 +22,22 @@ def tag_failure_bucket(
         hist = list(pipeline_result.get("retry_history") or pipeline_result.get("settings", {}).get("retry_history") or [])
         if not hist and isinstance(pipeline_result.get("settings"), dict):
             hist = list(pipeline_result["settings"].get("retry_history") or [])
-    joined = " | ".join(str(h) for h in hist).upper()
+    # Candidate enumeration is intentionally allowed to decline an unsafe or
+    # under-specified edit.  Its ``INCOMPLETE_PLAN`` record must not mask the
+    # subsequent raw-CadQuery outcome (and previously labelled high-D rows as
+    # misclassified merely because an early candidate was discarded).
+    terminal_hist = [
+        str(h) for h in hist
+        if not str(h).lower().lstrip().startswith("candidate")
+    ]
+    joined = " | ".join(terminal_hist or [str(h) for h in hist]).upper()
 
+    if diff >= 0.45 and chamfer >= 0.7:
+        return "ok"
     if "INCOMPLETE_PLAN" in joined:
         return "misclassify"
     if "OCC" in joined or "NO CIRCULAR" in joined or "CHAMFER REQUIRES" in joined or "NO SUITABLE" in joined:
         return "occ_fail"
-    if diff >= 0.45 and chamfer >= 0.7:
-        return "ok"
     if diff < 0.08 and chamfer >= 0.85:
         # Looks like start / wrong region
         if "IDENTITY" in joined or "266→266" in joined or "FACES" in joined and "→" in joined:

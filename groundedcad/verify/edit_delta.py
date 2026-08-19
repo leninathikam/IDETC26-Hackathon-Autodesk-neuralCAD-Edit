@@ -427,6 +427,18 @@ def format_retry_feedback(
         lines.append("observed_vs_start: " + "; ".join(observed[:8]))
     if history:
         lines.append("prior_attempts: " + " || ".join(history[-4:]))
+    error_text = " ".join(failures + (history or []))
+    if "Face.makePlane() got an unexpected keyword argument 'normal'" in error_text:
+        lines.append(
+            "api_fix: CadQuery 2.8 has no Face.makePlane(normal=...). "
+            "Use an XY/XZ/YZ Workplane, sketch, extrude, then fuse/cut."
+        )
+    if "mirrorPlaneNormalVector" in error_text:
+        lines.append(
+            "api_fix: mirror requires a named plane: "
+            "solid.mirror(mirrorPlane='YZ', basePoint=(x,y,z)); "
+            "do not pass a vector tuple as mirrorPlane."
+        )
     if bucket == "NO_OP":
         lines.append(
             "required_action: no-op detected — must alter geometry near the classified target; "

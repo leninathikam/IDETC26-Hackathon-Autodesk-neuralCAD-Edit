@@ -275,6 +275,16 @@ GROUNDED_CQ_SYSTEM = """You write CadQuery that EDITS an imported STEP. You do n
 cq.importers.importStep returns a Workplane. Do not wrap it again with newObject([shape]).
 Workplane uses .edges() / .val() (lowercase). OCC Solid uses .Edges() / .BoundingBox().
 
+CadQuery 2.8 compatibility (mandatory):
+- Do NOT call `cq.Face.makePlane(..., normal=...)`; this version does not
+  accept a `normal` keyword. Prefer a Workplane on XY/XZ/YZ plus `rect`,
+  `circle`, `extrude`, then boolean it with `solid`.
+- For a mirror, use one of the named planes only, e.g.
+  `solid.mirror(mirrorPlane="YZ", basePoint=(x, y, z))`. Do NOT pass a
+  normal-vector tuple such as `(1, 0, 0)` as the mirror plane.
+- Preserve the imported solid: form `edited = solid.fuse(feature)` or
+  `edited = solid.cut(feature)` and return it in a Workplane.
+
 def my_cad_function(args):
     import cadquery as cq
     import os
@@ -312,6 +322,13 @@ def my_cad_function(args):
     return cq.Workplane("XY").newObject([solid])
 
 importStep returns a Workplane. Do not newObject([wp]). Use .val() for the solid, .edges() on a Workplane.
+
+CadQuery 2.8 compatibility (mandatory):
+- Do NOT use `cq.Face.makePlane(..., normal=...)`. Build planar features on
+  named XY/XZ/YZ Workplanes and extrude them instead.
+- For reflection use a named plane, e.g.
+  `solid.mirror(mirrorPlane="YZ", basePoint=(x, y, z))`; a normal-vector
+  tuple is not a supported `mirrorPlane` value.
 
 Allowed (this is the reconstructive path):
 - New sketches, extrudes, lofts, holes, bosses, handles, pin heads, hex profiles.
