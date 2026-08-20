@@ -6,8 +6,20 @@ from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import open3d as o3d
 from scipy.spatial.distance import cdist
-from probreg import cpd
 import copy
+
+
+def _require_cpd():
+    """Load optional point-cloud registration support only when alignment runs."""
+    try:
+        from probreg import cpd
+    except ModuleNotFoundError as exc:
+        if exc.name == "probreg":
+            raise RuntimeError(
+                "Point-cloud alignment requires the optional `probreg` package."
+            ) from exc
+        raise
+    return cpd
 
 
 def load_stl_as_point_cloud(stl_path, num_samples=10000):
@@ -103,6 +115,7 @@ def pair_cosine_similarity(f1, f2, db=None):
 
 
 def align_point_clouds(source_pc, target_pc, num_points=1000, num_initializations=8):
+    cpd = _require_cpd()
     initializations = [(0,0,0)]
     initializations.extend([np.random.uniform(0, 2*np.pi, size=3) for _ in range(num_initializations-1)])
 
@@ -202,6 +215,7 @@ def align_meshes(mesh_source, mesh_target, num_points=1000, num_initializations=
     Returns the transformed mesh_source aligned to mesh_target.
     """
 
+    cpd = _require_cpd()
     # convert meshes to point clouds
     source_pc = mesh_source.sample_points_uniformly(number_of_points=num_points)
     target_pc = mesh_target.sample_points_uniformly(number_of_points=num_points)

@@ -1,0 +1,66 @@
+{
+  "request": "synth_fillet_box",
+  "instruction": "Add a 2mm fillet to the sharp edges of the box.",
+  "transcript": "Please fillet the edges with a 2 mm radius.",
+  "transcript_words": [
+    {
+      "word": "Please",
+      "start": 0.0,
+      "end": 0.3
+    },
+    {
+      "word": "fillet",
+      "start": 0.3,
+      "end": 0.6
+    },
+    {
+      "word": "the",
+      "start": 0.6,
+      "end": 0.7
+    },
+    {
+      "word": "edges",
+      "start": 0.7,
+      "end": 1.0
+    },
+    {
+      "word": "with",
+      "start": 1.0,
+      "end": 1.2
+    },
+    {
+      "word": "a",
+      "start": 1.2,
+      "end": 1.3
+    },
+    {
+      "word": "2",
+      "start": 1.3,
+      "end": 1.5
+    },
+    {
+      "word": "mm",
+      "start": 1.5,
+      "end": 1.7
+    },
+    {
+      "word": "radius",
+      "start": 1.7,
+      "end": 2.1
+    }
+  ],
+  "events": [
+    {
+      "t": 0.5,
+      "x": 0.55,
+      "y": 0.5,
+      "drawing": false
+    }
+  ],
+  "brep_start_path": [
+    "C:\\Users\\lenin\\Downloads\\IDETC\\examples\\synthetic\\fillet_box\\input.step"
+  ],
+  "difficulty": "easy",
+  "modality": "text",
+  "root_dir": "C:\\Users\\lenin\\Downloads\\IDETC\\examples\\synthetic\\fillet_box"
+}

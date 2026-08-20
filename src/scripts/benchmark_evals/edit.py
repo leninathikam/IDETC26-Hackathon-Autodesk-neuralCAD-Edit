@@ -52,7 +52,7 @@ def run_benchmark_evals(db: DatabaseManager, config: dict, benchmark_type=None) 
     # set "recompute_metrics": true in the config to force recomputation of
     # metrics that already exist (e.g. after changing a metric definition).
     force = config.get("recompute_metrics", False)
-    # run_feature_gt_similarity_eval(config=config, dbm=db, feature_key="feature_dino", description="dino similarity", distance_func=pair_cosine_similarity, request_type="edit", force=force)
+    run_feature_gt_similarity_eval(config=config, dbm=db, feature_key="feature_dino", description="dino similarity", distance_func=pair_cosine_similarity, request_type="edit", force=force)
     run_feature_gt_similarity_eval(config=config, dbm=db, feature_key="stl", description="chamfer similarity norm", distance_func=chamfer_similarity_norm, request_type="edit", force=force)
     run_feature_gt_similarity_eval(config=config, dbm=db, feature_key="stl", description="volume f1", distance_func=volumetric_f1, request_type="edit", force=force)
     run_feature_gt_similarity_eval(config=config, dbm=db, feature_key="stl", description="diff f1", distance_func=diff_f1, request_type="edit", force=force)

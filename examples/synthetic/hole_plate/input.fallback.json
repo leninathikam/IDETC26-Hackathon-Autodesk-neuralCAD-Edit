@@ -1,0 +1,24 @@
+{
+  "bodies": [
+    {
+      "xmin": -30,
+      "ymin": -20,
+      "zmin": -4,
+      "xmax": 30,
+      "ymax": 20,
+      "zmax": 4
+    },
+    {
+      "xmin": 2,
+      "ymin": -8,
+      "zmin": 4,
+      "xmax": 18,
+      "ymax": 8,
+      "zmax": 16
+    }
+  ],
+  "holes": [],
+  "fillets": [],
+  "chamfers": [],
+  "valid": true
+}

@@ -1,35 +1,50 @@
 [project]
 name = "neuralcad-edit"
 version = "0.1.0"
-description = "Autodesk neuralCAD-Edit hackathon benchmark"
-requires-python = "==3.12.*"
+description = "IDETC 2026 Autodesk neuralCAD-Edit hackathon — GroundedCAD harness"
+requires-python = ">=3.10"
 dependencies = [
     "itables",
+    "python-dotenv",
     "pandas",
     "mongita",
     "cadquery",
     "pyarrow",
-    "ray",
     "openai",
     "anthropic",
     "google-genai",
     "json-repair",
     "scikit-learn",
-    "open3d",
-    "torch",
-    "transformers",
     "pillow",
-    "probreg",
     "scipy",
-    "pyobjc-framework-Cocoa; sys_platform == 'darwin'",
+    "pydantic>=2.0",
+    "numpy",
+    "pyyaml",
+    "tqdm",
+    "rich",
+    "opencv-python-headless",
+    "open3d>=0.19.0",
 ]
 
 [project.optional-dependencies]
-vllm = ["vllm; sys_platform == 'linux'"]
+# The Autodesk Chamfer / Volume F1 / Diff F1 scorer only needs Open3D.
+# Keep this separate from the broader experimental evaluation stack, whose
+# `probreg` dependency has no Windows wheel and requires MSVC to build.
+official-score = ["open3d"]
+eval = ["open3d", "torch", "transformers", "probreg"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+groundedcad = "groundedcad.cli:main"
 
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
 
-[tool.hatch.build.targets.wheel]
-packages = ["src"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["groundedcad*", "src*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

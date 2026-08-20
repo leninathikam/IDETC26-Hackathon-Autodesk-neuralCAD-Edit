@@ -1,0 +1,11 @@
+{
+  "request": "synth_translate_box",
+  "instruction": "Translate the body by 10mm in Y.",
+  "transcript": "Move it 10 mm in the Y direction.",
+  "brep_start_path": [
+    "C:\\Users\\lenin\\Downloads\\IDETC\\examples\\synthetic\\translate_box\\input.step"
+  ],
+  "difficulty": "easy",
+  "modality": "text",
+  "root_dir": "C:\\Users\\lenin\\Downloads\\IDETC\\examples\\synthetic\\translate_box"
+}

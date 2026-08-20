@@ -5,6 +5,13 @@ from src.utils.process_config import load_config
 import os
 import os.path as osp
 
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv()
+except ImportError:
+    pass
+
 # import src.utils.rendering_utils as rendering_utils
 import importlib
 import json
@@ -61,9 +68,15 @@ def format_task_dict(task_dict):
             extension = osp.splitext(osp.basename(filename))[1][1:]  # Get actual file extension
             task_dict[f"brep_start_path_{extension}"] = filename
 
-    empty_strings = ["", "[]", "null"]
-    # remove any keys with null values
-    keys_to_remove = [key for key, value in task_dict.items() if not value or value in empty_strings]
+    empty_strings = ("", "[]", "null")
+    keys_to_remove = []
+    for key, value in task_dict.items():
+        if value is None:
+            keys_to_remove.append(key)
+        elif isinstance(value, str) and value in empty_strings:
+            keys_to_remove.append(key)
+        elif isinstance(value, (list, dict)) and len(value) == 0:
+            keys_to_remove.append(key)
     for key in keys_to_remove:
         task_dict.pop(key)
 

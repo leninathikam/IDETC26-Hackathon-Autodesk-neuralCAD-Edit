@@ -1,0 +1,1346 @@
+[
+  {
+    "id": "ZK22J6VYRKQ2RTFD_1758875163.609787",
+    "type": "fillet_chamfer",
+    "instruction": "Add 0.2 mm chamfer to the hole edges to improve fitting.",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9837,
+      "volume_f1": 0.8008,
+      "diff_f1": 0.3136,
+      "valid": true,
+      "dino_vs_gt": 0.5989
+    },
+    "gpt52": {
+      "chamfer": 0.9843,
+      "volume_f1": 0.9572,
+      "diff_f1": 0.679,
+      "valid": true,
+      "dino_vs_gt": 0.9874
+    },
+    "token_counts": {
+      "input_tokens": 0.0,
+      "output_tokens": 0.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.0,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "ZK22J6VYRKQ2RTFD_1758874422.1403751",
+    "type": "hole_edit",
+    "instruction": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9817,
+      "volume_f1": 0.7885,
+      "diff_f1": 0.0795,
+      "valid": true,
+      "dino_vs_gt": 0.6287
+    },
+    "gpt52": {
+      "chamfer": 0.9805,
+      "volume_f1": 0.8951,
+      "diff_f1": 0.0542,
+      "valid": true,
+      "dino_vs_gt": 0.9444
+    },
+    "token_counts": {
+      "input_tokens": 0.0,
+      "output_tokens": 0.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.0,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "ZK22J6VYRKQ2RTFD_1758873912.731081",
+    "type": "feature_addition",
+    "instruction": "Add a 1.5 millimetre rib to increase support and make the structure strong.",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9545,
+      "volume_f1": 0.7676,
+      "diff_f1": 0.0911,
+      "valid": true,
+      "dino_vs_gt": 0.5443
+    },
+    "gpt52": {
+      "chamfer": 0.9587,
+      "volume_f1": 0.9561,
+      "diff_f1": 0.0857,
+      "valid": true,
+      "dino_vs_gt": 0.9128
+    },
+    "token_counts": {
+      "input_tokens": 34477.0,
+      "output_tokens": 2212.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1366,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759209917.917027",
+    "type": "fillet_chamfer",
+    "instruction": "Hi , Please remove the fillet at the front center and add a 1 millimeter chamfer instead",
+    "accepted": false,
+    "failure_category": "false_completion",
+    "ours": {
+      "chamfer": 0.9876,
+      "volume_f1": 0.9422,
+      "diff_f1": 0.1481,
+      "valid": true,
+      "dino_vs_gt": 0.8344
+    },
+    "gpt52": {
+      "chamfer": 0.9871,
+      "volume_f1": 0.9748,
+      "diff_f1": 0.2234,
+      "valid": true,
+      "dino_vs_gt": 0.2217
+    },
+    "token_counts": {
+      "input_tokens": 31970.0,
+      "output_tokens": 3547.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1491,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759210049.432666",
+    "type": "boolean_modification",
+    "instruction": "Hi , Please change the center flower type profile into a hexagonal profile for better torque transfer",
+    "accepted": false,
+    "failure_category": "planning",
+    "ours": {
+      "chamfer": 0.9861,
+      "volume_f1": 0.9278,
+      "diff_f1": 0.3559,
+      "valid": true,
+      "dino_vs_gt": 0.7965
+    },
+    "gpt52": {
+      "chamfer": 0.9865,
+      "volume_f1": 0.9461,
+      "diff_f1": 0.1585,
+      "valid": true,
+      "dino_vs_gt": 0.2329
+    },
+    "token_counts": {
+      "input_tokens": 52404.0,
+      "output_tokens": 4994.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.2321,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759209987.785593",
+    "type": "boolean_modification",
+    "instruction": "Hi , Please convert the round edges of the gear into straight spur gear teeth.",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9865,
+      "volume_f1": 0.935,
+      "diff_f1": 0.2338,
+      "valid": true,
+      "dino_vs_gt": 0.8036
+    },
+    "gpt52": {
+      "chamfer": 0.9821,
+      "volume_f1": 0.9291,
+      "diff_f1": 0.3574,
+      "valid": true,
+      "dino_vs_gt": 0.1717
+    },
+    "token_counts": {
+      "input_tokens": 38788.0,
+      "output_tokens": 4580.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1851,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "4E22SJE7QVTSP2E3_1758737060.465216",
+    "type": "boolean_modification",
+    "instruction": "Change that vertical slot to cut through complete body to decrease weight",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9818,
+      "volume_f1": 0.7613,
+      "diff_f1": 0.0,
+      "valid": true,
+      "dino_vs_gt": 0.6589
+    },
+    "gpt52": {
+      "chamfer": 0.981,
+      "volume_f1": 0.8517,
+      "diff_f1": 0.0,
+      "valid": true,
+      "dino_vs_gt": 0.9683
+    },
+    "token_counts": {
+      "input_tokens": 33718.0,
+      "output_tokens": 1544.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1243,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "4E22SJE7QVTSP2E3_1758737238.499021",
+    "type": "feature_addition",
+    "instruction": "Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product",
+    "accepted": false,
+    "failure_category": "planning",
+    "ours": {
+      "chamfer": 0.9399,
+      "volume_f1": 0.6504,
+      "diff_f1": 0.0069,
+      "valid": true,
+      "dino_vs_gt": 0.6846
+    },
+    "gpt52": {
+      "chamfer": 0.8555,
+      "volume_f1": 0.5759,
+      "diff_f1": 0.0,
+      "valid": true,
+      "dino_vs_gt": 0.885
+    },
+    "token_counts": {
+      "input_tokens": 67574.0,
+      "output_tokens": 7938.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.3218,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "4E22SJE7QVTSP2E3_1758737118.288898",
+    "type": "feature_addition",
+    "instruction": "Insert screws to both holes to be able to fix tool on the table",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9595,
+      "volume_f1": 0.5935,
+      "diff_f1": 0.0519,
+      "valid": true,
+      "dino_vs_gt": 0.6467
+    },
+    "gpt52": {
+      "chamfer": 0.9765,
+      "volume_f1": 0.6868,
+      "diff_f1": 0.0236,
+      "valid": true,
+      "dino_vs_gt": 0.9347
+    },
+    "token_counts": {
+      "input_tokens": 34402.0,
+      "output_tokens": 2114.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1349,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759203600.26663",
+    "type": "feature_addition",
+    "instruction": "Hi , Please create an outlet port on the top right and an inlet port on the bottom left .",
+    "accepted": false,
+    "failure_category": "false_completion",
+    "ours": {
+      "chamfer": 0.9811,
+      "volume_f1": 0.6992,
+      "diff_f1": 0.1859,
+      "valid": true,
+      "dino_vs_gt": null
+    },
+    "gpt52": {
+      "chamfer": 0.9808,
+      "volume_f1": 0.9528,
+      "diff_f1": 0.3593,
+      "valid": true,
+      "dino_vs_gt": 0.8847
+    },
+    "token_counts": {
+      "input_tokens": 39788.0,
+      "output_tokens": 4784.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1911,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759203739.2515829",
+    "type": "feature_addition",
+    "instruction": "Hi , Please create a filling system on the radiator , including a pouring section and a cap.",
+    "accepted": false,
+    "failure_category": "false_completion",
+    "ours": {
+      "chamfer": 0.9789,
+      "volume_f1": 0.7553,
+      "diff_f1": 0.117,
+      "valid": true,
+      "dino_vs_gt": null
+    },
+    "gpt52": {
+      "chamfer": 0.9781,
+      "volume_f1": 0.9404,
+      "diff_f1": 0.2895,
+      "valid": true,
+      "dino_vs_gt": 0.8889
+    },
+    "token_counts": {
+      "input_tokens": 40749.0,
+      "output_tokens": 5709.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.2079,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759203664.9815512",
+    "type": "pattern",
+    "instruction": "Hi , Create a slot pattern across the plastic part surface on both the top and bottom sides.",
+    "accepted": false,
+    "failure_category": "false_completion",
+    "ours": {
+      "chamfer": 0.9813,
+      "volume_f1": 0.7045,
+      "diff_f1": 0.1242,
+      "valid": true,
+      "dino_vs_gt": null
+    },
+    "gpt52": {
+      "chamfer": 0.9858,
+      "volume_f1": 0.9481,
+      "diff_f1": 0.4076,
+      "valid": true,
+      "dino_vs_gt": 0.9152
+    },
+    "token_counts": {
+      "input_tokens": 39024.0,
+      "output_tokens": 4883.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1903,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "4S7JQK6ZQMAD25GL_1758863141.735564",
+    "type": "fillet_chamfer",
+    "instruction": "Add a 2 millimetre fillet to the edges of the scrolling wheel slot to ensure a smooth surface.",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9832,
+      "volume_f1": 0.5523,
+      "diff_f1": 0.0148,
+      "valid": true,
+      "dino_vs_gt": 0.4359
+    },
+    "gpt52": {
+      "chamfer": 0.9839,
+      "volume_f1": 0.9897,
+      "diff_f1": 0.3636,
+      "valid": true,
+      "dino_vs_gt": 0.8625
+    },
+    "token_counts": {
+      "input_tokens": 41414.0,
+      "output_tokens": 3058.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1701,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "4S7JQK6ZQMAD25GL_1758863403.376244",
+    "type": "feature_addition",
+    "instruction": "Add a sliding switch on the bottom to provide a convenient on and off function",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9822,
+      "volume_f1": 0.5486,
+      "diff_f1": 0.0029,
+      "valid": true,
+      "dino_vs_gt": 0.452
+    },
+    "gpt52": {
+      "chamfer": 0.9832,
+      "volume_f1": 0.989,
+      "diff_f1": 0.0,
+      "valid": true,
+      "dino_vs_gt": 0.8593
+    },
+    "token_counts": {
+      "input_tokens": 34353.0,
+      "output_tokens": 2099.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1345,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "4S7JQK6ZQMAD25GL_1758863286.214549",
+    "type": "feature_addition",
+    "instruction": "Add two click buttons with the height of 2 millimetre to provide a comfortable and responsive feel for the user",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9813,
+      "volume_f1": 0.5143,
+      "diff_f1": 0.0006,
+      "valid": true,
+      "dino_vs_gt": 0.6065
+    },
+    "gpt52": {
+      "chamfer": 0.9753,
+      "volume_f1": 0.945,
+      "diff_f1": 0.004,
+      "valid": true,
+      "dino_vs_gt": 0.7698
+    },
+    "token_counts": {
+      "input_tokens": 34785.0,
+      "output_tokens": 1957.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1337,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1769424096.996583",
+    "type": "fillet_chamfer",
+    "instruction": "Add rounds to all edges of the part. R=0,2mm",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9811,
+      "volume_f1": 0.1721,
+      "diff_f1": 0.0648,
+      "valid": true,
+      "dino_vs_gt": 0.3924
+    },
+    "gpt52": {
+      "chamfer": 0.9821,
+      "volume_f1": 0.2065,
+      "diff_f1": 0.101,
+      "valid": true,
+      "dino_vs_gt": 0.5578
+    },
+    "token_counts": {
+      "input_tokens": 0.0,
+      "output_tokens": 0.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.0,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1770206307.074256",
+    "type": "dimension_change",
+    "instruction": "Scale the part 10x. Add drafts of 2 degrees to all vertical surfaces, with flat bottom surface as a hinge. Add rounds R=",
+    "accepted": false,
+    "failure_category": "planning",
+    "ours": {
+      "chamfer": 0.7181,
+      "volume_f1": 0.0261,
+      "diff_f1": 0.0457,
+      "valid": true,
+      "dino_vs_gt": 0.4158
+    },
+    "gpt52": {
+      "chamfer": 0.5924,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0202,
+      "valid": true,
+      "dino_vs_gt": 0.5695
+    },
+    "token_counts": {
+      "input_tokens": 74465.0,
+      "output_tokens": 9852.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.3712,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1770205912.1187751",
+    "type": "feature_addition",
+    "instruction": "Add flange with thickness of 0,5mm and width of 2mm that starts on the flat bottom surface. Do not fill the central part",
+    "accepted": false,
+    "failure_category": "planning",
+    "ours": {
+      "chamfer": 0.9833,
+      "volume_f1": 0.902,
+      "diff_f1": 0.8592,
+      "valid": true,
+      "dino_vs_gt": 0.3273
+    },
+    "gpt52": {
+      "chamfer": 0.9189,
+      "volume_f1": 0.4937,
+      "diff_f1": 0.0,
+      "valid": true,
+      "dino_vs_gt": 0.7038
+    },
+    "token_counts": {
+      "input_tokens": 62881.0,
+      "output_tokens": 8326.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.3135,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770171470.1448698",
+    "type": "dimension_change",
+    "instruction": "Make the whole frame structure taller by 0,5cm. The area profile remains the same.",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9904,
+      "volume_f1": 0.2424,
+      "diff_f1": 0.2233,
+      "valid": true,
+      "dino_vs_gt": 0.6737
+    },
+    "gpt52": {
+      "chamfer": 0.9916,
+      "volume_f1": 0.7635,
+      "diff_f1": 0.1908,
+      "valid": true,
+      "dino_vs_gt": 0.7357
+    },
+    "token_counts": {
+      "input_tokens": 33887.0,
+      "output_tokens": 3211.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1498,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770172545.5244548",
+    "type": "fillet_chamfer",
+    "instruction": "If edge with bigger radius is considered as top, add supporting structure to the bottom of the frame by offseting inner ",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9328,
+      "volume_f1": 0.2019,
+      "diff_f1": 0.2562,
+      "valid": true,
+      "dino_vs_gt": 0.4273
+    },
+    "gpt52": {
+      "chamfer": 0.986,
+      "volume_f1": 0.6992,
+      "diff_f1": 0.0,
+      "valid": true,
+      "dino_vs_gt": 0.6218
+    },
+    "token_counts": {
+      "input_tokens": 29613.0,
+      "output_tokens": 3139.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1359,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770171700.697783",
+    "type": "fillet_chamfer",
+    "instruction": "Remove the largest radius that is all around the part and replace it by the same size radius as others. That means in cr",
+    "accepted": false,
+    "failure_category": "false_completion",
+    "ours": {
+      "chamfer": 0.9935,
+      "volume_f1": 0.2842,
+      "diff_f1": 0.0,
+      "valid": true,
+      "dino_vs_gt": 0.6623
+    },
+    "gpt52": {
+      "chamfer": 0.9861,
+      "volume_f1": 0.0686,
+      "diff_f1": 0.0061,
+      "valid": true,
+      "dino_vs_gt": 0.6788
+    },
+    "token_counts": {
+      "input_tokens": 29841.0,
+      "output_tokens": 4288.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1538,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769176912.388391",
+    "type": "feature_addition",
+    "instruction": "Add cylindrical pin into the bearing area of the part, so it is able to rotate around it.",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9909,
+      "volume_f1": 0.7597,
+      "diff_f1": 0.0792,
+      "valid": true,
+      "dino_vs_gt": 0.7439
+    },
+    "gpt52": {
+      "chamfer": 0.9959,
+      "volume_f1": 0.7056,
+      "diff_f1": 0.0,
+      "valid": true,
+      "dino_vs_gt": 0.8672
+    },
+    "token_counts": {
+      "input_tokens": 21982.0,
+      "output_tokens": 1733.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.0919,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769177116.6129558",
+    "type": "feature_addition",
+    "instruction": "Design simple locking mechanism in the area of the hook to secure carried load.",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9903,
+      "volume_f1": 0.7838,
+      "diff_f1": 0.1667,
+      "valid": true,
+      "dino_vs_gt": 0.7403
+    },
+    "gpt52": {
+      "chamfer": 0.9877,
+      "volume_f1": 0.6338,
+      "diff_f1": 0.0824,
+      "valid": true,
+      "dino_vs_gt": 0.8803
+    },
+    "token_counts": {
+      "input_tokens": 32153.0,
+      "output_tokens": 1778.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1231,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769177020.525719",
+    "type": "boolean_modification",
+    "instruction": "Add several cutouts into the part to decrease its weight.",
+    "accepted": false,
+    "failure_category": "planning",
+    "ours": {
+      "chamfer": 0.9836,
+      "volume_f1": 0.5178,
+      "diff_f1": 0.0,
+      "valid": true,
+      "dino_vs_gt": 0.7578
+    },
+    "gpt52": {
+      "chamfer": 0.9857,
+      "volume_f1": 0.75,
+      "diff_f1": 0.04,
+      "valid": true,
+      "dino_vs_gt": 0.8644
+    },
+    "token_counts": {
+      "input_tokens": 62493.0,
+      "output_tokens": 5572.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.2711,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1770204558.429523",
+    "type": "fillet_chamfer",
+    "instruction": "One of the long edges of the blade does not have a radius. Add radius to that long edge R=0,635cm",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9914,
+      "volume_f1": 0.5368,
+      "diff_f1": 0.1209,
+      "valid": true,
+      "dino_vs_gt": 0.8097
+    },
+    "gpt52": {
+      "chamfer": 0.9927,
+      "volume_f1": 0.939,
+      "diff_f1": 0.0,
+      "valid": true,
+      "dino_vs_gt": 0.6774
+    },
+    "token_counts": {
+      "input_tokens": 51118.0,
+      "output_tokens": 3813.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.2105,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1769607142.566352",
+    "type": "pattern",
+    "instruction": "Add third rotor blade to the assembly. It should have the same design as the other two. Radii should applied on all four",
+    "accepted": false,
+    "failure_category": "false_completion",
+    "ours": {
+      "chamfer": 0.949,
+      "volume_f1": 0.4688,
+      "diff_f1": 0.0286,
+      "valid": true,
+      "dino_vs_gt": 0.7282
+    },
+    "gpt52": {
+      "chamfer": 0.9247,
+      "volume_f1": 0.6083,
+      "diff_f1": 0.0293,
+      "valid": true,
+      "dino_vs_gt": 0.6258
+    },
+    "token_counts": {
+      "input_tokens": 52837.0,
+      "output_tokens": 5715.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.2442,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1770204696.542443",
+    "type": "feature_addition",
+    "instruction": "Create two cover parts, that have matching outer shape to the outer contour of the central part, sit flush on its outer ",
+    "accepted": false,
+    "failure_category": "planning",
+    "ours": {
+      "chamfer": 0.889,
+      "volume_f1": 0.1449,
+      "diff_f1": 0.0242,
+      "valid": true,
+      "dino_vs_gt": 0.2828
+    },
+    "gpt52": {
+      "chamfer": 0.9911,
+      "volume_f1": 0.9888,
+      "diff_f1": 0.0,
+      "valid": true,
+      "dino_vs_gt": 0.6784
+    },
+    "token_counts": {
+      "input_tokens": 52335.0,
+      "output_tokens": 6402.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.253,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770174133.012106",
+    "type": "feature_translation",
+    "instruction": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+    "accepted": false,
+    "failure_category": "false_completion",
+    "ours": {
+      "chamfer": 0.9776,
+      "volume_f1": 0.6384,
+      "diff_f1": 0.2453,
+      "valid": true,
+      "dino_vs_gt": null
+    },
+    "gpt52": {
+      "chamfer": 0.9823,
+      "volume_f1": 0.9064,
+      "diff_f1": 0.504,
+      "valid": true,
+      "dino_vs_gt": 0.4333
+    },
+    "token_counts": {
+      "input_tokens": 33329.0,
+      "output_tokens": 5036.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1755,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770174519.556716",
+    "type": "boolean_modification",
+    "instruction": "Add rectangular openining to the lower back of the coffee machine, which might serve as draft location for plug and main",
+    "accepted": false,
+    "failure_category": "false_completion",
+    "ours": {
+      "chamfer": 0.9761,
+      "volume_f1": 0.6441,
+      "diff_f1": 0.2595,
+      "valid": true,
+      "dino_vs_gt": null
+    },
+    "gpt52": {
+      "chamfer": 0.9795,
+      "volume_f1": 0.8962,
+      "diff_f1": 0.4775,
+      "valid": true,
+      "dino_vs_gt": 0.4144
+    },
+    "token_counts": {
+      "input_tokens": 46154.0,
+      "output_tokens": 4277.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.2026,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770174308.67968",
+    "type": "pattern",
+    "instruction": "Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally dista",
+    "accepted": false,
+    "failure_category": "false_completion",
+    "ours": {
+      "chamfer": 0.9765,
+      "volume_f1": 0.6436,
+      "diff_f1": 0.2618,
+      "valid": true,
+      "dino_vs_gt": null
+    },
+    "gpt52": {
+      "chamfer": 0.9823,
+      "volume_f1": 0.8979,
+      "diff_f1": 0.4825,
+      "valid": true,
+      "dino_vs_gt": 0.4148
+    },
+    "token_counts": {
+      "input_tokens": 38081.0,
+      "output_tokens": 5104.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1908,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769779150.98797",
+    "type": "feature_addition",
+    "instruction": "Imagine the black handle is a stand. Add another one on the other side of device in approximately same distane from side",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9737,
+      "volume_f1": 0.645,
+      "diff_f1": 0.0483,
+      "valid": true,
+      "dino_vs_gt": 0.5776
+    },
+    "gpt52": {
+      "chamfer": 0.9825,
+      "volume_f1": 0.9745,
+      "diff_f1": 0.8145,
+      "valid": true,
+      "dino_vs_gt": 0.48
+    },
+    "token_counts": {
+      "input_tokens": 21729.0,
+      "output_tokens": 2474.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1023,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769782403.586036",
+    "type": "ambiguous",
+    "instruction": "Change the current plug for Europlug with two round pins and try to copy the real shape.",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9767,
+      "volume_f1": 0.796,
+      "diff_f1": 0.0,
+      "valid": true,
+      "dino_vs_gt": 0.4157
+    },
+    "gpt52": {
+      "chamfer": 0.9854,
+      "volume_f1": 0.9835,
+      "diff_f1": 0.3,
+      "valid": true,
+      "dino_vs_gt": 0.5423
+    },
+    "token_counts": {
+      "input_tokens": 46388.0,
+      "output_tokens": 2841.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1818,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769783385.069543",
+    "type": "feature_deletion",
+    "instruction": "Remove the collision between handle and cofeepot.",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9589,
+      "volume_f1": 0.3787,
+      "diff_f1": 0.0012,
+      "valid": true,
+      "dino_vs_gt": 0.2892
+    },
+    "gpt52": {
+      "chamfer": 0.9861,
+      "volume_f1": 0.9997,
+      "diff_f1": 0.8889,
+      "valid": true,
+      "dino_vs_gt": 0.4927
+    },
+    "token_counts": {
+      "input_tokens": 37687.0,
+      "output_tokens": 2411.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1492,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1770208282.204381",
+    "type": "fillet_chamfer",
+    "instruction": "Left side of the whistle is missing radii. Add radii to the edges of the bigger part of the whistle. Radii must be same ",
+    "accepted": false,
+    "failure_category": "false_completion",
+    "ours": {
+      "chamfer": 0.9813,
+      "volume_f1": 0.6127,
+      "diff_f1": 0.0366,
+      "valid": true,
+      "dino_vs_gt": 0.6619
+    },
+    "gpt52": {
+      "chamfer": 0.9824,
+      "volume_f1": 0.8188,
+      "diff_f1": 0.0,
+      "valid": true,
+      "dino_vs_gt": 0.8948
+    },
+    "token_counts": {
+      "input_tokens": 33986.0,
+      "output_tokens": 4051.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1627,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1770208398.300075",
+    "type": "feature_translation",
+    "instruction": "Let's make this part symmetric. There is a step on one of the sides of the whistle. Move the protruding surface so that ",
+    "accepted": false,
+    "failure_category": "planning",
+    "ours": {
+      "chamfer": 0.8267,
+      "volume_f1": 0.0035,
+      "diff_f1": 0.467,
+      "valid": true,
+      "dino_vs_gt": 0.568
+    },
+    "gpt52": {
+      "chamfer": 0.937,
+      "volume_f1": 0.0823,
+      "diff_f1": 0.3846,
+      "valid": true,
+      "dino_vs_gt": 0.8491
+    },
+    "token_counts": {
+      "input_tokens": 56233.0,
+      "output_tokens": 6445.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.2654,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "F332D3FXML85WLR2_1770208371.265217",
+    "type": "feature_addition",
+    "instruction": "Add circular feature that will act as a attachment for hanging rope. Outer D=4cm and feature has a concentric hole D=2cm",
+    "accepted": false,
+    "failure_category": "planning",
+    "ours": {
+      "chamfer": 0.98,
+      "volume_f1": 0.6557,
+      "diff_f1": 0.0683,
+      "valid": true,
+      "dino_vs_gt": 0.6435
+    },
+    "gpt52": {
+      "chamfer": 0.9802,
+      "volume_f1": 0.6791,
+      "diff_f1": 0.0458,
+      "valid": true,
+      "dino_vs_gt": 0.8703
+    },
+    "token_counts": {
+      "input_tokens": 61786.0,
+      "output_tokens": 6244.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.279,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770166308.11235",
+    "type": "dimension_change",
+    "instruction": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but ke",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.4781,
+      "volume_f1": 0.0156,
+      "diff_f1": 0.1123,
+      "valid": true,
+      "dino_vs_gt": 0.4192
+    },
+    "gpt52": {
+      "chamfer": 0.9883,
+      "volume_f1": 0.917,
+      "diff_f1": 0.0,
+      "valid": true,
+      "dino_vs_gt": 0.9755
+    },
+    "token_counts": {
+      "input_tokens": 66204.0,
+      "output_tokens": 6786.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.3004,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770167800.9857888",
+    "type": "feature_addition",
+    "instruction": "Make the part symmetrical with respect to ZX plane by adding lowered plateau to the bottom. Then add embossed text to th",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.7497,
+      "volume_f1": 0.1272,
+      "diff_f1": 0.1272,
+      "valid": true,
+      "dino_vs_gt": 0.2301
+    },
+    "gpt52": {
+      "chamfer": 0.9543,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": true,
+      "dino_vs_gt": 0.6979
+    },
+    "token_counts": {
+      "input_tokens": 33445.0,
+      "output_tokens": 1987.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1301,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770166901.871316",
+    "type": "boolean_modification",
+    "instruction": "Use geometry of cylindrical hole defined in Sketch4 for creating inscribed hexagonal polygonal to the original hole and ",
+    "accepted": false,
+    "failure_category": "planning",
+    "ours": {
+      "chamfer": 0.9801,
+      "volume_f1": 0.7743,
+      "diff_f1": 0.2158,
+      "valid": true,
+      "dino_vs_gt": 0.3473
+    },
+    "gpt52": {
+      "chamfer": 0.9859,
+      "volume_f1": 0.8753,
+      "diff_f1": 0.0,
+      "valid": true,
+      "dino_vs_gt": 0.8312
+    },
+    "token_counts": {
+      "input_tokens": 63362.0,
+      "output_tokens": 6417.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.2863,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769174947.8063738",
+    "type": "pattern",
+    "instruction": "Mirror the part according to the plane lying on the not rounded end of the part. Merge the mirrored part together with t",
+    "accepted": false,
+    "failure_category": "planning",
+    "ours": {
+      "chamfer": 0.7518,
+      "volume_f1": 0.4714,
+      "diff_f1": 0.0,
+      "valid": true,
+      "dino_vs_gt": 0.5268
+    },
+    "gpt52": {
+      "chamfer": 0.9934,
+      "volume_f1": 1.0,
+      "diff_f1": 1.0,
+      "valid": true,
+      "dino_vs_gt": 0.9812
+    },
+    "token_counts": {
+      "input_tokens": 58720.0,
+      "output_tokens": 4233.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.2397,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769175629.871246",
+    "type": "pattern",
+    "instruction": "Multiply amount of cylindrical feature to 4. Imagine this is a system of plant pots, so you need to add stability to tha",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.8676,
+      "volume_f1": 0.2593,
+      "diff_f1": 0.063,
+      "valid": true,
+      "dino_vs_gt": 0.4865
+    },
+    "gpt52": {
+      "chamfer": 0.9527,
+      "volume_f1": 0.2452,
+      "diff_f1": 0.0474,
+      "valid": true,
+      "dino_vs_gt": 0.6316
+    },
+    "token_counts": {
+      "input_tokens": 32588.0,
+      "output_tokens": 2659.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1376,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769175216.745646",
+    "type": "pattern",
+    "instruction": "Design cylindrical bearing on the flat end of the part (the one without fillet). Create another 7 instances of this desi",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.8267,
+      "volume_f1": 0.1854,
+      "diff_f1": 0.0044,
+      "valid": true,
+      "dino_vs_gt": 0.4883
+    },
+    "gpt52": {
+      "chamfer": 0.8468,
+      "volume_f1": 0.1635,
+      "diff_f1": 0.0362,
+      "valid": true,
+      "dino_vs_gt": 0.637
+    },
+    "token_counts": {
+      "input_tokens": 32511.0,
+      "output_tokens": 2398.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1335,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770169445.8914912",
+    "type": "fillet_chamfer",
+    "instruction": "Add chamfer to main/biggest cylindrical section of Heatbreak body/component. The chamfer should be same size as present ",
+    "accepted": false,
+    "failure_category": "false_completion",
+    "ours": {
+      "chamfer": 0.9839,
+      "volume_f1": 0.8946,
+      "diff_f1": 0.167,
+      "valid": true,
+      "dino_vs_gt": null
+    },
+    "gpt52": {
+      "chamfer": 0.9848,
+      "volume_f1": 0.9645,
+      "diff_f1": 0.2929,
+      "valid": true,
+      "dino_vs_gt": 0.7412
+    },
+    "token_counts": {
+      "input_tokens": 28796.0,
+      "output_tokens": 3368.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1369,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770169975.851399",
+    "type": "ambiguous",
+    "instruction": "Change mounting system at the back of Cyclops Plus Heatsink from 3-point mounting version to 4-points, similar to that w",
+    "accepted": false,
+    "failure_category": "false_completion",
+    "ours": {
+      "chamfer": 0.9835,
+      "volume_f1": 0.8802,
+      "diff_f1": 0.1811,
+      "valid": true,
+      "dino_vs_gt": null
+    },
+    "gpt52": {
+      "chamfer": 0.9486,
+      "volume_f1": 0.8615,
+      "diff_f1": 0.2177,
+      "valid": true,
+      "dino_vs_gt": 0.7425
+    },
+    "token_counts": {
+      "input_tokens": 39948.0,
+      "output_tokens": 4490.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1872,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770169718.2982779",
+    "type": "dimension_change",
+    "instruction": "Reduce overall height of Nozzle Volcano part by 1mm, reduction should be made in threaded area.",
+    "accepted": false,
+    "failure_category": "false_completion",
+    "ours": {
+      "chamfer": 0.9839,
+      "volume_f1": 0.8858,
+      "diff_f1": 0.1352,
+      "valid": true,
+      "dino_vs_gt": null
+    },
+    "gpt52": {
+      "chamfer": 0.9884,
+      "volume_f1": 0.9559,
+      "diff_f1": 0.2984,
+      "valid": true,
+      "dino_vs_gt": 0.7339
+    },
+    "token_counts": {
+      "input_tokens": 41092.0,
+      "output_tokens": 6650.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.223,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769773134.1453462",
+    "type": "feature_addition",
+    "instruction": "Add bigger amount of cylindrical holes into the red platforms to decrease their weights. Amount of patterns can be chose",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9718,
+      "volume_f1": 0.3109,
+      "diff_f1": 0.0631,
+      "valid": true,
+      "dino_vs_gt": 0.5123
+    },
+    "gpt52": {
+      "chamfer": 0.973,
+      "volume_f1": 0.7341,
+      "diff_f1": 0.041,
+      "valid": true,
+      "dino_vs_gt": 0.9199
+    },
+    "token_counts": {
+      "input_tokens": 33424.0,
+      "output_tokens": 2268.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1343,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769773481.491738",
+    "type": "hole_edit",
+    "instruction": "Change the shape of the profile of link arms to the shape of long hole to increase its stifness. Then change the diamete",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9731,
+      "volume_f1": 0.2927,
+      "diff_f1": 0.6194,
+      "valid": true,
+      "dino_vs_gt": 0.5218
+    },
+    "gpt52": {
+      "chamfer": 0.9779,
+      "volume_f1": 0.4704,
+      "diff_f1": 0.4793,
+      "valid": true,
+      "dino_vs_gt": 0.9297
+    },
+    "token_counts": {
+      "input_tokens": 23415.0,
+      "output_tokens": 2140.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1023,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  },
+  {
+    "id": "3YH2WFSRM22W7DKT_1769773335.525203",
+    "type": "feature_addition",
+    "instruction": "Add cylindrical heads on the long pins to prevent link arms against slipping off.",
+    "accepted": true,
+    "failure_category": null,
+    "ours": {
+      "chamfer": 0.9759,
+      "volume_f1": 0.3877,
+      "diff_f1": 0.1186,
+      "valid": true,
+      "dino_vs_gt": 0.531
+    },
+    "gpt52": {
+      "chamfer": 0.9852,
+      "volume_f1": 0.9534,
+      "diff_f1": 0.5687,
+      "valid": true,
+      "dino_vs_gt": 0.9511
+    },
+    "token_counts": {
+      "input_tokens": 33670.0,
+      "output_tokens": 2074.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.1321,
+      "_note": "corrected from cumulative client total (bug: shared client across all rows in a process, never reset)"
+    }
+  }
+]
