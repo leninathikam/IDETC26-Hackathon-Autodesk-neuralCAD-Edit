@@ -439,6 +439,18 @@ def format_retry_feedback(
             "solid.mirror(mirrorPlane='YZ', basePoint=(x,y,z)); "
             "do not pass a vector tuple as mirrorPlane."
         )
+    if "Mixin3D.chamfer() missing 1 required positional argument: 'edgeList'" in error_text:
+        lines.append(
+            "api_fix: do not call solid.chamfer(distance). Select edges on a "
+            "Workplane first: cq.Workplane('XY').newObject([solid]).edges(selector).chamfer(distance)."
+        )
+    if "'Workplane' object has no attribute 'wrapped'" in error_text:
+        lines.append(
+            "api_fix: a Shape boolean received a Workplane. Convert the tool "
+            "with feature_wp.val() before solid.cut(...) or solid.fuse(...)."
+        )
+    if "'Workplane' object has no attribute 'sortBy'" in error_text:
+        lines.append("api_fix: CadQuery Workplane uses .sort(...), not .sortBy(...).")
     if bucket == "NO_OP":
         lines.append(
             "required_action: no-op detected — must alter geometry near the classified target; "

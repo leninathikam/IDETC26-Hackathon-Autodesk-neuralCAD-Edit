@@ -1,0 +1,20 @@
+[
+  {
+    "id": "3YH2WFSRM22W7DKT_1769174947.8063738",
+    "type": "pattern",
+    "instruction": "Mirror the part according to the plane lying on the not rounded end of the part. Merge the mirrored ",
+    "ours": {
+      "chamfer": 0.9929,
+      "volume_f1": 0.9576,
+      "diff_f1": 0.9167,
+      "valid": true
+    },
+    "gpt52": {
+      "chamfer": 0.9934,
+      "volume_f1": 1.0,
+      "diff_f1": 1.0,
+      "valid": true
+    },
+    "failure_bucket": "misclassify"
+  }
+]

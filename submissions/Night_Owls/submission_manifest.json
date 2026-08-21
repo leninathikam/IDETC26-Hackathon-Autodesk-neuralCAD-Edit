@@ -1,0 +1,1003 @@
+{
+  "team": "Night_Owls",
+  "source_outputs": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\full48_openai-gpt-5-2_fresh_rerun",
+  "source_scores": "C:\\Users\\lenin\\Downloads\\IDETC\\docs\\full48_openai-gpt-5-2_fresh_rerun_scores.json",
+  "presentation": "C:\\Users\\lenin\\Downloads\\IDETC\\Night_Owls_project_final.pptx",
+  "presentation_pdf": "C:\\Users\\lenin\\Downloads\\IDETC\\docs\\Night_Owls_presentation.pdf",
+  "score_summary": {
+    "n_rows": 48,
+    "mean_chamfer": 0.9094,
+    "mean_volume_f1": 0.59,
+    "mean_diff_f1": 0.1324,
+    "valid": 47,
+    "failure_buckets": {
+      "identity": 12,
+      "misclassify": 12,
+      "wrong_edge_or_scope": 11,
+      "occ_fail": 7,
+      "ok": 3,
+      "over_edit": 2,
+      "row_timeout": 1
+    }
+  },
+  "required_qualitative_request_ids": [
+    "SUJ2G2UMJQR7PMBX_1759209987.785593",
+    "3YH2WFSRM22W7DKT_1769773335.525203",
+    "B7A2N74ZJBF9MZHU_1770174133.012106",
+    "F332D3FXML85WLR2_1769607142.566352",
+    "ZK22J6VYRKQ2RTFD_1758874422.1403751"
+  ],
+  "artifact_rows": [
+    {
+      "request_id": "ZK22J6VYRKQ2RTFD_1758875163.609787",
+      "type": "fillet_chamfer",
+      "diff_f1": 0.3136,
+      "execution_status": "completed",
+      "failure_bucket": "wrong_edge_or_scope",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "ZK22J6VYRKQ2RTFD_1758874422.1403751",
+      "type": "hole_edit",
+      "diff_f1": 0.0824,
+      "execution_status": "completed",
+      "failure_bucket": "wrong_edge_or_scope",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "ZK22J6VYRKQ2RTFD_1758873912.731081",
+      "type": "feature_addition",
+      "diff_f1": 0.0843,
+      "execution_status": "completed",
+      "failure_bucket": "wrong_edge_or_scope",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "SUJ2G2UMJQR7PMBX_1759209917.917027",
+      "type": "fillet_chamfer",
+      "diff_f1": 0.1493,
+      "execution_status": "completed",
+      "failure_bucket": "occ_fail",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json"
+      ],
+      "missing": [
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ]
+    },
+    {
+      "request_id": "SUJ2G2UMJQR7PMBX_1759210049.432666",
+      "type": "boolean_modification",
+      "diff_f1": 0.2269,
+      "execution_status": "completed",
+      "failure_bucket": "wrong_edge_or_scope",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "SUJ2G2UMJQR7PMBX_1759209987.785593",
+      "type": "boolean_modification",
+      "diff_f1": 0.1426,
+      "execution_status": "completed",
+      "failure_bucket": "wrong_edge_or_scope",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "4E22SJE7QVTSP2E3_1758737060.465216",
+      "type": "boolean_modification",
+      "diff_f1": 0.0,
+      "execution_status": "completed",
+      "failure_bucket": "identity",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "4E22SJE7QVTSP2E3_1758737238.499021",
+      "type": "feature_addition",
+      "diff_f1": 0.0,
+      "execution_status": "completed",
+      "failure_bucket": "over_edit",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "4E22SJE7QVTSP2E3_1758737118.288898",
+      "type": "feature_addition",
+      "diff_f1": 0.0543,
+      "execution_status": "completed",
+      "failure_bucket": "identity",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "SUJ2G2UMJQR7PMBX_1759203600.26663",
+      "type": "feature_addition",
+      "diff_f1": 0.1859,
+      "execution_status": "completed",
+      "failure_bucket": "wrong_edge_or_scope",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json"
+      ],
+      "missing": [
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ]
+    },
+    {
+      "request_id": "SUJ2G2UMJQR7PMBX_1759203739.2515829",
+      "type": "feature_addition",
+      "diff_f1": 0.1395,
+      "execution_status": "completed",
+      "failure_bucket": "wrong_edge_or_scope",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "SUJ2G2UMJQR7PMBX_1759203664.9815512",
+      "type": "pattern",
+      "diff_f1": 0.1242,
+      "execution_status": "completed",
+      "failure_bucket": "wrong_edge_or_scope",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png"
+      ],
+      "missing": [
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ]
+    },
+    {
+      "request_id": "4S7JQK6ZQMAD25GL_1758863141.735564",
+      "type": "fillet_chamfer",
+      "diff_f1": 0.0049,
+      "execution_status": "completed",
+      "failure_bucket": "identity",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "4S7JQK6ZQMAD25GL_1758863403.376244",
+      "type": "feature_addition",
+      "diff_f1": 0.0043,
+      "execution_status": "completed",
+      "failure_bucket": "identity",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "4S7JQK6ZQMAD25GL_1758863286.214549",
+      "type": "feature_addition",
+      "diff_f1": 0.0006,
+      "execution_status": "completed",
+      "failure_bucket": "identity",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "F332D3FXML85WLR2_1769424096.996583",
+      "type": "fillet_chamfer",
+      "diff_f1": 0.0648,
+      "execution_status": "completed",
+      "failure_bucket": "identity",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "F332D3FXML85WLR2_1770206307.074256",
+      "type": "dimension_change",
+      "diff_f1": 0.0,
+      "execution_status": "completed",
+      "failure_bucket": "over_edit",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "F332D3FXML85WLR2_1770205912.1187751",
+      "type": "feature_addition",
+      "diff_f1": 0.64,
+      "execution_status": "completed",
+      "failure_bucket": "ok",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "B7A2N74ZJBF9MZHU_1770171470.1448698",
+      "type": "dimension_change",
+      "diff_f1": 0.1412,
+      "execution_status": "completed",
+      "failure_bucket": "misclassify",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "B7A2N74ZJBF9MZHU_1770172545.5244548",
+      "type": "fillet_chamfer",
+      "diff_f1": 0.1175,
+      "execution_status": "completed",
+      "failure_bucket": "occ_fail",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": [
+        "bottom.png"
+      ]
+    },
+    {
+      "request_id": "B7A2N74ZJBF9MZHU_1770171700.697783",
+      "type": "fillet_chamfer",
+      "diff_f1": 0.0,
+      "execution_status": "completed",
+      "failure_bucket": "occ_fail",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json"
+      ],
+      "missing": [
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ]
+    },
+    {
+      "request_id": "3YH2WFSRM22W7DKT_1769176912.388391",
+      "type": "feature_addition",
+      "diff_f1": 0.0923,
+      "execution_status": "completed",
+      "failure_bucket": "misclassify",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "3YH2WFSRM22W7DKT_1769177116.6129558",
+      "type": "feature_addition",
+      "diff_f1": 0.1923,
+      "execution_status": "completed",
+      "failure_bucket": "misclassify",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "3YH2WFSRM22W7DKT_1769177020.525719",
+      "type": "boolean_modification",
+      "diff_f1": 0.0,
+      "execution_status": "completed",
+      "failure_bucket": "identity",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "F332D3FXML85WLR2_1770204558.429523",
+      "type": "fillet_chamfer",
+      "diff_f1": 0.1209,
+      "execution_status": "completed",
+      "failure_bucket": "occ_fail",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "F332D3FXML85WLR2_1769607142.566352",
+      "type": "pattern",
+      "diff_f1": 0.1079,
+      "execution_status": "completed",
+      "failure_bucket": "occ_fail",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "F332D3FXML85WLR2_1770204696.542443",
+      "type": "feature_addition",
+      "diff_f1": 0.0,
+      "execution_status": "completed",
+      "failure_bucket": "misclassify",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "B7A2N74ZJBF9MZHU_1770174133.012106",
+      "type": "feature_translation",
+      "diff_f1": 0.2453,
+      "execution_status": "completed",
+      "failure_bucket": "misclassify",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json"
+      ],
+      "missing": [
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ]
+    },
+    {
+      "request_id": "B7A2N74ZJBF9MZHU_1770174519.556716",
+      "type": "boolean_modification",
+      "diff_f1": 0.2595,
+      "execution_status": "completed",
+      "failure_bucket": "wrong_edge_or_scope",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json"
+      ],
+      "missing": [
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ]
+    },
+    {
+      "request_id": "B7A2N74ZJBF9MZHU_1770174308.67968",
+      "type": "pattern",
+      "diff_f1": 0.2618,
+      "execution_status": "completed",
+      "failure_bucket": "wrong_edge_or_scope",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json"
+      ],
+      "missing": [
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ]
+    },
+    {
+      "request_id": "3YH2WFSRM22W7DKT_1769779150.98797",
+      "type": "feature_addition",
+      "diff_f1": 0.0825,
+      "execution_status": "completed",
+      "failure_bucket": "misclassify",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "3YH2WFSRM22W7DKT_1769782403.586036",
+      "type": "ambiguous",
+      "diff_f1": 0.0026,
+      "execution_status": "completed",
+      "failure_bucket": "identity",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "3YH2WFSRM22W7DKT_1769783385.069543",
+      "type": "feature_deletion",
+      "diff_f1": 0.0109,
+      "execution_status": "completed",
+      "failure_bucket": "identity",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "F332D3FXML85WLR2_1770208282.204381",
+      "type": "fillet_chamfer",
+      "diff_f1": 0.0366,
+      "execution_status": "completed",
+      "failure_bucket": "identity",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json"
+      ],
+      "missing": [
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ]
+    },
+    {
+      "request_id": "F332D3FXML85WLR2_1770208398.300075",
+      "type": "feature_translation",
+      "diff_f1": 0.2228,
+      "execution_status": "completed",
+      "failure_bucket": "misclassify",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "F332D3FXML85WLR2_1770208371.265217",
+      "type": "feature_addition",
+      "diff_f1": 0.0266,
+      "execution_status": "completed",
+      "failure_bucket": "misclassify",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "B7A2N74ZJBF9MZHU_1770166308.11235",
+      "type": "dimension_change",
+      "diff_f1": 0.0,
+      "execution_status": "completed",
+      "failure_bucket": "misclassify",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": [
+        "front.png",
+        "back.png"
+      ]
+    },
+    {
+      "request_id": "B7A2N74ZJBF9MZHU_1770167800.9857888",
+      "type": "feature_addition",
+      "diff_f1": 0.0,
+      "execution_status": "completed",
+      "failure_bucket": "misclassify",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "B7A2N74ZJBF9MZHU_1770166901.871316",
+      "type": "boolean_modification",
+      "diff_f1": 0.2045,
+      "execution_status": "completed",
+      "failure_bucket": "wrong_edge_or_scope",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "3YH2WFSRM22W7DKT_1769174947.8063738",
+      "type": "pattern",
+      "diff_f1": 0.9167,
+      "execution_status": "completed",
+      "failure_bucket": "ok",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "3YH2WFSRM22W7DKT_1769175629.871246",
+      "type": "pattern",
+      "diff_f1": 0.0215,
+      "execution_status": "completed",
+      "failure_bucket": "identity",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "3YH2WFSRM22W7DKT_1769175216.745646",
+      "type": "pattern",
+      "diff_f1": 0.0,
+      "execution_status": "completed",
+      "failure_bucket": "occ_fail",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "B7A2N74ZJBF9MZHU_1770169445.8914912",
+      "type": "fillet_chamfer",
+      "diff_f1": 0.167,
+      "execution_status": "completed",
+      "failure_bucket": "occ_fail",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json"
+      ],
+      "missing": [
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ]
+    },
+    {
+      "request_id": "B7A2N74ZJBF9MZHU_1770169975.851399",
+      "type": "ambiguous",
+      "diff_f1": 0.0,
+      "execution_status": "row_timeout",
+      "failure_bucket": "row_timeout",
+      "copied": [],
+      "missing": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ]
+    },
+    {
+      "request_id": "B7A2N74ZJBF9MZHU_1770169718.2982779",
+      "type": "dimension_change",
+      "diff_f1": 0.1506,
+      "execution_status": "completed",
+      "failure_bucket": "misclassify",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "3YH2WFSRM22W7DKT_1769773134.1453462",
+      "type": "feature_addition",
+      "diff_f1": 0.0485,
+      "execution_status": "completed",
+      "failure_bucket": "identity",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "3YH2WFSRM22W7DKT_1769773481.491738",
+      "type": "hole_edit",
+      "diff_f1": 0.6825,
+      "execution_status": "completed",
+      "failure_bucket": "ok",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    },
+    {
+      "request_id": "3YH2WFSRM22W7DKT_1769773335.525203",
+      "type": "feature_addition",
+      "diff_f1": 0.0233,
+      "execution_status": "completed",
+      "failure_bucket": "misclassify",
+      "copied": [
+        "tmp.step",
+        "tmp.stl",
+        "settings.json",
+        "iso.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png",
+        "left.png",
+        "right.png"
+      ],
+      "missing": []
+    }
+  ]
+}

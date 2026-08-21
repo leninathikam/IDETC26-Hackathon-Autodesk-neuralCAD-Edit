@@ -1,0 +1,145 @@
+{
+    "edit_request_id": "B7A2N74ZJBF9MZHU_1770166308.11235",
+    "edit_id": "groundedcad_full48_1787182231.234467",
+    "start_time": 1787182231.234467,
+    "end_time": 1787182328.9012883,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 55421.0,
+        "output_tokens": 3150.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.213513
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 7,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 1,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 1,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 2,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [
+                "OVERSIZED_BBOX: Y grew 15.000 \u2192 78.200 (>3x); looks like a rebuild"
+            ],
+            "delta_match": 1,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 3,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [
+                "OVERSIZED_BBOX: Y grew 15.000 \u2192 155.600 (>3x); looks like a rebuild"
+            ],
+            "delta_match": 1,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 4,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [
+                "OVERSIZED_BBOX: Y grew 15.000 \u2192 311.050 (>3x); looks like a rebuild"
+            ],
+            "delta_match": 1,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 5,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [
+                "OVERSIZED_BBOX: Y grew 15.000 \u2192 621.800 (>3x); looks like a rebuild"
+            ],
+            "delta_match": 1,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 6,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [
+                "OVERSIZED_BBOX: Y grew 15.000 \u2192 1243.400 (>3x); looks like a rebuild"
+            ],
+            "delta_match": 1,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 7,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [
+                "OVERSIZED_BBOX: Y grew 15.000 \u2192 2486.650 (>3x); looks like a rebuild"
+            ],
+            "delta_match": 1,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        }
+    ],
+    "best_iteration": 7,
+    "accepted": false,
+    "failure_category": "planning",
+    "retry_history": [
+        "iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid",
+        "iter2 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 \u2192 78.200 (>3x); looks like a rebuild",
+        "iter3 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 \u2192 155.600 (>3x); looks like a rebuild",
+        "iter4 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 \u2192 311.050 (>3x); looks like a rebuild",
+        "iter5 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 \u2192 621.800 (>3x); looks like a rebuild",
+        "iter6 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 \u2192 1243.400 (>3x); looks like a rebuild",
+        "iter7 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 \u2192 2486.650 (>3x); looks like a rebuild"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+    "used_llm": true
+}

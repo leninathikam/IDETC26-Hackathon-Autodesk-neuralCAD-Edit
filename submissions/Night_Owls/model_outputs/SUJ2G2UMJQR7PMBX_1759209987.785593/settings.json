@@ -1,0 +1,132 @@
+{
+    "edit_request_id": "SUJ2G2UMJQR7PMBX_1759209987.785593",
+    "edit_id": "groundedcad_full48_1787177772.4959412",
+    "start_time": 1787177772.4959412,
+    "end_time": 1787178061.9152892,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759209987.785593\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 7571.0,
+        "output_tokens": 1727.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.048618
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 3,
+            "volume_ratio": 0.020118,
+            "locality_ok": true,
+            "anchor_id": "cavity:-0.00,2.67,0.00",
+            "census_source": "cavity_candidates",
+            "safe": false
+        },
+        {
+            "iteration": 1,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "Sandbox timeout after 15.0s",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true,
+            "anchor_id": "cavity:-0.00,3.17,0.00",
+            "census_source": "cavity_candidates",
+            "safe": false
+        },
+        {
+            "iteration": 2,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "Sandbox timeout after 15.0s",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true,
+            "anchor_id": "cavity:0.69,3.17,-10.47",
+            "census_source": "cavity_candidates",
+            "safe": false
+        },
+        {
+            "iteration": 3,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "Sandbox timeout after 15.0s",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true,
+            "anchor_id": "cavity:2.05,3.17,-10.29",
+            "census_source": "cavity_candidates",
+            "safe": false
+        },
+        {
+            "iteration": 4,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [
+                "EXTRA_BODIES: solid count 2 \u2192 33 but the instruction did not request a new body"
+            ],
+            "delta_match": 1,
+            "volume_ratio": 0.104773,
+            "locality_ok": true
+        },
+        {
+            "iteration": 5,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "Sandbox timeout after 45.0s",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        }
+    ],
+    "best_iteration": 4,
+    "accepted": false,
+    "failure_category": "false_completion",
+    "retry_history": [
+        "candidate1 cut_through: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid",
+        "candidate2 cut_through: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid",
+        "candidate3 cut_through: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid",
+        "iter4 raw_cadquery: EXTRA_BODIES: solid count 2 \u2192 33 but the instruction did not request a new body",
+        "iter5 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Hi , Please convert the round edges of the gear into straight spur gear teeth. ",
+    "used_llm": true
+}

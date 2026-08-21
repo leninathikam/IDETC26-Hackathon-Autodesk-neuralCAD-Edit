@@ -1,0 +1,2966 @@
+{
+  "request_id": "B7A2N74ZJBF9MZHU_1770171470.1448698",
+  "accepted": true,
+  "best_iteration": 2,
+  "output_dir": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698",
+  "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\tmp.step",
+  "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\tmp.stl",
+  "views": {
+    "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\iso.png",
+    "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\front.png",
+    "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\back.png",
+    "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\left.png",
+    "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\right.png",
+    "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\top.png",
+    "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\bottom.png",
+    "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\orthographic_sheet.png"
+  },
+  "settings": {
+    "token_counts": {
+      "input_tokens": 10359.0,
+      "output_tokens": 870.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.044127
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 7,
+    "candidate_summaries": [
+      {
+        "iteration": 0,
+        "success": false,
+        "accepted": false,
+        "identity": true,
+        "score": 3.0,
+        "failures": [
+          "INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part",
+          "NO_GEOMETRY: execution produced no inspectable solid"
+        ],
+        "delta_match": 0,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      },
+      {
+        "iteration": 1,
+        "success": false,
+        "accepted": false,
+        "identity": true,
+        "score": 3.0,
+        "failures": [
+          "Cannot build face(s): wires not planar\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"",
+          "NO_GEOMETRY: execution produced no inspectable solid"
+        ],
+        "delta_match": 0,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      },
+      {
+        "iteration": 2,
+        "success": true,
+        "accepted": true,
+        "identity": false,
+        "score": 3.0,
+        "failures": [],
+        "delta_match": 2,
+        "volume_ratio": 0.000054,
+        "locality_ok": true
+      }
+    ],
+    "best_iteration": 2,
+    "accepted": true,
+    "failure_category": null,
+    "retry_history": [
+      "iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid",
+      "iter1 raw_cadquery: Cannot build face(s): wires not planar\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\": str(out_dir),\n    })\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 49, in my_cad_function\n    return orig(args)\n  File \"<string>\", line 46, in my_cad_function\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3080, in extrude\n    r = self._extrude(until, both=both, taper=taper, upToFace=None)\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3737, in _extrude\n    faces = self._getFaces()\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3668, in _getFaces\n    rv.extend(wiresToFaces(self.ctx.popPendingWires()))\n              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 5043, in wiresToFaces\n    return Face.makeFromWires(wireList[0], wireList[1:]).Faces()\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 3653, in makeFromWires\n    raise ValueError(\"Cannot build face(s): wires not planar\")\nValueError: Cannot build face(s): wires not planar\n | NO_GEOMETRY: execution produced no inspectable solid"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Make the whole frame structure taller by 0,5cm. The area profile remains the same.",
+    "used_llm": true
+  },
+  "iterations": [
+    {
+      "iteration": 0,
+      "intent": {
+        "summary": "Make the whole frame structure taller by 0,5cm. The area profile remains the same.",
+        "targets": [
+          {
+            "entity_id": "face_0",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -175.8932,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000284,
+            "length": null,
+            "area": 1445.1326206513281,
+            "normal": [
+              -0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -176.61999671429402,
+                "ymin": -490.84220478927176,
+                "zmin": 90.06510818205214,
+                "xmax": -174.61999671429396,
+                "ymax": -369.85359238953305,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_2",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -503.2693,
+              41.3964
+            ],
+            "radius": 0.7411809548974553,
+            "length": null,
+            "area": 2073.4511513691573,
+            "normal": [
+              -0.0,
+              -0.5,
+              0.866
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -504.3007951346021,
+                "zmin": 40.35460330522559,
+                "xmax": -226.619996714294,
+                "ymax": -501.8513053918189,
+                "zmax": 41.8369652150205
+              }
+            }
+          },
+          {
+            "entity_id": "face_4",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -937.3468,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000568,
+            "length": null,
+            "area": 1445.1326206512788,
+            "normal": [
+              0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -938.6199967142941,
+                "ymin": -490.84220478927114,
+                "zmin": 90.06510818205211,
+                "xmax": -936.619996714294,
+                "ymax": -369.853592389533,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_6",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -357.9544,
+              583.7188
+            ],
+            "radius": 0.7411809548974873,
+            "length": null,
+            "area": 2073.4511513691973,
+            "normal": [
+              -0.0,
+              -0.866,
+              -0.5
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -358.395002044202,
+                "zmin": 582.6872795894768,
+                "xmax": -226.61999671429393,
+                "ymax": -356.912640134407,
+                "zmax": 585.13676933226
+              }
+            }
+          },
+          {
+            "entity_id": "face_8",
+            "kind": "face",
+            "description": "CYLINDER face area=1256.637",
+            "confidence": 1.0,
+            "center": [
+              -918.451,
+              -489.4214,
+              57.2482
+            ],
+            "radius": 14.197882737875517,
+            "length": null,
+            "area": 1256.6370614359114,
+            "normal": [
+              0.7071,
+              0.183,
+              0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -936.619996714294,
+                "ymin": -501.85130539181904,
+                "zmin": 37.6277121459584,
+                "xmax": -886.619996714294,
+                "ymax": -473.455539916068,
+                "zmax": 90.06510818205207
+              }
+            }
+          },
+          {
+            "entity_id": "face_10",
+            "kind": "face",
+            "description": "CYLINDER face area=1256.637",
+            "confidence": 1.0,
+            "center": [
+              -194.789,
+              -489.4214,
+              57.2482
+            ],
+            "radius": 14.197882737875545,
+            "length": null,
+            "area": 1256.6370614359087,
+            "normal": [
+              -0.7071,
+              0.183,
+              0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -226.619996714294,
+                "ymin": -501.85130539181904,
+                "zmin": 37.62771214595831,
+                "xmax": -176.619996714294,
+                "ymax": -473.45553991606795,
+                "zmax": 90.06510818205223
+              }
+            }
+          },
+          {
+            "entity_id": "face_13",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -948.8932,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0,
+            "length": null,
+            "area": 1445.1326206513445,
+            "normal": [
+              -0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -949.619996714294,
+                "ymin": -490.8422047892718,
+                "zmin": 90.06510818205209,
+                "xmax": -947.619996714294,
+                "ymax": -369.853592389533,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_15",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -506.2577,
+              30.2433
+            ],
+            "radius": 0.7411809548975157,
+            "length": null,
+            "area": 2073.4511513694097,
+            "normal": [
+              -0.0,
+              -0.866,
+              -0.5
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -506.69831488794705,
+                "zmin": 29.211781125840762,
+                "xmax": -226.61999671429396,
+                "ymax": -505.215952978152,
+                "zmax": 31.661270868624044
+              }
+            }
+          },
+          {
+            "entity_id": "face_17",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -164.3468,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000142,
+            "length": null,
+            "area": 1445.1326206513104,
+            "normal": [
+              0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -165.61999671429402,
+                "ymin": -490.84220478927114,
+                "zmin": 90.0651081820522,
+                "xmax": -163.619996714294,
+                "ymax": -369.85359238953316,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_19",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -354.9659,
+              594.8719
+            ],
+            "radius": 0.7411809548974588,
+            "length": null,
+            "area": 2073.451151369223,
+            "normal": [
+              -0.0,
+              -0.5,
+              0.866
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -355.99748229085816,
+                "zmin": 593.830101768862,
+                "xmax": -226.619996714294,
+                "ymax": -353.547992548075,
+                "zmax": 595.312463678657
+              }
+            }
+          },
+          {
+            "entity_id": "face_21",
+            "kind": "face",
+            "description": "CYLINDER face area=791.681",
+            "confidence": 1.0,
+            "center": [
+              -186.513,
+              -495.4271,
+              50.2894
+            ],
+            "radius": 12.016503225885543,
+            "length": null,
+            "area": 791.6813487045765,
+            "normal": [
+              0.7071,
+              -0.183,
+              -0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -226.619996714294,
+                "ymin": -505.215952978152,
+                "zmin": 27.141228765020585,
+                "xmax": -163.619996714294,
+                "ymax": -481.18294652638093,
+                "zmax": 90.06510818205223
+              }
+            }
+          },
+          {
+            "entity_id": "face_23",
+            "kind": "face",
+            "description": "CYLINDER face area=791.681",
+            "confidence": 1.0,
+            "center": [
+              -926.727,
+              -495.4271,
+              50.2894
+            ],
+            "radius": 12.016503225885543,
+            "length": null,
+            "area": 791.6813487046737,
+            "normal": [
+              -0.7071,
+              -0.183,
+              -0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -949.619996714294,
+                "ymin": -505.215952978152,
+                "zmin": 27.14122876502055,
+                "xmax": -886.619996714294,
+                "ymax": -481.18294652638093,
+                "zmax": 90.06510818205211
+              }
+            }
+          }
+        ],
+        "operation_hints": [
+          "scale"
+        ],
+        "dimensions": {
+          "value_mm": 5.0,
+          "distance": 5.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "Many candidate targets; need disambiguation"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.75,
+        "raw_instruction": "Make the whole frame structure taller by 0,5cm. The area profile remains the same.",
+        "target_text": "body",
+        "reference_text": "{\"size_mm\":[786.0,168.29,568.51],\"volume\":611785.5,\"n_solids\":1,\"shortest_axis\":\"y\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "",
+        "pattern": "dimension_change"
+      },
+      "edit_spec": {
+        "intent_summary": "Make the whole frame structure taller by 0,5cm. The area profile remains the same.",
+        "operation": "scale",
+        "targets": [
+          {
+            "entity_id": "face_0",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -175.8932,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000284,
+            "length": null,
+            "area": 1445.1326206513281,
+            "normal": [
+              -0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -176.61999671429402,
+                "ymin": -490.84220478927176,
+                "zmin": 90.06510818205214,
+                "xmax": -174.61999671429396,
+                "ymax": -369.85359238953305,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_2",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -503.2693,
+              41.3964
+            ],
+            "radius": 0.7411809548974553,
+            "length": null,
+            "area": 2073.4511513691573,
+            "normal": [
+              -0.0,
+              -0.5,
+              0.866
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -504.3007951346021,
+                "zmin": 40.35460330522559,
+                "xmax": -226.619996714294,
+                "ymax": -501.8513053918189,
+                "zmax": 41.8369652150205
+              }
+            }
+          },
+          {
+            "entity_id": "face_4",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -937.3468,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000568,
+            "length": null,
+            "area": 1445.1326206512788,
+            "normal": [
+              0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -938.6199967142941,
+                "ymin": -490.84220478927114,
+                "zmin": 90.06510818205211,
+                "xmax": -936.619996714294,
+                "ymax": -369.853592389533,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_6",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -357.9544,
+              583.7188
+            ],
+            "radius": 0.7411809548974873,
+            "length": null,
+            "area": 2073.4511513691973,
+            "normal": [
+              -0.0,
+              -0.866,
+              -0.5
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -358.395002044202,
+                "zmin": 582.6872795894768,
+                "xmax": -226.61999671429393,
+                "ymax": -356.912640134407,
+                "zmax": 585.13676933226
+              }
+            }
+          },
+          {
+            "entity_id": "face_8",
+            "kind": "face",
+            "description": "CYLINDER face area=1256.637",
+            "confidence": 1.0,
+            "center": [
+              -918.451,
+              -489.4214,
+              57.2482
+            ],
+            "radius": 14.197882737875517,
+            "length": null,
+            "area": 1256.6370614359114,
+            "normal": [
+              0.7071,
+              0.183,
+              0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -936.619996714294,
+                "ymin": -501.85130539181904,
+                "zmin": 37.6277121459584,
+                "xmax": -886.619996714294,
+                "ymax": -473.455539916068,
+                "zmax": 90.06510818205207
+              }
+            }
+          },
+          {
+            "entity_id": "face_10",
+            "kind": "face",
+            "description": "CYLINDER face area=1256.637",
+            "confidence": 1.0,
+            "center": [
+              -194.789,
+              -489.4214,
+              57.2482
+            ],
+            "radius": 14.197882737875545,
+            "length": null,
+            "area": 1256.6370614359087,
+            "normal": [
+              -0.7071,
+              0.183,
+              0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -226.619996714294,
+                "ymin": -501.85130539181904,
+                "zmin": 37.62771214595831,
+                "xmax": -176.619996714294,
+                "ymax": -473.45553991606795,
+                "zmax": 90.06510818205223
+              }
+            }
+          },
+          {
+            "entity_id": "face_13",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -948.8932,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0,
+            "length": null,
+            "area": 1445.1326206513445,
+            "normal": [
+              -0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -949.619996714294,
+                "ymin": -490.8422047892718,
+                "zmin": 90.06510818205209,
+                "xmax": -947.619996714294,
+                "ymax": -369.853592389533,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_15",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -506.2577,
+              30.2433
+            ],
+            "radius": 0.7411809548975157,
+            "length": null,
+            "area": 2073.4511513694097,
+            "normal": [
+              -0.0,
+              -0.866,
+              -0.5
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -506.69831488794705,
+                "zmin": 29.211781125840762,
+                "xmax": -226.61999671429396,
+                "ymax": -505.215952978152,
+                "zmax": 31.661270868624044
+              }
+            }
+          },
+          {
+            "entity_id": "face_17",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -164.3468,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000142,
+            "length": null,
+            "area": 1445.1326206513104,
+            "normal": [
+              0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -165.61999671429402,
+                "ymin": -490.84220478927114,
+                "zmin": 90.0651081820522,
+                "xmax": -163.619996714294,
+                "ymax": -369.85359238953316,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_19",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -354.9659,
+              594.8719
+            ],
+            "radius": 0.7411809548974588,
+            "length": null,
+            "area": 2073.451151369223,
+            "normal": [
+              -0.0,
+              -0.5,
+              0.866
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -355.99748229085816,
+                "zmin": 593.830101768862,
+                "xmax": -226.619996714294,
+                "ymax": -353.547992548075,
+                "zmax": 595.312463678657
+              }
+            }
+          },
+          {
+            "entity_id": "face_21",
+            "kind": "face",
+            "description": "CYLINDER face area=791.681",
+            "confidence": 1.0,
+            "center": [
+              -186.513,
+              -495.4271,
+              50.2894
+            ],
+            "radius": 12.016503225885543,
+            "length": null,
+            "area": 791.6813487045765,
+            "normal": [
+              0.7071,
+              -0.183,
+              -0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -226.619996714294,
+                "ymin": -505.215952978152,
+                "zmin": 27.141228765020585,
+                "xmax": -163.619996714294,
+                "ymax": -481.18294652638093,
+                "zmax": 90.06510818205223
+              }
+            }
+          },
+          {
+            "entity_id": "face_23",
+            "kind": "face",
+            "description": "CYLINDER face area=791.681",
+            "confidence": 1.0,
+            "center": [
+              -926.727,
+              -495.4271,
+              50.2894
+            ],
+            "radius": 12.016503225885543,
+            "length": null,
+            "area": 791.6813487046737,
+            "normal": [
+              -0.7071,
+              -0.183,
+              -0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -949.619996714294,
+                "ymin": -505.215952978152,
+                "zmin": 27.14122876502055,
+                "xmax": -886.619996714294,
+                "ymax": -481.18294652638093,
+                "zmax": 90.06510818205211
+              }
+            }
+          }
+        ],
+        "parameters": {
+          "reason": "height/length change is not a uniform scale of the whole part"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Bounded volume change",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.9
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=dimension_change target=body action=scale complete=False"
+      },
+      "execution": {
+        "success": false,
+        "step_path": null,
+        "stl_path": null,
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [],
+        "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('incomplete_plan', {\"step_path\": input_file, **{'reason': 'height/length change is not a uniform scale of the whole part'}})\n    path = str(Path(input_file))\n    for follow in []:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result",
+        "geometry_summary": {},
+        "error": "incomplete:height/length change is not a uniform scale of the whole part",
+        "duration_s": 0.0
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: incomplete:height/length change is not a uniform scale of the whole part",
+            "measured": {
+              "valid": null,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": null
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "volume change ratio=1.0000 within [0.0,0.9]",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 611785.5001093379,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": false,
+            "detail": "Identity/no-op vs start",
+            "measured": {
+              "identity": true
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                786.0000000999999,
+                168.28953849916002,
+                568.5119767507457
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": true,
+            "detail": "Local edit: body/volume/bbox stay close to the start model",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "overall size"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 786.000 → 0.000",
+                "Y size 168.290 → 0.000",
+                "Z size 568.512 → 0.000",
+                "plate thickness 168.290 → 0.000",
+                "hole_count 16 → 0",
+                "volume 611785.5001 → 0.0000"
+              ],
+              "unintended": []
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Make the whole frame structure taller by 0,5cm. The area profile remains the same.\nfailure_bucket: INCOMPLETE\nfailures: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: dimension_change/body/scale\nrequired_action: use census fitting-hole diameter and parsed dims; do not invent a whole-part rebuild.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: incomplete:height/length change is not a uniform scale of the whole part n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.9] Identity/no-op vs start",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: incomplete:height/length change is not a uniform scale of the whole part n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.9] Identity/no-op vs start",
+          "specific_fix": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Make the whole frame structure taller by 0,5cm. The area profile remains the same.\nfailure_bucket: INCOMPLETE\nfailures: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: dimension_change/body/scale\nrequired_action: use census fitting-hole diameter and parsed dims; do not invent a whole-part rebuild."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 0.0,
+        "output_tokens": 0.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "incomplete:height/length change is not a uniform scale of the whole part"
+    },
+    {
+      "iteration": 1,
+      "intent": {
+        "summary": "Make the whole frame structure taller by 0,5cm. The area profile remains the same.",
+        "targets": [
+          {
+            "entity_id": "face_0",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -175.8932,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000284,
+            "length": null,
+            "area": 1445.1326206513281,
+            "normal": [
+              -0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -176.61999671429402,
+                "ymin": -490.84220478927176,
+                "zmin": 90.06510818205214,
+                "xmax": -174.61999671429396,
+                "ymax": -369.85359238953305,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_2",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -503.2693,
+              41.3964
+            ],
+            "radius": 0.7411809548974553,
+            "length": null,
+            "area": 2073.4511513691573,
+            "normal": [
+              -0.0,
+              -0.5,
+              0.866
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -504.3007951346021,
+                "zmin": 40.35460330522559,
+                "xmax": -226.619996714294,
+                "ymax": -501.8513053918189,
+                "zmax": 41.8369652150205
+              }
+            }
+          },
+          {
+            "entity_id": "face_4",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -937.3468,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000568,
+            "length": null,
+            "area": 1445.1326206512788,
+            "normal": [
+              0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -938.6199967142941,
+                "ymin": -490.84220478927114,
+                "zmin": 90.06510818205211,
+                "xmax": -936.619996714294,
+                "ymax": -369.853592389533,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_6",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -357.9544,
+              583.7188
+            ],
+            "radius": 0.7411809548974873,
+            "length": null,
+            "area": 2073.4511513691973,
+            "normal": [
+              -0.0,
+              -0.866,
+              -0.5
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -358.395002044202,
+                "zmin": 582.6872795894768,
+                "xmax": -226.61999671429393,
+                "ymax": -356.912640134407,
+                "zmax": 585.13676933226
+              }
+            }
+          },
+          {
+            "entity_id": "face_8",
+            "kind": "face",
+            "description": "CYLINDER face area=1256.637",
+            "confidence": 1.0,
+            "center": [
+              -918.451,
+              -489.4214,
+              57.2482
+            ],
+            "radius": 14.197882737875517,
+            "length": null,
+            "area": 1256.6370614359114,
+            "normal": [
+              0.7071,
+              0.183,
+              0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -936.619996714294,
+                "ymin": -501.85130539181904,
+                "zmin": 37.6277121459584,
+                "xmax": -886.619996714294,
+                "ymax": -473.455539916068,
+                "zmax": 90.06510818205207
+              }
+            }
+          },
+          {
+            "entity_id": "face_10",
+            "kind": "face",
+            "description": "CYLINDER face area=1256.637",
+            "confidence": 1.0,
+            "center": [
+              -194.789,
+              -489.4214,
+              57.2482
+            ],
+            "radius": 14.197882737875545,
+            "length": null,
+            "area": 1256.6370614359087,
+            "normal": [
+              -0.7071,
+              0.183,
+              0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -226.619996714294,
+                "ymin": -501.85130539181904,
+                "zmin": 37.62771214595831,
+                "xmax": -176.619996714294,
+                "ymax": -473.45553991606795,
+                "zmax": 90.06510818205223
+              }
+            }
+          },
+          {
+            "entity_id": "face_13",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -948.8932,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0,
+            "length": null,
+            "area": 1445.1326206513445,
+            "normal": [
+              -0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -949.619996714294,
+                "ymin": -490.8422047892718,
+                "zmin": 90.06510818205209,
+                "xmax": -947.619996714294,
+                "ymax": -369.853592389533,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_15",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -506.2577,
+              30.2433
+            ],
+            "radius": 0.7411809548975157,
+            "length": null,
+            "area": 2073.4511513694097,
+            "normal": [
+              -0.0,
+              -0.866,
+              -0.5
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -506.69831488794705,
+                "zmin": 29.211781125840762,
+                "xmax": -226.61999671429396,
+                "ymax": -505.215952978152,
+                "zmax": 31.661270868624044
+              }
+            }
+          },
+          {
+            "entity_id": "face_17",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -164.3468,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000142,
+            "length": null,
+            "area": 1445.1326206513104,
+            "normal": [
+              0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -165.61999671429402,
+                "ymin": -490.84220478927114,
+                "zmin": 90.0651081820522,
+                "xmax": -163.619996714294,
+                "ymax": -369.85359238953316,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_19",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -354.9659,
+              594.8719
+            ],
+            "radius": 0.7411809548974588,
+            "length": null,
+            "area": 2073.451151369223,
+            "normal": [
+              -0.0,
+              -0.5,
+              0.866
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -355.99748229085816,
+                "zmin": 593.830101768862,
+                "xmax": -226.619996714294,
+                "ymax": -353.547992548075,
+                "zmax": 595.312463678657
+              }
+            }
+          },
+          {
+            "entity_id": "face_21",
+            "kind": "face",
+            "description": "CYLINDER face area=791.681",
+            "confidence": 1.0,
+            "center": [
+              -186.513,
+              -495.4271,
+              50.2894
+            ],
+            "radius": 12.016503225885543,
+            "length": null,
+            "area": 791.6813487045765,
+            "normal": [
+              0.7071,
+              -0.183,
+              -0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -226.619996714294,
+                "ymin": -505.215952978152,
+                "zmin": 27.141228765020585,
+                "xmax": -163.619996714294,
+                "ymax": -481.18294652638093,
+                "zmax": 90.06510818205223
+              }
+            }
+          },
+          {
+            "entity_id": "face_23",
+            "kind": "face",
+            "description": "CYLINDER face area=791.681",
+            "confidence": 1.0,
+            "center": [
+              -926.727,
+              -495.4271,
+              50.2894
+            ],
+            "radius": 12.016503225885543,
+            "length": null,
+            "area": 791.6813487046737,
+            "normal": [
+              -0.7071,
+              -0.183,
+              -0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -949.619996714294,
+                "ymin": -505.215952978152,
+                "zmin": 27.14122876502055,
+                "xmax": -886.619996714294,
+                "ymax": -481.18294652638093,
+                "zmax": 90.06510818205211
+              }
+            }
+          }
+        ],
+        "operation_hints": [
+          "scale"
+        ],
+        "dimensions": {
+          "value_mm": 5.0,
+          "distance": 5.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "Many candidate targets; need disambiguation"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.75,
+        "raw_instruction": "Make the whole frame structure taller by 0,5cm. The area profile remains the same.",
+        "target_text": "body",
+        "reference_text": "{\"size_mm\":[786.0,168.29,568.51],\"volume\":611785.5,\"n_solids\":1,\"shortest_axis\":\"y\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "",
+        "pattern": "dimension_change"
+      },
+      "edit_spec": {
+        "intent_summary": "Make the whole frame structure taller by 0,5cm. The area profile remains the same.",
+        "operation": "scale",
+        "targets": [
+          {
+            "entity_id": "face_0",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -175.8932,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000284,
+            "length": null,
+            "area": 1445.1326206513281,
+            "normal": [
+              -0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -176.61999671429402,
+                "ymin": -490.84220478927176,
+                "zmin": 90.06510818205214,
+                "xmax": -174.61999671429396,
+                "ymax": -369.85359238953305,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_2",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -503.2693,
+              41.3964
+            ],
+            "radius": 0.7411809548974553,
+            "length": null,
+            "area": 2073.4511513691573,
+            "normal": [
+              -0.0,
+              -0.5,
+              0.866
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -504.3007951346021,
+                "zmin": 40.35460330522559,
+                "xmax": -226.619996714294,
+                "ymax": -501.8513053918189,
+                "zmax": 41.8369652150205
+              }
+            }
+          },
+          {
+            "entity_id": "face_4",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -937.3468,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000568,
+            "length": null,
+            "area": 1445.1326206512788,
+            "normal": [
+              0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -938.6199967142941,
+                "ymin": -490.84220478927114,
+                "zmin": 90.06510818205211,
+                "xmax": -936.619996714294,
+                "ymax": -369.853592389533,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_6",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -357.9544,
+              583.7188
+            ],
+            "radius": 0.7411809548974873,
+            "length": null,
+            "area": 2073.4511513691973,
+            "normal": [
+              -0.0,
+              -0.866,
+              -0.5
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -358.395002044202,
+                "zmin": 582.6872795894768,
+                "xmax": -226.61999671429393,
+                "ymax": -356.912640134407,
+                "zmax": 585.13676933226
+              }
+            }
+          },
+          {
+            "entity_id": "face_8",
+            "kind": "face",
+            "description": "CYLINDER face area=1256.637",
+            "confidence": 1.0,
+            "center": [
+              -918.451,
+              -489.4214,
+              57.2482
+            ],
+            "radius": 14.197882737875517,
+            "length": null,
+            "area": 1256.6370614359114,
+            "normal": [
+              0.7071,
+              0.183,
+              0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -936.619996714294,
+                "ymin": -501.85130539181904,
+                "zmin": 37.6277121459584,
+                "xmax": -886.619996714294,
+                "ymax": -473.455539916068,
+                "zmax": 90.06510818205207
+              }
+            }
+          },
+          {
+            "entity_id": "face_10",
+            "kind": "face",
+            "description": "CYLINDER face area=1256.637",
+            "confidence": 1.0,
+            "center": [
+              -194.789,
+              -489.4214,
+              57.2482
+            ],
+            "radius": 14.197882737875545,
+            "length": null,
+            "area": 1256.6370614359087,
+            "normal": [
+              -0.7071,
+              0.183,
+              0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -226.619996714294,
+                "ymin": -501.85130539181904,
+                "zmin": 37.62771214595831,
+                "xmax": -176.619996714294,
+                "ymax": -473.45553991606795,
+                "zmax": 90.06510818205223
+              }
+            }
+          },
+          {
+            "entity_id": "face_13",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -948.8932,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0,
+            "length": null,
+            "area": 1445.1326206513445,
+            "normal": [
+              -0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -949.619996714294,
+                "ymin": -490.8422047892718,
+                "zmin": 90.06510818205209,
+                "xmax": -947.619996714294,
+                "ymax": -369.853592389533,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_15",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -506.2577,
+              30.2433
+            ],
+            "radius": 0.7411809548975157,
+            "length": null,
+            "area": 2073.4511513694097,
+            "normal": [
+              -0.0,
+              -0.866,
+              -0.5
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -506.69831488794705,
+                "zmin": 29.211781125840762,
+                "xmax": -226.61999671429396,
+                "ymax": -505.215952978152,
+                "zmax": 31.661270868624044
+              }
+            }
+          },
+          {
+            "entity_id": "face_17",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -164.3468,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000142,
+            "length": null,
+            "area": 1445.1326206513104,
+            "normal": [
+              0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -165.61999671429402,
+                "ymin": -490.84220478927114,
+                "zmin": 90.0651081820522,
+                "xmax": -163.619996714294,
+                "ymax": -369.85359238953316,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_19",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -354.9659,
+              594.8719
+            ],
+            "radius": 0.7411809548974588,
+            "length": null,
+            "area": 2073.451151369223,
+            "normal": [
+              -0.0,
+              -0.5,
+              0.866
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -355.99748229085816,
+                "zmin": 593.830101768862,
+                "xmax": -226.619996714294,
+                "ymax": -353.547992548075,
+                "zmax": 595.312463678657
+              }
+            }
+          },
+          {
+            "entity_id": "face_21",
+            "kind": "face",
+            "description": "CYLINDER face area=791.681",
+            "confidence": 1.0,
+            "center": [
+              -186.513,
+              -495.4271,
+              50.2894
+            ],
+            "radius": 12.016503225885543,
+            "length": null,
+            "area": 791.6813487045765,
+            "normal": [
+              0.7071,
+              -0.183,
+              -0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -226.619996714294,
+                "ymin": -505.215952978152,
+                "zmin": 27.141228765020585,
+                "xmax": -163.619996714294,
+                "ymax": -481.18294652638093,
+                "zmax": 90.06510818205223
+              }
+            }
+          },
+          {
+            "entity_id": "face_23",
+            "kind": "face",
+            "description": "CYLINDER face area=791.681",
+            "confidence": 1.0,
+            "center": [
+              -926.727,
+              -495.4271,
+              50.2894
+            ],
+            "radius": 12.016503225885543,
+            "length": null,
+            "area": 791.6813487046737,
+            "normal": [
+              -0.7071,
+              -0.183,
+              -0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -949.619996714294,
+                "ymin": -505.215952978152,
+                "zmin": 27.14122876502055,
+                "xmax": -886.619996714294,
+                "ymax": -481.18294652638093,
+                "zmax": 90.06510818205211
+              }
+            }
+          }
+        ],
+        "parameters": {
+          "reason": "height/length change is not a uniform scale of the whole part"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Bounded volume change",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.9
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=dimension_change target=body action=scale complete=False"
+      },
+      "execution": {
+        "success": false,
+        "step_path": null,
+        "stl_path": null,
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "raw_cadquery",
+            "arguments": {},
+            "rationale": "script fallback",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    # Make the structure taller by +5.0mm in +Z while keeping the XY profile the same.\n    # Do this by fusing a 5mm-thick \"cap\" that matches the top face outer profile.\n    bb = solid.BoundingBox()\n    z_top = bb.zmax\n\n    # Find the highest planar face(s) (top) and take the largest by area as the outer boundary carrier.\n    top_faces = (\n        cq.Workplane(\"XY\")\n        .newObject([solid])\n        .faces(\">Z\")\n        .vals()\n    )\n    if not top_faces:\n        return cq.Workplane(\"XY\").newObject([solid])\n\n    top_face = max(top_faces, key=lambda f: f.Area())\n\n    # Build a workplane on the top face and reuse its outer wire(s) to extrude upward.\n    cap_wp = cq.Workplane(obj=top_face)\n\n    # Take outer wire(s) only: this preserves the outer area profile and ignores internal holes.\n    outer_wires = cap_wp.wires().vals()\n    if not outer_wires:\n        return cq.Workplane(\"XY\").newObject([solid])\n\n    # Heuristic: select the wire with the largest area as the outer boundary.\n    def wire_area(w):\n        try:\n            return cq.Face.makeFromWires(w).Area()\n        except Exception:\n            return 0.0\n\n    outer_wire = max(outer_wires, key=wire_area)\n\n    cap = (\n        cq.Workplane(obj=top_face)\n        .newObject([outer_wire])\n        .toPending()\n        .extrude(5.0)\n        .val()\n    )\n\n    solid = solid.fuse(cap)\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {},
+        "error": "Cannot build face(s): wires not planar\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\": str(out_dir),\n    })\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 49, in my_cad_function\n    return orig(args)\n  File \"<string>\", line 46, in my_cad_function\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3080, in extrude\n    r = self._extrude(until, both=both, taper=taper, upToFace=None)\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3737, in _extrude\n    faces = self._getFaces()\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3668, in _getFaces\n    rv.extend(wiresToFaces(self.ctx.popPendingWires()))\n              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 5043, in wiresToFaces\n    return Face.makeFromWires(wireList[0], wireList[1:]).Faces()\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 3653, in makeFromWires\n    raise ValueError(\"Cannot build face(s): wires not planar\")\nValueError: Cannot build face(s): wires not planar\n",
+        "duration_s": 5.101245641708374
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: Cannot build face(s): wires not planar\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\": str(out_dir),\n    })\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 49, in my_cad_function\n    return orig(args)\n  File \"<string>\", line 46, in my_cad_function\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3080, in extrude\n    r = self._extrude(until, both=both, taper=taper, upToFace=None)\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3737, in _extrude\n    faces = self._getFaces()\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3668, in _getFaces\n    rv.extend(wiresToFaces(self.ctx.popPendingWires()))\n              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 5043, in wiresToFaces\n    return Face.makeFromWires(wireList[0], wireList[1:]).Faces()\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 3653, in makeFromWires\n    raise ValueError(\"Cannot build face(s): wires not planar\")\nValueError: Cannot build face(s): wires not planar\n",
+            "measured": {
+              "valid": null,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": null
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "volume change ratio=1.0000 within [0.0,0.9]",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 611785.5001093379,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": false,
+            "detail": "Identity/no-op vs start",
+            "measured": {
+              "identity": true
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                786.0000000999999,
+                168.28953849916002,
+                568.5119767507457
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": true,
+            "detail": "Local edit: body/volume/bbox stay close to the start model",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "overall size"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 786.000 → 0.000",
+                "Y size 168.290 → 0.000",
+                "Z size 568.512 → 0.000",
+                "plate thickness 168.290 → 0.000",
+                "hole_count 16 → 0",
+                "volume 611785.5001 → 0.0000"
+              ],
+              "unintended": []
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=1: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Make the whole frame structure taller by 0,5cm. The area profile remains the same.\nfailure_bucket: NO_OP\nfailures: Cannot build face(s): wires not planar\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\": str(out_dir),\n    })\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 49, in my_cad_function\n    return orig(args)\n  File \"<string>\", line 46, in my_cad_function\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3080, in extrude\n    r = self._extrude(until, both=both, taper=taper, upToFace=None)\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3737, in _extrude\n    faces = self._getFaces()\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3668, in _getFaces\n    rv.extend(wiresToFaces(self.ctx.popPendingWires()))\n              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 5043, in wiresToFaces\n    return Face.makeFromWires(wireList[0], wireList[1:]).Faces()\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 3653, in makeFromWires\n    raise ValueError(\"Cannot build face(s): wires not planar\")\nValueError: Cannot build face(s): wires not planar\n | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: dimension_change/body/scale\nprior_attempts: iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: Cannot build face(s): wires not planar\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\": str(out_dir),\n    })\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 49, in my_cad_function\n    return orig(args)\n  File \"<string>\", line 46, in my_cad_function\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3080, in extrude\n    r = self._extrude(until, both=both, taper=taper, upToFace=None)\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3737, in _extrude\n    faces = self._getFaces()\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3668, in _getFaces\n    rv.extend(wiresToFaces(self.ctx.popPendingWires()))\n              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 5043, in wiresToFaces\n    return Face.makeFromWires(wireList[0], wireList[1:]).Faces()\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 3653, in makeFromWires\n    raise ValueError(\"Cannot build face(s): wires not planar\")\nValueError: Cannot build face(s): wires not planar\n n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.9] Identity/no-op vs start",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: Cannot build face(s): wires not planar\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\": str(out_dir),\n    })\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 49, in my_cad_function\n    return orig(args)\n  File \"<string>\", line 46, in my_cad_function\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3080, in extrude\n    r = self._extrude(until, both=both, taper=taper, upToFace=None)\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3737, in _extrude\n    faces = self._getFaces()\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3668, in _getFaces\n    rv.extend(wiresToFaces(self.ctx.popPendingWires()))\n              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 5043, in wiresToFaces\n    return Face.makeFromWires(wireList[0], wireList[1:]).Faces()\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 3653, in makeFromWires\n    raise ValueError(\"Cannot build face(s): wires not planar\")\nValueError: Cannot build face(s): wires not planar\n n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.9] Identity/no-op vs start",
+          "specific_fix": "RETRY attempt=1: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Make the whole frame structure taller by 0,5cm. The area profile remains the same.\nfailure_bucket: NO_OP\nfailures: Cannot build face(s): wires not planar\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\": str(out_dir),\n    })\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 49, in my_cad_function\n    return orig(args)\n  File \"<string>\", line 46, in my_cad_function\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3080, in extrude\n    r = self._extrude(until, both=both, taper=taper, upToFace=None)\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3737, in _extrude\n    faces = self._getFaces()\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3668, in _getFaces\n    rv.extend(wiresToFaces(self.ctx.popPendingWires()))\n              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 5043, in wiresToFaces\n    return Face.makeFromWires(wireList[0], wireList[1:]).Faces()\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 3653, in makeFromWires\n    raise ValueError(\"Cannot build face(s): wires not planar\")\nValueError: Cannot build face(s): wires not planar\n | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: dimension_change/body/scale\nprior_attempts: iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 4704.0,
+        "output_tokens": 485.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    },
+    {
+      "iteration": 2,
+      "intent": {
+        "summary": "Make the whole frame structure taller by 0,5cm. The area profile remains the same.",
+        "targets": [
+          {
+            "entity_id": "face_0",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -175.8932,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000284,
+            "length": null,
+            "area": 1445.1326206513281,
+            "normal": [
+              -0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -176.61999671429402,
+                "ymin": -490.84220478927176,
+                "zmin": 90.06510818205214,
+                "xmax": -174.61999671429396,
+                "ymax": -369.85359238953305,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_2",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -503.2693,
+              41.3964
+            ],
+            "radius": 0.7411809548974553,
+            "length": null,
+            "area": 2073.4511513691573,
+            "normal": [
+              -0.0,
+              -0.5,
+              0.866
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -504.3007951346021,
+                "zmin": 40.35460330522559,
+                "xmax": -226.619996714294,
+                "ymax": -501.8513053918189,
+                "zmax": 41.8369652150205
+              }
+            }
+          },
+          {
+            "entity_id": "face_4",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -937.3468,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000568,
+            "length": null,
+            "area": 1445.1326206512788,
+            "normal": [
+              0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -938.6199967142941,
+                "ymin": -490.84220478927114,
+                "zmin": 90.06510818205211,
+                "xmax": -936.619996714294,
+                "ymax": -369.853592389533,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_6",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -357.9544,
+              583.7188
+            ],
+            "radius": 0.7411809548974873,
+            "length": null,
+            "area": 2073.4511513691973,
+            "normal": [
+              -0.0,
+              -0.866,
+              -0.5
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -358.395002044202,
+                "zmin": 582.6872795894768,
+                "xmax": -226.61999671429393,
+                "ymax": -356.912640134407,
+                "zmax": 585.13676933226
+              }
+            }
+          },
+          {
+            "entity_id": "face_8",
+            "kind": "face",
+            "description": "CYLINDER face area=1256.637",
+            "confidence": 1.0,
+            "center": [
+              -918.451,
+              -489.4214,
+              57.2482
+            ],
+            "radius": 14.197882737875517,
+            "length": null,
+            "area": 1256.6370614359114,
+            "normal": [
+              0.7071,
+              0.183,
+              0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -936.619996714294,
+                "ymin": -501.85130539181904,
+                "zmin": 37.6277121459584,
+                "xmax": -886.619996714294,
+                "ymax": -473.455539916068,
+                "zmax": 90.06510818205207
+              }
+            }
+          },
+          {
+            "entity_id": "face_10",
+            "kind": "face",
+            "description": "CYLINDER face area=1256.637",
+            "confidence": 1.0,
+            "center": [
+              -194.789,
+              -489.4214,
+              57.2482
+            ],
+            "radius": 14.197882737875545,
+            "length": null,
+            "area": 1256.6370614359087,
+            "normal": [
+              -0.7071,
+              0.183,
+              0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -226.619996714294,
+                "ymin": -501.85130539181904,
+                "zmin": 37.62771214595831,
+                "xmax": -176.619996714294,
+                "ymax": -473.45553991606795,
+                "zmax": 90.06510818205223
+              }
+            }
+          },
+          {
+            "entity_id": "face_13",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -948.8932,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0,
+            "length": null,
+            "area": 1445.1326206513445,
+            "normal": [
+              -0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -949.619996714294,
+                "ymin": -490.8422047892718,
+                "zmin": 90.06510818205209,
+                "xmax": -947.619996714294,
+                "ymax": -369.853592389533,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_15",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -506.2577,
+              30.2433
+            ],
+            "radius": 0.7411809548975157,
+            "length": null,
+            "area": 2073.4511513694097,
+            "normal": [
+              -0.0,
+              -0.866,
+              -0.5
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -506.69831488794705,
+                "zmin": 29.211781125840762,
+                "xmax": -226.61999671429396,
+                "ymax": -505.215952978152,
+                "zmax": 31.661270868624044
+              }
+            }
+          },
+          {
+            "entity_id": "face_17",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -164.3468,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000142,
+            "length": null,
+            "area": 1445.1326206513104,
+            "normal": [
+              0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -165.61999671429402,
+                "ymin": -490.84220478927114,
+                "zmin": 90.0651081820522,
+                "xmax": -163.619996714294,
+                "ymax": -369.85359238953316,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_19",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -354.9659,
+              594.8719
+            ],
+            "radius": 0.7411809548974588,
+            "length": null,
+            "area": 2073.451151369223,
+            "normal": [
+              -0.0,
+              -0.5,
+              0.866
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -355.99748229085816,
+                "zmin": 593.830101768862,
+                "xmax": -226.619996714294,
+                "ymax": -353.547992548075,
+                "zmax": 595.312463678657
+              }
+            }
+          },
+          {
+            "entity_id": "face_21",
+            "kind": "face",
+            "description": "CYLINDER face area=791.681",
+            "confidence": 1.0,
+            "center": [
+              -186.513,
+              -495.4271,
+              50.2894
+            ],
+            "radius": 12.016503225885543,
+            "length": null,
+            "area": 791.6813487045765,
+            "normal": [
+              0.7071,
+              -0.183,
+              -0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -226.619996714294,
+                "ymin": -505.215952978152,
+                "zmin": 27.141228765020585,
+                "xmax": -163.619996714294,
+                "ymax": -481.18294652638093,
+                "zmax": 90.06510818205223
+              }
+            }
+          },
+          {
+            "entity_id": "face_23",
+            "kind": "face",
+            "description": "CYLINDER face area=791.681",
+            "confidence": 1.0,
+            "center": [
+              -926.727,
+              -495.4271,
+              50.2894
+            ],
+            "radius": 12.016503225885543,
+            "length": null,
+            "area": 791.6813487046737,
+            "normal": [
+              -0.7071,
+              -0.183,
+              -0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -949.619996714294,
+                "ymin": -505.215952978152,
+                "zmin": 27.14122876502055,
+                "xmax": -886.619996714294,
+                "ymax": -481.18294652638093,
+                "zmax": 90.06510818205211
+              }
+            }
+          }
+        ],
+        "operation_hints": [
+          "scale"
+        ],
+        "dimensions": {
+          "value_mm": 5.0,
+          "distance": 5.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "Many candidate targets; need disambiguation"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.75,
+        "raw_instruction": "Make the whole frame structure taller by 0,5cm. The area profile remains the same.",
+        "target_text": "body",
+        "reference_text": "{\"size_mm\":[786.0,168.29,568.51],\"volume\":611785.5,\"n_solids\":1,\"shortest_axis\":\"y\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "",
+        "pattern": "dimension_change"
+      },
+      "edit_spec": {
+        "intent_summary": "Make the whole frame structure taller by 0,5cm. The area profile remains the same.",
+        "operation": "scale",
+        "targets": [
+          {
+            "entity_id": "face_0",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -175.8932,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000284,
+            "length": null,
+            "area": 1445.1326206513281,
+            "normal": [
+              -0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -176.61999671429402,
+                "ymin": -490.84220478927176,
+                "zmin": 90.06510818205214,
+                "xmax": -174.61999671429396,
+                "ymax": -369.85359238953305,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_2",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -503.2693,
+              41.3964
+            ],
+            "radius": 0.7411809548974553,
+            "length": null,
+            "area": 2073.4511513691573,
+            "normal": [
+              -0.0,
+              -0.5,
+              0.866
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -504.3007951346021,
+                "zmin": 40.35460330522559,
+                "xmax": -226.619996714294,
+                "ymax": -501.8513053918189,
+                "zmax": 41.8369652150205
+              }
+            }
+          },
+          {
+            "entity_id": "face_4",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -937.3468,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000568,
+            "length": null,
+            "area": 1445.1326206512788,
+            "normal": [
+              0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -938.6199967142941,
+                "ymin": -490.84220478927114,
+                "zmin": 90.06510818205211,
+                "xmax": -936.619996714294,
+                "ymax": -369.853592389533,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_6",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -357.9544,
+              583.7188
+            ],
+            "radius": 0.7411809548974873,
+            "length": null,
+            "area": 2073.4511513691973,
+            "normal": [
+              -0.0,
+              -0.866,
+              -0.5
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -358.395002044202,
+                "zmin": 582.6872795894768,
+                "xmax": -226.61999671429393,
+                "ymax": -356.912640134407,
+                "zmax": 585.13676933226
+              }
+            }
+          },
+          {
+            "entity_id": "face_8",
+            "kind": "face",
+            "description": "CYLINDER face area=1256.637",
+            "confidence": 1.0,
+            "center": [
+              -918.451,
+              -489.4214,
+              57.2482
+            ],
+            "radius": 14.197882737875517,
+            "length": null,
+            "area": 1256.6370614359114,
+            "normal": [
+              0.7071,
+              0.183,
+              0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -936.619996714294,
+                "ymin": -501.85130539181904,
+                "zmin": 37.6277121459584,
+                "xmax": -886.619996714294,
+                "ymax": -473.455539916068,
+                "zmax": 90.06510818205207
+              }
+            }
+          },
+          {
+            "entity_id": "face_10",
+            "kind": "face",
+            "description": "CYLINDER face area=1256.637",
+            "confidence": 1.0,
+            "center": [
+              -194.789,
+              -489.4214,
+              57.2482
+            ],
+            "radius": 14.197882737875545,
+            "length": null,
+            "area": 1256.6370614359087,
+            "normal": [
+              -0.7071,
+              0.183,
+              0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -226.619996714294,
+                "ymin": -501.85130539181904,
+                "zmin": 37.62771214595831,
+                "xmax": -176.619996714294,
+                "ymax": -473.45553991606795,
+                "zmax": 90.06510818205223
+              }
+            }
+          },
+          {
+            "entity_id": "face_13",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -948.8932,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0,
+            "length": null,
+            "area": 1445.1326206513445,
+            "normal": [
+              -0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -949.619996714294,
+                "ymin": -490.8422047892718,
+                "zmin": 90.06510818205209,
+                "xmax": -947.619996714294,
+                "ymax": -369.853592389533,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_15",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -506.2577,
+              30.2433
+            ],
+            "radius": 0.7411809548975157,
+            "length": null,
+            "area": 2073.4511513694097,
+            "normal": [
+              -0.0,
+              -0.866,
+              -0.5
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -506.69831488794705,
+                "zmin": 29.211781125840762,
+                "xmax": -226.61999671429396,
+                "ymax": -505.215952978152,
+                "zmax": 31.661270868624044
+              }
+            }
+          },
+          {
+            "entity_id": "face_17",
+            "kind": "face",
+            "description": "CYLINDER face area=1445.133",
+            "confidence": 1.0,
+            "center": [
+              -164.3468,
+              -430.6118,
+              312.5576
+            ],
+            "radius": 1.0000000000000142,
+            "length": null,
+            "area": 1445.1326206513104,
+            "normal": [
+              0.7071,
+              -0.683,
+              0.183
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -165.61999671429402,
+                "ymin": -490.84220478927114,
+                "zmin": 90.0651081820522,
+                "xmax": -163.619996714294,
+                "ymax": -369.85359238953316,
+                "zmax": 534.9086263652291
+              }
+            }
+          },
+          {
+            "entity_id": "face_19",
+            "kind": "face",
+            "description": "CYLINDER face area=2073.451",
+            "confidence": 1.0,
+            "center": [
+              -556.62,
+              -354.9659,
+              594.8719
+            ],
+            "radius": 0.7411809548974588,
+            "length": null,
+            "area": 2073.451151369223,
+            "normal": [
+              -0.0,
+              -0.5,
+              0.866
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -886.619996714294,
+                "ymin": -355.99748229085816,
+                "zmin": 593.830101768862,
+                "xmax": -226.619996714294,
+                "ymax": -353.547992548075,
+                "zmax": 595.312463678657
+              }
+            }
+          },
+          {
+            "entity_id": "face_21",
+            "kind": "face",
+            "description": "CYLINDER face area=791.681",
+            "confidence": 1.0,
+            "center": [
+              -186.513,
+              -495.4271,
+              50.2894
+            ],
+            "radius": 12.016503225885543,
+            "length": null,
+            "area": 791.6813487045765,
+            "normal": [
+              0.7071,
+              -0.183,
+              -0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -226.619996714294,
+                "ymin": -505.215952978152,
+                "zmin": 27.141228765020585,
+                "xmax": -163.619996714294,
+                "ymax": -481.18294652638093,
+                "zmax": 90.06510818205223
+              }
+            }
+          },
+          {
+            "entity_id": "face_23",
+            "kind": "face",
+            "description": "CYLINDER face area=791.681",
+            "confidence": 1.0,
+            "center": [
+              -926.727,
+              -495.4271,
+              50.2894
+            ],
+            "radius": 12.016503225885543,
+            "length": null,
+            "area": 791.6813487046737,
+            "normal": [
+              -0.7071,
+              -0.183,
+              -0.683
+            ],
+            "metadata": {
+              "geom": "CYLINDER",
+              "bbox": {
+                "xmin": -949.619996714294,
+                "ymin": -505.215952978152,
+                "zmin": 27.14122876502055,
+                "xmax": -886.619996714294,
+                "ymax": -481.18294652638093,
+                "zmax": 90.06510818205211
+              }
+            }
+          }
+        ],
+        "parameters": {
+          "reason": "height/length change is not a uniform scale of the whole part"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Bounded volume change",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.9
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=dimension_change target=body action=scale complete=False"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\iterations\\02\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\iterations\\02\\tmp.stl",
+        "image_paths": {
+          "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\iterations\\02\\iso.png",
+          "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\iterations\\02\\front.png",
+          "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\iterations\\02\\back.png",
+          "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\iterations\\02\\left.png",
+          "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\iterations\\02\\right.png",
+          "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\iterations\\02\\top.png",
+          "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\iterations\\02\\bottom.png",
+          "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\iterations\\02\\orthographic_sheet.png"
+        },
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "raw_cadquery",
+            "arguments": {},
+            "rationale": "script fallback",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    # Make the structure taller by +5.0mm in +Z while keeping the XY profile the same.\n    # Robust approach: slice the solid at its top Z to get a planar section wire,\n    # then extrude that section upward by 5mm and fuse.\n    bb = solid.BoundingBox()\n    z_top = bb.zmax\n\n    # A tiny amount below the top avoids potential \"touching at edge\" issues.\n    z_sec = z_top - 0.05\n\n    section_wp = cq.Workplane(\"XY\").workplane(offset=z_sec).newObject([solid]).section()\n    wires = section_wp.wires().vals()\n    if not wires:\n        return cq.Workplane(\"XY\").newObject([solid])\n\n    # Pick the outermost wire by approximating area via face creation.\n    def w_area(w):\n        try:\n            return cq.Face.makeFromWires(w).Area()\n        except Exception:\n            return 0.0\n\n    outer_wire = max(wires, key=w_area)\n\n    cap = (\n        cq.Workplane(\"XY\")\n        .workplane(offset=z_top)\n        .newObject([outer_wire])\n        .toPending()\n        .extrude(5.0)\n        .val()\n    )\n\n    solid = solid.fuse(cap)\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 4.80756688117981
+      },
+      "critique": {
+        "accept": true,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\iterations\\02\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "volume change ratio=1.0000 within [0.0,0.9]",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 611785.5001093379,
+              "v1": 0.0
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                786.0000000999999,
+                168.28953849916002,
+                568.5119767507457
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": true,
+            "detail": "Local edit: body/volume/bbox stay close to the start model",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "overall size"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 786.000 → 0.000",
+                "Y size 168.290 → 0.000",
+                "Z size 568.512 → 0.000",
+                "plate thickness 168.290 → 0.000",
+                "hole_count 16 → 0",
+                "volume 611785.5001 → 0.0000"
+              ],
+              "unintended": []
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "Invalid/missing geometry: None n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.9] | Fix: Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.9]",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.9]",
+          "specific_fix": "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 10359.0,
+        "output_tokens": 870.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    }
+  ],
+  "failure_category": null
+}

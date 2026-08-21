@@ -1,0 +1,132 @@
+{
+    "edit_request_id": "3YH2WFSRM22W7DKT_1769783385.069543",
+    "edit_id": "groundedcad_full48_1787181925.6154473",
+    "start_time": 1787181925.6154473,
+    "end_time": 1787182039.1573606,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769783385.069543\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 10202.0,
+        "output_tokens": 753.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.041901
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [
+                "EXTRA_BODIES: solid count 20 \u2192 39 but the instruction did not request a new body"
+            ],
+            "delta_match": 2,
+            "volume_ratio": 0.053531,
+            "locality_ok": true,
+            "anchor_id": "cavity:0.00,35.88,25.40",
+            "census_source": "cavity_candidates",
+            "safe": false
+        },
+        {
+            "iteration": 1,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [
+                "EXTRA_BODIES: solid count 20 \u2192 39 but the instruction did not request a new body"
+            ],
+            "delta_match": 2,
+            "volume_ratio": 0.054315,
+            "locality_ok": true,
+            "anchor_id": "cavity:0.00,39.06,25.40",
+            "census_source": "cavity_candidates",
+            "safe": false
+        },
+        {
+            "iteration": 2,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [
+                "EXTRA_BODIES: solid count 20 \u2192 37 but the instruction did not request a new body"
+            ],
+            "delta_match": 2,
+            "volume_ratio": 0.015263,
+            "locality_ok": true,
+            "anchor_id": "cavity:88.90,0.00,114.30",
+            "census_source": "cavity_candidates",
+            "safe": false
+        },
+        {
+            "iteration": 3,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [
+                "EXTRA_BODIES: solid count 20 \u2192 38 but the instruction did not request a new body"
+            ],
+            "delta_match": 2,
+            "volume_ratio": 0.014564,
+            "locality_ok": true,
+            "anchor_id": "cavity:88.90,355.60,114.30",
+            "census_source": "cavity_candidates",
+            "safe": false
+        },
+        {
+            "iteration": 4,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "'Compound' object has no attribute 'combineSolids'\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_efi5t0wb\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_fil",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 5,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [
+                "EXTRA_BODIES: solid count 20 \u2192 39 but the instruction did not request a new body"
+            ],
+            "delta_match": 2,
+            "volume_ratio": 0.014375,
+            "locality_ok": true
+        }
+    ],
+    "best_iteration": 5,
+    "accepted": false,
+    "failure_category": "planning",
+    "retry_history": [
+        "candidate0 cut_through: EXTRA_BODIES: solid count 20 \u2192 39 but the instruction did not request a new body",
+        "candidate1 cut_through: EXTRA_BODIES: solid count 20 \u2192 39 but the instruction did not request a new body",
+        "candidate2 cut_through: EXTRA_BODIES: solid count 20 \u2192 37 but the instruction did not request a new body",
+        "candidate3 cut_through: EXTRA_BODIES: solid count 20 \u2192 38 but the instruction did not request a new body",
+        "iter4 raw_cadquery: 'Compound' object has no attribute 'combineSolids'\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_efi5t0wb\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\": str(out_dir),\n    })\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_efi5t0wb\\worker.py\", line 49, in my_cad_function\n    return orig(args)\n  File \"<string>\", line 31, in my_cad_function\nAttributeError: 'Compound' object has no attribute 'combineSolids'\n | NO_GEOMETRY: execution produced no inspectable solid",
+        "iter5 raw_cadquery: EXTRA_BODIES: solid count 20 \u2192 39 but the instruction did not request a new body"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Remove the collision between handle and cofeepot.",
+    "used_llm": true
+}

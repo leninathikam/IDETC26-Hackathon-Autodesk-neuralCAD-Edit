@@ -1,0 +1,76 @@
+{
+    "edit_request_id": "B7A2N74ZJBF9MZHU_1770171470.1448698",
+    "edit_id": "groundedcad_full48_1787179946.2503948",
+    "start_time": 1787179946.2503948,
+    "end_time": 1787179997.294456,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770171470.1448698\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 10359.0,
+        "output_tokens": 870.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.044127
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 7,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 1,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "Cannot build face(s): wires not planar\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 2,
+            "success": true,
+            "accepted": true,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 2,
+            "volume_ratio": 5.4e-05,
+            "locality_ok": true
+        }
+    ],
+    "best_iteration": 2,
+    "accepted": true,
+    "failure_category": null,
+    "retry_history": [
+        "iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid",
+        "iter1 raw_cadquery: Cannot build face(s): wires not planar\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\": str(out_dir),\n    })\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tjel7vfs\\worker.py\", line 49, in my_cad_function\n    return orig(args)\n  File \"<string>\", line 46, in my_cad_function\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3080, in extrude\n    r = self._extrude(until, both=both, taper=taper, upToFace=None)\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3737, in _extrude\n    faces = self._getFaces()\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 3668, in _getFaces\n    rv.extend(wiresToFaces(self.ctx.popPendingWires()))\n              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 5043, in wiresToFaces\n    return Face.makeFromWires(wireList[0], wireList[1:]).Faces()\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 3653, in makeFromWires\n    raise ValueError(\"Cannot build face(s): wires not planar\")\nValueError: Cannot build face(s): wires not planar\n | NO_GEOMETRY: execution produced no inspectable solid"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Make the whole frame structure taller by 0,5cm. The area profile remains the same.",
+    "used_llm": true
+}

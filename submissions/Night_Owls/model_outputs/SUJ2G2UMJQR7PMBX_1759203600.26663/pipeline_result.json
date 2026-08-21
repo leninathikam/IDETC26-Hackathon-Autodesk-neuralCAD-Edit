@@ -1,0 +1,793 @@
+{
+  "request_id": "SUJ2G2UMJQR7PMBX_1759203600.26663",
+  "accepted": false,
+  "best_iteration": -1,
+  "output_dir": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203600.26663",
+  "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203600.26663\\tmp.step",
+  "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203600.26663\\tmp.stl",
+  "views": {},
+  "settings": {
+    "token_counts": {
+      "input_tokens": 4302.0,
+      "output_tokens": 1418.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.034176
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+      {
+        "iteration": 0,
+        "success": false,
+        "accepted": false,
+        "identity": true,
+        "score": 3.0,
+        "failures": [
+          "Sandbox timeout after 15.0s",
+          "NO_GEOMETRY: execution produced no inspectable solid"
+        ],
+        "delta_match": 0,
+        "volume_ratio": 1.0,
+        "locality_ok": true,
+        "anchor_id": "tag:port",
+        "census_source": "feature_tag",
+        "safe": false
+      },
+      {
+        "iteration": 1,
+        "success": false,
+        "accepted": false,
+        "identity": true,
+        "score": 3.0,
+        "failures": [
+          "Sandbox timeout after 45.0s",
+          "NO_GEOMETRY: execution produced no inspectable solid"
+        ],
+        "delta_match": 0,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      },
+      {
+        "iteration": 2,
+        "success": false,
+        "accepted": false,
+        "identity": true,
+        "score": 3.0,
+        "failures": [
+          "Sandbox timeout after 45.0s",
+          "NO_GEOMETRY: execution produced no inspectable solid"
+        ],
+        "delta_match": 0,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      }
+    ],
+    "best_iteration": -1,
+    "accepted": false,
+    "failure_category": "false_completion",
+    "retry_history": [
+      "candidate0 add_cylinder: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid",
+      "iter1 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid",
+      "iter2 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid"
+    ],
+    "valid_start_copy": true,
+    "intent_summary": "Hi , Please create an outlet port on the top right and an inlet port on the bottom left . ",
+    "used_llm": true
+  },
+  "iterations": [
+    {
+      "iteration": 0,
+      "intent": {
+        "summary": "Hi , Please create an outlet port on the top right and an inlet port on the bottom left . ",
+        "targets": [],
+        "operation_hints": [
+          "extrude_add"
+        ],
+        "dimensions": {
+          "count": 1.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Hi , Please create an outlet port on the top right and an inlet port on the bottom left . ",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[124.73,359.27,576.68],\"volume\":7255190.8,\"n_solids\":20,\"shortest_axis\":\"x\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "top, right, bottom, left",
+        "pattern": "feature_addition"
+      },
+      "edit_spec": {
+        "intent_summary": "Hi , Please create an outlet port on the top right and an inlet port on the bottom left . ",
+        "operation": "extrude_add",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\SUJ2G2UMJQR7PMBX_1759203649.19873.step",
+          "x": 12.700000100000128,
+          "y": 8.186759614031644,
+          "z": 309.98343513703963,
+          "diameter": 9.978316375308697,
+          "height": 14.967474562963044,
+          "axis": "Z",
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_addition target=feature action=add complete=True"
+      },
+      "execution": {
+        "success": false,
+        "step_path": null,
+        "stl_path": null,
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [],
+        "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('add_cylinder', {\"step_path\": input_file, **{'x': 12.700000100000128, 'y': 8.186759614031644, 'z': 309.98343513703963, 'diameter': 9.978316375308697, 'height': 14.967474562963044, 'axis': 'Z', 'combine': 'union'}})\n    path = str(Path(input_file))\n    for follow in [{'tool_name': 'add_cylinder', 'arguments': {'x': -112.02895459135858, 'y': 8.186759614031644, 'z': -266.70000010000007, 'diameter': 9.978316375308697, 'height': 14.967474562963044, 'axis': 'Z', 'combine': 'union'}}]:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result",
+        "geometry_summary": {},
+        "error": "Sandbox timeout after 15.0s",
+        "duration_s": 15.157719850540161
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: Sandbox timeout after 15.0s",
+            "measured": {
+              "valid": null,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": null
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 7255190.7534103645,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 20,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": false,
+            "detail": "Identity/no-op vs start",
+            "measured": {
+              "identity": true
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                124.72895469135871,
+                359.27351922806326,
+                576.6834352370397
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "add feature"
+              ],
+              "observed": [
+                "solid_count 20 → 0",
+                "X size 124.729 → 0.000",
+                "Y size 359.274 → 0.000",
+                "Z size 576.683 → 0.000",
+                "plate thickness 124.729 → 0.000",
+                "hole_count 16 → 0",
+                "volume 7255190.7534 → 0.0000"
+              ],
+              "unintended": []
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Hi , Please create an outlet port on the top right and an inlet port on the bottom left . \nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_addition/feature/add\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: Sandbox timeout after 15.0s n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: Sandbox timeout after 15.0s n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "specific_fix": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Hi , Please create an outlet port on the top right and an inlet port on the bottom left . \nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_addition/feature/add\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 0.0,
+        "output_tokens": 0.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "Strategy port: outlet at named corner"
+    },
+    {
+      "iteration": 1,
+      "intent": {
+        "summary": "Hi , Please create an outlet port on the top right and an inlet port on the bottom left . ",
+        "targets": [],
+        "operation_hints": [
+          "extrude_add"
+        ],
+        "dimensions": {
+          "count": 1.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Hi , Please create an outlet port on the top right and an inlet port on the bottom left . ",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[124.73,359.27,576.68],\"volume\":7255190.8,\"n_solids\":20,\"shortest_axis\":\"x\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "top, right, bottom, left",
+        "pattern": "feature_addition"
+      },
+      "edit_spec": {
+        "intent_summary": "Hi , Please create an outlet port on the top right and an inlet port on the bottom left . ",
+        "operation": "extrude_add",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\SUJ2G2UMJQR7PMBX_1759203649.19873.step",
+          "x": 12.700000100000128,
+          "y": 8.186759614031644,
+          "z": 309.98343513703963,
+          "diameter": 9.978316375308697,
+          "height": 14.967474562963044,
+          "axis": "Z",
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_addition target=feature action=add complete=True"
+      },
+      "execution": {
+        "success": false,
+        "step_path": null,
+        "stl_path": null,
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    # --- Anchors from model bounding box ---\n    bb = solid.BoundingBox()\n    xMin, xMax = bb.xmin, bb.xmax\n    yMin, yMax = bb.ymin, bb.ymax\n    zMin, zMax = bb.zmin, bb.zmax\n\n    # Port parameters (simple cylindrical bosses with a through bore)\n    boss_od = 30.0\n    boss_h = 20.0\n    bore_d = 16.0\n\n    # Top-right outlet: near +X, +Y, +Z\n    outlet_cx = xMax - boss_od * 0.6\n    outlet_cy = yMax - boss_od * 0.6\n    outlet_base_z = zMax  # sit on top\n\n    outlet_boss = (\n        cq.Workplane(\"XY\")\n        .center(outlet_cx, outlet_cy)\n        .circle(boss_od / 2.0)\n        .extrude(boss_h)\n        .translate((0, 0, outlet_base_z))\n        .val()\n    )\n    outlet_bore = (\n        cq.Workplane(\"XY\")\n        .center(outlet_cx, outlet_cy)\n        .circle(bore_d / 2.0)\n        .extrude(boss_h + 5.0)\n        .translate((0, 0, outlet_base_z))\n        .val()\n    )\n\n    # Bottom-left inlet: near -X, -Y, -Z\n    inlet_cx = xMin + boss_od * 0.6\n    inlet_cy = yMin + boss_od * 0.6\n    inlet_base_z = zMin - boss_h  # extend below bottom\n\n    inlet_boss = (\n        cq.Workplane(\"XY\")\n        .center(inlet_cx, inlet_cy)\n        .circle(boss_od / 2.0)\n        .extrude(boss_h)\n        .translate((0, 0, inlet_base_z))\n        .val()\n    )\n    inlet_bore = (\n        cq.Workplane(\"XY\")\n        .center(inlet_cx, inlet_cy)\n        .circle(bore_d / 2.0)\n        .extrude(boss_h + 5.0)\n        .translate((0, 0, inlet_base_z))\n        .val()\n    )\n\n    # Fuse bosses then cut bores\n    solid = solid.fuse(outlet_boss)\n    solid = solid.fuse(inlet_boss)\n    solid = solid.cut(outlet_bore)\n    solid = solid.cut(inlet_bore)\n\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {},
+        "error": "Sandbox timeout after 45.0s",
+        "duration_s": 45.800047397613525
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: Sandbox timeout after 45.0s",
+            "measured": {
+              "valid": null,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": null
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 7255190.7534103645,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 20,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": false,
+            "detail": "Identity/no-op vs start",
+            "measured": {
+              "identity": true
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                124.72895469135871,
+                359.27351922806326,
+                576.6834352370397
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "add feature"
+              ],
+              "observed": [
+                "solid_count 20 → 0",
+                "X size 124.729 → 0.000",
+                "Y size 359.274 → 0.000",
+                "Z size 576.683 → 0.000",
+                "plate thickness 124.729 → 0.000",
+                "hole_count 16 → 0",
+                "volume 7255190.7534 → 0.0000"
+              ],
+              "unintended": []
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=1: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Hi , Please create an outlet port on the top right and an inlet port on the bottom left . \nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_addition/feature/add\nprior_attempts: candidate0 add_cylinder: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: Sandbox timeout after 45.0s n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: Sandbox timeout after 45.0s n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "specific_fix": "RETRY attempt=1: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Hi , Please create an outlet port on the top right and an inlet port on the bottom left . \nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_addition/feature/add\nprior_attempts: candidate0 add_cylinder: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 1930.0,
+        "output_tokens": 684.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    },
+    {
+      "iteration": 2,
+      "intent": {
+        "summary": "Hi , Please create an outlet port on the top right and an inlet port on the bottom left . ",
+        "targets": [],
+        "operation_hints": [
+          "extrude_add"
+        ],
+        "dimensions": {
+          "count": 1.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Hi , Please create an outlet port on the top right and an inlet port on the bottom left . ",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[124.73,359.27,576.68],\"volume\":7255190.8,\"n_solids\":20,\"shortest_axis\":\"x\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "top, right, bottom, left",
+        "pattern": "feature_addition"
+      },
+      "edit_spec": {
+        "intent_summary": "Hi , Please create an outlet port on the top right and an inlet port on the bottom left . ",
+        "operation": "extrude_add",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\SUJ2G2UMJQR7PMBX_1759203649.19873.step",
+          "x": 12.700000100000128,
+          "y": 8.186759614031644,
+          "z": 309.98343513703963,
+          "diameter": 9.978316375308697,
+          "height": 14.967474562963044,
+          "axis": "Z",
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_addition target=feature action=add complete=True"
+      },
+      "execution": {
+        "success": false,
+        "step_path": null,
+        "stl_path": null,
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    bb = solid.BoundingBox()\n    xMin, xMax = bb.xmin, bb.xmax\n    yMin, yMax = bb.ymin, bb.ymax\n    zMin, zMax = bb.zmin, bb.zmax\n\n    # Keep ports modest vs overall envelope\n    boss_od = max(18.0, min(30.0, (xMax - xMin) * 0.22))\n    boss_h = 18.0\n    bore_d = boss_od * 0.55\n\n    # Slight inset from bbox edges to ensure intersection with model\n    inset = boss_od * 0.55\n\n    # --- Outlet port (top-right): +Y, +Z, (right along +X) ---\n    # Build from the top face and extrude upward so it surely intersects and fuses.\n    outlet_x = xMax - inset\n    outlet_y = yMax - inset\n    outlet_z = zMax - 0.5  # start just inside\n\n    outlet_boss = (\n        cq.Workplane(\"XY\")\n        .center(outlet_x, outlet_y)\n        .circle(boss_od / 2.0)\n        .extrude(boss_h)\n        .translate((0, 0, outlet_z))\n        .val()\n    )\n    outlet_bore = (\n        cq.Workplane(\"XY\")\n        .center(outlet_x, outlet_y)\n        .circle(bore_d / 2.0)\n        .extrude(boss_h + 3.0)\n        .translate((0, 0, outlet_z))\n        .val()\n    )\n\n    # --- Inlet port (bottom-left): -Y, -Z, (left along -X) ---\n    inlet_x = xMin + inset\n    inlet_y = yMin + inset\n    inlet_z = zMin - boss_h + 0.5  # start just below then extrude up through bottom\n\n    inlet_boss = (\n        cq.Workplane(\"XY\")\n        .center(inlet_x, inlet_y)\n        .circle(boss_od / 2.0)\n        .extrude(boss_h)\n        .translate((0, 0, inlet_z))\n        .val()\n    )\n    inlet_bore = (\n        cq.Workplane(\"XY\")\n        .center(inlet_x, inlet_y)\n        .circle(bore_d / 2.0)\n        .extrude(boss_h + 3.0)\n        .translate((0, 0, inlet_z))\n        .val()\n    )\n\n    # Boolean operations (fuse bosses, then cut bores)\n    solid = solid.fuse(outlet_boss)\n    solid = solid.fuse(inlet_boss)\n    solid = solid.cut(outlet_bore)\n    solid = solid.cut(inlet_bore)\n\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {},
+        "error": "Sandbox timeout after 45.0s",
+        "duration_s": 45.91684174537659
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: Sandbox timeout after 45.0s",
+            "measured": {
+              "valid": null,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": null
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 7255190.7534103645,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 20,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": false,
+            "detail": "Identity/no-op vs start",
+            "measured": {
+              "identity": true
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                124.72895469135871,
+                359.27351922806326,
+                576.6834352370397
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "add feature"
+              ],
+              "observed": [
+                "solid_count 20 → 0",
+                "X size 124.729 → 0.000",
+                "Y size 359.274 → 0.000",
+                "Z size 576.683 → 0.000",
+                "plate thickness 124.729 → 0.000",
+                "hole_count 16 → 0",
+                "volume 7255190.7534 → 0.0000"
+              ],
+              "unintended": []
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=2: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Hi , Please create an outlet port on the top right and an inlet port on the bottom left . \nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_addition/feature/add\nprior_attempts: candidate0 add_cylinder: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid || iter1 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: Sandbox timeout after 45.0s n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: Sandbox timeout after 45.0s n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "specific_fix": "RETRY attempt=2: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Hi , Please create an outlet port on the top right and an inlet port on the bottom left . \nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_addition/feature/add\nprior_attempts: candidate0 add_cylinder: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid || iter1 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 4302.0,
+        "output_tokens": 1418.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    }
+  ],
+  "failure_category": "false_completion"
+}

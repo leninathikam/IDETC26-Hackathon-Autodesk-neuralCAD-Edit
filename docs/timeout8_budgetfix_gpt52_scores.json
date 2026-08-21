@@ -1,0 +1,154 @@
+[
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759210049.432666",
+    "type": "boolean_modification",
+    "instruction": "Hi , Please change the center flower type profile into a hexagonal profile for better torque transfe",
+    "ours": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false
+    },
+    "execution_status": "row_timeout",
+    "gpt52": {
+      "chamfer": 0.9865,
+      "volume_f1": 0.9461,
+      "diff_f1": 0.1585,
+      "valid": true
+    },
+    "failure_bucket": "row_timeout"
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759209987.785593",
+    "type": "boolean_modification",
+    "instruction": "Hi , Please convert the round edges of the gear into straight spur gear teeth.",
+    "ours": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false
+    },
+    "execution_status": "completed",
+    "gpt52": {
+      "chamfer": 0.9821,
+      "volume_f1": 0.9291,
+      "diff_f1": 0.3574,
+      "valid": true
+    },
+    "failure_bucket": "occ_fail"
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759203600.26663",
+    "type": "feature_addition",
+    "instruction": "Hi , Please create an outlet port on the top right and an inlet port on the bottom left .",
+    "ours": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false
+    },
+    "execution_status": "row_timeout",
+    "gpt52": {
+      "chamfer": 0.9808,
+      "volume_f1": 0.9528,
+      "diff_f1": 0.3593,
+      "valid": true
+    },
+    "failure_bucket": "row_timeout"
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759203739.2515829",
+    "type": "feature_addition",
+    "instruction": "Hi , Please create a filling system on the radiator , including a pouring section and a cap.",
+    "ours": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false
+    },
+    "execution_status": "row_timeout",
+    "gpt52": {
+      "chamfer": 0.9781,
+      "volume_f1": 0.9404,
+      "diff_f1": 0.2895,
+      "valid": true
+    },
+    "failure_bucket": "row_timeout"
+  },
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759203664.9815512",
+    "type": "pattern",
+    "instruction": "Hi , Create a slot pattern across the plastic part surface on both the top and bottom sides.",
+    "ours": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false
+    },
+    "execution_status": "row_timeout",
+    "gpt52": {
+      "chamfer": 0.9858,
+      "volume_f1": 0.9481,
+      "diff_f1": 0.4076,
+      "valid": true
+    },
+    "failure_bucket": "row_timeout"
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770174133.012106",
+    "type": "feature_translation",
+    "instruction": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+    "ours": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false
+    },
+    "execution_status": "row_timeout",
+    "gpt52": {
+      "chamfer": 0.9823,
+      "volume_f1": 0.9064,
+      "diff_f1": 0.504,
+      "valid": true
+    },
+    "failure_bucket": "row_timeout"
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770174308.67968",
+    "type": "pattern",
+    "instruction": "Add two horizontal buttons to the front panel. One above existing one, the other below - all approxi",
+    "ours": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false
+    },
+    "execution_status": "row_timeout",
+    "gpt52": {
+      "chamfer": 0.9823,
+      "volume_f1": 0.8979,
+      "diff_f1": 0.4825,
+      "valid": true
+    },
+    "failure_bucket": "row_timeout"
+  },
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770169975.851399",
+    "type": "ambiguous",
+    "instruction": "Change mounting system at the back of Cyclops Plus Heatsink from 3-point mounting version to 4-point",
+    "ours": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false
+    },
+    "execution_status": "row_timeout",
+    "gpt52": {
+      "chamfer": 0.9486,
+      "volume_f1": 0.8615,
+      "diff_f1": 0.2177,
+      "valid": true
+    },
+    "failure_bucket": "row_timeout"
+  }
+]

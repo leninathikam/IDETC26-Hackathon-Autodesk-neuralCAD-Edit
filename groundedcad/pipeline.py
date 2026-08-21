@@ -166,20 +166,36 @@ class GroundedCADPipeline:
         iter_dir: Path,
         *,
         timeout_s: float | None = None,
+        render: bool | None = None,
     ):
         if tool_name == "raw_cadquery":
             script = arguments.get("script") or ""
-            return self.sandbox.run_script(script, step_path, iter_dir, timeout_s=timeout_s)
+            return self.sandbox.run_script(
+                script, step_path, iter_dir, timeout_s=timeout_s, render=render
+            )
         args = {**arguments, "step_path": arguments.get("step_path", step_path)}
         if self.inprocess:
             return self.sandbox.run_inprocess_tool(tool_name, args, iter_dir)
-        return self.sandbox.run_tool(tool_name, args, iter_dir, timeout_s=timeout_s)
+        return self.sandbox.run_tool(
+            tool_name, args, iter_dir, timeout_s=timeout_s, render=render
+        )
 
     def _execute_plan(
-        self, tool, start_step: str, iter_dir: Path, *, timeout_s: float | None = None
+        self,
+        tool,
+        start_step: str,
+        iter_dir: Path,
+        *,
+        timeout_s: float | None = None,
+        render: bool | None = None,
     ):
         execution = self._execute(
-            tool.tool_name, tool.arguments, start_step, iter_dir, timeout_s=timeout_s
+            tool.tool_name,
+            tool.arguments,
+            start_step,
+            iter_dir,
+            timeout_s=timeout_s,
+            render=render,
         )
         current = execution.step_path or start_step
         all_calls = list(execution.tool_calls)
@@ -188,7 +204,12 @@ class GroundedCADPipeline:
                 break
             sub = iter_dir / f"followup_{i:02d}"
             nxt = self._execute(
-                follow.tool_name, follow.arguments, current, sub, timeout_s=timeout_s
+                follow.tool_name,
+                follow.arguments,
+                current,
+                sub,
+                timeout_s=timeout_s,
+                render=render,
             )
             all_calls.extend(nxt.tool_calls)
             if nxt.success and nxt.step_path:
@@ -204,6 +225,14 @@ class GroundedCADPipeline:
         if not self.render or not execution.success or not execution.step_path:
             return
         if execution.image_paths:
+            return
+        summary = execution.geometry_summary or {}
+        if (
+            int(summary.get("n_solids") or 0) > 32
+            or int(summary.get("n_faces") or 0) > 500
+        ):
+            # Same guard as the source-image path: avoid turning a successful
+            # B-Rep edit into a parent-process render stall on large imports.
             return
         try:
             from groundedcad.geometry.inspect import load_step, shape_from_workplane
@@ -709,12 +738,19 @@ class GroundedCADPipeline:
         (out / "classified_edit.json").write_text(classified.model_dump_json(indent=2), encoding="utf-8")
 
         # 2. Geometry Inspector  (faces, edges, holes, dimensions, bounding box)
-        # Enumeration needs the complete edge census. The compact default
-        # (120 edges) can miss legitimate full-circle rims on complex parts.
+        # Only rim-targeted blends need the expensive complete edge census.
+        # Asking OCC for 1,000 edges on every large assembly (including
+        # translations/patterns that cannot consume rim data) steals a large
+        # fraction of the per-row watchdog before any edit is attempted.
+        needs_full_rim_census = (
+            self.candidate_enumeration
+            and classified.edit_type.value == "fillet_chamfer"
+            and classified.target_kind in {"hole", "hole_edge"}
+        )
         before = inspect_step(
             request.step_path,
-            max_faces=400 if self.candidate_enumeration else 80,
-            max_edges=1000 if self.candidate_enumeration else 120,
+            max_faces=400 if needs_full_rim_census else 120,
+            max_edges=1000 if needs_full_rim_census else 180,
         )
         from groundedcad.geometry.inspect import edit_context, geometry_brief
 
@@ -726,7 +762,16 @@ class GroundedCADPipeline:
         # to ground.  Render the source once and keep these views attached to
         # every visual pass; candidate views are appended later as feedback.
         source_images: list[str] = []
-        if self.render:
+        # VTK off-screen rendering is materially slower than OCC inspection
+        # for large imported assemblies.  On those inputs it has repeatedly
+        # consumed the row watchdog before an LLM edit can even be attempted.
+        # The full B-Rep census/brief remains in the prompt; skip only image
+        # grounding beyond this conservative complexity boundary.
+        source_render_safe = (
+            int(before.get("n_solids") or 0) <= 32
+            and int(before.get("n_faces") or 0) <= 500
+        )
+        if self.render and source_render_safe:
             try:
                 from groundedcad.geometry.inspect import load_step
 
@@ -852,10 +897,17 @@ class GroundedCADPipeline:
                         and candidate_tool.arguments.get("rim_centers")
                     ) else 15.0
                     execution = self._execute_plan(
-                        candidate_tool, original_step, iter_dir, timeout_s=candidate_timeout
+                        candidate_tool,
+                        original_step,
+                        iter_dir,
+                        timeout_s=candidate_timeout,
+                        # Candidates are ranked from B-Rep facts.  Rendering
+                        # them here spends most of the sandbox budget and is
+                        # duplicated by _ensure_views; only the selected GPT
+                        # repair iteration needs visual feedback.
+                        render=False,
                     )
                     execution.script = script
-                self._ensure_views(execution, iter_dir)
                 critique, after, identity, candidate_failures = self._dual_critique(
                     before=before,
                     execution=execution,
@@ -1089,6 +1141,12 @@ class GroundedCADPipeline:
         # verify a real final artifact instead of being killed mid-row.
         if enumerated:
             n_visual = min(n_visual, 2)
+        elif classified.edit_type.value == "feature_translation":
+            # There is no safe generic feature-translation primitive.  Eight
+            # expensive raw reconstructions repeatedly timed out before the
+            # parent could write a result.  Keep a bounded repair budget so
+            # the failure remains observable and does not consume the row.
+            n_visual = min(n_visual, 3)
         if skip_visual:
             n_visual = 0
         loop_mode = cq_mode if cq_mode in {"mutate", "reconstruct"} else "mutate"
@@ -1149,7 +1207,19 @@ class GroundedCADPipeline:
                     script=cq_script,
                 )
             else:
-                execution = self._execute("raw_cadquery", {"script": cq_script}, working_step, iter_dir)
+                # Keep the bounded worker focused on CAD execution/export.
+                # Rendering seven VTK views inside that same 45 s watchdog
+                # made valid edits on large multi-solid STEP assemblies look
+                # like CAD timeouts.  Successful results are rendered below
+                # for the next visual iteration, outside the OCC execution
+                # budget; failed scripts never need views.
+                execution = self._execute(
+                    "raw_cadquery",
+                    {"script": cq_script},
+                    working_step,
+                    iter_dir,
+                    render=False,
+                )
                 execution.script = cq_script
             self._ensure_views(execution, iter_dir)
             critique, after, identity, failures = self._dual_critique(

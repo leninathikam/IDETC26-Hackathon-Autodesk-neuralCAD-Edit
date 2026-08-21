@@ -1,0 +1,75 @@
+{
+    "edit_request_id": "4S7JQK6ZQMAD25GL_1758863286.214549",
+    "edit_id": "groundedcad_full48_1787179499.8715508",
+    "start_time": 1787179499.8715508,
+    "end_time": 1787179574.5958443,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\4S7JQK6ZQMAD25GL_1758863286.214549\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 10134.0,
+        "output_tokens": 993.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.045297
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 3,
+            "volume_ratio": 0.000198,
+            "locality_ok": true,
+            "anchor_id": "tag:button",
+            "census_source": "feature_tag",
+            "safe": false
+        },
+        {
+            "iteration": 1,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "Cannot find a solid on the stack or in the parent chain\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_on05826_\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": inpu",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 2,
+            "success": true,
+            "accepted": true,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 3,
+            "volume_ratio": 0.001856,
+            "locality_ok": true
+        }
+    ],
+    "best_iteration": 2,
+    "accepted": true,
+    "failure_category": null,
+    "retry_history": [
+        "iter1 raw_cadquery: Cannot find a solid on the stack or in the parent chain\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_on05826_\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\": str(out_dir),\n    })\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_on05826_\\worker.py\", line 49, in my_cad_function\n    return orig(args)\n  File \"<string>\", line 35, in my_cad_function\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 1238, in fillet\n    solid = self.findSolid()\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 747, in findSolid\n    raise ValueError(\n        \"Cannot find a solid {}in the parent chain\".format(message)\n    )\nValueError: Cannot find a solid on the stack or in the parent chain\n | NO_GEOMETRY: execution produced no inspectable solid"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Add two click buttons with the height of 2 millimetre to provide a comfortable and responsive feel for the user",
+    "used_llm": true
+}

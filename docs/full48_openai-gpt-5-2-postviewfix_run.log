@@ -1,0 +1,8 @@
+batch runner: 420s/row, visual_iters=5, hybrid=True, adaptive=5-8, candidate_enumeration=True, max_candidates=4, out=data\full48_openai-gpt-5-2-postviewfix, report=docs\full48_openai-gpt-5-2-postviewfix_scores.json
+START ZK22J6VYRKQ2RTFD_1758875  Add 0.2 mm chamfer to the hole edges to improve fitting.
+LLM OpenAIClient model=gpt-5.2 visual_iters=5 hybrid=True adaptive=5-8 candidate_enumeration=True max_candidates=4
+01/48 ZK22J6VYRKQ2RTFD_1758875   ours D=0.314 Autodesk GPT-5.2 baseline D=0.679 | running mean: ours=0.3136 Autodesk GPT-5.2=0.6790
+START ZK22J6VYRKQ2RTFD_1758874  Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre groove
+LLM OpenAIClient model=gpt-5.2 visual_iters=5 hybrid=True adaptive=5-8 candidate_enumeration=True max_candidates=4
+02/48 ZK22J6VYRKQ2RTFD_1758874   ours D=0.083 Autodesk GPT-5.2 baseline D=0.054 | running mean: ours=0.1982 Autodesk GPT-5.2=0.3666
+START ZK22J6VYRKQ2RTFD_1758873  Add a 1.5 millimetre rib to increase support and make the structure strong.

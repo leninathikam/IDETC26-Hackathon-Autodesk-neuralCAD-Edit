@@ -1,0 +1,860 @@
+{
+  "request_id": "4E22SJE7QVTSP2E3_1758737238.499021",
+  "accepted": false,
+  "best_iteration": 2,
+  "output_dir": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021",
+  "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\tmp.step",
+  "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\tmp.stl",
+  "views": {
+    "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iso.png",
+    "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\front.png",
+    "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\back.png",
+    "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\left.png",
+    "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\right.png",
+    "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\top.png",
+    "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\bottom.png",
+    "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\orthographic_sheet.png"
+  },
+  "settings": {
+    "token_counts": {
+      "input_tokens": 13795.0,
+      "output_tokens": 1042.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.057014999999999996
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+      {
+        "iteration": 0,
+        "success": true,
+        "accepted": false,
+        "identity": false,
+        "score": 3.0,
+        "failures": [
+          "OVERSIZED_BBOX: Z grew 60.000 → 260.000 (>3x); looks like a rebuild"
+        ],
+        "delta_match": 2,
+        "volume_ratio": 0.005889,
+        "locality_ok": true,
+        "anchor_id": "tag:rod",
+        "census_source": "feature_tag",
+        "safe": false
+      },
+      {
+        "iteration": 1,
+        "success": true,
+        "accepted": false,
+        "identity": false,
+        "score": 3.0,
+        "failures": [
+          "OVERSIZED_BBOX: Z grew 60.000 → 291.000 (>3x); looks like a rebuild"
+        ],
+        "delta_match": 2,
+        "volume_ratio": 0.067072,
+        "locality_ok": true
+      },
+      {
+        "iteration": 2,
+        "success": true,
+        "accepted": false,
+        "identity": false,
+        "score": 3.0,
+        "failures": [
+          "OVERSIZED_BBOX: Z grew 60.000 → 315.000 (>3x); looks like a rebuild"
+        ],
+        "delta_match": 2,
+        "volume_ratio": 0.12573,
+        "locality_ok": true
+      }
+    ],
+    "best_iteration": 2,
+    "accepted": false,
+    "failure_category": "planning",
+    "retry_history": [
+      "candidate0 add_cylinder: OVERSIZED_BBOX: Z grew 60.000 → 260.000 (>3x); looks like a rebuild",
+      "iter1 raw_cadquery: OVERSIZED_BBOX: Z grew 60.000 → 291.000 (>3x); looks like a rebuild",
+      "iter2 raw_cadquery: OVERSIZED_BBOX: Z grew 60.000 → 315.000 (>3x); looks like a rebuild"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product",
+    "used_llm": true
+  },
+  "iterations": [
+    {
+      "iteration": 0,
+      "intent": {
+        "summary": "Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product",
+        "targets": [],
+        "operation_hints": [
+          "extrude_add"
+        ],
+        "dimensions": {
+          "distance": 200.0,
+          "value_mm": 200.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[168.0,180.0,60.0],\"volume\":426801.5,\"n_solids\":1,\"shortest_axis\":\"z\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "top",
+        "pattern": "feature_addition"
+      },
+      "edit_spec": {
+        "intent_summary": "Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product",
+        "operation": "extrude_add",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\4E22SJE7QVTSP2E3_1758737277.9100277.step",
+          "x": 84.0,
+          "y": 90.0,
+          "z": 100.00000010000001,
+          "diameter": 4.0,
+          "height": 200.0,
+          "axis": "Z",
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_addition target=feature action=add complete=True"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\00\\candidate_00\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\00\\candidate_00\\tmp.stl",
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "add_cylinder",
+            "arguments": {
+              "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\4E22SJE7QVTSP2E3_1758737277.9100277.step",
+              "x": 84.0,
+              "y": 90.0,
+              "z": 100.00000010000001,
+              "diameter": 4.0,
+              "height": 200.0,
+              "axis": "Z",
+              "combine": "union",
+              "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('add_cylinder', {\"step_path\": input_file, **{'x': 84.0, 'y': 90.0, 'z': 100.00000010000001, 'diameter': 4.0, 'height': 200.0, 'axis': 'Z', 'combine': 'union'}})\n    path = str(Path(input_file))\n    for follow in []:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result"
+            },
+            "rationale": "",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('add_cylinder', {\"step_path\": input_file, **{'x': 84.0, 'y': 90.0, 'z': 100.00000010000001, 'diameter': 4.0, 'height': 200.0, 'axis': 'Z', 'combine': 'union'}})\n    path = str(Path(input_file))\n    for follow in []:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 3.622645854949951
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\00\\candidate_00\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 426801.535840777,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                168.0,
+                180.0,
+                60.00000010000001
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "add feature"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 168.000 → 0.000",
+                "Y size 180.000 → 0.000",
+                "Z size 60.000 → 0.000",
+                "plate thickness 60.000 → 0.000",
+                "hole_count 16 → 0",
+                "volume 426801.5358 → 0.0000"
+              ],
+              "unintended": []
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Z grew 60.000 → 260.000 (>3x); looks like a rebuild\nclassified_target: feature_addition/feature/add\ngeometry_delta: faces 67→69; volume_delta 0.59%; bbox (168.0, 180.0, 60.00000010000001)→(168.0, 180.0, 260.00000009999997)\nobserved_vs_start: Z size 60.000 → 260.000; plate thickness 60.000 → 168.000; volume 426801.5358 → 429314.8090\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000",
+          "specific_fix": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Z grew 60.000 → 260.000 (>3x); looks like a rebuild\nclassified_target: feature_addition/feature/add\ngeometry_delta: faces 67→69; volume_delta 0.59%; bbox (168.0, 180.0, 60.00000010000001)→(168.0, 180.0, 260.00000009999997)\nobserved_vs_start: Z size 60.000 → 260.000; plate thickness 60.000 → 168.000; volume 426801.5358 → 429314.8090\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 0.0,
+        "output_tokens": 0.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "Strategy rod: cylinder from the top face"
+    },
+    {
+      "iteration": 1,
+      "intent": {
+        "summary": "Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product",
+        "targets": [],
+        "operation_hints": [
+          "extrude_add"
+        ],
+        "dimensions": {
+          "distance": 200.0,
+          "value_mm": 200.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[168.0,180.0,60.0],\"volume\":426801.5,\"n_solids\":1,\"shortest_axis\":\"z\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "top",
+        "pattern": "feature_addition"
+      },
+      "edit_spec": {
+        "intent_summary": "Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product",
+        "operation": "extrude_add",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\4E22SJE7QVTSP2E3_1758737277.9100277.step",
+          "x": 84.0,
+          "y": 90.0,
+          "z": 100.00000010000001,
+          "diameter": 4.0,
+          "height": 200.0,
+          "axis": "Z",
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_addition target=feature action=add complete=True"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\01\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\01\\tmp.stl",
+        "image_paths": {
+          "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\01\\iso.png",
+          "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\01\\front.png",
+          "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\01\\back.png",
+          "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\01\\left.png",
+          "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\01\\right.png",
+          "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\01\\top.png",
+          "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\01\\bottom.png",
+          "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\01\\orthographic_sheet.png"
+        },
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "raw_cadquery",
+            "arguments": {},
+            "rationale": "script fallback",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    # Use model bbox to anchor the added fixation rod on the TOP surface (zmax)\n    bb = solid.BoundingBox()\n    xmid = 0.5 * (bb.xmin + bb.xmax)\n    ymid = 0.5 * (bb.ymin + bb.ymax)\n    ztop = bb.zmax\n\n    # Keep the edit local: add a slim horizontal arm (200mm) mounted from the top,\n    # with only a small vertical post above the part to avoid oversized bbox in Z.\n    arm_len = float(args.get(\"distance_mm\", 200.0))\n\n    # Dimensions (mm): sized to be a usable fixation rod without changing the whole part\n    post_h = 25.0\n    post_d = 14.0\n    arm_d = 12.0\n\n    # Place near a non-central hint (close to y-min edge) while still on top\n    y_anchor = bb.ymin + 0.22 * (bb.ymax - bb.ymin)\n    x_anchor = xmid\n\n    # Vertical post sitting on the top face\n    post = (\n        cq.Workplane(\"XY\")\n        .center(x_anchor, y_anchor)\n        .circle(post_d / 2.0)\n        .extrude(post_h)\n        .translate((0, 0, ztop))\n    ).val()\n\n    # Horizontal arm from the post top, extending along +X for 200mm\n    # Build it on XZ plane at the post centerline and extrude along Y to make a cylinder-like rod.\n    # (Using a circle profile extruded along Y gives a round rod oriented along Y;\n    # instead, extrude along X by placing the circle on YZ plane.)\n    arm = (\n        cq.Workplane(\"YZ\")\n        .center(y_anchor, ztop + post_h)\n        .circle(arm_d / 2.0)\n        .extrude(arm_len)\n        .translate((x_anchor, 0, 0))\n    ).val()\n\n    # Fuse the new fixation rod assembly into the imported part\n    solid = solid.fuse(post)\n    solid = solid.fuse(arm)\n\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 2.8321239948272705
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\01\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 426801.535840777,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                168.0,
+                180.0,
+                60.00000010000001
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "add feature"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 168.000 → 0.000",
+                "Y size 180.000 → 0.000",
+                "Z size 60.000 → 0.000",
+                "plate thickness 60.000 → 0.000",
+                "hole_count 16 → 0",
+                "volume 426801.5358 → 0.0000"
+              ],
+              "unintended": []
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=1: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Z grew 60.000 → 291.000 (>3x); looks like a rebuild\nclassified_target: feature_addition/feature/add\ngeometry_delta: faces 67→75; volume_delta 6.71%; bbox (168.0, 180.0, 60.00000010000001)→(284.0000001, 180.0, 291.0000002)\nobserved_vs_start: solid_count 1 → 2; X size 168.000 → 284.000; Z size 60.000 → 291.000; plate thickness 60.000 → 180.000; volume 426801.5358 → 455427.7811\nprior_attempts: candidate0 add_cylinder: OVERSIZED_BBOX: Z grew 60.000 → 260.000 (>3x); looks like a rebuild\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000",
+          "specific_fix": "RETRY attempt=1: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Z grew 60.000 → 291.000 (>3x); looks like a rebuild\nclassified_target: feature_addition/feature/add\ngeometry_delta: faces 67→75; volume_delta 6.71%; bbox (168.0, 180.0, 60.00000010000001)→(284.0000001, 180.0, 291.0000002)\nobserved_vs_start: solid_count 1 → 2; X size 168.000 → 284.000; Z size 60.000 → 291.000; plate thickness 60.000 → 180.000; volume 426801.5358 → 455427.7811\nprior_attempts: candidate0 add_cylinder: OVERSIZED_BBOX: Z grew 60.000 → 260.000 (>3x); looks like a rebuild\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 5191.0,
+        "output_tokens": 574.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    },
+    {
+      "iteration": 2,
+      "intent": {
+        "summary": "Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product",
+        "targets": [],
+        "operation_hints": [
+          "extrude_add"
+        ],
+        "dimensions": {
+          "distance": 200.0,
+          "value_mm": 200.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[168.0,180.0,60.0],\"volume\":426801.5,\"n_solids\":1,\"shortest_axis\":\"z\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "top",
+        "pattern": "feature_addition"
+      },
+      "edit_spec": {
+        "intent_summary": "Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product",
+        "operation": "extrude_add",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\4E22SJE7QVTSP2E3_1758737277.9100277.step",
+          "x": 84.0,
+          "y": 90.0,
+          "z": 100.00000010000001,
+          "diameter": 4.0,
+          "height": 200.0,
+          "axis": "Z",
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_addition target=feature action=add complete=True"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\02\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\02\\tmp.stl",
+        "image_paths": {
+          "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\02\\iso.png",
+          "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\02\\front.png",
+          "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\02\\back.png",
+          "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\02\\left.png",
+          "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\02\\right.png",
+          "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\02\\top.png",
+          "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\02\\bottom.png",
+          "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\02\\orthographic_sheet.png"
+        },
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "raw_cadquery",
+            "arguments": {},
+            "rationale": "script fallback",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    bb = solid.BoundingBox()\n\n    # Mount from the top (zmax) but keep Z growth modest to avoid OVERSIZED_BBOX.\n    ztop = bb.zmax\n\n    # Use a non-central anchor: near Y max edge (per hint) and a bit inset.\n    x_anchor = bb.xmin + 0.20 * (bb.xmax - bb.xmin)\n    y_anchor = bb.ymax - 0.12 * (bb.ymax - bb.ymin)\n\n    # Requested arm length\n    arm_len = float(args.get(\"distance_mm\", 200.0))\n\n    # Geometry kept local in Z\n    post_h = 18.0      # small vertical post above top\n    post_d = 14.0\n    arm_d = 12.0\n\n    # Build a vertical post standing on the top surface\n    post = (\n        cq.Workplane(\"XY\")\n        .center(x_anchor, y_anchor)\n        .circle(post_d / 2.0)\n        .extrude(post_h)\n        .translate((0, 0, ztop))\n    ).val()\n\n    # Build a horizontal rod (arm) on the top of the post, extending in +X\n    # Use a YZ profile extruded along X.\n    arm = (\n        cq.Workplane(\"YZ\")\n        .center(y_anchor, ztop + post_h)\n        .circle(arm_d / 2.0)\n        .extrude(arm_len)\n        .translate((x_anchor, 0, 0))\n    ).val()\n\n    # Fuse into one solid body\n    solid = solid.fuse(post)\n    solid = solid.fuse(arm)\n\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 7.654484272003174
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737238.499021\\iterations\\02\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 426801.535840777,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                168.0,
+                180.0,
+                60.00000010000001
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "add feature"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 168.000 → 0.000",
+                "Y size 180.000 → 0.000",
+                "Z size 60.000 → 0.000",
+                "plate thickness 60.000 → 0.000",
+                "hole_count 16 → 0",
+                "volume 426801.5358 → 0.0000"
+              ],
+              "unintended": []
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=2: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Z grew 60.000 → 315.000 (>3x); looks like a rebuild\nclassified_target: feature_addition/feature/add\ngeometry_delta: faces 67→81; volume_delta 12.57%; bbox (168.0, 180.0, 60.00000010000001)→(284.0000001, 180.0, 315.0000003)\nobserved_vs_start: solid_count 1 → 3; X size 168.000 → 284.000; Z size 60.000 → 315.000; plate thickness 60.000 → 180.000; volume 426801.5358 → 480463.1769\nprior_attempts: candidate0 add_cylinder: OVERSIZED_BBOX: Z grew 60.000 → 260.000 (>3x); looks like a rebuild || iter1 raw_cadquery: OVERSIZED_BBOX: Z grew 60.000 → 291.000 (>3x); looks like a rebuild\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000",
+          "specific_fix": "RETRY attempt=2: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Design a fixation rod mounted from the top with arm length 200mm to have ability to fix cutting product\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Z grew 60.000 → 315.000 (>3x); looks like a rebuild\nclassified_target: feature_addition/feature/add\ngeometry_delta: faces 67→81; volume_delta 12.57%; bbox (168.0, 180.0, 60.00000010000001)→(284.0000001, 180.0, 315.0000003)\nobserved_vs_start: solid_count 1 → 3; X size 168.000 → 284.000; Z size 60.000 → 315.000; plate thickness 60.000 → 180.000; volume 426801.5358 → 480463.1769\nprior_attempts: candidate0 add_cylinder: OVERSIZED_BBOX: Z grew 60.000 → 260.000 (>3x); looks like a rebuild || iter1 raw_cadquery: OVERSIZED_BBOX: Z grew 60.000 → 291.000 (>3x); looks like a rebuild\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 13795.0,
+        "output_tokens": 1042.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    }
+  ],
+  "failure_category": "planning"
+}

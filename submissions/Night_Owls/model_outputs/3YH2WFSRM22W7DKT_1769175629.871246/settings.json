@@ -1,0 +1,79 @@
+{
+    "edit_request_id": "3YH2WFSRM22W7DKT_1769175629.871246",
+    "edit_id": "groundedcad_full48_1787182440.6722558",
+    "start_time": 1787182440.6722558,
+    "end_time": 1787182493.051696,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769175629.871246\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 10735.0,
+        "output_tokens": 2723.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.07305
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "INCOMPLETE_PLAN: candidate:incomplete:pattern lacks parsed pitch or supported primitive",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true,
+            "anchor_id": "incomplete",
+            "census_source": "classified_slots",
+            "safe": true
+        },
+        {
+            "iteration": 1,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "'Face' object has no attribute 'geomAdaptor'\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_k4dra8yv\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n   ",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 2,
+            "success": true,
+            "accepted": true,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 2,
+            "volume_ratio": 0.933927,
+            "locality_ok": true
+        }
+    ],
+    "best_iteration": 2,
+    "accepted": true,
+    "failure_category": null,
+    "retry_history": [
+        "candidate0 incomplete_plan: INCOMPLETE_PLAN: candidate:incomplete:pattern lacks parsed pitch or supported primitive | NO_GEOMETRY: execution produced no inspectable solid",
+        "iter1 raw_cadquery: 'Face' object has no attribute 'geomAdaptor'\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_k4dra8yv\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\": str(out_dir),\n    })\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_k4dra8yv\\worker.py\", line 49, in my_cad_function\n    return orig(args)\n  File \"<string>\", line 24, in my_cad_function\nAttributeError: 'Face' object has no attribute 'geomAdaptor'\n | NO_GEOMETRY: execution produced no inspectable solid"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Multiply amount of cylindrical feature to 4. Imagine this is a system of plant pots, so you need to add stability to that afterwards by adding another legs or ribs on the sides. ",
+    "used_llm": true
+}

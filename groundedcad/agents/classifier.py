@@ -57,16 +57,15 @@ _DIR = {
     "right": (1.0, 0.0, 0.0),
     "+x": (1.0, 0.0, 0.0),
     "left": (-1.0, 0.0, 0.0),
-    # Match geometry.render.VIEW_PROJECTIONS exactly: a feature described as
-    # "front" must be on the face visible in the image named front, rather
-    # than an unrelated X-axis face.
-    "front": (0.0, 0.0, 1.0),
-    "back": (0.0, 0.0, -1.0),
+    # Semantic CAD directions use cardinal axes.  Rendered front/back views
+    # may add a small elevation so thin parts remain visible.
+    "front": (0.0, -1.0, 0.0),
+    "back": (0.0, 1.0, 0.0),
     "up": (0.0, 0.0, 1.0),
     "taller": (0.0, 0.0, 1.0),
-    "top": (0.0, 1.0, 0.0),
+    "top": (0.0, 0.0, 1.0),
     "down": (0.0, 0.0, -1.0),
-    "bottom": (0.0, -1.0, 0.0),
+    "bottom": (0.0, 0.0, -1.0),
     "forward": (0.0, 1.0, 0.0),
     "+y": (0.0, 1.0, 0.0),
     "+z": (0.0, 0.0, 1.0),

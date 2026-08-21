@@ -1,0 +1,83 @@
+{
+    "edit_request_id": "3YH2WFSRM22W7DKT_1769782403.586036",
+    "edit_id": "groundedcad_full48_1787181795.2196212",
+    "start_time": 1787181795.2196212,
+    "end_time": 1787181919.7000785,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769782403.586036\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 21948.0,
+        "output_tokens": 3503.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.118389
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 7,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 2,
+            "volume_ratio": 0.006686,
+            "locality_ok": true
+        },
+        {
+            "iteration": 1,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 2,
+            "volume_ratio": 0.000899,
+            "locality_ok": true
+        },
+        {
+            "iteration": 2,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "'Solid' object has no attribute 'val'\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tzre268s\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"o",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 3,
+            "success": true,
+            "accepted": true,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 2,
+            "volume_ratio": 0.014644,
+            "locality_ok": true
+        }
+    ],
+    "best_iteration": 3,
+    "accepted": true,
+    "failure_category": null,
+    "retry_history": [
+        "iter2 raw_cadquery: 'Solid' object has no attribute 'val'\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tzre268s\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\": str(out_dir),\n    })\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_tzre268s\\worker.py\", line 49, in my_cad_function\n    return orig(args)\n  File \"<string>\", line 86, in my_cad_function\nAttributeError: 'Solid' object has no attribute 'val'\n | NO_GEOMETRY: execution produced no inspectable solid"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Change the current plug for Europlug with two round pins and try to copy the real shape.",
+    "used_llm": true
+}

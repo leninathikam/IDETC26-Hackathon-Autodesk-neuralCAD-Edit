@@ -1,0 +1,48 @@
+{
+    "edit_request_id": "ZK22J6VYRKQ2RTFD_1758875163.609787",
+    "edit_id": "groundedcad_full48_1787177130.4934132",
+    "start_time": 1787177130.4934132,
+    "end_time": 1787177169.6991775,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\ZK22J6VYRKQ2RTFD_1758875163.609787\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 0.0,
+        "output_tokens": 0.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.0
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "mutate",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 0,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": true,
+            "accepted": true,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 3,
+            "volume_ratio": 0.006465,
+            "locality_ok": true,
+            "anchor_id": "rim:d=1.5",
+            "census_source": "circular_edges_near_full",
+            "safe": true
+        }
+    ],
+    "best_iteration": 0,
+    "accepted": true,
+    "failure_category": null,
+    "retry_history": [],
+    "valid_start_copy": false,
+    "intent_summary": "Add 0.2 mm chamfer to the hole edges to improve fitting.",
+    "used_llm": false
+}

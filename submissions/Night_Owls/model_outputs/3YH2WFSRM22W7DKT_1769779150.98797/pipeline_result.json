@@ -1,0 +1,826 @@
+{
+  "request_id": "3YH2WFSRM22W7DKT_1769779150.98797",
+  "accepted": true,
+  "best_iteration": 2,
+  "output_dir": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797",
+  "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\tmp.step",
+  "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\tmp.stl",
+  "views": {
+    "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iso.png",
+    "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\front.png",
+    "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\back.png",
+    "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\left.png",
+    "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\right.png",
+    "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\top.png",
+    "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\bottom.png",
+    "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\orthographic_sheet.png"
+  },
+  "settings": {
+    "token_counts": {
+      "input_tokens": 13200.0,
+      "output_tokens": 1612.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.06378
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+      {
+        "iteration": 0,
+        "success": false,
+        "accepted": false,
+        "identity": true,
+        "score": 3.0,
+        "failures": [
+          "INCOMPLETE_PLAN: candidate:incomplete:undimensioned generic feature addition",
+          "NO_GEOMETRY: execution produced no inspectable solid"
+        ],
+        "delta_match": 0,
+        "volume_ratio": 1.0,
+        "locality_ok": true,
+        "anchor_id": "incomplete",
+        "census_source": "classified_slots",
+        "safe": true
+      },
+      {
+        "iteration": 1,
+        "success": true,
+        "accepted": false,
+        "identity": false,
+        "score": 3.0,
+        "failures": [],
+        "delta_match": 1,
+        "volume_ratio": 0.004696,
+        "locality_ok": true
+      },
+      {
+        "iteration": 2,
+        "success": true,
+        "accepted": true,
+        "identity": false,
+        "score": 3.0,
+        "failures": [],
+        "delta_match": 1,
+        "volume_ratio": 0.004321,
+        "locality_ok": true
+      }
+    ],
+    "best_iteration": 2,
+    "accepted": true,
+    "failure_category": null,
+    "retry_history": [
+      "candidate0 incomplete_plan: INCOMPLETE_PLAN: candidate:incomplete:undimensioned generic feature addition | NO_GEOMETRY: execution produced no inspectable solid"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Imagine the black handle is a stand. Add another one on the other side of device in approximately same distane from side wall as the existing one. Remove the Cordholder. Cut the bottom of the handles so it allows the device to be stable on ",
+    "used_llm": true
+  },
+  "iterations": [
+    {
+      "iteration": 0,
+      "intent": {
+        "summary": "Imagine the black handle is a stand. Add another one on the other side of device in approximately same distane from side wall as the existing one. Remove the Cordholder. Cut the bottom of the handles so it allows the device to be stable on ",
+        "targets": [],
+        "operation_hints": [
+          "extrude_add"
+        ],
+        "dimensions": {},
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Imagine the black handle is a stand. Add another one on the other side of device in approximately same distane from side wall as the existing one. Remove the Cordholder. Cut the bottom of the handles so it allows the device to be stable on a flat surface.",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[296.96,362.67,419.42],\"volume\":8411752.1,\"n_solids\":20,\"shortest_axis\":\"x\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "bottom",
+        "pattern": "feature_addition"
+      },
+      "edit_spec": {
+        "intent_summary": "Imagine the black handle is a stand. Add another one on the other side of device in approximately same distane from side wall as the existing one. Remove the Cordholder. Cut the bottom of the handles so it allows the device to be stable on ",
+        "operation": "extrude_add",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\3YH2WFSRM22W7DKT_1769779221.0033863.step",
+          "x": -21.477902031611542,
+          "y": 181.33690754544497,
+          "z": -281.81339373389903,
+          "length": 59.39116024229302,
+          "width": 35.634696145375806,
+          "height": 17.817348072687903,
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_addition target=feature action=add complete=True"
+      },
+      "execution": {
+        "success": false,
+        "step_path": null,
+        "stl_path": null,
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [],
+        "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('incomplete_plan', {\"step_path\": input_file, **{'reason': 'undimensioned generic feature addition'}})\n    path = str(Path(input_file))\n    for follow in []:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result",
+        "geometry_summary": {},
+        "error": "candidate:incomplete:undimensioned generic feature addition",
+        "duration_s": 0.0
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: candidate:incomplete:undimensioned generic feature addition",
+            "measured": {
+              "valid": null,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": null
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 8411752.092947036,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 20,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": false,
+            "detail": "Identity/no-op vs start",
+            "measured": {
+              "identity": true
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                296.9558012114651,
+                362.67381509088995,
+                419.42485024668804
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "add feature"
+              ],
+              "observed": [
+                "solid_count 20 → 0",
+                "X size 296.956 → 0.000",
+                "Y size 362.674 → 0.000",
+                "Z size 419.425 → 0.000",
+                "plate thickness 296.956 → 0.000",
+                "hole_count 16 → 0",
+                "volume 8411752.0929 → 0.0000"
+              ],
+              "unintended": []
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Imagine the black handle is a stand. Add another one on the other side of device in approximately same distane from side wall as the existing one. Remove the Cordholder. Cut the bottom of the handles so it allows the device to be stable on \nfailure_bucket: INCOMPLETE\nfailures: INCOMPLETE_PLAN: candidate:incomplete:undimensioned generic feature addition | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_addition/feature/add\nrequired_action: use census fitting-hole diameter and parsed dims; do not invent a whole-part rebuild.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: candidate:incomplete:undimensioned generic feature addition n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: candidate:incomplete:undimensioned generic feature addition n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "specific_fix": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Imagine the black handle is a stand. Add another one on the other side of device in approximately same distane from side wall as the existing one. Remove the Cordholder. Cut the bottom of the handles so it allows the device to be stable on \nfailure_bucket: INCOMPLETE\nfailures: INCOMPLETE_PLAN: candidate:incomplete:undimensioned generic feature addition | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_addition/feature/add\nrequired_action: use census fitting-hole diameter and parsed dims; do not invent a whole-part rebuild."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 0.0,
+        "output_tokens": 0.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "candidate:incomplete:undimensioned generic feature addition"
+    },
+    {
+      "iteration": 1,
+      "intent": {
+        "summary": "Imagine the black handle is a stand. Add another one on the other side of device in approximately same distane from side wall as the existing one. Remove the Cordholder. Cut the bottom of the handles so it allows the device to be stable on ",
+        "targets": [],
+        "operation_hints": [
+          "extrude_add"
+        ],
+        "dimensions": {},
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Imagine the black handle is a stand. Add another one on the other side of device in approximately same distane from side wall as the existing one. Remove the Cordholder. Cut the bottom of the handles so it allows the device to be stable on a flat surface.",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[296.96,362.67,419.42],\"volume\":8411752.1,\"n_solids\":20,\"shortest_axis\":\"x\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "bottom",
+        "pattern": "feature_addition"
+      },
+      "edit_spec": {
+        "intent_summary": "Imagine the black handle is a stand. Add another one on the other side of device in approximately same distane from side wall as the existing one. Remove the Cordholder. Cut the bottom of the handles so it allows the device to be stable on ",
+        "operation": "extrude_add",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\3YH2WFSRM22W7DKT_1769779221.0033863.step",
+          "x": -21.477902031611542,
+          "y": 181.33690754544497,
+          "z": -281.81339373389903,
+          "length": 59.39116024229302,
+          "width": 35.634696145375806,
+          "height": 17.817348072687903,
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_addition target=feature action=add complete=True"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\01\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\01\\tmp.stl",
+        "image_paths": {
+          "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\01\\iso.png",
+          "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\01\\front.png",
+          "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\01\\back.png",
+          "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\01\\left.png",
+          "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\01\\right.png",
+          "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\01\\top.png",
+          "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\01\\bottom.png",
+          "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\01\\orthographic_sheet.png"
+        },
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "raw_cadquery",
+            "arguments": {},
+            "rationale": "script fallback",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    bb = solid.BoundingBox()\n    xMin, xMax = bb.xmin, bb.xmax\n    yMin, yMax = bb.ymin, bb.ymax\n    zMin, zMax = bb.zmin, bb.zmax\n\n    xMid = 0.5 * (xMin + xMax)\n    yMid = 0.5 * (yMin + yMax)\n\n    # --- Parameters derived from bbox / typical handle proportions ---\n    # Place new stand/handle on the opposite X side from the existing one (assumed on +X)\n    # and keep approx same offset from side wall.\n    sideInset = 14.0  # distance from side wall to handle centerline (approx)\n    lugThk = 10.0     # thickness in X of the handle lug\n    lugW = 18.0       # width in Y\n    lugDrop = 48.0    # how far it extends downward (in Z)\n\n    # Vertical placement: near lower half where existing stand appears in views.\n    lugTopZ = zMin + 115.0\n    lugBotZ = lugTopZ - lugDrop\n\n    # Longitudinal placement: near the back end where the existing handle/stand shows.\n    lugY = yMax - 70.0\n\n    # New handle on -X side\n    xCenterNew = xMin + sideInset\n\n    # Create a simple rectangular lug/stand feature and fuse to solid\n    lug = (\n        cq.Workplane(\"YZ\")\n        .workplane(offset=xCenterNew)\n        .center(lugY, 0)\n        .rect(lugW, lugDrop)\n        .extrude(lugThk, both=True)\n        .translate((0, 0, lugBotZ + 0.5 * lugDrop))\n    ).val()\n\n    solid = solid.fuse(lug)\n\n    # --- Remove the cordholder (approx): cut a rectangular pocket where cord exits near bottom right ---\n    # From images, cordholder protrudes near +X side and low Z, around y ~ mid-to-high.\n    cordX = xMax - 6.0\n    cordY = yMid\n    cordZ = zMin + 60.0\n\n    cordCut = (\n        cq.Workplane(\"YZ\")\n        .workplane(offset=cordX)\n        .center(cordY, cordZ)\n        .rect(50.0, 60.0)\n        .extrude(40.0)  # cut inward along -X\n    ).val()\n\n    solid = solid.cut(cordCut)\n\n    # --- Flatten the bottoms of the handles/stands so the device is stable ---\n    # Create a big cutting slab below a chosen floor plane and cut away anything below it.\n    # This will trim the bottoms of both the original handle/stand and the newly added one.\n    floorZ = zMin + 6.0\n\n    trimSlab = (\n        cq.Workplane(\"XY\")\n        .workplane(offset=floorZ - 200.0)\n        .rect((xMax - xMin) + 400.0, (yMax - yMin) + 400.0)\n        .extrude(200.0)\n    ).val()\n\n    solid = solid.cut(trimSlab)\n\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 11.76786184310913
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\01\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 8411752.092947036,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 20,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                296.9558012114651,
+                362.67381509088995,
+                419.42485024668804
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "add feature"
+              ],
+              "observed": [
+                "solid_count 20 → 0",
+                "X size 296.956 → 0.000",
+                "Y size 362.674 → 0.000",
+                "Z size 419.425 → 0.000",
+                "plate thickness 296.956 → 0.000",
+                "hole_count 16 → 0",
+                "volume 8411752.0929 → 0.0000"
+              ],
+              "unintended": []
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000 | Fix: Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000",
+          "specific_fix": "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 4824.0,
+        "output_tokens": 831.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    },
+    {
+      "iteration": 2,
+      "intent": {
+        "summary": "Imagine the black handle is a stand. Add another one on the other side of device in approximately same distane from side wall as the existing one. Remove the Cordholder. Cut the bottom of the handles so it allows the device to be stable on ",
+        "targets": [],
+        "operation_hints": [
+          "extrude_add"
+        ],
+        "dimensions": {},
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Imagine the black handle is a stand. Add another one on the other side of device in approximately same distane from side wall as the existing one. Remove the Cordholder. Cut the bottom of the handles so it allows the device to be stable on a flat surface.",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[296.96,362.67,419.42],\"volume\":8411752.1,\"n_solids\":20,\"shortest_axis\":\"x\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "bottom",
+        "pattern": "feature_addition"
+      },
+      "edit_spec": {
+        "intent_summary": "Imagine the black handle is a stand. Add another one on the other side of device in approximately same distane from side wall as the existing one. Remove the Cordholder. Cut the bottom of the handles so it allows the device to be stable on ",
+        "operation": "extrude_add",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\3YH2WFSRM22W7DKT_1769779221.0033863.step",
+          "x": -21.477902031611542,
+          "y": 181.33690754544497,
+          "z": -281.81339373389903,
+          "length": 59.39116024229302,
+          "width": 35.634696145375806,
+          "height": 17.817348072687903,
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_addition target=feature action=add complete=True"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\02\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\02\\tmp.stl",
+        "image_paths": {
+          "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\02\\iso.png",
+          "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\02\\front.png",
+          "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\02\\back.png",
+          "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\02\\left.png",
+          "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\02\\right.png",
+          "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\02\\top.png",
+          "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\02\\bottom.png",
+          "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\02\\orthographic_sheet.png"
+        },
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "raw_cadquery",
+            "arguments": {},
+            "rationale": "script fallback",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    bb = solid.BoundingBox()\n    xMin, xMax = bb.xmin, bb.xmax\n    yMin, yMax = bb.ymin, bb.ymax\n    zMin, zMax = bb.zmin, bb.zmax\n\n    xMid = 0.5 * (xMin + xMax)\n    yMid = 0.5 * (yMin + yMax)\n\n    # -----------------------------\n    # 1) Add another stand/handle on the opposite side.\n    #    Use the existing small side-tab location as a hint:\n    #    tabs appear near the top rim; we place the stand near the lower region.\n    # -----------------------------\n    sideInset = 14.0          # approx distance from side wall\n    standThkX = 10.0          # thickness in X\n    standW_Y = 18.0           # width along Y\n    standH_Z = 55.0           # height along Z\n    standY = yMax - 70.0      # near the back (from images)\n\n    # Place stand to the -X side; \"other side\" relative to common cord/feature on +X.\n    xCenterNew = xMin + sideInset\n\n    # Create stand as a rectangular prism fused to body\n    # Build profile on YZ, extrude in X\n    stand = (\n        cq.Workplane(\"YZ\")\n        .workplane(offset=xCenterNew)\n        .center(standY, zMin + 90.0)\n        .rect(standW_Y, standH_Z)\n        .extrude(standThkX, both=True)\n    ).val()\n\n    solid = solid.fuse(stand)\n\n    # -----------------------------\n    # 2) Remove the cordholder.\n    #    Cut a local box around the cordholder area near +X, low Z.\n    # -----------------------------\n    cordX = xMax - 2.0\n    cordY = yMid\n    cordZ = zMin + 70.0\n\n    cordCut = (\n        cq.Workplane(\"YZ\")\n        .workplane(offset=cordX)\n        .center(cordY, cordZ)\n        .rect(80.0, 90.0)\n        .extrude(80.0)  # inward along -X\n    ).val()\n\n    solid = solid.cut(cordCut)\n\n    # -----------------------------\n    # 3) Cut the bottom of the handles/stands to make stable on a flat surface.\n    #    Trim anything below a plane slightly above the current global zMin.\n    # -----------------------------\n    floorZ = zMin + 6.0\n\n    trimSlab = (\n        cq.Workplane(\"XY\")\n        .workplane(offset=zMin - 500.0)\n        .rect((xMax - xMin) + 800.0, (yMax - yMin) + 800.0)\n        .extrude((floorZ - (zMin - 500.0)))\n    ).val()\n\n    solid = solid.cut(trimSlab)\n\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 22.29112672805786
+      },
+      "critique": {
+        "accept": true,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769779150.98797\\iterations\\02\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 8411752.092947036,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 20,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                296.9558012114651,
+                362.67381509088995,
+                419.42485024668804
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "add feature"
+              ],
+              "observed": [
+                "solid_count 20 → 0",
+                "X size 296.956 → 0.000",
+                "Y size 362.674 → 0.000",
+                "Z size 419.425 → 0.000",
+                "plate thickness 296.956 → 0.000",
+                "hole_count 16 → 0",
+                "volume 8411752.0929 → 0.0000"
+              ],
+              "unintended": []
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000 | Fix: Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000",
+          "specific_fix": "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 13200.0,
+        "output_tokens": 1612.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    }
+  ],
+  "failure_category": null
+}

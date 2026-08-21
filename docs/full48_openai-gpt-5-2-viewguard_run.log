@@ -1,0 +1,3 @@
+batch runner: 420s/row, visual_iters=5, hybrid=True, adaptive=5-8, candidate_enumeration=True, max_candidates=4, out=data\full48_openai-gpt-5-2-viewguard, report=docs\full48_openai-gpt-5-2-viewguard_scores.json
+START ZK22J6VYRKQ2RTFD_1758875  Add 0.2 mm chamfer to the hole edges to improve fitting.
+LLM OpenAIClient model=gpt-5.2 visual_iters=5 hybrid=True adaptive=5-8 candidate_enumeration=True max_candidates=4

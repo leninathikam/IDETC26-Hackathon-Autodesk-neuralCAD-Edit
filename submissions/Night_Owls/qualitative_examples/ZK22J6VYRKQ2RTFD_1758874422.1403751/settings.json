@@ -1,0 +1,94 @@
+{
+    "edit_request_id": "ZK22J6VYRKQ2RTFD_1758874422.1403751",
+    "edit_id": "groundedcad_full48_1787177182.2097075",
+    "start_time": 1787177182.2097075,
+    "end_time": 1787177230.4033988,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\ZK22J6VYRKQ2RTFD_1758874422.1403751\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 0.0,
+        "output_tokens": 0.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.0
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "mutate",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 0,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": true,
+            "accepted": true,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 2,
+            "volume_ratio": 0.010254,
+            "locality_ok": true,
+            "anchor_id": "hole:-0.23,-0.01,0.12",
+            "census_source": "hole_candidates_or_planar_faces",
+            "safe": true
+        },
+        {
+            "iteration": 1,
+            "success": true,
+            "accepted": true,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 2,
+            "volume_ratio": 0.010018,
+            "locality_ok": true,
+            "anchor_id": "hole:-0.25,0.01,0.12",
+            "census_source": "hole_candidates_or_planar_faces",
+            "safe": true
+        },
+        {
+            "iteration": 2,
+            "success": true,
+            "accepted": true,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 2,
+            "volume_ratio": 0.007592,
+            "locality_ok": true,
+            "anchor_id": "hole:-0.19,0.59,-1.73",
+            "census_source": "hole_candidates_or_planar_faces",
+            "safe": true
+        },
+        {
+            "iteration": 3,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [
+                "EXTRA_BODIES: solid count 1 \u2192 2 but the instruction did not request a new body"
+            ],
+            "delta_match": 2,
+            "volume_ratio": 0.00034,
+            "locality_ok": true,
+            "anchor_id": "hole:0.46,0.01,-1.58",
+            "census_source": "hole_candidates_or_planar_faces",
+            "safe": true
+        }
+    ],
+    "best_iteration": 2,
+    "accepted": true,
+    "failure_category": null,
+    "retry_history": [
+        "candidate3 drill_hole_at_point: EXTRA_BODIES: solid count 1 \u2192 2 but the instruction did not request a new body"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.",
+    "used_llm": false
+}

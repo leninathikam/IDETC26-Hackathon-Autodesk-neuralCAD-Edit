@@ -1,0 +1,75 @@
+{
+    "edit_request_id": "3YH2WFSRM22W7DKT_1769176912.388391",
+    "edit_id": "groundedcad_full48_1787180220.0332866",
+    "start_time": 1787180220.0332866,
+    "end_time": 1787180312.6822824,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769176912.388391\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 12601.0,
+        "output_tokens": 639.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.047388
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "INCOMPLETE_PLAN: candidate:incomplete:undimensioned generic feature addition",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true,
+            "anchor_id": "incomplete",
+            "census_source": "classified_slots",
+            "safe": true
+        },
+        {
+            "iteration": 1,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 3,
+            "volume_ratio": 0.026152,
+            "locality_ok": true
+        },
+        {
+            "iteration": 2,
+            "success": true,
+            "accepted": true,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 3,
+            "volume_ratio": 0.026152,
+            "locality_ok": true
+        }
+    ],
+    "best_iteration": 2,
+    "accepted": true,
+    "failure_category": null,
+    "retry_history": [
+        "candidate0 incomplete_plan: INCOMPLETE_PLAN: candidate:incomplete:undimensioned generic feature addition | NO_GEOMETRY: execution produced no inspectable solid"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Add cylindrical pin into the bearing area of the part, so it is able to rotate around it.",
+    "used_llm": true
+}

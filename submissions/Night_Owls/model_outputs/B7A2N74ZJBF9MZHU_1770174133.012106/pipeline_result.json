@@ -1,0 +1,1012 @@
+{
+  "request_id": "B7A2N74ZJBF9MZHU_1770174133.012106",
+  "accepted": false,
+  "best_iteration": -1,
+  "output_dir": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770174133.012106",
+  "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770174133.012106\\tmp.step",
+  "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770174133.012106\\tmp.stl",
+  "views": {},
+  "settings": {
+    "token_counts": {
+      "input_tokens": 7248.0,
+      "output_tokens": 2173.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.054339
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "mutate",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 3,
+    "candidate_summaries": [
+      {
+        "iteration": 0,
+        "success": false,
+        "accepted": false,
+        "identity": true,
+        "score": 3.0,
+        "failures": [
+          "INCOMPLETE_PLAN: incomplete:feature translation needs a grounded local feature; do not translate the whole body",
+          "NO_GEOMETRY: execution produced no inspectable solid"
+        ],
+        "delta_match": 0,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      },
+      {
+        "iteration": 1,
+        "success": false,
+        "accepted": false,
+        "identity": true,
+        "score": 3.0,
+        "failures": [
+          "Sandbox timeout after 45.0s",
+          "NO_GEOMETRY: execution produced no inspectable solid"
+        ],
+        "delta_match": 0,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      },
+      {
+        "iteration": 2,
+        "success": false,
+        "accepted": false,
+        "identity": true,
+        "score": 3.0,
+        "failures": [
+          "Sandbox timeout after 45.0s",
+          "NO_GEOMETRY: execution produced no inspectable solid"
+        ],
+        "delta_match": 0,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      },
+      {
+        "iteration": 3,
+        "success": false,
+        "accepted": false,
+        "identity": true,
+        "score": 3.0,
+        "failures": [
+          "Sandbox timeout after 45.0s",
+          "NO_GEOMETRY: execution produced no inspectable solid"
+        ],
+        "delta_match": 0,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      }
+    ],
+    "best_iteration": -1,
+    "accepted": false,
+    "failure_category": "false_completion",
+    "retry_history": [
+      "iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:feature translation needs a grounded local feature; do not translate the whole body | NO_GEOMETRY: execution produced no inspectable solid",
+      "iter1 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid",
+      "iter2 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid",
+      "iter3 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid"
+    ],
+    "valid_start_copy": true,
+    "intent_summary": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+    "used_llm": true
+  },
+  "iterations": [
+    {
+      "iteration": 0,
+      "intent": {
+        "summary": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+        "targets": [],
+        "operation_hints": [
+          "transform"
+        ],
+        "dimensions": {
+          "value_mm": 50.0,
+          "distance": 50.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[311.8,449.94,434.06],\"volume\":31054626.6,\"n_solids\":56,\"shortest_axis\":\"x\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "front",
+        "pattern": "feature_translation"
+      },
+      "edit_spec": {
+        "intent_summary": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+        "operation": "transform",
+        "targets": [],
+        "parameters": {
+          "reason": "feature translation needs a grounded local feature; do not translate the whole body"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Bounded volume change",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.9
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_translation target=feature action=move complete=True"
+      },
+      "execution": {
+        "success": false,
+        "step_path": null,
+        "stl_path": null,
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [],
+        "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('incomplete_plan', {\"step_path\": input_file, **{'reason': 'feature translation needs a grounded local feature; do not translate the whole body'}})\n    path = str(Path(input_file))\n    for follow in []:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result",
+        "geometry_summary": {},
+        "error": "incomplete:feature translation needs a grounded local feature; do not translate the whole body",
+        "duration_s": 0.0
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: incomplete:feature translation needs a grounded local feature; do not translate the whole body",
+            "measured": {
+              "valid": null,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": null
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "volume change ratio=1.0000 within [0.0,0.9]",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 31054626.553103928,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 56,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": false,
+            "detail": "Identity/no-op vs start",
+            "measured": {
+              "identity": true
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                311.8009246597763,
+                449.93639396136786,
+                434.05555565555557
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "move feature"
+              ],
+              "observed": [
+                "solid_count 56 → 0",
+                "X size 311.801 → 0.000",
+                "Y size 449.936 → 0.000",
+                "Z size 434.056 → 0.000",
+                "plate thickness 311.801 → 0.000",
+                "hole_count 9 → 0",
+                "volume 31054626.5531 → 0.0000"
+              ],
+              "unintended": []
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Prolong black lever sticking out to the front by 5cm for better manipulation.\nfailure_bucket: INCOMPLETE\nfailures: INCOMPLETE_PLAN: incomplete:feature translation needs a grounded local feature; do not translate the whole body | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_translation/feature/move\nrequired_action: use census fitting-hole diameter and parsed dims; do not invent a whole-part rebuild.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: incomplete:feature translation needs a grounded local feature; do not translate the whole body n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.9] Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: incomplete:feature translation needs a grounded local feature; do not translate the whole body n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.9] Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "specific_fix": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Prolong black lever sticking out to the front by 5cm for better manipulation.\nfailure_bucket: INCOMPLETE\nfailures: INCOMPLETE_PLAN: incomplete:feature translation needs a grounded local feature; do not translate the whole body | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_translation/feature/move\nrequired_action: use census fitting-hole diameter and parsed dims; do not invent a whole-part rebuild."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 0.0,
+        "output_tokens": 0.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "incomplete:feature translation needs a grounded local feature; do not translate the whole body"
+    },
+    {
+      "iteration": 1,
+      "intent": {
+        "summary": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+        "targets": [],
+        "operation_hints": [
+          "transform"
+        ],
+        "dimensions": {
+          "value_mm": 50.0,
+          "distance": 50.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[311.8,449.94,434.06],\"volume\":31054626.6,\"n_solids\":56,\"shortest_axis\":\"x\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "front",
+        "pattern": "feature_translation"
+      },
+      "edit_spec": {
+        "intent_summary": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+        "operation": "transform",
+        "targets": [],
+        "parameters": {
+          "reason": "feature translation needs a grounded local feature; do not translate the whole body"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Bounded volume change",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.9
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_translation target=feature action=move complete=True"
+      },
+      "execution": {
+        "success": false,
+        "step_path": null,
+        "stl_path": null,
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    # Import STEP as Workplane; do not rebuild\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    # Heuristic to isolate the \"black lever\" as a small, slender solid sticking out in +Y (front)\n    # We assume the lever is one of the 56 solids, with:\n    # - relatively small volume\n    # - long in Y relative to X/Z\n    # - located near the front (high Y)\n    solids = solid.Solids()\n\n    bb_all = solid.BoundingBox()\n    y_max_all = bb_all.ymax\n\n    lever = None\n    best_score = None\n\n    for s in solids:\n        bb = s.BoundingBox()\n        dx = bb.xmax - bb.xmin\n        dy = bb.ymax - bb.ymin\n        dz = bb.zmax - bb.zmin\n        # avoid degenerate\n        if dx <= 1e-6 or dy <= 1e-6 or dz <= 1e-6:\n            continue\n\n        # slenderness in Y\n        slender_y = dy / max(dx, dz)\n\n        # proximity to front\n        frontness = (bb.ymax - (y_max_all - 80.0))  # positive if within ~80mm of global front\n\n        # smallness proxy using bbox volume (avoids expensive shape volume calls)\n        bbox_vol = dx * dy * dz\n\n        # Score: prioritize very slender in Y, near front, and not huge\n        # Lower bbox_vol is better; higher slender_y and frontness are better.\n        score = (slender_y * 10.0) + (frontness * 0.05) - (bbox_vol * 1e-6)\n\n        if best_score is None or score > best_score:\n            best_score = score\n            lever = s\n\n    # If no lever-like solid found, return identity (still a valid solid)\n    if lever is None:\n        return cq.Workplane(\"XY\").newObject([solid])\n\n    # Translate lever 50mm toward front: direction given (0, -1, 0)\n    # We apply exactly that vector.\n    moved_lever = lever.translate((0.0, -50.0, 0.0))\n\n    # Remove original lever and add moved one\n    # (cut the lever out, then fuse the moved lever back in)\n    base_minus_lever = solid.cut(lever)\n    edited = base_minus_lever.fuse(moved_lever)\n\n    return cq.Workplane(\"XY\").newObject([edited])",
+        "geometry_summary": {},
+        "error": "Sandbox timeout after 45.0s",
+        "duration_s": 45.14894461631775
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: Sandbox timeout after 45.0s",
+            "measured": {
+              "valid": null,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": null
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "volume change ratio=1.0000 within [0.0,0.9]",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 31054626.553103928,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 56,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": false,
+            "detail": "Identity/no-op vs start",
+            "measured": {
+              "identity": true
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                311.8009246597763,
+                449.93639396136786,
+                434.05555565555557
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "move feature"
+              ],
+              "observed": [
+                "solid_count 56 → 0",
+                "X size 311.801 → 0.000",
+                "Y size 449.936 → 0.000",
+                "Z size 434.056 → 0.000",
+                "plate thickness 311.801 → 0.000",
+                "hole_count 9 → 0",
+                "volume 31054626.5531 → 0.0000"
+              ],
+              "unintended": []
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=1: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Prolong black lever sticking out to the front by 5cm for better manipulation.\nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_translation/feature/move\nprior_attempts: iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:feature translation needs a grounded local feature; do not translate the whole body | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: Sandbox timeout after 45.0s n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.9] Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: Sandbox timeout after 45.0s n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.9] Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "specific_fix": "RETRY attempt=1: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Prolong black lever sticking out to the front by 5cm for better manipulation.\nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_translation/feature/move\nprior_attempts: iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:feature translation needs a grounded local feature; do not translate the whole body | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 1975.0,
+        "output_tokens": 629.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    },
+    {
+      "iteration": 2,
+      "intent": {
+        "summary": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+        "targets": [],
+        "operation_hints": [
+          "transform"
+        ],
+        "dimensions": {
+          "value_mm": 50.0,
+          "distance": 50.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[311.8,449.94,434.06],\"volume\":31054626.6,\"n_solids\":56,\"shortest_axis\":\"x\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "front",
+        "pattern": "feature_translation"
+      },
+      "edit_spec": {
+        "intent_summary": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+        "operation": "transform",
+        "targets": [],
+        "parameters": {
+          "reason": "feature translation needs a grounded local feature; do not translate the whole body"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Bounded volume change",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.9
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_translation target=feature action=move complete=True"
+      },
+      "execution": {
+        "success": false,
+        "step_path": null,
+        "stl_path": null,
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    # Import STEP as Workplane (do not rebuild)\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    asm_shape = wp.val()\n\n    # To avoid expensive/fragile booleans on a large multi-solid assembly,\n    # translate ONLY the detected lever solid, then re-compound the solids.\n    solids = list(asm_shape.Solids())\n    if not solids:\n        return cq.Workplane(\"XY\").newObject([asm_shape])\n\n    # Global bbox for \"front\" reference\n    bb_all = asm_shape.BoundingBox()\n    y_min_all, y_max_all = bb_all.ymin, bb_all.ymax\n    x_min_all, x_max_all = bb_all.xmin, bb_all.xmax\n    z_min_all, z_max_all = bb_all.zmin, bb_all.zmax\n\n    # Heuristic lever detection:\n    # - small-ish bbox volume vs assembly\n    # - close to the front (high Y)\n    # - protruding outwards in +Y or -Y direction: large dy compared to dx,dz\n    # We will pick the best-scoring candidate.\n    lever_idx = None\n    best = None\n\n    # Assembly bbox volume proxy\n    dxA = max(1e-6, x_max_all - x_min_all)\n    dyA = max(1e-6, y_max_all - y_min_all)\n    dzA = max(1e-6, z_max_all - z_min_all)\n    bboxA = dxA * dyA * dzA\n\n    for i, s in enumerate(solids):\n        bb = s.BoundingBox()\n        dx = bb.xmax - bb.xmin\n        dy = bb.ymax - bb.ymin\n        dz = bb.zmax - bb.zmin\n        if dx < 1e-3 or dy < 1e-3 or dz < 1e-3:\n            continue\n\n        bboxV = dx * dy * dz\n        rel = bboxV / bboxA  # very small for small parts\n\n        # Slenderness along Y (candidate \"sticking out to the front\")\n        slender_y = dy / max(dx, dz)\n\n        # How close to the very front\n        # (1.0 near y_max_all, 0.0 far away)\n        frontness = 1.0 - ((y_max_all - bb.ymax) / max(1e-6, dyA))\n\n        # Penalize very large parts heavily\n        size_penalty = rel * 200.0\n\n        score = (slender_y * 3.0) + (frontness * 5.0) - size_penalty\n\n        if best is None or score > best:\n            best = score\n            lever_idx = i\n\n    # If we can't confidently find a lever, still return the imported geometry (but as a Workplane)\n    if lever_idx is None:\n        return cq.Workplane(\"XY\").newObject([asm_shape])\n\n    # Translate lever by 50 mm in given direction (0, -1, 0)\n    move_vec = (0.0, -50.0, 0.0)\n    moved = solids[lever_idx].translate(move_vec)\n\n    # Rebuild compound with moved lever (no boolean cut/fuse)\n    out_solids = []\n    for j, s in enumerate(solids):\n        out_solids.append(moved if j == lever_idx else s)\n\n    edited = cq.Compound.makeCompound(out_solids)\n    return cq.Workplane(\"XY\").newObject([edited])",
+        "geometry_summary": {},
+        "error": "Sandbox timeout after 45.0s",
+        "duration_s": 45.10868430137634
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: Sandbox timeout after 45.0s",
+            "measured": {
+              "valid": null,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": null
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "volume change ratio=1.0000 within [0.0,0.9]",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 31054626.553103928,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 56,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": false,
+            "detail": "Identity/no-op vs start",
+            "measured": {
+              "identity": true
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                311.8009246597763,
+                449.93639396136786,
+                434.05555565555557
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "move feature"
+              ],
+              "observed": [
+                "solid_count 56 → 0",
+                "X size 311.801 → 0.000",
+                "Y size 449.936 → 0.000",
+                "Z size 434.056 → 0.000",
+                "plate thickness 311.801 → 0.000",
+                "hole_count 9 → 0",
+                "volume 31054626.5531 → 0.0000"
+              ],
+              "unintended": []
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=2: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Prolong black lever sticking out to the front by 5cm for better manipulation.\nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_translation/feature/move\nprior_attempts: iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:feature translation needs a grounded local feature; do not translate the whole body | NO_GEOMETRY: execution produced no inspectable solid || iter1 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: Sandbox timeout after 45.0s n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.9] Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: Sandbox timeout after 45.0s n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.9] Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "specific_fix": "RETRY attempt=2: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Prolong black lever sticking out to the front by 5cm for better manipulation.\nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_translation/feature/move\nprior_attempts: iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:feature translation needs a grounded local feature; do not translate the whole body | NO_GEOMETRY: execution produced no inspectable solid || iter1 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 4486.0,
+        "output_tokens": 1481.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    },
+    {
+      "iteration": 3,
+      "intent": {
+        "summary": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+        "targets": [],
+        "operation_hints": [
+          "transform"
+        ],
+        "dimensions": {
+          "value_mm": 50.0,
+          "distance": 50.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[311.8,449.94,434.06],\"volume\":31054626.6,\"n_solids\":56,\"shortest_axis\":\"x\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "front",
+        "pattern": "feature_translation"
+      },
+      "edit_spec": {
+        "intent_summary": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+        "operation": "transform",
+        "targets": [],
+        "parameters": {
+          "reason": "feature translation needs a grounded local feature; do not translate the whole body"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Bounded volume change",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.9
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_translation target=feature action=move complete=True"
+      },
+      "execution": {
+        "success": false,
+        "step_path": null,
+        "stl_path": null,
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    asm = wp.val()\n\n    solids_it = asm.Solids()\n    solids = list(solids_it) if solids_it is not None else []\n    if len(solids) < 2:\n        # Nothing to translate as a separate feature/part\n        return cq.Workplane(\"XY\").newObject([asm])\n\n    bbA = asm.BoundingBox()\n    dxA = max(1e-6, bbA.xmax - bbA.xmin)\n    dyA = max(1e-6, bbA.ymax - bbA.ymin)\n    dzA = max(1e-6, bbA.zmax - bbA.zmin)\n\n    # Heuristic: the lever is likely a small, slender-in-Y solid close to the front (high Y)\n    # and not one of the very large chassis-like solids.\n    front_y = bbA.ymax\n\n    lever_idx = None\n    best_score = None\n\n    for i, s in enumerate(solids):\n        bb = s.BoundingBox()\n        dx = max(1e-6, bb.xmax - bb.xmin)\n        dy = max(1e-6, bb.ymax - bb.ymin)\n        dz = max(1e-6, bb.zmax - bb.zmin)\n\n        # Relative bbox volume (proxy for part size)\n        rel_vol = (dx * dy * dz) / (dxA * dyA * dzA)\n\n        # Slenderness along Y\n        slender_y = dy / max(dx, dz)\n\n        # Closeness to front\n        frontness = 1.0 - ((front_y - bb.ymax) / dyA)  # 1 near the very front\n\n        # Prefer parts that are near the front and slender along Y, penalize large ones\n        score = (frontness * 10.0) + (slender_y * 2.0) - (rel_vol * 500.0)\n\n        if best_score is None or score > best_score:\n            best_score = score\n            lever_idx = i\n\n    if lever_idx is None:\n        return cq.Workplane(\"XY\").newObject([asm])\n\n    # Translate selected lever by 50 mm towards the front direction given: (0, -1, 0)\n    move_vec = (0.0, -50.0, 0.0)\n    moved_lever = solids[lever_idx].translate(move_vec)\n\n    # Re-compound all solids with the moved lever; avoid expensive booleans\n    out = []\n    for j, s in enumerate(solids):\n        out.append(moved_lever if j == lever_idx else s)\n\n    edited = cq.Compound.makeCompound(out)\n    return cq.Workplane(\"XY\").newObject([edited])",
+        "geometry_summary": {},
+        "error": "Sandbox timeout after 45.0s",
+        "duration_s": 45.0959267616272
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: Sandbox timeout after 45.0s",
+            "measured": {
+              "valid": null,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": null
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "volume change ratio=1.0000 within [0.0,0.9]",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 31054626.553103928,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 56,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": false,
+            "detail": "Identity/no-op vs start",
+            "measured": {
+              "identity": true
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                311.8009246597763,
+                449.93639396136786,
+                434.05555565555557
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "move feature"
+              ],
+              "observed": [
+                "solid_count 56 → 0",
+                "X size 311.801 → 0.000",
+                "Y size 449.936 → 0.000",
+                "Z size 434.056 → 0.000",
+                "plate thickness 311.801 → 0.000",
+                "hole_count 9 → 0",
+                "volume 31054626.5531 → 0.0000"
+              ],
+              "unintended": []
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=3: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Prolong black lever sticking out to the front by 5cm for better manipulation.\nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_translation/feature/move\nprior_attempts: iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:feature translation needs a grounded local feature; do not translate the whole body | NO_GEOMETRY: execution produced no inspectable solid || iter1 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid || iter2 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: Sandbox timeout after 45.0s n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.9] Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: Sandbox timeout after 45.0s n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.9] Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "specific_fix": "RETRY attempt=3: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Prolong black lever sticking out to the front by 5cm for better manipulation.\nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_translation/feature/move\nprior_attempts: iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:feature translation needs a grounded local feature; do not translate the whole body | NO_GEOMETRY: execution produced no inspectable solid || iter1 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid || iter2 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 7248.0,
+        "output_tokens": 2173.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    }
+  ],
+  "failure_category": "false_completion"
+}

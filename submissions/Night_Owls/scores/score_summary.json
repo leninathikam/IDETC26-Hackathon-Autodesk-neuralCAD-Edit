@@ -1,0 +1,16 @@
+{
+  "n_rows": 48,
+  "mean_chamfer": 0.9094,
+  "mean_volume_f1": 0.59,
+  "mean_diff_f1": 0.1324,
+  "valid": 47,
+  "failure_buckets": {
+    "identity": 12,
+    "misclassify": 12,
+    "wrong_edge_or_scope": 11,
+    "occ_fail": 7,
+    "ok": 3,
+    "over_edit": 2,
+    "row_timeout": 1
+  }
+}

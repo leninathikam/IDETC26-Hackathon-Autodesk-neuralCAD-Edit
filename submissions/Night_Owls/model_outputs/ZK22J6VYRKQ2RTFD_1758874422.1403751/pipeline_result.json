@@ -1,0 +1,1143 @@
+{
+  "request_id": "ZK22J6VYRKQ2RTFD_1758874422.1403751",
+  "accepted": true,
+  "best_iteration": 2,
+  "output_dir": "data\\full48_openai-gpt-5-2_fresh_rerun\\ZK22J6VYRKQ2RTFD_1758874422.1403751",
+  "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\ZK22J6VYRKQ2RTFD_1758874422.1403751\\tmp.step",
+  "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\ZK22J6VYRKQ2RTFD_1758874422.1403751\\tmp.stl",
+  "views": {},
+  "settings": {
+    "token_counts": {
+      "input_tokens": 0.0,
+      "output_tokens": 0.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.0
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "mutate",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 0,
+    "candidate_summaries": [
+      {
+        "iteration": 0,
+        "success": true,
+        "accepted": true,
+        "identity": false,
+        "score": 3.0,
+        "failures": [],
+        "delta_match": 2,
+        "volume_ratio": 0.010254,
+        "locality_ok": true,
+        "anchor_id": "hole:-0.23,-0.01,0.12",
+        "census_source": "hole_candidates_or_planar_faces",
+        "safe": true
+      },
+      {
+        "iteration": 1,
+        "success": true,
+        "accepted": true,
+        "identity": false,
+        "score": 3.0,
+        "failures": [],
+        "delta_match": 2,
+        "volume_ratio": 0.010018,
+        "locality_ok": true,
+        "anchor_id": "hole:-0.25,0.01,0.12",
+        "census_source": "hole_candidates_or_planar_faces",
+        "safe": true
+      },
+      {
+        "iteration": 2,
+        "success": true,
+        "accepted": true,
+        "identity": false,
+        "score": 3.0,
+        "failures": [],
+        "delta_match": 2,
+        "volume_ratio": 0.007592,
+        "locality_ok": true,
+        "anchor_id": "hole:-0.19,0.59,-1.73",
+        "census_source": "hole_candidates_or_planar_faces",
+        "safe": true
+      },
+      {
+        "iteration": 3,
+        "success": true,
+        "accepted": false,
+        "identity": false,
+        "score": 3.0,
+        "failures": [
+          "EXTRA_BODIES: solid count 1 → 2 but the instruction did not request a new body"
+        ],
+        "delta_match": 2,
+        "volume_ratio": 0.00034,
+        "locality_ok": true,
+        "anchor_id": "hole:0.46,0.01,-1.58",
+        "census_source": "hole_candidates_or_planar_faces",
+        "safe": true
+      }
+    ],
+    "best_iteration": 2,
+    "accepted": true,
+    "failure_category": null,
+    "retry_history": [
+      "candidate3 drill_hole_at_point: EXTRA_BODIES: solid count 1 → 2 but the instruction did not request a new body"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.",
+    "used_llm": false
+  },
+  "iterations": [
+    {
+      "iteration": 0,
+      "intent": {
+        "summary": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.",
+        "targets": [],
+        "operation_hints": [
+          "hole"
+        ],
+        "dimensions": {
+          "count": 1.0,
+          "diameter": 1.7,
+          "groove": 0.1,
+          "value_mm": 1.7,
+          "distance": 1.7
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.",
+        "target_text": "hole",
+        "reference_text": "{\"size_mm\":[13.28,4.92,8.25],\"volume\":67.1,\"n_solids\":1,\"shortest_axis\":\"y\",\"holes\":[{\"d\":3.04,\"c\":[-0.23,-0.01,0.12],\"axis\":\"Z\"},{\"d\":3.0,\"c\":[-0.25,0.01,0.12],\"axis\":\"Z\"},{\"d\":2.88,\"c\":[-0.19,0.59,-1.73],\"axis\":\"Z\"},{\"d\":2.88,\"c\":[0.46,0.01,-1.58],\"axis\":\"Z\"}]}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "hole",
+        "pattern": "hole_edit"
+      },
+      "edit_spec": {
+        "intent_summary": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.",
+        "operation": "hole",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\ZK22J6VYRKQ2RTFD_1758874483.146758.step",
+          "x": 6.2628,
+          "y": -0.01,
+          "z": 0.2919,
+          "diameter": 1.7,
+          "axis": "Y"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Local edit: small volume change (helps Chamfer/DINO)",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.25
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=hole_edit target=hole action=add complete=True"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\ZK22J6VYRKQ2RTFD_1758874422.1403751\\iterations\\00\\candidate_00\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\ZK22J6VYRKQ2RTFD_1758874422.1403751\\iterations\\00\\candidate_00\\tmp.stl",
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "drill_hole_at_point",
+            "arguments": {
+              "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\ZK22J6VYRKQ2RTFD_1758874483.146758.step",
+              "x": -0.227,
+              "y": -0.01,
+              "z": 0.116,
+              "diameter": 1.7,
+              "axis": "Y",
+              "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('drill_hole_at_point', {\"step_path\": input_file, **{'x': -0.227, 'y': -0.01, 'z': 0.116, 'diameter': 1.7, 'axis': 'Y'}})\n    path = str(Path(input_file))\n    for follow in []:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result"
+            },
+            "rationale": "",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('drill_hole_at_point', {\"step_path\": input_file, **{'x': -0.227, 'y': -0.01, 'z': 0.116, 'diameter': 1.7, 'axis': 'Y'}})\n    path = str(Path(input_file))\n    for follow in []:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 6.137565612792969
+      },
+      "critique": {
+        "accept": true,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\ZK22J6VYRKQ2RTFD_1758874422.1403751\\iterations\\00\\candidate_00\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "volume change ratio=1.0000 within [0.0,0.25]",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 67.08982065469982,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": false,
+            "detail": "Volume change 1.000 is too large for a local OperationType.HOLE",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": false,
+            "detail": "Unintended geometry modification detected: solid_count 1 → 0; X size 13.280 → 0.000; Y size 4.920 → 0.000; Z size 8.250 → 0.000; plate thickness 4.920 → 0.000",
+            "measured": {
+              "requested": [
+                "add hole",
+                "groove/chamfer"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 13.280 → 0.000",
+                "Y size 4.920 → 0.000",
+                "Z size 8.250 → 0.000",
+                "plate thickness 4.920 → 0.000",
+                "hole_count 16 → 0",
+                "volume 67.0898 → 0.0000"
+              ],
+              "unintended": [
+                "solid_count 1 → 0",
+                "X size 13.280 → 0.000",
+                "Y size 4.920 → 0.000",
+                "Z size 8.250 → 0.000",
+                "plate thickness 4.920 → 0.000"
+              ]
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                13.280000199999968,
+                4.9200002000000005,
+                8.249649654213902
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "Invalid/missing geometry: None n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.25] Volume change 1.000 is too large for a local OperationType.HOLE Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000 Unintended geometry modification detected: solid_count 1 → 0; X size 13.280 → 0.000; Y size 4.920 → 0.000; Z size 8.250 → 0.000; plate thickness 4.920 → 0.000 Affected feature count does not match the instruction. | Fix: Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.25] Volume change 1.000 is too large for a local OperationType.HOLE Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000 Unintended geometry modification detected: solid_count 1 → 0; X size 13.280 → 0.000; Y size 4.920 → 0.000; Z size 8.250 → 0.000; plate thickness 4.920 → 0.000 Affected feature count does not match the instruction.",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.25] Volume change 1.000 is too large for a local OperationType.HOLE Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000 Unintended geometry modification detected: solid_count 1 → 0; X size 13.280 → 0.000; Y size 4.920 → 0.000; Z size 8.250 → 0.000; plate thickness 4.920 → 0.000 Affected feature count does not match the instruction.",
+          "specific_fix": "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 0.0,
+        "output_tokens": 0.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "candidate:hole_site_0"
+    },
+    {
+      "iteration": 1,
+      "intent": {
+        "summary": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.",
+        "targets": [],
+        "operation_hints": [
+          "hole"
+        ],
+        "dimensions": {
+          "count": 1.0,
+          "diameter": 1.7,
+          "groove": 0.1,
+          "value_mm": 1.7,
+          "distance": 1.7
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.",
+        "target_text": "hole",
+        "reference_text": "{\"size_mm\":[13.28,4.92,8.25],\"volume\":67.1,\"n_solids\":1,\"shortest_axis\":\"y\",\"holes\":[{\"d\":3.04,\"c\":[-0.23,-0.01,0.12],\"axis\":\"Z\"},{\"d\":3.0,\"c\":[-0.25,0.01,0.12],\"axis\":\"Z\"},{\"d\":2.88,\"c\":[-0.19,0.59,-1.73],\"axis\":\"Z\"},{\"d\":2.88,\"c\":[0.46,0.01,-1.58],\"axis\":\"Z\"}]}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "hole",
+        "pattern": "hole_edit"
+      },
+      "edit_spec": {
+        "intent_summary": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.",
+        "operation": "hole",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\ZK22J6VYRKQ2RTFD_1758874483.146758.step",
+          "x": 6.2628,
+          "y": -0.01,
+          "z": 0.2919,
+          "diameter": 1.7,
+          "axis": "Y"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Local edit: small volume change (helps Chamfer/DINO)",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.25
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=hole_edit target=hole action=add complete=True"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\ZK22J6VYRKQ2RTFD_1758874422.1403751\\iterations\\00\\candidate_01\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\ZK22J6VYRKQ2RTFD_1758874422.1403751\\iterations\\00\\candidate_01\\tmp.stl",
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "drill_hole_at_point",
+            "arguments": {
+              "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\ZK22J6VYRKQ2RTFD_1758874483.146758.step",
+              "x": -0.246,
+              "y": 0.01,
+              "z": 0.117,
+              "diameter": 1.7,
+              "axis": "Y",
+              "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('drill_hole_at_point', {\"step_path\": input_file, **{'x': -0.246, 'y': 0.01, 'z': 0.117, 'diameter': 1.7, 'axis': 'Y'}})\n    path = str(Path(input_file))\n    for follow in []:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result"
+            },
+            "rationale": "",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('drill_hole_at_point', {\"step_path\": input_file, **{'x': -0.246, 'y': 0.01, 'z': 0.117, 'diameter': 1.7, 'axis': 'Y'}})\n    path = str(Path(input_file))\n    for follow in []:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 4.71661901473999
+      },
+      "critique": {
+        "accept": true,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\ZK22J6VYRKQ2RTFD_1758874422.1403751\\iterations\\00\\candidate_01\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "volume change ratio=1.0000 within [0.0,0.25]",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 67.08982065469982,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": false,
+            "detail": "Volume change 1.000 is too large for a local OperationType.HOLE",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": false,
+            "detail": "Unintended geometry modification detected: solid_count 1 → 0; X size 13.280 → 0.000; Y size 4.920 → 0.000; Z size 8.250 → 0.000; plate thickness 4.920 → 0.000",
+            "measured": {
+              "requested": [
+                "add hole",
+                "groove/chamfer"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 13.280 → 0.000",
+                "Y size 4.920 → 0.000",
+                "Z size 8.250 → 0.000",
+                "plate thickness 4.920 → 0.000",
+                "hole_count 16 → 0",
+                "volume 67.0898 → 0.0000"
+              ],
+              "unintended": [
+                "solid_count 1 → 0",
+                "X size 13.280 → 0.000",
+                "Y size 4.920 → 0.000",
+                "Z size 8.250 → 0.000",
+                "plate thickness 4.920 → 0.000"
+              ]
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                13.280000199999968,
+                4.9200002000000005,
+                8.249649654213902
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "Invalid/missing geometry: None n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.25] Volume change 1.000 is too large for a local OperationType.HOLE Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000 Unintended geometry modification detected: solid_count 1 → 0; X size 13.280 → 0.000; Y size 4.920 → 0.000; Z size 8.250 → 0.000; plate thickness 4.920 → 0.000 Affected feature count does not match the instruction. | Fix: Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.25] Volume change 1.000 is too large for a local OperationType.HOLE Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000 Unintended geometry modification detected: solid_count 1 → 0; X size 13.280 → 0.000; Y size 4.920 → 0.000; Z size 8.250 → 0.000; plate thickness 4.920 → 0.000 Affected feature count does not match the instruction.",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.25] Volume change 1.000 is too large for a local OperationType.HOLE Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000 Unintended geometry modification detected: solid_count 1 → 0; X size 13.280 → 0.000; Y size 4.920 → 0.000; Z size 8.250 → 0.000; plate thickness 4.920 → 0.000 Affected feature count does not match the instruction.",
+          "specific_fix": "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 0.0,
+        "output_tokens": 0.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "candidate:hole_site_1"
+    },
+    {
+      "iteration": 2,
+      "intent": {
+        "summary": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.",
+        "targets": [],
+        "operation_hints": [
+          "hole"
+        ],
+        "dimensions": {
+          "count": 1.0,
+          "diameter": 1.7,
+          "groove": 0.1,
+          "value_mm": 1.7,
+          "distance": 1.7
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.",
+        "target_text": "hole",
+        "reference_text": "{\"size_mm\":[13.28,4.92,8.25],\"volume\":67.1,\"n_solids\":1,\"shortest_axis\":\"y\",\"holes\":[{\"d\":3.04,\"c\":[-0.23,-0.01,0.12],\"axis\":\"Z\"},{\"d\":3.0,\"c\":[-0.25,0.01,0.12],\"axis\":\"Z\"},{\"d\":2.88,\"c\":[-0.19,0.59,-1.73],\"axis\":\"Z\"},{\"d\":2.88,\"c\":[0.46,0.01,-1.58],\"axis\":\"Z\"}]}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "hole",
+        "pattern": "hole_edit"
+      },
+      "edit_spec": {
+        "intent_summary": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.",
+        "operation": "hole",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\ZK22J6VYRKQ2RTFD_1758874483.146758.step",
+          "x": 6.2628,
+          "y": -0.01,
+          "z": 0.2919,
+          "diameter": 1.7,
+          "axis": "Y"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Local edit: small volume change (helps Chamfer/DINO)",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.25
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=hole_edit target=hole action=add complete=True"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\ZK22J6VYRKQ2RTFD_1758874422.1403751\\iterations\\00\\candidate_02\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\ZK22J6VYRKQ2RTFD_1758874422.1403751\\iterations\\00\\candidate_02\\tmp.stl",
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "drill_hole_at_point",
+            "arguments": {
+              "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\ZK22J6VYRKQ2RTFD_1758874483.146758.step",
+              "x": -0.188,
+              "y": 0.59,
+              "z": -1.73,
+              "diameter": 1.7,
+              "axis": "Y",
+              "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('drill_hole_at_point', {\"step_path\": input_file, **{'x': -0.188, 'y': 0.59, 'z': -1.73, 'diameter': 1.7, 'axis': 'Y'}})\n    path = str(Path(input_file))\n    for follow in []:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result"
+            },
+            "rationale": "",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('drill_hole_at_point', {\"step_path\": input_file, **{'x': -0.188, 'y': 0.59, 'z': -1.73, 'diameter': 1.7, 'axis': 'Y'}})\n    path = str(Path(input_file))\n    for follow in []:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 4.529018878936768
+      },
+      "critique": {
+        "accept": true,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\ZK22J6VYRKQ2RTFD_1758874422.1403751\\iterations\\00\\candidate_02\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "volume change ratio=1.0000 within [0.0,0.25]",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 67.08982065469982,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": false,
+            "detail": "Volume change 1.000 is too large for a local OperationType.HOLE",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": false,
+            "detail": "Unintended geometry modification detected: solid_count 1 → 0; X size 13.280 → 0.000; Y size 4.920 → 0.000; Z size 8.250 → 0.000; plate thickness 4.920 → 0.000",
+            "measured": {
+              "requested": [
+                "add hole",
+                "groove/chamfer"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 13.280 → 0.000",
+                "Y size 4.920 → 0.000",
+                "Z size 8.250 → 0.000",
+                "plate thickness 4.920 → 0.000",
+                "hole_count 16 → 0",
+                "volume 67.0898 → 0.0000"
+              ],
+              "unintended": [
+                "solid_count 1 → 0",
+                "X size 13.280 → 0.000",
+                "Y size 4.920 → 0.000",
+                "Z size 8.250 → 0.000",
+                "plate thickness 4.920 → 0.000"
+              ]
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                13.280000199999968,
+                4.9200002000000005,
+                8.249649654213902
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "Invalid/missing geometry: None n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.25] Volume change 1.000 is too large for a local OperationType.HOLE Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000 Unintended geometry modification detected: solid_count 1 → 0; X size 13.280 → 0.000; Y size 4.920 → 0.000; Z size 8.250 → 0.000; plate thickness 4.920 → 0.000 Affected feature count does not match the instruction. | Fix: Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.25] Volume change 1.000 is too large for a local OperationType.HOLE Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000 Unintended geometry modification detected: solid_count 1 → 0; X size 13.280 → 0.000; Y size 4.920 → 0.000; Z size 8.250 → 0.000; plate thickness 4.920 → 0.000 Affected feature count does not match the instruction.",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.25] Volume change 1.000 is too large for a local OperationType.HOLE Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000 Unintended geometry modification detected: solid_count 1 → 0; X size 13.280 → 0.000; Y size 4.920 → 0.000; Z size 8.250 → 0.000; plate thickness 4.920 → 0.000 Affected feature count does not match the instruction.",
+          "specific_fix": "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 0.0,
+        "output_tokens": 0.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "candidate:hole_site_2"
+    },
+    {
+      "iteration": 3,
+      "intent": {
+        "summary": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.",
+        "targets": [],
+        "operation_hints": [
+          "hole"
+        ],
+        "dimensions": {
+          "count": 1.0,
+          "diameter": 1.7,
+          "groove": 0.1,
+          "value_mm": 1.7,
+          "distance": 1.7
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.",
+        "target_text": "hole",
+        "reference_text": "{\"size_mm\":[13.28,4.92,8.25],\"volume\":67.1,\"n_solids\":1,\"shortest_axis\":\"y\",\"holes\":[{\"d\":3.04,\"c\":[-0.23,-0.01,0.12],\"axis\":\"Z\"},{\"d\":3.0,\"c\":[-0.25,0.01,0.12],\"axis\":\"Z\"},{\"d\":2.88,\"c\":[-0.19,0.59,-1.73],\"axis\":\"Z\"},{\"d\":2.88,\"c\":[0.46,0.01,-1.58],\"axis\":\"Z\"}]}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "hole",
+        "pattern": "hole_edit"
+      },
+      "edit_spec": {
+        "intent_summary": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.",
+        "operation": "hole",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\ZK22J6VYRKQ2RTFD_1758874483.146758.step",
+          "x": 6.2628,
+          "y": -0.01,
+          "z": 0.2919,
+          "diameter": 1.7,
+          "axis": "Y"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Local edit: small volume change (helps Chamfer/DINO)",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.25
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=hole_edit target=hole action=add complete=True"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\ZK22J6VYRKQ2RTFD_1758874422.1403751\\iterations\\00\\candidate_03\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\ZK22J6VYRKQ2RTFD_1758874422.1403751\\iterations\\00\\candidate_03\\tmp.stl",
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "drill_hole_at_point",
+            "arguments": {
+              "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\ZK22J6VYRKQ2RTFD_1758874483.146758.step",
+              "x": 0.455,
+              "y": 0.01,
+              "z": -1.578,
+              "diameter": 1.7,
+              "axis": "Y",
+              "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('drill_hole_at_point', {\"step_path\": input_file, **{'x': 0.455, 'y': 0.01, 'z': -1.578, 'diameter': 1.7, 'axis': 'Y'}})\n    path = str(Path(input_file))\n    for follow in []:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result"
+            },
+            "rationale": "",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('drill_hole_at_point', {\"step_path\": input_file, **{'x': 0.455, 'y': 0.01, 'z': -1.578, 'diameter': 1.7, 'axis': 'Y'}})\n    path = str(Path(input_file))\n    for follow in []:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 4.010658025741577
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\ZK22J6VYRKQ2RTFD_1758874422.1403751\\iterations\\00\\candidate_03\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "volume change ratio=1.0000 within [0.0,0.25]",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 67.08982065469982,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": false,
+            "detail": "Volume change 1.000 is too large for a local OperationType.HOLE",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": false,
+            "detail": "Unintended geometry modification detected: solid_count 1 → 0; X size 13.280 → 0.000; Y size 4.920 → 0.000; Z size 8.250 → 0.000; plate thickness 4.920 → 0.000",
+            "measured": {
+              "requested": [
+                "add hole",
+                "groove/chamfer"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 13.280 → 0.000",
+                "Y size 4.920 → 0.000",
+                "Z size 8.250 → 0.000",
+                "plate thickness 4.920 → 0.000",
+                "hole_count 16 → 0",
+                "volume 67.0898 → 0.0000"
+              ],
+              "unintended": [
+                "solid_count 1 → 0",
+                "X size 13.280 → 0.000",
+                "Y size 4.920 → 0.000",
+                "Z size 8.250 → 0.000",
+                "plate thickness 4.920 → 0.000"
+              ]
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                13.280000199999968,
+                4.9200002000000005,
+                8.249649654213902
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=3: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.\nfailure_bucket: OVER_EDIT\nfailures: EXTRA_BODIES: solid count 1 → 2 but the instruction did not request a new body\nclassified_target: hole_edit/hole/add\ngeometry_delta: faces 266→280; volume_delta -0.03%; bbox unchanged\nobserved_vs_start: solid_count 1 → 2; max hole diameter 3.040 → 29.784\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.25] Volume change 1.000 is too large for a local OperationType.HOLE Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000 Unintended geometry modification detected: solid_count 1 → 0; X size 13.280 → 0.000; Y size 4.920 → 0.000; Z size 8.250 → 0.000; plate thickness 4.920 → 0.000 Affected feature count does not match the instruction.",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) volume change ratio=1.0000 within [0.0,0.25] Volume change 1.000 is too large for a local OperationType.HOLE Unrelated change suspected: solids 1->0, vol_ratio=1.000, bbox_growth=0.000 Unintended geometry modification detected: solid_count 1 → 0; X size 13.280 → 0.000; Y size 4.920 → 0.000; Z size 8.250 → 0.000; plate thickness 4.920 → 0.000 Affected feature count does not match the instruction.",
+          "specific_fix": "RETRY attempt=3: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip and prevent slipping.\nfailure_bucket: OVER_EDIT\nfailures: EXTRA_BODIES: solid count 1 → 2 but the instruction did not request a new body\nclassified_target: hole_edit/hole/add\ngeometry_delta: faces 266→280; volume_delta -0.03%; bbox unchanged\nobserved_vs_start: solid_count 1 → 2; max hole diameter 3.040 → 29.784\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 0.0,
+        "output_tokens": 0.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "candidate:hole_site_3"
+    }
+  ],
+  "failure_category": null
+}

@@ -1,0 +1,70 @@
+{
+    "edit_request_id": "4E22SJE7QVTSP2E3_1758737118.288898",
+    "edit_id": "groundedcad_full48_1787178197.6690962",
+    "start_time": 1787178197.6690962,
+    "end_time": 1787178249.6451554,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\4E22SJE7QVTSP2E3_1758737118.288898\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 12543.0,
+        "output_tokens": 1001.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.052644
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 2,
+            "volume_ratio": 0.47103,
+            "locality_ok": true,
+            "anchor_id": "tag:screw",
+            "census_source": "feature_tag",
+            "safe": false
+        },
+        {
+            "iteration": 1,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 2,
+            "volume_ratio": 0.477361,
+            "locality_ok": true
+        },
+        {
+            "iteration": 2,
+            "success": true,
+            "accepted": true,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 2,
+            "volume_ratio": 0.488215,
+            "locality_ok": true
+        }
+    ],
+    "best_iteration": 2,
+    "accepted": true,
+    "failure_category": null,
+    "retry_history": [],
+    "valid_start_copy": false,
+    "intent_summary": "Insert screws to both holes to be able to fix tool on the table",
+    "used_llm": true
+}

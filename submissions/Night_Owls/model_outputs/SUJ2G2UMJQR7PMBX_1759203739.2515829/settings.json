@@ -1,0 +1,75 @@
+{
+    "edit_request_id": "SUJ2G2UMJQR7PMBX_1759203739.2515829",
+    "edit_id": "groundedcad_full48_1787178537.9710581",
+    "start_time": 1787178537.9710581,
+    "end_time": 1787178913.0268068,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 7406.0,
+        "output_tokens": 2260.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.056118
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "Sandbox timeout after 15.0s",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true,
+            "anchor_id": "tag:cap",
+            "census_source": "feature_tag",
+            "safe": false
+        },
+        {
+            "iteration": 1,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 3,
+            "volume_ratio": 0.011763,
+            "locality_ok": true
+        },
+        {
+            "iteration": 2,
+            "success": true,
+            "accepted": true,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 3,
+            "volume_ratio": 0.019948,
+            "locality_ok": true
+        }
+    ],
+    "best_iteration": 2,
+    "accepted": true,
+    "failure_category": null,
+    "retry_history": [
+        "candidate0 add_cylinder: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Hi , Please create a filling system on the radiator , including a pouring section and a cap.",
+    "used_llm": true
+}

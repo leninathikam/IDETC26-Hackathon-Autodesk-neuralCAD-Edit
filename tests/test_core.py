@@ -840,6 +840,42 @@ def test_candidate_enumeration_rims_sites_and_safeguards():
     assert "mirror" in mirrored[0].tool.arguments["reason"]
 
 
+def test_feature_translation_does_not_move_the_entire_assembly():
+    from groundedcad.agents.classifier import ClassifiedEdit
+    from groundedcad.agents.patterns import strategy_translate
+    from groundedcad.agents.schemas import EditPattern
+
+    edit = ClassifiedEdit(
+        edit_type=EditPattern.FEATURE_TRANSLATION,
+        target_kind="feature",
+        action="move",
+        distance_mm=50.0,
+        direction=(0.0, -1.0, 0.0),
+        complete=True,
+        plan_status="COMPLETE",
+    )
+    tool = strategy_translate(edit, "original.step", {"size": (20, 20, 20)})
+    assert tool.tool_name == "incomplete_plan"
+    assert "whole body" in tool.arguments["reason"]
+
+
+def test_cadquery_compatibility_repair_is_limited_to_known_api_slips():
+    from groundedcad.tools.llm_cadquery import repair_common_cadquery_api
+
+    script = """def my_cad_function(args):
+    feature_wp = cq.Workplane('XY').box(1, 1, 1)
+    edited = solid.fuse(feature_wp)
+    ordered = wp.edges().sortBy(lambda e: e.Length())
+    return edited
+"""
+    repaired = repair_common_cadquery_api(script)
+    assert "solid.fuse(feature_wp.val())" in repaired
+    assert ".sort(" in repaired
+    # No geometric rewrite: unrelated calls and coordinate literals remain.
+    assert "cq.Workplane('XY').box(1, 1, 1)" in repaired
+    assert repair_common_cadquery_api("return solid.cut(other)") == "return solid.cut(other)"
+
+
 def test_expected_delta_and_candidate_rank():
     from groundedcad.verify.edit_delta import score_expected_delta
 

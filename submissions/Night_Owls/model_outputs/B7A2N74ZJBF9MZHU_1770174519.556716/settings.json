@@ -1,0 +1,137 @@
+{
+    "edit_request_id": "B7A2N74ZJBF9MZHU_1770174519.556716",
+    "edit_id": "groundedcad_full48_1787181086.3839612",
+    "start_time": 1787181086.3839612,
+    "end_time": 1787181310.481077,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770174519.556716\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 4956.0,
+        "output_tokens": 827.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.027273
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "Sandbox timeout after 15.0s",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true,
+            "anchor_id": "cavity:-17.75,-1.00,333.25",
+            "census_source": "cavity_candidates",
+            "safe": false
+        },
+        {
+            "iteration": 1,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "Sandbox timeout after 15.0s",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true,
+            "anchor_id": "cavity:-17.75,9.00,333.25",
+            "census_source": "cavity_candidates",
+            "safe": false
+        },
+        {
+            "iteration": 2,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "Sandbox timeout after 15.0s",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true,
+            "anchor_id": "cavity:-282.25,-1.00,333.25",
+            "census_source": "cavity_candidates",
+            "safe": false
+        },
+        {
+            "iteration": 3,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "Sandbox timeout after 15.0s",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true,
+            "anchor_id": "cavity:-17.75,-1.00,16.75",
+            "census_source": "cavity_candidates",
+            "safe": false
+        },
+        {
+            "iteration": 4,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "Cannot find a solid on the stack or in the parent chain\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_t_gmgauu\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": inpu",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 5,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "Cannot find a solid on the stack or in the parent chain\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_u9v9zzxd\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": inpu",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        }
+    ],
+    "best_iteration": -1,
+    "accepted": false,
+    "failure_category": "false_completion",
+    "retry_history": [
+        "candidate0 cut_through: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid",
+        "candidate1 cut_through: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid",
+        "candidate2 cut_through: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid",
+        "candidate3 cut_through: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid",
+        "iter4 raw_cadquery: Cannot find a solid on the stack or in the parent chain\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_t_gmgauu\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\": str(out_dir),\n    })\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_t_gmgauu\\worker.py\", line 49, in my_cad_function\n    return orig(args)\n  File \"<string>\", line 35, in my_cad_function\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 1238, in fillet\n    solid = self.findSolid()\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 747, in findSolid\n    raise ValueError(\n        \"Cannot find a solid {}in the parent chain\".format(message)\n    )\nValueError: Cannot find a solid on the stack or in the parent chain\n | NO_GEOMETRY: execution produced no inspectable solid",
+        "iter5 raw_cadquery: Cannot find a solid on the stack or in the parent chain\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_u9v9zzxd\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\": str(out_dir),\n    })\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_u9v9zzxd\\worker.py\", line 49, in my_cad_function\n    return orig(args)\n  File \"<string>\", line 34, in my_cad_function\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 1238, in fillet\n    solid = self.findSolid()\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 747, in findSolid\n    raise ValueError(\n        \"Cannot find a solid {}in the parent chain\".format(message)\n    )\nValueError: Cannot find a solid on the stack or in the parent chain\n | NO_GEOMETRY: execution produced no inspectable solid"
+    ],
+    "valid_start_copy": true,
+    "intent_summary": "Add rectangular openining to the lower back of the coffee machine, which might serve as draft location for plug and main ON/OFF switch. Opening should be 20cm x 10cm and 3cm deep rectangle with roundend corners (radius 1cm). Position should",
+    "used_llm": true
+}

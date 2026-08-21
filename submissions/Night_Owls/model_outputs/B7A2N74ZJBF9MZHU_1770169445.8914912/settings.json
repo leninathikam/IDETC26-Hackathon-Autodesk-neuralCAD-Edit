@@ -1,0 +1,82 @@
+{
+    "edit_request_id": "B7A2N74ZJBF9MZHU_1770169445.8914912",
+    "edit_id": "groundedcad_full48_1787182560.7043352",
+    "start_time": 1787182560.7043352,
+    "end_time": 1787182752.9387965,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770169445.8914912\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 4639.0,
+        "output_tokens": 1653.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.038712
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "mutate",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "INCOMPLETE_PLAN: candidate:incomplete:blend requires parsed size",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true,
+            "anchor_id": "incomplete",
+            "census_source": "classified_slots",
+            "safe": true
+        },
+        {
+            "iteration": 1,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "BRep_API: command not done\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_34e9q0pi\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\":",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 2,
+            "success": true,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "IDENTITY_OUTPUT: pred matches the start solid; the edit was not applied"
+            ],
+            "delta_match": 3,
+            "volume_ratio": 8e-06,
+            "locality_ok": true
+        }
+    ],
+    "best_iteration": -1,
+    "accepted": false,
+    "failure_category": "false_completion",
+    "retry_history": [
+        "candidate0 incomplete_plan: INCOMPLETE_PLAN: candidate:incomplete:blend requires parsed size | NO_GEOMETRY: execution produced no inspectable solid",
+        "iter1 raw_cadquery: BRep_API: command not done\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_34e9q0pi\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\": str(out_dir),\n    })\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_34e9q0pi\\worker.py\", line 49, in my_cad_function\n    return orig(args)\n  File \"<string>\", line 58, in my_cad_function\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\cq.py\", line 1279, in chamfer\n    s = solid.chamfer(length, length2, edgeList)\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 4023, in chamfer\n    return self.__class__(chamfer_builder.Shape())\n                          ~~~~~~~~~~~~~~~~~~~~~^^\nOCP.OCP.StdFail.StdFail_NotDone: BRep_API: command not done\n | NO_GEOMETRY: execution produced no inspectable solid",
+        "iter2 raw_cadquery: IDENTITY_OUTPUT: pred matches the start solid; the edit was not applied"
+    ],
+    "valid_start_copy": true,
+    "intent_summary": "Add chamfer to main/biggest cylindrical section of Heatbreak body/component. The chamfer should be same size as present on top of the part, but should be added to the lower edge of the cylinder. This should allow easier insertion of the par",
+    "used_llm": true
+}

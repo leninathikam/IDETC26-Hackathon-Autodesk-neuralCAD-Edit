@@ -90,6 +90,35 @@ def is_identity_scaffold(script: str) -> bool:
     )
 
 
+def repair_common_cadquery_api(script: str) -> str:
+    """Repair only unambiguous CadQuery 2.8 compatibility slips.
+
+    The model occasionally emits an otherwise valid local edit that cannot run
+    because it uses the old ``Workplane.sortBy`` spelling, or passes a locally
+    constructed Workplane directly to a Shape boolean.  Both repairs preserve
+    the intended operation and avoid spending an entire visual retry on a
+    deterministic type/API error.  This intentionally does *not* infer
+    geometry, selectors, dimensions, or boolean direction.
+    """
+    repaired = (script or "").replace(".sortBy(", ".sort(")
+    workplane_names = {
+        match.group(1)
+        for match in re.finditer(
+            r"(?m)^\s*([A-Za-z_]\w*)\s*=\s*cq\.Workplane\s*\(", repaired
+        )
+    }
+    for name in workplane_names:
+        # Only an identifier that was directly assigned a Workplane is
+        # rewritten.  Expressions and already-converted operands are left
+        # untouched, so this cannot silently alter arbitrary generated code.
+        repaired = re.sub(
+            rf"(\b[A-Za-z_]\w*\.(?:cut|fuse)\(\s*){re.escape(name)}(\s*\))",
+            rf"\1{name}.val()\2",
+            repaired,
+        )
+    return repaired
+
+
 def _clean_args(raw: Any) -> dict[str, Any]:
     if not isinstance(raw, dict):
         return {}
@@ -284,6 +313,16 @@ CadQuery 2.8 compatibility (mandatory):
   normal-vector tuple such as `(1, 0, 0)` as the mirror plane.
 - Preserve the imported solid: form `edited = solid.fuse(feature)` or
   `edited = solid.cut(feature)` and return it in a Workplane.
+- Never call `solid.chamfer(distance)` or `solid.fillet(radius)`: those Shape
+  APIs require an explicit edge list and fail when called with one argument.
+  For a selector-based blend, use a Workplane, e.g.
+  `cq.Workplane("XY").newObject([solid]).edges(selector).chamfer(distance)`.
+- Type discipline is mandatory: `solid` is a Shape; `feature_wp` is a
+  Workplane. Never pass a Workplane into `solid.cut(...)` or `solid.fuse(...)`.
+  Use `solid.cut(feature_wp.val())` / `solid.fuse(feature_wp.val())`, or do
+  both booleans as Workplane operations. Never access `.wrapped` on a
+  Workplane; use `.val()` for one Shape and `.vals()` for a shape list.
+- CadQuery Workplane has `.sort(...)`, not `.sortBy(...)`.
 
 def my_cad_function(args):
     import cadquery as cq
@@ -329,6 +368,12 @@ CadQuery 2.8 compatibility (mandatory):
 - For reflection use a named plane, e.g.
   `solid.mirror(mirrorPlane="YZ", basePoint=(x, y, z))`; a normal-vector
   tuple is not a supported `mirrorPlane` value.
+- Never call `solid.chamfer(distance)` or `solid.fillet(radius)` without an
+  edge list. Use `cq.Workplane("XY").newObject([solid]).edges(selector)`
+  followed by `.chamfer(distance)` or `.fillet(radius)`.
+- Keep Shape and Workplane operands separate: before `solid.cut(...)` or
+  `solid.fuse(...)`, convert a constructed Workplane with `.val()`. Do not use
+  `.wrapped` on a Workplane, and use `.sort(...)` rather than `.sortBy(...)`.
 
 Allowed (this is the reconstructive path):
 - New sketches, extrudes, lofts, holes, bosses, handles, pin heads, hex profiles.
@@ -436,6 +481,7 @@ def generate_grounded_cadquery(
     except Exception:
         data = {}
     script = str(data.get("my_cad_function") or "").strip() or extract_python_script(resp.text or "")
+    script = repair_common_cadquery_api(script)
     complete = bool(data.get("complete"))
     if iteration == 0:
         complete = False

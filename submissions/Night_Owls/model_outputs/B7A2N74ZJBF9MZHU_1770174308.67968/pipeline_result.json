@@ -1,0 +1,793 @@
+{
+  "request_id": "B7A2N74ZJBF9MZHU_1770174308.67968",
+  "accepted": false,
+  "best_iteration": -1,
+  "output_dir": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770174308.67968",
+  "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770174308.67968\\tmp.step",
+  "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770174308.67968\\tmp.stl",
+  "views": {},
+  "settings": {
+    "token_counts": {
+      "input_tokens": 4739.0,
+      "output_tokens": 2586.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.053007
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+      {
+        "iteration": 0,
+        "success": false,
+        "accepted": false,
+        "identity": true,
+        "score": 3.0,
+        "failures": [
+          "INCOMPLETE_PLAN: candidate:incomplete:pattern lacks parsed pitch or supported primitive",
+          "NO_GEOMETRY: execution produced no inspectable solid"
+        ],
+        "delta_match": 0,
+        "volume_ratio": 1.0,
+        "locality_ok": true,
+        "anchor_id": "incomplete",
+        "census_source": "classified_slots",
+        "safe": true
+      },
+      {
+        "iteration": 1,
+        "success": false,
+        "accepted": false,
+        "identity": true,
+        "score": 3.0,
+        "failures": [
+          "Sandbox timeout after 45.0s",
+          "NO_GEOMETRY: execution produced no inspectable solid"
+        ],
+        "delta_match": 0,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      },
+      {
+        "iteration": 2,
+        "success": false,
+        "accepted": false,
+        "identity": true,
+        "score": 3.0,
+        "failures": [
+          "Sandbox timeout after 45.0s",
+          "NO_GEOMETRY: execution produced no inspectable solid"
+        ],
+        "delta_match": 0,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      }
+    ],
+    "best_iteration": -1,
+    "accepted": false,
+    "failure_category": "false_completion",
+    "retry_history": [
+      "candidate0 incomplete_plan: INCOMPLETE_PLAN: candidate:incomplete:pattern lacks parsed pitch or supported primitive | NO_GEOMETRY: execution produced no inspectable solid",
+      "iter1 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid",
+      "iter2 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid"
+    ],
+    "valid_start_copy": true,
+    "intent_summary": "Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally distanced. Buttons should be copies of existing one.",
+    "used_llm": true
+  },
+  "iterations": [
+    {
+      "iteration": 0,
+      "intent": {
+        "summary": "Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally distanced. Buttons should be copies of existing one.",
+        "targets": [],
+        "operation_hints": [
+          "pattern"
+        ],
+        "dimensions": {
+          "count": 2.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally distanced. Buttons should be copies of existing one.",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[311.8,449.94,434.06],\"volume\":31054626.6,\"n_solids\":56,\"shortest_axis\":\"x\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "horizontal, front",
+        "pattern": "pattern"
+      },
+      "edit_spec": {
+        "intent_summary": "Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally distanced. Buttons should be copies of existing one.",
+        "operation": "pattern",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\B7A2N74ZJBF9MZHU_1770174381.837417.step",
+          "x": 103.3654789086404,
+          "y": 215.0318031193162,
+          "z": 214.97222217222222,
+          "length": 124.72036986391052,
+          "width": 53.99236727536414,
+          "height": 434.05555565555557,
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=pattern target=feature action=pattern complete=True"
+      },
+      "execution": {
+        "success": false,
+        "step_path": null,
+        "stl_path": null,
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [],
+        "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('incomplete_plan', {\"step_path\": input_file, **{'reason': 'pattern lacks parsed pitch or supported primitive'}})\n    path = str(Path(input_file))\n    for follow in []:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result",
+        "geometry_summary": {},
+        "error": "candidate:incomplete:pattern lacks parsed pitch or supported primitive",
+        "duration_s": 0.0
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: candidate:incomplete:pattern lacks parsed pitch or supported primitive",
+            "measured": {
+              "valid": null,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": null
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 31054626.553103928,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 56,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": false,
+            "detail": "Identity/no-op vs start",
+            "measured": {
+              "identity": true
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                311.8009246597763,
+                449.93639396136786,
+                434.05555565555557
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "repeat body"
+              ],
+              "observed": [
+                "solid_count 56 → 0",
+                "X size 311.801 → 0.000",
+                "Y size 449.936 → 0.000",
+                "Z size 434.056 → 0.000",
+                "plate thickness 311.801 → 0.000",
+                "hole_count 9 → 0",
+                "volume 31054626.5531 → 0.0000"
+              ],
+              "unintended": []
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally distanced. Buttons should be copies of existing one.\nfailure_bucket: INCOMPLETE\nfailures: INCOMPLETE_PLAN: candidate:incomplete:pattern lacks parsed pitch or supported primitive | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: pattern/feature/pattern\nrequired_action: use census fitting-hole diameter and parsed dims; do not invent a whole-part rebuild.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: candidate:incomplete:pattern lacks parsed pitch or supported primitive n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: candidate:incomplete:pattern lacks parsed pitch or supported primitive n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "specific_fix": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally distanced. Buttons should be copies of existing one.\nfailure_bucket: INCOMPLETE\nfailures: INCOMPLETE_PLAN: candidate:incomplete:pattern lacks parsed pitch or supported primitive | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: pattern/feature/pattern\nrequired_action: use census fitting-hole diameter and parsed dims; do not invent a whole-part rebuild."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 0.0,
+        "output_tokens": 0.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "candidate:incomplete:pattern lacks parsed pitch or supported primitive"
+    },
+    {
+      "iteration": 1,
+      "intent": {
+        "summary": "Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally distanced. Buttons should be copies of existing one.",
+        "targets": [],
+        "operation_hints": [
+          "pattern"
+        ],
+        "dimensions": {
+          "count": 2.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally distanced. Buttons should be copies of existing one.",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[311.8,449.94,434.06],\"volume\":31054626.6,\"n_solids\":56,\"shortest_axis\":\"x\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "horizontal, front",
+        "pattern": "pattern"
+      },
+      "edit_spec": {
+        "intent_summary": "Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally distanced. Buttons should be copies of existing one.",
+        "operation": "pattern",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\B7A2N74ZJBF9MZHU_1770174381.837417.step",
+          "x": 103.3654789086404,
+          "y": 215.0318031193162,
+          "z": 214.97222217222222,
+          "length": 124.72036986391052,
+          "width": 53.99236727536414,
+          "height": 434.05555565555557,
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=pattern target=feature action=pattern complete=True"
+      },
+      "execution": {
+        "success": false,
+        "step_path": null,
+        "stl_path": null,
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    # Anchor on the known front-panel fitting-hole pattern (55 mm) to find the panel X\n    hole_d = 55.0\n    hole_r = hole_d / 2.0\n\n    # Find the circular edges around the fitting holes (radius ~27.5)\n    circ = (\n        cq.Workplane(\"XY\")\n        .newObject([solid])\n        .edges(\"%CIRCLE\")\n        .filter(lambda e: abs(e.radius() - hole_r) < 0.6)\n    )\n\n    # If we can't find them reliably, do nothing (but still return the imported solid)\n    if circ.size() < 2:\n        return cq.Workplane(\"XY\").newObject([solid])\n\n    # Take two edges (first two) and average their center X to estimate front face X\n    es = circ.vals()\n    c0 = es[0].Center()\n    c1 = es[1].Center()\n    x_front = 0.5 * (c0.x + c1.x)\n\n    # Find the planar face on/near that X (front panel face)\n    faces = cq.Workplane(\"XY\").newObject([solid]).faces(\"\")\n    f_front = None\n    best = None\n    for f in faces.vals():\n        try:\n            bb = f.BoundingBox()\n        except Exception:\n            continue\n        # candidate: face whose bbox is very thin in X (planar face) and lies near x_front\n        xmid = 0.5 * (bb.xmin + bb.xmax)\n        thickness_x = (bb.xmax - bb.xmin)\n        score = abs(xmid - x_front) + 5.0 * thickness_x\n        if best is None or score < best:\n            best = score\n            f_front = f\n\n    if f_front is None:\n        return cq.Workplane(\"XY\").newObject([solid])\n\n    # Detect existing \"button\"-like protrusions on the front panel:\n    # small cylindrical faces with axis approximately X, whose center is near the front face.\n    cyl_faces = cq.Workplane(\"XY\").newObject([solid]).faces(\"%CYLINDER\")\n    candidates = []\n    for cf in cyl_faces.vals():\n        try:\n            ax = cf.Surface().Axis()\n            dv = ax.Direction()\n            # direction close to +/-X\n            if abs(dv.x) < 0.8:\n                continue\n            c = cf.Center()\n            # must be close to front panel plane\n            if abs(c.x - x_front) > 25.0:\n                continue\n            # use cylinder radius as a proxy for button size; ignore huge cylinders (like 55mm holes are not cylinders here)\n            try:\n                r = cf.Surface().Radius()\n            except Exception:\n                continue\n            if r < 2.0 or r > 25.0:\n                continue\n            candidates.append((r, c.y, c.z, c))\n        except Exception:\n            continue\n\n    if len(candidates) == 0:\n        return cq.Workplane(\"XY\").newObject([solid])\n\n    # Choose the most common/small-ish radius group by selecting the median radius\n    candidates.sort(key=lambda t: t[0])\n    r_btn = candidates[len(candidates)//2][0]\n\n    # Keep only those near that radius\n    btns = [t for t in candidates if abs(t[0] - r_btn) < max(0.6, 0.15*r_btn)]\n    if len(btns) == 0:\n        btns = candidates\n\n    # Pick an existing button at median Y (assumes a vertical stack on the front panel)\n    btns.sort(key=lambda t: t[1])\n    base = btns[len(btns)//2]\n    y0 = base[1]\n    z0 = base[2]\n\n    # Determine spacing: if there are at least 2 buttons, use nearest-neighbor deltaY; else use a reasonable default\n    dy = None\n    if len(btns) >= 2:\n        ys = [t[1] for t in btns]\n        ys.sort()\n        # find smallest non-zero adjacent difference\n        diffs = [abs(ys[i+1]-ys[i]) for i in range(len(ys)-1) if abs(ys[i+1]-ys[i]) > 1e-3]\n        if len(diffs) > 0:\n            dy = min(diffs)\n    if dy is None:\n        # fallback spacing based on model Y span\n        bbm = solid.BoundingBox()\n        dy = max(12.0, min(40.0, 0.07*(bbm.ymax - bbm.ymin)))\n\n    # Determine button depth/height from the cylinder face extent in X near the base center\n    # Use a conservative protrusion depth\n    depth = 6.0\n    try:\n        bbm = solid.BoundingBox()\n        depth = max(4.0, min(12.0, 0.02*(bbm.xmax - bbm.xmin)))\n    except Exception:\n        pass\n\n    # Build two new buttons (copies): same radius, same Z, same X plane, shifted in Y\n    # Place them on the front face and extrude outward along +X or -X depending on which side is outside.\n    # Decide outward direction: compare front face X to model X min/max.\n    bb = solid.BoundingBox()\n    # If x_front is near xmin, outward is -X; if near xmax, outward is +X\n    if abs(x_front - bb.xmin) < abs(x_front - bb.xmax):\n        x_dir = -1.0\n        x_start = bb.xmin\n    else:\n        x_dir = 1.0\n        x_start = bb.xmax\n\n    # Start sketch slightly offset from the face into free space to ensure fusing works robustly\n    x_plane = x_front + x_dir * 0.2\n\n    new_btns = (\n        cq.Workplane(\"YZ\")\n        .workplane(offset=x_plane)\n        .center(y0 + dy, z0)\n        .circle(r_btn)\n        .extrude(depth * x_dir)\n        .union(\n            cq.Workplane(\"YZ\")\n            .workplane(offset=x_plane)\n            .center(y0 - dy, z0)\n            .circle(r_btn)\n            .extrude(depth * x_dir)\n        )\n    )\n\n    solid = solid.fuse(new_btns.val())\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {},
+        "error": "Sandbox timeout after 45.0s",
+        "duration_s": 45.11210036277771
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: Sandbox timeout after 45.0s",
+            "measured": {
+              "valid": null,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": null
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 31054626.553103928,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 56,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": false,
+            "detail": "Identity/no-op vs start",
+            "measured": {
+              "identity": true
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                311.8009246597763,
+                449.93639396136786,
+                434.05555565555557
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "repeat body"
+              ],
+              "observed": [
+                "solid_count 56 → 0",
+                "X size 311.801 → 0.000",
+                "Y size 449.936 → 0.000",
+                "Z size 434.056 → 0.000",
+                "plate thickness 311.801 → 0.000",
+                "hole_count 9 → 0",
+                "volume 31054626.5531 → 0.0000"
+              ],
+              "unintended": []
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=1: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally distanced. Buttons should be copies of existing one.\nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: pattern/feature/pattern\nprior_attempts: candidate0 incomplete_plan: INCOMPLETE_PLAN: candidate:incomplete:pattern lacks parsed pitch or supported primitive | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: Sandbox timeout after 45.0s n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: Sandbox timeout after 45.0s n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "specific_fix": "RETRY attempt=1: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally distanced. Buttons should be copies of existing one.\nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: pattern/feature/pattern\nprior_attempts: candidate0 incomplete_plan: INCOMPLETE_PLAN: candidate:incomplete:pattern lacks parsed pitch or supported primitive | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 1793.0,
+        "output_tokens": 1582.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    },
+    {
+      "iteration": 2,
+      "intent": {
+        "summary": "Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally distanced. Buttons should be copies of existing one.",
+        "targets": [],
+        "operation_hints": [
+          "pattern"
+        ],
+        "dimensions": {
+          "count": 2.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally distanced. Buttons should be copies of existing one.",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[311.8,449.94,434.06],\"volume\":31054626.6,\"n_solids\":56,\"shortest_axis\":\"x\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "horizontal, front",
+        "pattern": "pattern"
+      },
+      "edit_spec": {
+        "intent_summary": "Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally distanced. Buttons should be copies of existing one.",
+        "operation": "pattern",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\B7A2N74ZJBF9MZHU_1770174381.837417.step",
+          "x": 103.3654789086404,
+          "y": 215.0318031193162,
+          "z": 214.97222217222222,
+          "length": 124.72036986391052,
+          "width": 53.99236727536414,
+          "height": 434.05555565555557,
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=pattern target=feature action=pattern complete=True"
+      },
+      "execution": {
+        "success": false,
+        "step_path": null,
+        "stl_path": null,
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    bb = solid.BoundingBox()\n\n    # Front panel assumed to be near the max-X side (shortest axis is X)\n    x_front = bb.xmax\n\n    # Find the two 55mm fitting-hole circular rims; use them as an anchor on the front panel region\n    hole_r = 55.0 / 2.0\n    circ_wp = (\n        cq.Workplane(\"XY\")\n        .newObject([solid])\n        .edges(\"%CIRCLE\")\n        .filter(lambda e: abs(e.radius() - hole_r) < 0.8)\n    )\n\n    # If not found, fall back to a reasonable placement using bbox center\n    if circ_wp.size() >= 1:\n        centers = [e.Center() for e in circ_wp.vals()]\n        # Use median Y/Z of these large holes as the panel \"feature band\" anchor\n        ys = sorted([c.y for c in centers])\n        zs = sorted([c.z for c in centers])\n        y_anchor = ys[len(ys)//2]\n        z_anchor = zs[len(zs)//2]\n    else:\n        y_anchor = 0.5 * (bb.ymin + bb.ymax)\n        z_anchor = 0.5 * (bb.zmin + bb.zmax)\n\n    # Try to detect an existing small cylindrical protrusion (button) on/near the front face.\n    # Buttons are assumed to be small cylinders whose axis is ~X and whose center is close to x_front.\n    cyls = cq.Workplane(\"XY\").newObject([solid]).faces(\"%CYLINDER\")\n    btn_cands = []\n    for f in cyls.vals():\n        try:\n            ax = f.Surface().Axis()\n            dv = ax.Direction()\n            if abs(dv.x) < 0.85:\n                continue\n            c = f.Center()\n            # Close to the front panel\n            if abs(c.x - x_front) > 40.0:\n                continue\n            r = f.Surface().Radius()\n            if r < 1.5 or r > 20.0:\n                continue\n            # Prefer ones near the anchor band in Z (front panel area)\n            score = abs(c.z - z_anchor) + 0.15 * abs(c.y - y_anchor)\n            btn_cands.append((score, r, c))\n        except Exception:\n            continue\n\n    if len(btn_cands) == 0:\n        # No reliable detection; add a conservative pair of buttons using generic sizing\n        r_btn = 6.0\n        depth = 6.0\n        y0 = y_anchor\n        z0 = z_anchor\n    else:\n        btn_cands.sort(key=lambda t: t[0])\n        _, r_btn, c0 = btn_cands[0]\n        y0 = c0.y\n        z0 = c0.z\n        # Depth: small, relative to X span\n        depth = max(4.0, min(10.0, 0.02 * (bb.xmax - bb.xmin)))\n\n    # Determine a spacing: approximately equally distanced above/below the existing one.\n    # Use a modest spacing based on model Y size, but keep within a sensible range.\n    dy = max(18.0, min(45.0, 0.06 * (bb.ymax - bb.ymin)))\n\n    # Create two new buttons as copies (same radius & depth) above and below in Y.\n    # Build them on the front face and extrude inward (-X) a short depth.\n    # Slightly inset from exact x_front to ensure fusion.\n    x_sketch = x_front - 0.2\n\n    buttons = (\n        cq.Workplane(\"YZ\")\n        .workplane(offset=x_sketch)\n        .center(y0 + dy, z0)\n        .circle(r_btn)\n        .center(-dy, 0)\n        .circle(r_btn)\n        .extrude(-depth)\n    ).val()\n\n    solid = solid.fuse(buttons)\n\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {},
+        "error": "Sandbox timeout after 45.0s",
+        "duration_s": 45.44427180290222
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: Sandbox timeout after 45.0s",
+            "measured": {
+              "valid": null,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": null
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 31054626.553103928,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 56,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": false,
+            "detail": "Identity/no-op vs start",
+            "measured": {
+              "identity": true
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                311.8009246597763,
+                449.93639396136786,
+                434.05555565555557
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "repeat body"
+              ],
+              "observed": [
+                "solid_count 56 → 0",
+                "X size 311.801 → 0.000",
+                "Y size 449.936 → 0.000",
+                "Z size 434.056 → 0.000",
+                "plate thickness 311.801 → 0.000",
+                "hole_count 9 → 0",
+                "volume 31054626.5531 → 0.0000"
+              ],
+              "unintended": []
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=2: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally distanced. Buttons should be copies of existing one.\nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: pattern/feature/pattern\nprior_attempts: candidate0 incomplete_plan: INCOMPLETE_PLAN: candidate:incomplete:pattern lacks parsed pitch or supported primitive | NO_GEOMETRY: execution produced no inspectable solid || iter1 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: Sandbox timeout after 45.0s n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: Sandbox timeout after 45.0s n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 56->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "specific_fix": "RETRY attempt=2: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Add two horizontal buttons to the front panel. One above existing one, the other below - all approximately equally distanced. Buttons should be copies of existing one.\nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: pattern/feature/pattern\nprior_attempts: candidate0 incomplete_plan: INCOMPLETE_PLAN: candidate:incomplete:pattern lacks parsed pitch or supported primitive | NO_GEOMETRY: execution produced no inspectable solid || iter1 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 4739.0,
+        "output_tokens": 2586.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    }
+  ],
+  "failure_category": "false_completion"
+}

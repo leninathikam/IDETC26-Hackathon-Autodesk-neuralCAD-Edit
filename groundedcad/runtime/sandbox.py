@@ -34,7 +34,7 @@ WORKER_SCRIPT = textwrap.dedent(
         try:
             sys.path.insert(0, payload.get("project_root", "."))
             from groundedcad.geometry.render import export_all_artifacts
-            from groundedcad.geometry.inspect import inspect_shape, shape_from_workplane
+            from groundedcad.geometry.inspect import shape_from_workplane
             from groundedcad.tools.cadquery_tools import execute_tool
 
             if mode == "tool":
@@ -78,17 +78,15 @@ WORKER_SCRIPT = textwrap.dedent(
 
             artifacts = export_all_artifacts(result, out_dir, render=payload.get("render", True))
             shape = shape_from_workplane(result)
-            census = inspect_shape(shape, source=artifacts["step"])
-            # A non-empty exported solid is not proof of a valid B-Rep.  Run
-            # OCC's topology check inside this already time-bounded worker so
-            # a pathological shape cannot freeze the parent pipeline.
-            try:
-                topology_valid = bool(shape.isValid()) if hasattr(shape, "isValid") else False
-            except Exception as topology_exc:
-                topology_valid = False
-                census["topology_validity_error"] = str(topology_exc)
-            census["topology_valid"] = topology_valid
-            census["valid"] = bool(census.get("valid")) and topology_valid
+            # The pipeline performs the complete STEP census and topology
+            # validation once after a successful worker result.  Running
+            # either here can consume the whole watchdog on large assemblies
+            # *after* a valid STEP/STL has already been written, causing a
+            # false timeout and zero score.
+            census = {
+                "valid": True,
+                "topology_valid": None,
+            }
             result_meta.update({
                 "success": True,
                 "step_path": artifacts["step"],
@@ -123,6 +121,7 @@ class Sandbox:
         output_dir: Path,
         *,
         timeout_s: float | None = None,
+        render: bool | None = None,
     ) -> ExecutionResult:
         output_dir.mkdir(parents=True, exist_ok=True)
         start = time.time()
@@ -136,7 +135,7 @@ class Sandbox:
                 "output_dir": str(output_dir),
                 "result_file": str(result_path),
                 "project_root": self.project_root,
-                "render": self.render,
+                "render": self.render if render is None else bool(render),
             }
             payload_path.write_text(json.dumps(payload), encoding="utf-8")
             worker_path.write_text(WORKER_SCRIPT, encoding="utf-8")
@@ -197,6 +196,7 @@ class Sandbox:
         output_dir: str | Path,
         *,
         timeout_s: float | None = None,
+        render: bool | None = None,
     ) -> ExecutionResult:
         # Snapshot for rollback if previous step exists
         out = Path(output_dir)
@@ -209,6 +209,7 @@ class Sandbox:
             {"mode": "tool", "tool_name": tool_name, "arguments": arguments},
             out,
             timeout_s=timeout_s,
+            render=render,
         )
         if not result.success and backup and backup.exists():
             shutil.copy2(backup, existing)
@@ -221,6 +222,7 @@ class Sandbox:
         output_dir: str | Path,
         *,
         timeout_s: float | None = None,
+        render: bool | None = None,
     ) -> ExecutionResult:
         from groundedcad.geometry.fallback import cadquery_available
 
@@ -259,6 +261,7 @@ class Sandbox:
             },
             out,
             timeout_s=timeout_s,
+            render=render,
         )
         if not result.success and backup and backup.exists():
             shutil.copy2(backup, existing)

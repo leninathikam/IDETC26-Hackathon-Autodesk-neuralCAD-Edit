@@ -1,0 +1,83 @@
+{
+    "edit_request_id": "3YH2WFSRM22W7DKT_1769175216.745646",
+    "edit_id": "groundedcad_full48_1787182496.905475",
+    "start_time": 1787182496.905475,
+    "end_time": 1787182555.165034,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769175216.745646\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 10353.0,
+        "output_tokens": 1874.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.059169
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "INCOMPLETE_PLAN: candidate:incomplete:pattern lacks parsed pitch or supported primitive",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true,
+            "anchor_id": "incomplete",
+            "census_source": "classified_slots",
+            "safe": true
+        },
+        {
+            "iteration": 1,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "'Workplane' object has no attribute 'fuse'\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_izm8_vrg\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n     ",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 2,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "BRep_API: command not done\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_ogw3xm5u\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\":",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        }
+    ],
+    "best_iteration": -1,
+    "accepted": false,
+    "failure_category": "false_completion",
+    "retry_history": [
+        "candidate0 incomplete_plan: INCOMPLETE_PLAN: candidate:incomplete:pattern lacks parsed pitch or supported primitive | NO_GEOMETRY: execution produced no inspectable solid",
+        "iter1 raw_cadquery: 'Workplane' object has no attribute 'fuse'\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_izm8_vrg\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\": str(out_dir),\n    })\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_izm8_vrg\\worker.py\", line 49, in my_cad_function\n    return orig(args)\n  File \"<string>\", line 70, in my_cad_function\nAttributeError: 'Workplane' object has no attribute 'fuse'\n | NO_GEOMETRY: execution produced no inspectable solid",
+        "iter2 raw_cadquery: BRep_API: command not done\nTraceback (most recent call last):\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_ogw3xm5u\\worker.py\", line 50, in main\n    result = my_cad_function({\n        \"input_file\": input_file,\n        \"output_dir\": str(out_dir),\n    })\n  File \"C:\\Users\\lenin\\AppData\\Local\\Temp\\groundedcad_ogw3xm5u\\worker.py\", line 49, in my_cad_function\n    return orig(args)\n  File \"<string>\", line 90, in my_cad_function\n  File \"C:\\Users\\lenin\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\cadquery\\occ_impl\\shapes.py\", line 3987, in fillet\n    return self.__class__(fillet_builder.Shape())\n                          ~~~~~~~~~~~~~~~~~~~~^^\nOCP.OCP.StdFail.StdFail_NotDone: BRep_API: command not done\n | NO_GEOMETRY: execution produced no inspectable solid"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Design cylindrical bearing on the flat end of the part (the one without fillet). Create another 7 instances of this design and rotate them around the bearing axis.",
+    "used_llm": true
+}

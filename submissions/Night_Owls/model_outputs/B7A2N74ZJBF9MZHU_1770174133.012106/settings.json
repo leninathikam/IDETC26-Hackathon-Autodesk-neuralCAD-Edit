@@ -1,0 +1,95 @@
+{
+    "edit_request_id": "B7A2N74ZJBF9MZHU_1770174133.012106",
+    "edit_id": "groundedcad_full48_1787180771.3734047",
+    "start_time": 1787180771.3734047,
+    "end_time": 1787181071.7442698,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770174133.012106\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 7248.0,
+        "output_tokens": 2173.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.054339
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "mutate",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 3,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "INCOMPLETE_PLAN: incomplete:feature translation needs a grounded local feature; do not translate the whole body",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 1,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "Sandbox timeout after 45.0s",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 2,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "Sandbox timeout after 45.0s",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        },
+        {
+            "iteration": 3,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "Sandbox timeout after 45.0s",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true
+        }
+    ],
+    "best_iteration": -1,
+    "accepted": false,
+    "failure_category": "false_completion",
+    "retry_history": [
+        "iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:feature translation needs a grounded local feature; do not translate the whole body | NO_GEOMETRY: execution produced no inspectable solid",
+        "iter1 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid",
+        "iter2 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid",
+        "iter3 raw_cadquery: Sandbox timeout after 45.0s | NO_GEOMETRY: execution produced no inspectable solid"
+    ],
+    "valid_start_copy": true,
+    "intent_summary": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+    "used_llm": true
+}

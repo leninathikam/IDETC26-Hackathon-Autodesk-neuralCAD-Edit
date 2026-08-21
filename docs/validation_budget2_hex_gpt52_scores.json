@@ -1,0 +1,21 @@
+[
+  {
+    "id": "SUJ2G2UMJQR7PMBX_1759210049.432666",
+    "type": "boolean_modification",
+    "instruction": "Hi , Please change the center flower type profile into a hexagonal profile for better torque transfe",
+    "ours": {
+      "chamfer": 0.9861,
+      "volume_f1": 0.9278,
+      "diff_f1": 0.3559,
+      "valid": true
+    },
+    "execution_status": "completed",
+    "gpt52": {
+      "chamfer": 0.9865,
+      "volume_f1": 0.9461,
+      "diff_f1": 0.1585,
+      "valid": true
+    },
+    "failure_bucket": "wrong_edge_or_scope"
+  }
+]

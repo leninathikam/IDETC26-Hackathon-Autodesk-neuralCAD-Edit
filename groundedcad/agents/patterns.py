@@ -191,10 +191,13 @@ def strategy_translate(edit: ClassifiedEdit, step_path: str, census: dict[str, A
         )
     if dist == 0.0:
         return _incomplete("translate needs a parsed distance")
-    return ToolCall(
-        tool_name="translate_body",
-        arguments={"step_path": step_path, "dx": dx, "dy": dy, "dz": dz},
-        rationale="Strategy translate_body: named move/prolong",
+    # A feature-level request such as "extend the lever" must never silently
+    # become a whole-assembly translation.  Apart from being semantically
+    # wrong, moving an imported compound can spend the complete worker budget
+    # serialising dozens of unrelated solids.  Leave this to the grounded
+    # CadQuery path, which can identify and extend the requested local feature.
+    return _incomplete(
+        "feature translation needs a grounded local feature; do not translate the whole body"
     )
 
 

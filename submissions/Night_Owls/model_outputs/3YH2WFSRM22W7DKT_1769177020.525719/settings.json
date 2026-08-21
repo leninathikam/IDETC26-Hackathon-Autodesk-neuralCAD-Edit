@@ -1,0 +1,121 @@
+{
+    "edit_request_id": "3YH2WFSRM22W7DKT_1769177020.525719",
+    "edit_id": "groundedcad_full48_1787180424.3172197",
+    "start_time": 1787180424.3172197,
+    "end_time": 1787180504.184694,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\3YH2WFSRM22W7DKT_1769177020.525719\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 12893.0,
+        "output_tokens": 1008.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.053799
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 3,
+            "volume_ratio": 0.015601,
+            "locality_ok": true,
+            "anchor_id": "cavity:-71.84,-3.50,7.50",
+            "census_source": "cavity_candidates",
+            "safe": false
+        },
+        {
+            "iteration": 1,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 3,
+            "volume_ratio": 0.015601,
+            "locality_ok": true,
+            "anchor_id": "cavity:-71.84,3.50,7.50",
+            "census_source": "cavity_candidates",
+            "safe": false
+        },
+        {
+            "iteration": 2,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 3,
+            "volume_ratio": 0.003068,
+            "locality_ok": true,
+            "anchor_id": "cavity:-68.25,3.50,7.50",
+            "census_source": "cavity_candidates",
+            "safe": false
+        },
+        {
+            "iteration": 3,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 3,
+            "volume_ratio": 0.003068,
+            "locality_ok": true,
+            "anchor_id": "cavity:-68.25,-3.50,7.50",
+            "census_source": "cavity_candidates",
+            "safe": false
+        },
+        {
+            "iteration": 4,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [
+                "OVERSIZED_CUT: removed 35% of volume (rebuild, not an edit)",
+                "EXTRA_BODIES: solid count 1 \u2192 2 but the instruction did not request a new body"
+            ],
+            "delta_match": 3,
+            "volume_ratio": 0.350975,
+            "locality_ok": true
+        },
+        {
+            "iteration": 5,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [
+                "OVERSIZED_CUT: removed 39% of volume (rebuild, not an edit)",
+                "EXTRA_BODIES: solid count 1 \u2192 2 but the instruction did not request a new body"
+            ],
+            "delta_match": 3,
+            "volume_ratio": 0.389234,
+            "locality_ok": true
+        }
+    ],
+    "best_iteration": 5,
+    "accepted": false,
+    "failure_category": "planning",
+    "retry_history": [
+        "iter4 raw_cadquery: OVERSIZED_CUT: removed 35% of volume (rebuild, not an edit) | EXTRA_BODIES: solid count 1 \u2192 2 but the instruction did not request a new body",
+        "iter5 raw_cadquery: OVERSIZED_CUT: removed 39% of volume (rebuild, not an edit) | EXTRA_BODIES: solid count 1 \u2192 2 but the instruction did not request a new body"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Add several cutouts into the part to decrease its weight.",
+    "used_llm": true
+}

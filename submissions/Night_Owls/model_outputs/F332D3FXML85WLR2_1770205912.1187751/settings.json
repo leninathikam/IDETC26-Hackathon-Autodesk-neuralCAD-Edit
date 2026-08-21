@@ -1,0 +1,78 @@
+{
+    "edit_request_id": "F332D3FXML85WLR2_1770205912.1187751",
+    "edit_id": "groundedcad_full48_1787179868.2958186",
+    "start_time": 1787179868.2958186,
+    "end_time": 1787179936.224596,
+    "filename": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770205912.1187751\\tmp.step",
+    "isHuman": false,
+    "userId": "groundedcad_full48",
+    "token_counts": {
+        "input_tokens": 12789.0,
+        "output_tokens": 1249.0,
+        "thinking_tokens": 0.0,
+        "cost_estimate": 0.057102
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+        {
+            "iteration": 0,
+            "success": false,
+            "accepted": false,
+            "identity": true,
+            "score": 3.0,
+            "failures": [
+                "INCOMPLETE_PLAN: candidate:incomplete:undimensioned generic feature addition",
+                "NO_GEOMETRY: execution produced no inspectable solid"
+            ],
+            "delta_match": 0,
+            "volume_ratio": 1.0,
+            "locality_ok": true,
+            "anchor_id": "incomplete",
+            "census_source": "classified_slots",
+            "safe": true
+        },
+        {
+            "iteration": 1,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [],
+            "delta_match": 2,
+            "volume_ratio": 4.31544,
+            "locality_ok": true
+        },
+        {
+            "iteration": 2,
+            "success": true,
+            "accepted": false,
+            "identity": false,
+            "score": 3.0,
+            "failures": [
+                "OVERSIZED_BBOX: X grew 2.000 \u2192 10.000 (>3x); looks like a rebuild"
+            ],
+            "delta_match": 2,
+            "volume_ratio": 11.555698,
+            "locality_ok": true
+        }
+    ],
+    "best_iteration": 2,
+    "accepted": false,
+    "failure_category": "planning",
+    "retry_history": [
+        "candidate0 incomplete_plan: INCOMPLETE_PLAN: candidate:incomplete:undimensioned generic feature addition | NO_GEOMETRY: execution produced no inspectable solid",
+        "iter2 raw_cadquery: OVERSIZED_BBOX: X grew 2.000 \u2192 10.000 (>3x); looks like a rebuild"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Add flange with thickness of 0,5mm and width of 2mm that starts on the flat bottom surface. Do not fill the central part. Add four mounting holes with D=0,5mm which are spaced 0,6mm from outer edges of the flange",
+    "used_llm": true
+}

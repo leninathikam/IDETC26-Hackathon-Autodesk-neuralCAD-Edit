@@ -1,0 +1,826 @@
+{
+  "request_id": "SUJ2G2UMJQR7PMBX_1759203739.2515829",
+  "accepted": true,
+  "best_iteration": 2,
+  "output_dir": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829",
+  "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\tmp.step",
+  "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\tmp.stl",
+  "views": {
+    "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iso.png",
+    "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\front.png",
+    "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\back.png",
+    "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\left.png",
+    "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\right.png",
+    "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\top.png",
+    "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\bottom.png",
+    "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\orthographic_sheet.png"
+  },
+  "settings": {
+    "token_counts": {
+      "input_tokens": 7406.0,
+      "output_tokens": 2260.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.056118
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+      {
+        "iteration": 0,
+        "success": false,
+        "accepted": false,
+        "identity": true,
+        "score": 3.0,
+        "failures": [
+          "Sandbox timeout after 15.0s",
+          "NO_GEOMETRY: execution produced no inspectable solid"
+        ],
+        "delta_match": 0,
+        "volume_ratio": 1.0,
+        "locality_ok": true,
+        "anchor_id": "tag:cap",
+        "census_source": "feature_tag",
+        "safe": false
+      },
+      {
+        "iteration": 1,
+        "success": true,
+        "accepted": false,
+        "identity": false,
+        "score": 3.0,
+        "failures": [],
+        "delta_match": 3,
+        "volume_ratio": 0.011763,
+        "locality_ok": true
+      },
+      {
+        "iteration": 2,
+        "success": true,
+        "accepted": true,
+        "identity": false,
+        "score": 3.0,
+        "failures": [],
+        "delta_match": 3,
+        "volume_ratio": 0.019948,
+        "locality_ok": true
+      }
+    ],
+    "best_iteration": 2,
+    "accepted": true,
+    "failure_category": null,
+    "retry_history": [
+      "candidate0 add_cylinder: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Hi , Please create a filling system on the radiator , including a pouring section and a cap.",
+    "used_llm": true
+  },
+  "iterations": [
+    {
+      "iteration": 0,
+      "intent": {
+        "summary": "Hi , Please create a filling system on the radiator , including a pouring section and a cap.",
+        "targets": [],
+        "operation_hints": [
+          "extrude_add"
+        ],
+        "dimensions": {},
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Hi , Please create a filling system on the radiator , including a pouring section and a cap.",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[124.73,359.27,576.68],\"volume\":7255190.8,\"n_solids\":20,\"shortest_axis\":\"x\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "",
+        "pattern": "feature_addition"
+      },
+      "edit_spec": {
+        "intent_summary": "Hi , Please create a filling system on the radiator , including a pouring section and a cap.",
+        "operation": "extrude_add",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\SUJ2G2UMJQR7PMBX_1759203782.7519994.step",
+          "x": -49.66447724567923,
+          "y": 8.186759614031644,
+          "z": 316.2198828716076,
+          "diameter": 14.967474562963044,
+          "height": 12.47289546913587,
+          "axis": "Z",
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_addition target=feature action=add complete=True"
+      },
+      "execution": {
+        "success": false,
+        "step_path": null,
+        "stl_path": null,
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [],
+        "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('add_cylinder', {\"step_path\": input_file, **{'x': -49.66447724567923, 'y': 8.186759614031644, 'z': 316.2198828716076, 'diameter': 14.967474562963044, 'height': 12.47289546913587, 'axis': 'Z', 'combine': 'union'}})\n    path = str(Path(input_file))\n    for follow in []:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result",
+        "geometry_summary": {},
+        "error": "Sandbox timeout after 15.0s",
+        "duration_s": 15.241092920303345
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: Sandbox timeout after 15.0s",
+            "measured": {
+              "valid": null,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": null
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 7255190.7534103645,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 20,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": false,
+            "detail": "Identity/no-op vs start",
+            "measured": {
+              "identity": true
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                124.72895469135871,
+                359.27351922806326,
+                576.6834352370397
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "add feature"
+              ],
+              "observed": [
+                "solid_count 20 → 0",
+                "X size 124.729 → 0.000",
+                "Y size 359.274 → 0.000",
+                "Z size 576.683 → 0.000",
+                "plate thickness 124.729 → 0.000",
+                "hole_count 16 → 0",
+                "volume 7255190.7534 → 0.0000"
+              ],
+              "unintended": []
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Hi , Please create a filling system on the radiator , including a pouring section and a cap.\nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_addition/feature/add\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: Sandbox timeout after 15.0s n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: Sandbox timeout after 15.0s n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "specific_fix": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Hi , Please create a filling system on the radiator , including a pouring section and a cap.\nfailure_bucket: NO_OP\nfailures: Sandbox timeout after 15.0s | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_addition/feature/add\nrequired_action: no-op detected — must alter geometry near the classified target; import args['input_file']; do not return the start STEP unchanged."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 0.0,
+        "output_tokens": 0.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "Strategy cap: pouring boss on the top face"
+    },
+    {
+      "iteration": 1,
+      "intent": {
+        "summary": "Hi , Please create a filling system on the radiator , including a pouring section and a cap.",
+        "targets": [],
+        "operation_hints": [
+          "extrude_add"
+        ],
+        "dimensions": {},
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Hi , Please create a filling system on the radiator , including a pouring section and a cap.",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[124.73,359.27,576.68],\"volume\":7255190.8,\"n_solids\":20,\"shortest_axis\":\"x\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "",
+        "pattern": "feature_addition"
+      },
+      "edit_spec": {
+        "intent_summary": "Hi , Please create a filling system on the radiator , including a pouring section and a cap.",
+        "operation": "extrude_add",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\SUJ2G2UMJQR7PMBX_1759203782.7519994.step",
+          "x": -49.66447724567923,
+          "y": 8.186759614031644,
+          "z": 316.2198828716076,
+          "diameter": 14.967474562963044,
+          "height": 12.47289546913587,
+          "axis": "Z",
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_addition target=feature action=add complete=True"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\01\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\01\\tmp.stl",
+        "image_paths": {
+          "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\01\\iso.png",
+          "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\01\\front.png",
+          "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\01\\back.png",
+          "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\01\\left.png",
+          "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\01\\right.png",
+          "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\01\\top.png",
+          "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\01\\bottom.png",
+          "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\01\\orthographic_sheet.png"
+        },
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "raw_cadquery",
+            "arguments": {},
+            "rationale": "script fallback",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    # Anchor the filling system near the top of the model (high Z) and near a bbox corner\n    bb = solid.BoundingBox()\n    x0 = bb.xmin + 25.0   # slightly inboard from left side\n    y0 = bb.ymax - 35.0   # slightly inboard from back/top in Y\n    z0 = bb.zmax - 20.0   # near top surface in Z\n\n    # Pouring neck (cylindrical boss) + small flange\n    neck_od = 38.0\n    neck_id = 28.0\n    neck_h = 55.0\n    flange_od = 60.0\n    flange_thk = 6.0\n\n    neck = (\n        cq.Workplane(\"XY\")\n        .center(x0, y0)\n        .circle(neck_od / 2.0)\n        .extrude(neck_h)\n        .translate((0, 0, z0))\n    )\n\n    bore = (\n        cq.Workplane(\"XY\")\n        .center(x0, y0)\n        .circle(neck_id / 2.0)\n        .extrude(neck_h + 10.0)\n        .translate((0, 0, z0 - 5.0))\n    )\n\n    flange = (\n        cq.Workplane(\"XY\")\n        .center(x0, y0)\n        .circle(flange_od / 2.0)\n        .extrude(flange_thk)\n        .translate((0, 0, z0))\n    )\n\n    # Cap (simple stepped cylinder) sitting on top of neck\n    cap_od = 46.0\n    cap_h = 22.0\n    cap_top_od = 40.0\n    cap_top_h = 10.0\n\n    cap = (\n        cq.Workplane(\"XY\")\n        .center(x0, y0)\n        .circle(cap_od / 2.0)\n        .extrude(cap_h)\n        .translate((0, 0, z0 + neck_h))\n    )\n\n    cap_top = (\n        cq.Workplane(\"XY\")\n        .center(x0, y0)\n        .circle(cap_top_od / 2.0)\n        .extrude(cap_top_h)\n        .translate((0, 0, z0 + neck_h + cap_h))\n    )\n\n    # Grip ridges on cap (4 small ribs)\n    rib_w = 6.0\n    rib_t = 2.5\n    rib_h = 14.0\n    rib_r = cap_od / 2.0 + 0.5\n\n    ribs = []\n    for ang in [0, 90, 180, 270]:\n        rib = (\n            cq.Workplane(\"XY\")\n            .center(x0, y0)\n            .rect(rib_w, rib_t)\n            .extrude(rib_h)\n            .translate((rib_r, 0, z0 + neck_h + 4.0))\n            .rotate((x0, y0, 0), (x0, y0, 1), ang)\n        )\n        ribs.append(rib)\n\n    feature = neck.union(flange).union(cap).union(cap_top)\n    for r in ribs:\n        feature = feature.union(r)\n\n    # Cut the internal bore through the neck to make it a pouring section\n    feature_solid = feature.val()\n    bore_solid = bore.val()\n    feature_solid = feature_solid.cut(bore_solid)\n\n    # Fuse new filling system onto the imported radiator\n    solid = solid.fuse(feature_solid)\n\n    # Light edge softening on the cap outer top edge(s) (safe selector by Z near top)\n    solid_wp = cq.Workplane(\"XY\").newObject([solid])\n    z_top = solid.BoundingBox().zmax\n    solid = (\n        solid_wp\n        .edges(cq.selectors.NearestToPointSelector((x0, y0, z0 + neck_h + cap_h + cap_top_h)))\n        .fillet(1.0)\n        .val()\n    )\n\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 44.96768522262573
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\01\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 7255190.7534103645,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 20,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                124.72895469135871,
+                359.27351922806326,
+                576.6834352370397
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "add feature"
+              ],
+              "observed": [
+                "solid_count 20 → 0",
+                "X size 124.729 → 0.000",
+                "Y size 359.274 → 0.000",
+                "Z size 576.683 → 0.000",
+                "plate thickness 124.729 → 0.000",
+                "hole_count 16 → 0",
+                "volume 7255190.7534 → 0.0000"
+              ],
+              "unintended": []
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000 | Fix: Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000",
+          "specific_fix": "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 1837.0,
+        "output_tokens": 1044.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    },
+    {
+      "iteration": 2,
+      "intent": {
+        "summary": "Hi , Please create a filling system on the radiator , including a pouring section and a cap.",
+        "targets": [],
+        "operation_hints": [
+          "extrude_add"
+        ],
+        "dimensions": {},
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Hi , Please create a filling system on the radiator , including a pouring section and a cap.",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[124.73,359.27,576.68],\"volume\":7255190.8,\"n_solids\":20,\"shortest_axis\":\"x\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "",
+        "pattern": "feature_addition"
+      },
+      "edit_spec": {
+        "intent_summary": "Hi , Please create a filling system on the radiator , including a pouring section and a cap.",
+        "operation": "extrude_add",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\SUJ2G2UMJQR7PMBX_1759203782.7519994.step",
+          "x": -49.66447724567923,
+          "y": 8.186759614031644,
+          "z": 316.2198828716076,
+          "diameter": 14.967474562963044,
+          "height": 12.47289546913587,
+          "axis": "Z",
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_addition target=feature action=add complete=True"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\02\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\02\\tmp.stl",
+        "image_paths": {
+          "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\02\\iso.png",
+          "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\02\\front.png",
+          "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\02\\back.png",
+          "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\02\\left.png",
+          "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\02\\right.png",
+          "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\02\\top.png",
+          "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\02\\bottom.png",
+          "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\02\\orthographic_sheet.png"
+        },
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "raw_cadquery",
+            "arguments": {},
+            "rationale": "script fallback",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    bb = solid.BoundingBox()\n\n    # Place the filling system near the top of the radiator (high Z) and near a corner in X/Y\n    x0 = bb.xmin + 18.0\n    y0 = bb.ymax - 28.0\n    z_base = bb.zmax - 8.0\n\n    # --- Pouring section (neck + flange) ---\n    flange_od = 56.0\n    flange_thk = 6.0\n\n    neck_od = 34.0\n    neck_id = 26.0\n    neck_h = 48.0\n\n    flange = (\n        cq.Workplane(\"XY\")\n        .center(x0, y0)\n        .circle(flange_od / 2.0)\n        .extrude(flange_thk)\n        .translate((0, 0, z_base))\n    )\n\n    neck_outer = (\n        cq.Workplane(\"XY\")\n        .center(x0, y0)\n        .circle(neck_od / 2.0)\n        .extrude(neck_h)\n        .translate((0, 0, z_base + flange_thk))\n    )\n\n    # Small lead-in chamfer-like taper (as an extra short cone frustum via loft)\n    lead_h = 8.0\n    lead_od0 = neck_od + 6.0\n    lead_od1 = neck_od\n    lead = (\n        cq.Workplane(\"XY\")\n        .center(x0, y0)\n        .circle(lead_od0 / 2.0)\n        .workplane(offset=lead_h)\n        .circle(lead_od1 / 2.0)\n        .loft(combine=True)\n        .translate((0, 0, z_base + flange_thk))\n    )\n\n    neck = neck_outer.union(lead)\n\n    # Bore through neck (pour opening)\n    bore = (\n        cq.Workplane(\"XY\")\n        .center(x0, y0)\n        .circle(neck_id / 2.0)\n        .extrude(neck_h + 20.0)\n        .translate((0, 0, z_base + flange_thk - 10.0))\n    )\n\n    # --- Cap (stepped cap with grip ribs) ---\n    cap_od = 44.0\n    cap_h = 18.0\n    cap_top_od = 36.0\n    cap_top_h = 10.0\n\n    cap_body = (\n        cq.Workplane(\"XY\")\n        .center(x0, y0)\n        .circle(cap_od / 2.0)\n        .extrude(cap_h)\n        .translate((0, 0, z_base + flange_thk + neck_h))\n    )\n\n    cap_top = (\n        cq.Workplane(\"XY\")\n        .center(x0, y0)\n        .circle(cap_top_od / 2.0)\n        .extrude(cap_top_h)\n        .translate((0, 0, z_base + flange_thk + neck_h + cap_h))\n    )\n\n    # Add simple knurl ribs\n    rib_w = 6.0\n    rib_t = 2.2\n    rib_h = 14.0\n    rib_r = cap_od / 2.0 + 0.6\n\n    ribs_wp = cq.Workplane(\"XY\")\n    ribs = None\n    for ang in [0, 45, 90, 135, 180, 225, 270, 315]:\n        r = (\n            ribs_wp\n            .center(x0, y0)\n            .rect(rib_w, rib_t)\n            .extrude(rib_h)\n            .translate((rib_r, 0, z_base + flange_thk + neck_h + 2.0))\n            .rotate((x0, y0, 0), (x0, y0, 1), ang)\n        )\n        ribs = r if ribs is None else ribs.union(r)\n\n    # Build feature as one solid then cut bore\n    feature = flange.union(neck).union(cap_body).union(cap_top)\n    if ribs is not None:\n        feature = feature.union(ribs)\n\n    feature_solid = feature.val()\n    feature_solid = feature_solid.cut(bore.val())\n\n    # Fuse onto imported radiator\n    solid = solid.fuse(feature_solid)\n\n    # Fillet a couple of cap edges near very top to soften (use a point-nearest edge selection)\n    pt_top = (x0, y0, z_base + flange_thk + neck_h + cap_h + cap_top_h)\n    solid_wp = cq.Workplane(\"XY\").newObject([solid])\n    try:\n        solid = solid_wp.edges(cq.selectors.NearestToPointSelector(pt_top)).fillet(1.0).val()\n    except Exception:\n        solid = solid_wp.val()\n\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 22.764376640319824
+      },
+      "critique": {
+        "accept": true,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\SUJ2G2UMJQR7PMBX_1759203739.2515829\\iterations\\02\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 7255190.7534103645,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 20,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                124.72895469135871,
+                359.27351922806326,
+                576.6834352370397
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "add feature"
+              ],
+              "observed": [
+                "solid_count 20 → 0",
+                "X size 124.729 → 0.000",
+                "Y size 359.274 → 0.000",
+                "Z size 576.683 → 0.000",
+                "plate thickness 124.729 → 0.000",
+                "hole_count 16 → 0",
+                "volume 7255190.7534 → 0.0000"
+              ],
+              "unintended": []
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000 | Fix: Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 20->0, vol_ratio=1.000, bbox_growth=0.000",
+          "specific_fix": "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 7406.0,
+        "output_tokens": 2260.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    }
+  ],
+  "failure_category": null
+}

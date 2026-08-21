@@ -1,0 +1,838 @@
+{
+  "request_id": "F332D3FXML85WLR2_1770204696.542443",
+  "accepted": true,
+  "best_iteration": 2,
+  "output_dir": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443",
+  "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\tmp.step",
+  "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\tmp.stl",
+  "views": {
+    "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iso.png",
+    "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\front.png",
+    "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\back.png",
+    "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\left.png",
+    "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\right.png",
+    "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\top.png",
+    "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\bottom.png",
+    "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\orthographic_sheet.png"
+  },
+  "settings": {
+    "token_counts": {
+      "input_tokens": 12800.0,
+      "output_tokens": 883.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.051644999999999996
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 2,
+    "candidate_summaries": [
+      {
+        "iteration": 0,
+        "success": false,
+        "accepted": false,
+        "identity": true,
+        "score": 3.0,
+        "failures": [
+          "INCOMPLETE_PLAN: candidate:incomplete:undimensioned generic feature addition",
+          "NO_GEOMETRY: execution produced no inspectable solid"
+        ],
+        "delta_match": 0,
+        "volume_ratio": 1.0,
+        "locality_ok": true,
+        "anchor_id": "incomplete",
+        "census_source": "classified_slots",
+        "safe": true
+      },
+      {
+        "iteration": 1,
+        "success": true,
+        "accepted": false,
+        "identity": false,
+        "score": 3.0,
+        "failures": [],
+        "delta_match": 3,
+        "volume_ratio": 0.035539,
+        "locality_ok": true
+      },
+      {
+        "iteration": 2,
+        "success": true,
+        "accepted": true,
+        "identity": false,
+        "score": 3.0,
+        "failures": [],
+        "delta_match": 3,
+        "volume_ratio": 0.110941,
+        "locality_ok": true
+      }
+    ],
+    "best_iteration": 2,
+    "accepted": true,
+    "failure_category": null,
+    "retry_history": [
+      "candidate0 incomplete_plan: INCOMPLETE_PLAN: candidate:incomplete:undimensioned generic feature addition | NO_GEOMETRY: execution produced no inspectable solid"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "Create two cover parts, that have matching outer shape to the outer contour of the central part, sit flush on its outer surface and its counterpart on the other side and have thickness of 0,254cm",
+    "used_llm": true
+  },
+  "iterations": [
+    {
+      "iteration": 0,
+      "intent": {
+        "summary": "Create two cover parts, that have matching outer shape to the outer contour of the central part, sit flush on its outer surface and its counterpart on the other side and have thickness of 0,254cm",
+        "targets": [],
+        "operation_hints": [
+          "extrude_add"
+        ],
+        "dimensions": {
+          "count": 2.0,
+          "value_mm": 2.54,
+          "distance": 2.54
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Create two cover parts, that have matching outer shape to the outer contour of the central part, sit flush on its outer surface and its counterpart on the other side and have thickness of 0,254cm",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[331.75,43.18,381.0],\"volume\":208586.1,\"n_solids\":3,\"shortest_axis\":\"y\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "outer",
+        "pattern": "feature_addition"
+      },
+      "edit_spec": {
+        "intent_summary": "Create two cover parts, that have matching outer shape to the outer contour of the central part, sit flush on its outer surface and its counterpart on the other side and have thickness of 0,254cm",
+        "operation": "extrude_add",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\F332D3FXML85WLR2_1770204704.7150607.step",
+          "x": 4.999998282073648e-8,
+          "y": 6.350000000000001,
+          "z": 1.27,
+          "length": 8.636000000000003,
+          "width": 5.181600000000001,
+          "height": 2.54,
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_addition target=feature action=add complete=True"
+      },
+      "execution": {
+        "success": false,
+        "step_path": null,
+        "stl_path": null,
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [],
+        "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('incomplete_plan', {\"step_path\": input_file, **{'reason': 'undimensioned generic feature addition'}})\n    path = str(Path(input_file))\n    for follow in []:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result",
+        "geometry_summary": {},
+        "error": "candidate:incomplete:undimensioned generic feature addition",
+        "duration_s": 0.0
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: candidate:incomplete:undimensioned generic feature addition",
+            "measured": {
+              "valid": null,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": null
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 208586.10976426743,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 3->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 3,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": false,
+            "detail": "Identity/no-op vs start",
+            "measured": {
+              "identity": true
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                331.7532215721046,
+                43.180000000000014,
+                381.0000002
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "add feature"
+              ],
+              "observed": [
+                "solid_count 3 → 0",
+                "X size 331.753 → 0.000",
+                "Y size 43.180 → 0.000",
+                "Z size 381.000 → 0.000",
+                "plate thickness 43.180 → 0.000",
+                "hole_count 16 → 0",
+                "volume 208586.1098 → 0.0000"
+              ],
+              "unintended": []
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Create two cover parts, that have matching outer shape to the outer contour of the central part, sit flush on its outer surface and its counterpart on the other side and have thickness of 0,254cm\nfailure_bucket: INCOMPLETE\nfailures: INCOMPLETE_PLAN: candidate:incomplete:undimensioned generic feature addition | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_addition/feature/add\nrequired_action: use census fitting-hole diameter and parsed dims; do not invent a whole-part rebuild.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: candidate:incomplete:undimensioned generic feature addition n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 3->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: candidate:incomplete:undimensioned generic feature addition n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 3->0, vol_ratio=1.000, bbox_growth=0.000 Identity/no-op vs start",
+          "specific_fix": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: Create two cover parts, that have matching outer shape to the outer contour of the central part, sit flush on its outer surface and its counterpart on the other side and have thickness of 0,254cm\nfailure_bucket: INCOMPLETE\nfailures: INCOMPLETE_PLAN: candidate:incomplete:undimensioned generic feature addition | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: feature_addition/feature/add\nrequired_action: use census fitting-hole diameter and parsed dims; do not invent a whole-part rebuild."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 0.0,
+        "output_tokens": 0.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "candidate:incomplete:undimensioned generic feature addition"
+    },
+    {
+      "iteration": 1,
+      "intent": {
+        "summary": "Create two cover parts, that have matching outer shape to the outer contour of the central part, sit flush on its outer surface and its counterpart on the other side and have thickness of 0,254cm",
+        "targets": [],
+        "operation_hints": [
+          "extrude_add"
+        ],
+        "dimensions": {
+          "count": 2.0,
+          "value_mm": 2.54,
+          "distance": 2.54
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Create two cover parts, that have matching outer shape to the outer contour of the central part, sit flush on its outer surface and its counterpart on the other side and have thickness of 0,254cm",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[331.75,43.18,381.0],\"volume\":208586.1,\"n_solids\":3,\"shortest_axis\":\"y\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "outer",
+        "pattern": "feature_addition"
+      },
+      "edit_spec": {
+        "intent_summary": "Create two cover parts, that have matching outer shape to the outer contour of the central part, sit flush on its outer surface and its counterpart on the other side and have thickness of 0,254cm",
+        "operation": "extrude_add",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\F332D3FXML85WLR2_1770204704.7150607.step",
+          "x": 4.999998282073648e-8,
+          "y": 6.350000000000001,
+          "z": 1.27,
+          "length": 8.636000000000003,
+          "width": 5.181600000000001,
+          "height": 2.54,
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_addition target=feature action=add complete=True"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\01\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\01\\tmp.stl",
+        "image_paths": {
+          "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\01\\iso.png",
+          "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\01\\front.png",
+          "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\01\\back.png",
+          "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\01\\left.png",
+          "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\01\\right.png",
+          "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\01\\top.png",
+          "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\01\\bottom.png",
+          "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\01\\orthographic_sheet.png"
+        },
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "raw_cadquery",
+            "arguments": {},
+            "rationale": "script fallback",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    # Parameters\n    t = 2.54  # mm (0.254 cm)\n\n    bb = solid.BoundingBox()\n    xlen = bb.xlen\n    zlen = bb.zlen\n\n    # Make covers slightly larger than the projection envelope to guarantee full overlap\n    margin = max(5.0, 0.02 * max(xlen, zlen))\n    cover_w = xlen + 2 * margin\n    cover_h = zlen + 2 * margin\n\n    y_min = bb.ymin\n    y_max = bb.ymax\n\n    # Create a thin slab on +Y side, intersect with the model to match its outer contour\n    slab_pos = (\n        cq.Workplane(\"XZ\")\n        .workplane(offset=y_max + t / 2.0)\n        .rect(cover_w, cover_h)\n        .extrude(t, both=True)\n    ).val()\n    cover_pos = solid.intersect(slab_pos)\n\n    # Create a thin slab on -Y side, intersect with the model to match its outer contour\n    slab_neg = (\n        cq.Workplane(\"XZ\")\n        .workplane(offset=y_min - t / 2.0)\n        .rect(cover_w, cover_h)\n        .extrude(t, both=True)\n    ).val()\n    cover_neg = solid.intersect(slab_neg)\n\n    # Return as a compound with the original solid + two cover parts (3 solids total)\n    result = cq.Compound.makeCompound([solid, cover_pos, cover_neg])\n    return cq.Workplane(\"XY\").newObject([result])",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 3.630310535430908
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\01\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 208586.10976426743,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 3->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 3,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                331.7532215721046,
+                43.180000000000014,
+                381.0000002
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "add feature"
+              ],
+              "observed": [
+                "solid_count 3 → 0",
+                "X size 331.753 → 0.000",
+                "Y size 43.180 → 0.000",
+                "Z size 381.000 → 0.000",
+                "plate thickness 43.180 → 0.000",
+                "hole_count 16 → 0",
+                "volume 208586.1098 → 0.0000"
+              ],
+              "unintended": []
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 3->0, vol_ratio=1.000, bbox_growth=0.000 | Fix: Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 3->0, vol_ratio=1.000, bbox_growth=0.000",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 3->0, vol_ratio=1.000, bbox_growth=0.000",
+          "specific_fix": "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 4820.0,
+        "output_tokens": 429.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    },
+    {
+      "iteration": 2,
+      "intent": {
+        "summary": "Create two cover parts, that have matching outer shape to the outer contour of the central part, sit flush on its outer surface and its counterpart on the other side and have thickness of 0,254cm",
+        "targets": [],
+        "operation_hints": [
+          "extrude_add"
+        ],
+        "dimensions": {
+          "count": 2.0,
+          "value_mm": 2.54,
+          "distance": 2.54
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "Create two cover parts, that have matching outer shape to the outer contour of the central part, sit flush on its outer surface and its counterpart on the other side and have thickness of 0,254cm",
+        "target_text": "feature",
+        "reference_text": "{\"size_mm\":[331.75,43.18,381.0],\"volume\":208586.1,\"n_solids\":3,\"shortest_axis\":\"y\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "outer",
+        "pattern": "feature_addition"
+      },
+      "edit_spec": {
+        "intent_summary": "Create two cover parts, that have matching outer shape to the outer contour of the central part, sit flush on its outer surface and its counterpart on the other side and have thickness of 0,254cm",
+        "operation": "extrude_add",
+        "targets": [],
+        "parameters": {
+          "step_path": "C:\\Users\\lenin\\Downloads\\IDETC\\data\\edit_192_external\\breps\\F332D3FXML85WLR2_1770204704.7150607.step",
+          "x": 4.999998282073648e-8,
+          "y": 6.350000000000001,
+          "z": 1.27,
+          "length": 8.636000000000003,
+          "width": 5.181600000000001,
+          "height": 2.54,
+          "combine": "union"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Expect volume increase",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 3.0,
+              "expect_increase": true
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=feature_addition target=feature action=add complete=True"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\02\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\02\\tmp.stl",
+        "image_paths": {
+          "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\02\\iso.png",
+          "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\02\\front.png",
+          "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\02\\back.png",
+          "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\02\\left.png",
+          "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\02\\right.png",
+          "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\02\\top.png",
+          "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\02\\bottom.png",
+          "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\02\\orthographic_sheet.png"
+        },
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "raw_cadquery",
+            "arguments": {},
+            "rationale": "script fallback",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    # Cover thickness: 0.254 cm = 2.54 mm\n    t = 2.54\n\n    bb = solid.BoundingBox()\n\n    # Large XZ slabs placed to straddle the outer +/-Y faces, then intersect\n    # to get covers that match the outer contour and sit flush.\n    xlen = bb.xlen\n    zlen = bb.zlen\n\n    # generous margin so slab fully covers the model projection\n    margin = max(10.0, 0.05 * max(xlen, zlen))\n    cover_w = xlen + 2.0 * margin\n    cover_h = zlen + 2.0 * margin\n\n    y_min = bb.ymin\n    y_max = bb.ymax\n\n    # +Y cover: a slab that spans [y_max - t, y_max]\n    slab_pos = (\n        cq.Workplane(\"XZ\")\n        .workplane(offset=y_max - t / 2.0)\n        .rect(cover_w, cover_h)\n        .extrude(t)\n    ).val()\n    cover_pos = solid.intersect(slab_pos)\n\n    # -Y cover: a slab that spans [y_min, y_min + t]\n    slab_neg = (\n        cq.Workplane(\"XZ\")\n        .workplane(offset=y_min + t / 2.0)\n        .rect(cover_w, cover_h)\n        .extrude(t)\n    ).val()\n    cover_neg = solid.intersect(slab_neg)\n\n    # Return original plus two separate cover parts (compound)\n    result = cq.Compound.makeCompound([solid, cover_pos, cover_neg])\n    return cq.Workplane(\"XY\").newObject([result])",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 5.184345245361328
+      },
+      "critique": {
+        "accept": true,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\F332D3FXML85WLR2_1770204696.542443\\iterations\\02\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": false,
+            "detail": "Expected volume increase, got signed_ratio=-1.0000",
+            "measured": {
+              "ratio": 1.0,
+              "signed": -1.0,
+              "v0": 208586.10976426743,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": false,
+            "detail": "Unrelated change suspected: solids 3->0, vol_ratio=1.000, bbox_growth=0.000",
+            "measured": {
+              "n0": 3,
+              "n1": 0,
+              "ratio": 1.0,
+              "bbox_growth": 0.0
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                331.7532215721046,
+                43.180000000000014,
+                381.0000002
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": true,
+            "detail": "volume delta ratio=1.0000",
+            "measured": {
+              "ratio": 1.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "add feature"
+              ],
+              "observed": [
+                "solid_count 3 → 0",
+                "X size 331.753 → 0.000",
+                "Y size 43.180 → 0.000",
+                "Z size 381.000 → 0.000",
+                "plate thickness 43.180 → 0.000",
+                "hole_count 16 → 0",
+                "volume 208586.1098 → 0.0000"
+              ],
+              "unintended": []
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 3->0, vol_ratio=1.000, bbox_growth=0.000 | Fix: Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 3->0, vol_ratio=1.000, bbox_growth=0.000",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) Expected volume increase, got signed_ratio=-1.0000 Unrelated change suspected: solids 3->0, vol_ratio=1.000, bbox_growth=0.000",
+          "specific_fix": "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 12800.0,
+        "output_tokens": 883.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    }
+  ],
+  "failure_category": null
+}

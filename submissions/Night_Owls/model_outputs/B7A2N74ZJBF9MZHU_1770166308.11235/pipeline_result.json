@@ -1,0 +1,2106 @@
+{
+  "request_id": "B7A2N74ZJBF9MZHU_1770166308.11235",
+  "accepted": false,
+  "best_iteration": 7,
+  "output_dir": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235",
+  "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\tmp.step",
+  "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\tmp.stl",
+  "views": {
+    "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iso.png",
+    "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\left.png",
+    "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\right.png",
+    "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\top.png",
+    "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\bottom.png",
+    "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\orthographic_sheet.png"
+  },
+  "settings": {
+    "token_counts": {
+      "input_tokens": 55421.0,
+      "output_tokens": 3150.0,
+      "thinking_tokens": 0.0,
+      "cost_estimate": 0.213513
+    },
+    "method": "grounded_visual_cadquery",
+    "cadquery_strategy": "reconstruct",
+    "hybrid_autodesk_fallback": true,
+    "candidate_enumeration": true,
+    "max_candidates": 4,
+    "max_iters": 3,
+    "visual_iters": 3,
+    "visual_iters_min": 5,
+    "visual_iters_max": 8,
+    "adaptive_visual_iters": 7,
+    "candidate_summaries": [
+      {
+        "iteration": 0,
+        "success": false,
+        "accepted": false,
+        "identity": true,
+        "score": 3.0,
+        "failures": [
+          "INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part",
+          "NO_GEOMETRY: execution produced no inspectable solid"
+        ],
+        "delta_match": 0,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      },
+      {
+        "iteration": 1,
+        "success": true,
+        "accepted": false,
+        "identity": false,
+        "score": 3.0,
+        "failures": [],
+        "delta_match": 1,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      },
+      {
+        "iteration": 2,
+        "success": true,
+        "accepted": false,
+        "identity": false,
+        "score": 3.0,
+        "failures": [
+          "OVERSIZED_BBOX: Y grew 15.000 → 78.200 (>3x); looks like a rebuild"
+        ],
+        "delta_match": 1,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      },
+      {
+        "iteration": 3,
+        "success": true,
+        "accepted": false,
+        "identity": false,
+        "score": 3.0,
+        "failures": [
+          "OVERSIZED_BBOX: Y grew 15.000 → 155.600 (>3x); looks like a rebuild"
+        ],
+        "delta_match": 1,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      },
+      {
+        "iteration": 4,
+        "success": true,
+        "accepted": false,
+        "identity": false,
+        "score": 3.0,
+        "failures": [
+          "OVERSIZED_BBOX: Y grew 15.000 → 311.050 (>3x); looks like a rebuild"
+        ],
+        "delta_match": 1,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      },
+      {
+        "iteration": 5,
+        "success": true,
+        "accepted": false,
+        "identity": false,
+        "score": 3.0,
+        "failures": [
+          "OVERSIZED_BBOX: Y grew 15.000 → 621.800 (>3x); looks like a rebuild"
+        ],
+        "delta_match": 1,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      },
+      {
+        "iteration": 6,
+        "success": true,
+        "accepted": false,
+        "identity": false,
+        "score": 3.0,
+        "failures": [
+          "OVERSIZED_BBOX: Y grew 15.000 → 1243.400 (>3x); looks like a rebuild"
+        ],
+        "delta_match": 1,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      },
+      {
+        "iteration": 7,
+        "success": true,
+        "accepted": false,
+        "identity": false,
+        "score": 3.0,
+        "failures": [
+          "OVERSIZED_BBOX: Y grew 15.000 → 2486.650 (>3x); looks like a rebuild"
+        ],
+        "delta_match": 1,
+        "volume_ratio": 1.0,
+        "locality_ok": true
+      }
+    ],
+    "best_iteration": 7,
+    "accepted": false,
+    "failure_category": "planning",
+    "retry_history": [
+      "iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid",
+      "iter2 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 78.200 (>3x); looks like a rebuild",
+      "iter3 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 155.600 (>3x); looks like a rebuild",
+      "iter4 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 311.050 (>3x); looks like a rebuild",
+      "iter5 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 621.800 (>3x); looks like a rebuild",
+      "iter6 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 1243.400 (>3x); looks like a rebuild",
+      "iter7 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 2486.650 (>3x); looks like a rebuild"
+    ],
+    "valid_start_copy": false,
+    "intent_summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+    "used_llm": true
+  },
+  "iterations": [
+    {
+      "iteration": 0,
+      "intent": {
+        "summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "targets": [],
+        "operation_hints": [
+          "scale"
+        ],
+        "dimensions": {
+          "value_mm": 10.0,
+          "distance": 10.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "target_text": "body",
+        "reference_text": "{\"size_mm\":[58.44,15.0,175.91],\"volume\":0.0,\"n_solids\":1,\"shortest_axis\":\"y\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "",
+        "pattern": "dimension_change"
+      },
+      "edit_spec": {
+        "intent_summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "operation": "scale",
+        "targets": [],
+        "parameters": {
+          "reason": "height/length change is not a uniform scale of the whole part"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Bounded volume change",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.9
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=dimension_change target=body action=scale complete=False"
+      },
+      "execution": {
+        "success": false,
+        "step_path": null,
+        "stl_path": null,
+        "image_paths": {},
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [],
+        "script": "def my_cad_function(args):\n    import os\n    from pathlib import Path\n    from groundedcad.tools.cadquery_tools import execute_tool\n    input_file = os.path.expanduser(args[\"input_file\"])\n    result = execute_tool('incomplete_plan', {\"step_path\": input_file, **{'reason': 'height/length change is not a uniform scale of the whole part'}})\n    path = str(Path(input_file))\n    for follow in []:\n        step = path\n        if hasattr(result, \"val\"):\n            from groundedcad.geometry.render import export_step\n            step = str(export_step(result, args.get(\"output_dir\") or \".\"))\n        result = execute_tool(follow[\"tool_name\"], {\"step_path\": step, **follow[\"arguments\"]})\n    return result",
+        "geometry_summary": {},
+        "error": "incomplete:height/length change is not a uniform scale of the whole part",
+        "duration_s": 0.0
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: incomplete:height/length change is not a uniform scale of the whole part",
+            "measured": {
+              "valid": null,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": null
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": false,
+            "detail": "Output matches start volume; requested feature did not change",
+            "measured": {
+              "ratio": 0.0
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": false,
+            "detail": "Identity/no-op vs start",
+            "measured": {
+              "identity": true
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                58.439907013148314,
+                15.0,
+                175.9131301211898
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": true,
+            "detail": "volume change ratio=0.0000 within [0.0,0.9]",
+            "measured": {
+              "ratio": 0.0,
+              "signed": 0.0,
+              "v0": 0.0,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": true,
+            "detail": "Local edit: body/volume/bbox stay close to the start model",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 0.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "overall size"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 58.440 → 0.000",
+                "Y size 15.000 → 0.000",
+                "Z size 175.913 → 0.000",
+                "plate thickness 15.000 → 0.000",
+                "hole_count 16 → 0"
+              ],
+              "unintended": []
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.\nfailure_bucket: INCOMPLETE\nfailures: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: dimension_change/body/scale\nrequired_action: use census fitting-hole diameter and parsed dims; do not invent a whole-part rebuild.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: incomplete:height/length change is not a uniform scale of the whole part n_solids=0 (max 25) Output matches start volume; requested feature did not change Identity/no-op vs start",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": true,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: incomplete:height/length change is not a uniform scale of the whole part n_solids=0 (max 25) Output matches start volume; requested feature did not change Identity/no-op vs start",
+          "specific_fix": "RETRY attempt=0: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.\nfailure_bucket: INCOMPLETE\nfailures: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid\nclassified_target: dimension_change/body/scale\nrequired_action: use census fitting-hole diameter and parsed dims; do not invent a whole-part rebuild."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 0.0,
+        "output_tokens": 0.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "incomplete:height/length change is not a uniform scale of the whole part"
+    },
+    {
+      "iteration": 1,
+      "intent": {
+        "summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "targets": [],
+        "operation_hints": [
+          "scale"
+        ],
+        "dimensions": {
+          "value_mm": 10.0,
+          "distance": 10.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "target_text": "body",
+        "reference_text": "{\"size_mm\":[58.44,15.0,175.91],\"volume\":0.0,\"n_solids\":1,\"shortest_axis\":\"y\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "",
+        "pattern": "dimension_change"
+      },
+      "edit_spec": {
+        "intent_summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "operation": "scale",
+        "targets": [],
+        "parameters": {
+          "reason": "height/length change is not a uniform scale of the whole part"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Bounded volume change",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.9
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=dimension_change target=body action=scale complete=False"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\01\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\01\\tmp.stl",
+        "image_paths": {
+          "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\01\\iso.png",
+          "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\01\\front.png",
+          "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\01\\back.png",
+          "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\01\\left.png",
+          "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\01\\right.png",
+          "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\01\\top.png",
+          "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\01\\bottom.png",
+          "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\01\\orthographic_sheet.png"
+        },
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "raw_cadquery",
+            "arguments": {},
+            "rationale": "script fallback",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    # Make the main spanner jaw cutout shallower by +10mm (i.e. add material back)\n    # while preserving the jaw \"size\" (parallel faces 20mm apart). We do this by\n    # filling the deepest 10mm of the U-slot from the bottom end only.\n    bb = solid.BoundingBox()\n\n    # Model is thin in Y (0..15). Use mid-plane in Y to ensure robust intersection.\n    y_mid = 0.5 * (bb.ymin + bb.ymax)\n\n    # Locate the open-end jaw region near minimum Z.\n    zmin = bb.zmin\n\n    # Add-back thickness (shallower by 10mm)\n    add_depth = 10.0\n\n    # Width across the jaw opening is 20mm (given). We keep this the same.\n    jaw_opening = 20.0\n\n    # The slot is centered on X in the provided views; use bbox x-center.\n    x0 = 0.5 * (bb.xmin + bb.xmax)\n\n    # Create a rectangular \"plug\" that occupies the slot opening (20mm) and extends\n    # inward by 10mm from the open end (zmin). Oversize in Y to guarantee fuse.\n    plug_y = (bb.ymax - bb.ymin) + 2.0\n    plug = (\n        cq.Workplane(\"XZ\")\n        .workplane(offset=y_mid)\n        .center(x0, zmin + add_depth / 2.0)\n        .rect(jaw_opening, add_depth)\n        .extrude(plug_y, both=True)\n    )\n\n    solid = solid.fuse(plug.val())\n\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 2.763326406478882
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\01\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": false,
+            "detail": "Output matches start volume; requested feature did not change",
+            "measured": {
+              "ratio": 0.0
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                58.439907013148314,
+                15.0,
+                175.9131301211898
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": true,
+            "detail": "volume change ratio=0.0000 within [0.0,0.9]",
+            "measured": {
+              "ratio": 0.0,
+              "signed": 0.0,
+              "v0": 0.0,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": true,
+            "detail": "Local edit: body/volume/bbox stay close to the start model",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 0.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "overall size"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 58.440 → 0.000",
+                "Y size 15.000 → 0.000",
+                "Z size 175.913 → 0.000",
+                "plate thickness 15.000 → 0.000",
+                "hole_count 16 → 0"
+              ],
+              "unintended": []
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "Invalid/missing geometry: None n_solids=0 (max 25) Output matches start volume; requested feature did not change | Fix: Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) Output matches start volume; requested feature did not change",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": false,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) Output matches start volume; requested feature did not change",
+          "specific_fix": "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 5021.0,
+        "output_tokens": 462.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    },
+    {
+      "iteration": 2,
+      "intent": {
+        "summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "targets": [],
+        "operation_hints": [
+          "scale"
+        ],
+        "dimensions": {
+          "value_mm": 10.0,
+          "distance": 10.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "target_text": "body",
+        "reference_text": "{\"size_mm\":[58.44,15.0,175.91],\"volume\":0.0,\"n_solids\":1,\"shortest_axis\":\"y\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "",
+        "pattern": "dimension_change"
+      },
+      "edit_spec": {
+        "intent_summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "operation": "scale",
+        "targets": [],
+        "parameters": {
+          "reason": "height/length change is not a uniform scale of the whole part"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Bounded volume change",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.9
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=dimension_change target=body action=scale complete=False"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\02\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\02\\tmp.stl",
+        "image_paths": {
+          "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\02\\iso.png",
+          "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\02\\front.png",
+          "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\02\\back.png",
+          "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\02\\left.png",
+          "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\02\\right.png",
+          "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\02\\top.png",
+          "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\02\\bottom.png",
+          "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\02\\orthographic_sheet.png"
+        },
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "raw_cadquery",
+            "arguments": {},
+            "rationale": "script fallback",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    bb = solid.BoundingBox()\n\n    # Target: make the open-end jaw cutout 10mm shallower (add material back)\n    # while keeping the jaw opening (parallel faces) at 20mm.\n    add_depth = 10.0\n    jaw_opening = 20.0\n\n    # Use model bbox for robust placement.\n    x0 = 0.5 * (bb.xmin + bb.xmax)\n    y0 = 0.5 * (bb.ymin + bb.ymax)\n    zmin = bb.zmin\n\n    # Build a local \"plug\" that fills only the deepest 10mm of the jaw slot.\n    # Make it slightly longer in Z than needed and union it; the existing solid\n    # will clip it via boolean intersection.\n    plug_depth_z = add_depth + 2.0\n\n    # Estimate a safe Y thickness for plug: slightly less than the model thickness\n    # to avoid creating an external fin, but still enough to fully bridge.\n    body_thickness_y = (bb.ymax - bb.ymin)\n    plug_thickness_y = max(0.5, body_thickness_y - 0.4)\n\n    # Oversize in X so the union definitely hits both inner jaw faces; keeping\n    # the resulting opening controlled by the existing geometry.\n    plug_width_x = jaw_opening + 6.0\n\n    plug = (\n        cq.Workplane(\"XZ\")\n        .workplane(offset=y0)\n        .center(x0, zmin + (plug_depth_z / 2.0))\n        .rect(plug_width_x, plug_depth_z)\n        .extrude(plug_thickness_y, both=True)\n    )\n\n    solid = solid.fuse(plug.val())\n\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 2.680699348449707
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\02\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": false,
+            "detail": "Output matches start volume; requested feature did not change",
+            "measured": {
+              "ratio": 0.0
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                58.439907013148314,
+                15.0,
+                175.9131301211898
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": true,
+            "detail": "volume change ratio=0.0000 within [0.0,0.9]",
+            "measured": {
+              "ratio": 0.0,
+              "signed": 0.0,
+              "v0": 0.0,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": true,
+            "detail": "Local edit: body/volume/bbox stay close to the start model",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 0.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "overall size"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 58.440 → 0.000",
+                "Y size 15.000 → 0.000",
+                "Z size 175.913 → 0.000",
+                "plate thickness 15.000 → 0.000",
+                "hole_count 16 → 0"
+              ],
+              "unintended": []
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=2: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Y grew 15.000 → 78.200 (>3x); looks like a rebuild\nclassified_target: dimension_change/body/scale\ngeometry_delta: faces 26→33; bbox (58.439907013148314, 15.0, 175.9131301211898)→(58.43990701314901, 78.2, 175.91313012119)\nobserved_vs_start: Y size 15.000 → 78.200; plate thickness 15.000 → 58.440\nprior_attempts: iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) Output matches start volume; requested feature did not change",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": false,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) Output matches start volume; requested feature did not change",
+          "specific_fix": "RETRY attempt=2: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Y grew 15.000 → 78.200 (>3x); looks like a rebuild\nclassified_target: dimension_change/body/scale\ngeometry_delta: faces 26→33; bbox (58.439907013148314, 15.0, 175.9131301211898)→(58.43990701314901, 78.2, 175.91313012119)\nobserved_vs_start: Y size 15.000 → 78.200; plate thickness 15.000 → 58.440\nprior_attempts: iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 13185.0,
+        "output_tokens": 938.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    },
+    {
+      "iteration": 3,
+      "intent": {
+        "summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "targets": [],
+        "operation_hints": [
+          "scale"
+        ],
+        "dimensions": {
+          "value_mm": 10.0,
+          "distance": 10.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "target_text": "body",
+        "reference_text": "{\"size_mm\":[58.44,15.0,175.91],\"volume\":0.0,\"n_solids\":1,\"shortest_axis\":\"y\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "",
+        "pattern": "dimension_change"
+      },
+      "edit_spec": {
+        "intent_summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "operation": "scale",
+        "targets": [],
+        "parameters": {
+          "reason": "height/length change is not a uniform scale of the whole part"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Bounded volume change",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.9
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=dimension_change target=body action=scale complete=False"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\03\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\03\\tmp.stl",
+        "image_paths": {
+          "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\03\\iso.png",
+          "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\03\\front.png",
+          "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\03\\back.png",
+          "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\03\\left.png",
+          "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\03\\right.png",
+          "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\03\\top.png",
+          "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\03\\bottom.png",
+          "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\03\\orthographic_sheet.png"
+        },
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "raw_cadquery",
+            "arguments": {},
+            "rationale": "script fallback",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    bb = solid.BoundingBox()\n\n    # Goal: make the open-end spanner jaw cutout shallower by 10mm.\n    # We do this by ADDING back a local \"plug\" (fuse) inside the cutout,\n    # without changing the jaw opening (parallel faces remain 20mm apart)\n    # and without changing overall thickness in Y.\n    add_depth = 10.0\n\n    # Use bbox-based anchors (no invented origin)\n    x0 = 0.5 * (bb.xmin + bb.xmax)\n    ymid = 0.5 * (bb.ymin + bb.ymax)\n    zmin = bb.zmin\n\n    # Keep the plug strictly within the existing Y thickness to avoid bbox growth\n    y_thick = (bb.ymax - bb.ymin)\n    y_plug = max(0.1, y_thick - 0.4)  # slightly undersized\n\n    # The jaw opening is 20mm, so make plug narrower than that to ensure\n    # we don't change the parallel faces distance.\n    x_plug = 18.0\n\n    # Make plug extend a bit beyond the fill depth so it fully intersects,\n    # but only positioned near the end so it doesn't affect other regions.\n    z_plug = add_depth + 2.0\n    z_center = zmin + (add_depth / 2.0)  # fills from zmin up by ~10mm\n\n    plug = (\n        cq.Workplane(\"XZ\")\n        .workplane(offset=ymid)\n        .center(x0, z_center)\n        .rect(x_plug, z_plug)\n        .extrude(y_plug, both=True)\n    )\n\n    solid = solid.fuse(plug.val())\n\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 2.8062212467193604
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\03\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": false,
+            "detail": "Output matches start volume; requested feature did not change",
+            "measured": {
+              "ratio": 0.0
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                58.439907013148314,
+                15.0,
+                175.9131301211898
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": true,
+            "detail": "volume change ratio=0.0000 within [0.0,0.9]",
+            "measured": {
+              "ratio": 0.0,
+              "signed": 0.0,
+              "v0": 0.0,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": true,
+            "detail": "Local edit: body/volume/bbox stay close to the start model",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 0.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "overall size"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 58.440 → 0.000",
+                "Y size 15.000 → 0.000",
+                "Z size 175.913 → 0.000",
+                "plate thickness 15.000 → 0.000",
+                "hole_count 16 → 0"
+              ],
+              "unintended": []
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=3: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Y grew 15.000 → 155.600 (>3x); looks like a rebuild\nclassified_target: dimension_change/body/scale\ngeometry_delta: faces 26→42; bbox (58.439907013148314, 15.0, 175.9131301211898)→(58.43990701314901, 155.6, 176.91313012119)\nobserved_vs_start: Y size 15.000 → 155.600; plate thickness 15.000 → 58.440\nprior_attempts: iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid || iter2 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 78.200 (>3x); looks like a rebuild\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) Output matches start volume; requested feature did not change",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": false,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) Output matches start volume; requested feature did not change",
+          "specific_fix": "RETRY attempt=3: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Y grew 15.000 → 155.600 (>3x); looks like a rebuild\nclassified_target: dimension_change/body/scale\ngeometry_delta: faces 26→42; bbox (58.439907013148314, 15.0, 175.9131301211898)→(58.43990701314901, 155.6, 176.91313012119)\nobserved_vs_start: Y size 15.000 → 155.600; plate thickness 15.000 → 58.440\nprior_attempts: iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid || iter2 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 78.200 (>3x); looks like a rebuild\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 21596.0,
+        "output_tokens": 1420.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    },
+    {
+      "iteration": 4,
+      "intent": {
+        "summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "targets": [],
+        "operation_hints": [
+          "scale"
+        ],
+        "dimensions": {
+          "value_mm": 10.0,
+          "distance": 10.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "target_text": "body",
+        "reference_text": "{\"size_mm\":[58.44,15.0,175.91],\"volume\":0.0,\"n_solids\":1,\"shortest_axis\":\"y\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "",
+        "pattern": "dimension_change"
+      },
+      "edit_spec": {
+        "intent_summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "operation": "scale",
+        "targets": [],
+        "parameters": {
+          "reason": "height/length change is not a uniform scale of the whole part"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Bounded volume change",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.9
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=dimension_change target=body action=scale complete=False"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\04\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\04\\tmp.stl",
+        "image_paths": {
+          "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\04\\iso.png",
+          "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\04\\front.png",
+          "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\04\\back.png",
+          "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\04\\left.png",
+          "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\04\\right.png",
+          "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\04\\top.png",
+          "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\04\\bottom.png",
+          "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\04\\orthographic_sheet.png"
+        },
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "raw_cadquery",
+            "arguments": {},
+            "rationale": "script fallback",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    bb = solid.BoundingBox()\n\n    # Make the open-end spanner jaw cutout shallower by 10 mm by fusing back material.\n    # IMPORTANT: preserve overall Y thickness and the 20 mm jaw opening (parallel faces).\n    add_depth = 10.0\n\n    xmid = 0.5 * (bb.xmin + bb.xmax)\n    ymid = 0.5 * (bb.ymin + bb.ymax)\n    zmin = bb.zmin\n\n    # Build a plug that stays strictly inside the model envelope to avoid bbox growth.\n    eps = 0.05\n    y0 = bb.ymin + eps\n    y1 = bb.ymax - eps\n    y_span = max(0.1, y1 - y0)\n\n    # Keep plug narrower than the 20 mm jaw opening so we don't change jaw size.\n    x_plug = 18.0\n\n    # Place plug near the open end (zmin) and only extend inward by add_depth.\n    z_plug = add_depth\n    z_center = zmin + z_plug / 2.0 + eps\n\n    plug = (\n        cq.Workplane(\"XZ\")\n        .center(xmid, z_center)\n        .rect(x_plug, z_plug)\n        .extrude(y_span)\n        .translate((0, y0, 0))\n    )\n\n    solid = solid.fuse(plug.val())\n\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 2.7278988361358643
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\04\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": false,
+            "detail": "Output matches start volume; requested feature did not change",
+            "measured": {
+              "ratio": 0.0
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                58.439907013148314,
+                15.0,
+                175.9131301211898
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": true,
+            "detail": "volume change ratio=0.0000 within [0.0,0.9]",
+            "measured": {
+              "ratio": 0.0,
+              "signed": 0.0,
+              "v0": 0.0,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": true,
+            "detail": "Local edit: body/volume/bbox stay close to the start model",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 0.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "overall size"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 58.440 → 0.000",
+                "Y size 15.000 → 0.000",
+                "Z size 175.913 → 0.000",
+                "plate thickness 15.000 → 0.000",
+                "hole_count 16 → 0"
+              ],
+              "unintended": []
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=4: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Y grew 15.000 → 311.050 (>3x); looks like a rebuild\nclassified_target: dimension_change/body/scale\ngeometry_delta: faces 26→50; bbox (58.439907013148314, 15.0, 175.9131301211898)→(58.43990701314901, 311.05, 176.91313012119)\nobserved_vs_start: Y size 15.000 → 311.050; plate thickness 15.000 → 58.440\nprior_attempts: iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid || iter2 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 78.200 (>3x); looks like a rebuild || iter3 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 155.600 (>3x); looks like a rebuild\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) Output matches start volume; requested feature did not change",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": false,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) Output matches start volume; requested feature did not change",
+          "specific_fix": "RETRY attempt=4: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Y grew 15.000 → 311.050 (>3x); looks like a rebuild\nclassified_target: dimension_change/body/scale\ngeometry_delta: faces 26→50; bbox (58.439907013148314, 15.0, 175.9131301211898)→(58.43990701314901, 311.05, 176.91313012119)\nobserved_vs_start: Y size 15.000 → 311.050; plate thickness 15.000 → 58.440\nprior_attempts: iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid || iter2 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 78.200 (>3x); looks like a rebuild || iter3 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 155.600 (>3x); looks like a rebuild\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 30047.0,
+        "output_tokens": 1830.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    },
+    {
+      "iteration": 5,
+      "intent": {
+        "summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "targets": [],
+        "operation_hints": [
+          "scale"
+        ],
+        "dimensions": {
+          "value_mm": 10.0,
+          "distance": 10.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "target_text": "body",
+        "reference_text": "{\"size_mm\":[58.44,15.0,175.91],\"volume\":0.0,\"n_solids\":1,\"shortest_axis\":\"y\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "",
+        "pattern": "dimension_change"
+      },
+      "edit_spec": {
+        "intent_summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "operation": "scale",
+        "targets": [],
+        "parameters": {
+          "reason": "height/length change is not a uniform scale of the whole part"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Bounded volume change",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.9
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=dimension_change target=body action=scale complete=False"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\05\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\05\\tmp.stl",
+        "image_paths": {
+          "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\05\\iso.png",
+          "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\05\\front.png",
+          "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\05\\back.png",
+          "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\05\\left.png",
+          "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\05\\right.png",
+          "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\05\\top.png",
+          "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\05\\bottom.png",
+          "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\05\\orthographic_sheet.png"
+        },
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "raw_cadquery",
+            "arguments": {},
+            "rationale": "script fallback",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    bb = solid.BoundingBox()\n\n    # Goal: make the open-end jaw cutout shallower by 10mm (add material back)\n    # while keeping the jaw opening (parallel faces) at 20mm.\n    add_depth = 10.0\n\n    # Use model bbox as anchor\n    xmid = 0.5 * (bb.xmin + bb.xmax)\n    ymid = 0.5 * (bb.ymin + bb.ymax)\n    zmin = bb.zmin\n\n    # Keep the added \"plug\" fully inside current envelope to avoid bbox growth.\n    eps = 0.10\n\n    # Extrude through the existing thickness, but stay slightly inside Y bounds.\n    y_span = max(0.1, (bb.ymax - bb.ymin) - 2.0 * eps)\n    y_base = bb.ymin + eps\n\n    # Preserve 20mm jaw opening: keep plug width strictly less than 20mm.\n    # Also keep it modest so it only affects the cutout depth region.\n    x_plug = 18.0\n\n    # Only extend inward from the open end by 10mm.\n    z_plug = add_depth\n    z_center = zmin + eps + 0.5 * z_plug\n\n    plug = (\n        cq.Workplane(\"XZ\")\n        .center(xmid, z_center)\n        .rect(x_plug, z_plug)\n        .extrude(y_span)\n        .translate((0, y_base, 0))\n    )\n\n    solid = solid.fuse(plug.val())\n\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 2.666868209838867
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\05\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": false,
+            "detail": "Output matches start volume; requested feature did not change",
+            "measured": {
+              "ratio": 0.0
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                58.439907013148314,
+                15.0,
+                175.9131301211898
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": true,
+            "detail": "volume change ratio=0.0000 within [0.0,0.9]",
+            "measured": {
+              "ratio": 0.0,
+              "signed": 0.0,
+              "v0": 0.0,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": true,
+            "detail": "Local edit: body/volume/bbox stay close to the start model",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 0.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "overall size"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 58.440 → 0.000",
+                "Y size 15.000 → 0.000",
+                "Z size 175.913 → 0.000",
+                "plate thickness 15.000 → 0.000",
+                "hole_count 16 → 0"
+              ],
+              "unintended": []
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=5: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Y grew 15.000 → 621.800 (>3x); looks like a rebuild\nclassified_target: dimension_change/body/scale\ngeometry_delta: faces 26→58; bbox (58.439907013148314, 15.0, 175.9131301211898)→(58.43990701314901, 621.8, 176.91313012119)\nobserved_vs_start: Y size 15.000 → 621.800; plate thickness 15.000 → 58.440\nprior_attempts: iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid || iter2 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 78.200 (>3x); looks like a rebuild || iter3 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 155.600 (>3x); looks like a rebuild || iter4 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 311.050 (>3x); looks like a rebuild\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) Output matches start volume; requested feature did not change",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": false,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) Output matches start volume; requested feature did not change",
+          "specific_fix": "RETRY attempt=5: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Y grew 15.000 → 621.800 (>3x); looks like a rebuild\nclassified_target: dimension_change/body/scale\ngeometry_delta: faces 26→58; bbox (58.439907013148314, 15.0, 175.9131301211898)→(58.43990701314901, 621.8, 176.91313012119)\nobserved_vs_start: Y size 15.000 → 621.800; plate thickness 15.000 → 58.440\nprior_attempts: iter0 incomplete_plan: INCOMPLETE_PLAN: incomplete:height/length change is not a uniform scale of the whole part | NO_GEOMETRY: execution produced no inspectable solid || iter2 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 78.200 (>3x); looks like a rebuild || iter3 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 155.600 (>3x); looks like a rebuild || iter4 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 311.050 (>3x); looks like a rebuild\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 38462.0,
+        "output_tokens": 2272.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    },
+    {
+      "iteration": 6,
+      "intent": {
+        "summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "targets": [],
+        "operation_hints": [
+          "scale"
+        ],
+        "dimensions": {
+          "value_mm": 10.0,
+          "distance": 10.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "target_text": "body",
+        "reference_text": "{\"size_mm\":[58.44,15.0,175.91],\"volume\":0.0,\"n_solids\":1,\"shortest_axis\":\"y\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "",
+        "pattern": "dimension_change"
+      },
+      "edit_spec": {
+        "intent_summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "operation": "scale",
+        "targets": [],
+        "parameters": {
+          "reason": "height/length change is not a uniform scale of the whole part"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Bounded volume change",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.9
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=dimension_change target=body action=scale complete=False"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\06\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\06\\tmp.stl",
+        "image_paths": {
+          "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\06\\iso.png",
+          "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\06\\front.png",
+          "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\06\\back.png",
+          "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\06\\left.png",
+          "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\06\\right.png",
+          "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\06\\top.png",
+          "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\06\\bottom.png",
+          "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\06\\orthographic_sheet.png"
+        },
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "raw_cadquery",
+            "arguments": {},
+            "rationale": "script fallback",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    bb = solid.BoundingBox()\n\n    # Make the open-end jaw cutout shallower by 10mm by fusing a local plug.\n    # IMPORTANT: Do not change overall spanner \"size\" (keep 20mm parallel faces).\n    # Keep plug strictly inside the existing envelope to avoid bbox growth.\n\n    add_depth = 10.0\n    eps = 0.05\n\n    xmid = 0.5 * (bb.xmin + bb.xmax)\n    zmin = bb.zmin\n\n    # Extrude exactly through thickness using symmetric extrude in Y.\n    y_thk = bb.ymax - bb.ymin\n\n    # Plug width in X kept <20mm to preserve the 20mm jaw opening.\n    x_plug = 18.0\n\n    # Plug extends inward from the open end along +Z by 10mm.\n    z_plug = add_depth\n    z_center = zmin + eps + 0.5 * z_plug\n\n    plug = (\n        cq.Workplane(\"XZ\")\n        .center(xmid, z_center)\n        .rect(x_plug, z_plug)\n        .extrude(y_thk - 2 * eps, both=True)\n        # shift symmetric extrude center from Y=0 to the model mid-thickness\n        .translate((0, 0.5 * (bb.ymin + bb.ymax), 0))\n    )\n\n    # Fuse the plug back into the spanner to reduce cutout depth\n    solid = solid.fuse(plug.val())\n\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 3.171670436859131
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\06\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": false,
+            "detail": "Output matches start volume; requested feature did not change",
+            "measured": {
+              "ratio": 0.0
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                58.439907013148314,
+                15.0,
+                175.9131301211898
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": true,
+            "detail": "volume change ratio=0.0000 within [0.0,0.9]",
+            "measured": {
+              "ratio": 0.0,
+              "signed": 0.0,
+              "v0": 0.0,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": true,
+            "detail": "Local edit: body/volume/bbox stay close to the start model",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 0.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "overall size"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 58.440 → 0.000",
+                "Y size 15.000 → 0.000",
+                "Z size 175.913 → 0.000",
+                "plate thickness 15.000 → 0.000",
+                "hole_count 16 → 0"
+              ],
+              "unintended": []
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=6: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Y grew 15.000 → 1243.400 (>3x); looks like a rebuild\nclassified_target: dimension_change/body/scale\ngeometry_delta: faces 26→75; bbox (58.439907013148314, 15.0, 175.9131301211898)→(58.43990701314901, 1243.4, 176.91313012119)\nobserved_vs_start: Y size 15.000 → 1243.400; plate thickness 15.000 → 58.440\nprior_attempts: iter2 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 78.200 (>3x); looks like a rebuild || iter3 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 155.600 (>3x); looks like a rebuild || iter4 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 311.050 (>3x); looks like a rebuild || iter5 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 621.800 (>3x); looks like a rebuild\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) Output matches start volume; requested feature did not change",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": false,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) Output matches start volume; requested feature did not change",
+          "specific_fix": "RETRY attempt=6: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Y grew 15.000 → 1243.400 (>3x); looks like a rebuild\nclassified_target: dimension_change/body/scale\ngeometry_delta: faces 26→75; bbox (58.439907013148314, 15.0, 175.9131301211898)→(58.43990701314901, 1243.4, 176.91313012119)\nobserved_vs_start: Y size 15.000 → 1243.400; plate thickness 15.000 → 58.440\nprior_attempts: iter2 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 78.200 (>3x); looks like a rebuild || iter3 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 155.600 (>3x); looks like a rebuild || iter4 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 311.050 (>3x); looks like a rebuild || iter5 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 621.800 (>3x); looks like a rebuild\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 46947.0,
+        "output_tokens": 2704.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    },
+    {
+      "iteration": 7,
+      "intent": {
+        "summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "targets": [],
+        "operation_hints": [
+          "scale"
+        ],
+        "dimensions": {
+          "value_mm": 10.0,
+          "distance": 10.0
+        },
+        "constraints": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry"
+        ],
+        "ambiguities": [
+          "No grounded target; may need visual/label inspection"
+        ],
+        "temporal_cues": [],
+        "confidence": 0.45,
+        "raw_instruction": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "target_text": "body",
+        "reference_text": "{\"size_mm\":[58.44,15.0,175.91],\"volume\":0.0,\"n_solids\":1,\"shortest_axis\":\"y\"}",
+        "preserve": [
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "location": "",
+        "pattern": "dimension_change"
+      },
+      "edit_spec": {
+        "intent_summary": "If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.",
+        "operation": "scale",
+        "targets": [],
+        "parameters": {
+          "reason": "height/length change is not a uniform scale of the whole part"
+        },
+        "invariants": [
+          "smallest possible local edit",
+          "do not invent dimensions",
+          "preserve unrelated geometry",
+          "unrelated faces, edges, and holes",
+          "existing dimensions that the instruction does not name"
+        ],
+        "success_checks": [
+          {
+            "name": "valid_brep",
+            "description": "Valid B-Rep",
+            "check_type": "valid_brep",
+            "params": {}
+          },
+          {
+            "name": "connectivity",
+            "description": "Not fragmented",
+            "check_type": "connectivity",
+            "params": {
+              "max_bodies": 25
+            }
+          },
+          {
+            "name": "bbox_delta",
+            "description": "Bounded bbox growth",
+            "check_type": "bbox_delta",
+            "params": {
+              "max_growth": 2.5
+            }
+          },
+          {
+            "name": "volume_delta",
+            "description": "Bounded volume change",
+            "check_type": "volume_delta",
+            "params": {
+              "max_ratio": 0.9
+            }
+          }
+        ],
+        "prefer_local": true,
+        "fallback_to_raw_script": false,
+        "notes": "edit_type=dimension_change target=body action=scale complete=False"
+      },
+      "execution": {
+        "success": true,
+        "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\07\\tmp.step",
+        "stl_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\07\\tmp.stl",
+        "image_paths": {
+          "toprightiso": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\07\\iso.png",
+          "front": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\07\\front.png",
+          "back": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\07\\back.png",
+          "left": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\07\\left.png",
+          "right": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\07\\right.png",
+          "top": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\07\\top.png",
+          "bottom": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\07\\bottom.png",
+          "orthographic_sheet": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\07\\orthographic_sheet.png"
+        },
+        "stdout": "",
+        "stderr": "",
+        "tool_calls": [
+          {
+            "tool_name": "raw_cadquery",
+            "arguments": {},
+            "rationale": "script fallback",
+            "followups": []
+          }
+        ],
+        "script": "def my_cad_function(args):\n    import cadquery as cq\n    import os\n\n    wp = cq.importers.importStep(os.path.expanduser(args[\"input_file\"]))\n    solid = wp.val()\n\n    bb = solid.BoundingBox()\n\n    # Goal: make the open-end cutout shallower by 10mm (add material back)\n    # without changing overall envelope (especially Y thickness) and without\n    # changing the jaw opening (20mm parallel faces).\n    add_depth = 10.0\n    eps = 0.05\n\n    xmid = 0.5 * (bb.xmin + bb.xmax)\n    ymid = 0.5 * (bb.ymin + bb.ymax)\n\n    # Assume jaw opens at the minimum Z end of the model\n    z_open = bb.zmin\n\n    # Build a local \"plug\" that lives strictly inside the existing bbox in Y.\n    y_len = (bb.ymax - bb.ymin) - 2.0 * eps\n\n    # Keep plug width < 20mm to preserve the 20mm parallel opening\n    x_plug = 18.0\n\n    # Plug extends inward from the open end by 10mm along +Z\n    z_plug = add_depth\n\n    plug = (\n        cq.Workplane(\"XZ\")\n        .center(xmid, z_open + eps + 0.5 * z_plug)\n        .rect(x_plug, z_plug)\n        # Extrude along Y (normal of XZ) but NOT both=True to avoid huge bbox\n        .extrude(y_len)\n        # Place the extrusion within [bb.ymin+eps, bb.ymax-eps]\n        .translate((0, bb.ymin + eps, 0))\n    )\n\n    solid = solid.fuse(plug.val())\n\n    return cq.Workplane(\"XY\").newObject([solid])",
+        "geometry_summary": {
+          "valid": true,
+          "topology_valid": null
+        },
+        "error": null,
+        "duration_s": 2.8391594886779785
+      },
+      "critique": {
+        "accept": false,
+        "instruction_score": 1.0,
+        "quality_score": 2.0,
+        "failed_checks": [
+          {
+            "name": "valid_brep",
+            "passed": false,
+            "detail": "Invalid/missing geometry: None",
+            "measured": {
+              "valid": true,
+              "topology_valid": null,
+              "volume": 0.0,
+              "n_solids": 0,
+              "step_path": "data\\full48_openai-gpt-5-2_fresh_rerun\\B7A2N74ZJBF9MZHU_1770166308.11235\\iterations\\07\\tmp.step"
+            }
+          },
+          {
+            "name": "connectivity",
+            "passed": false,
+            "detail": "n_solids=0 (max 25)",
+            "measured": {
+              "n_solids": 0
+            }
+          },
+          {
+            "name": "edit_delta",
+            "passed": false,
+            "detail": "Output matches start volume; requested feature did not change",
+            "measured": {
+              "ratio": 0.0
+            }
+          }
+        ],
+        "passed_checks": [
+          {
+            "name": "bbox_delta",
+            "passed": true,
+            "detail": "bbox growth max=0.000 (limit 2.5)",
+            "measured": {
+              "before": [
+                58.439907013148314,
+                15.0,
+                175.9131301211898
+              ],
+              "after": [
+                0,
+                0,
+                0
+              ],
+              "growths": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "volume_delta",
+            "passed": true,
+            "detail": "volume change ratio=0.0000 within [0.0,0.9]",
+            "measured": {
+              "ratio": 0.0,
+              "signed": 0.0,
+              "v0": 0.0,
+              "v1": 0.0
+            }
+          },
+          {
+            "name": "only_requested_changed",
+            "passed": true,
+            "detail": "Local edit: body/volume/bbox stay close to the start model",
+            "measured": {
+              "n0": 1,
+              "n1": 0,
+              "ratio": 0.0,
+              "bbox_growth": 0.0
+            }
+          },
+          {
+            "name": "unintended_geometry",
+            "passed": true,
+            "detail": "No unintended envelope/thickness/body change",
+            "measured": {
+              "requested": [
+                "overall size"
+              ],
+              "observed": [
+                "solid_count 1 → 0",
+                "X size 58.440 → 0.000",
+                "Y size 15.000 → 0.000",
+                "Z size 175.913 → 0.000",
+                "plate thickness 15.000 → 0.000",
+                "hole_count 16 → 0"
+              ],
+              "unintended": []
+            }
+          },
+          {
+            "name": "not_identity",
+            "passed": true,
+            "detail": "Geometry differs from start",
+            "measured": {
+              "identity": false
+            }
+          }
+        ],
+        "revision_advice": "RETRY attempt=7: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Y grew 15.000 → 2486.650 (>3x); looks like a rebuild\nclassified_target: dimension_change/body/scale\ngeometry_delta: faces 26→83; bbox (58.439907013148314, 15.0, 175.9131301211898)→(58.43990701314901, 2486.6500000000005, 176.91313012119)\nobserved_vs_start: Y size 15.000 → 2486.650; plate thickness 15.000 → 58.440\nprior_attempts: iter3 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 155.600 (>3x); looks like a rebuild || iter4 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 311.050 (>3x); looks like a rebuild || iter5 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 621.800 (>3x); looks like a rebuild || iter6 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 1243.400 (>3x); looks like a rebuild\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only.",
+        "evidence": [
+          "hierarchy: instruction > feature > preserve > dims/location > topology > visual",
+          "Invalid/missing geometry: None n_solids=0 (max 25) Output matches start volume; requested feature did not change",
+          "Keep the original solid valid; apply a smaller local boolean/blend. Do not rebuild the part."
+        ],
+        "verification": {
+          "correct": false,
+          "instruction_satisfied": false,
+          "unintended_changes": false,
+          "dimension_error": false,
+          "position_error": false,
+          "topology_error": true,
+          "severity": "major",
+          "diagnosis": "Invalid/missing geometry: None n_solids=0 (max 25) Output matches start volume; requested feature did not change",
+          "specific_fix": "RETRY attempt=7: previous solid FAILED. complete must be false. Rewrite my_cad_function.\ninstruction: If this is a spanner, the main cutout is too deep which is weakening the tool. Make the cutout shallower by 10mm, but keep the \"size\" of the spanner the same - meaning the parallel surfaces remain 20mm apart.\nfailure_bucket: OVER_EDIT\nfailures: OVERSIZED_BBOX: Y grew 15.000 → 2486.650 (>3x); looks like a rebuild\nclassified_target: dimension_change/body/scale\ngeometry_delta: faces 26→83; bbox (58.439907013148314, 15.0, 175.9131301211898)→(58.43990701314901, 2486.6500000000005, 176.91313012119)\nobserved_vs_start: Y size 15.000 → 2486.650; plate thickness 15.000 → 58.440\nprior_attempts: iter3 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 155.600 (>3x); looks like a rebuild || iter4 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 311.050 (>3x); looks like a rebuild || iter5 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 621.800 (>3x); looks like a rebuild || iter6 raw_cadquery: OVERSIZED_BBOX: Y grew 15.000 → 1243.400 (>3x); looks like a rebuild\nrequired_action: narrow scope / preserve unrelated geometry; one local boolean or blend on the imported STEP only."
+        }
+      },
+      "token_counts": {
+        "input_tokens": 55421.0,
+        "output_tokens": 3150.0,
+        "thinking_tokens": 0.0
+      },
+      "notes": "grounded_visual_cadquery"
+    }
+  ],
+  "failure_category": "planning"
+}

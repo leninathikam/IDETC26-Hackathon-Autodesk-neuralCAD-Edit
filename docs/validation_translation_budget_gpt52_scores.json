@@ -1,0 +1,21 @@
+[
+  {
+    "id": "B7A2N74ZJBF9MZHU_1770174133.012106",
+    "type": "feature_translation",
+    "instruction": "Prolong black lever sticking out to the front by 5cm for better manipulation.",
+    "ours": {
+      "chamfer": 0.0,
+      "volume_f1": 0.0,
+      "diff_f1": 0.0,
+      "valid": false
+    },
+    "execution_status": "row_timeout",
+    "gpt52": {
+      "chamfer": 0.9823,
+      "volume_f1": 0.9064,
+      "diff_f1": 0.504,
+      "valid": true
+    },
+    "failure_bucket": "row_timeout"
+  }
+]

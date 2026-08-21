@@ -1,93 +1,36 @@
 {
   "summary": {
-    "n": 4,
+    "n": 1,
     "A": {
-      "chamfer": 0.982275,
-      "volume_f1": 0.7925749999999999,
-      "diff_f1": 0.0968
+      "chamfer": 0.979,
+      "volume_f1": 0.8858,
+      "diff_f1": 0.0204
     },
     "B": {
-      "chamfer": 0.9833250000000001,
-      "volume_f1": 0.8296250000000001,
-      "diff_f1": 0.17420000000000002
+      "chamfer": 0.9789,
+      "volume_f1": 0.7463,
+      "diff_f1": 0.1017
     }
   },
   "rows": [
     {
-      "id": "ZK22J6VYRKQ2RTFD_1758875163.609787",
-      "type": "fillet_chamfer",
-      "instruction": "Add 0.2 mm chamfer to the hole edges to improve fitting.",
-      "A": {
-        "chamfer": 0.9837,
-        "volume_f1": 0.7958,
-        "diff_f1": 0.2761,
-        "valid": true
-      },
-      "B": {
-        "chamfer": 0.9836,
-        "volume_f1": 0.7964,
-        "diff_f1": 0.2902,
-        "valid": true
-      },
-      "B_accepted": true,
-      "B_tool": "Strategy blend: hole rims if named, else length-band edges"
-    },
-    {
-      "id": "ZK22J6VYRKQ2RTFD_1758874422.1403751",
-      "type": "hole_edit",
-      "instruction": "Add a connecting hole of 1.7 millimetre diameter and apply 0.1 millimetre grooves to increase grip a",
-      "A": {
-        "chamfer": 0.9755,
-        "volume_f1": 0.6593,
-        "diff_f1": 0.0457,
-        "valid": true
-      },
-      "B": {
-        "chamfer": 0.9817,
-        "volume_f1": 0.7899,
-        "diff_f1": 0.141,
-        "valid": true
-      },
-      "B_accepted": false,
-      "B_tool": "Strategy hole_add: parsed diameter on planar face, not an existing cylinder wall"
-    },
-    {
-      "id": "ZK22J6VYRKQ2RTFD_1758873912.731081",
+      "id": "SUJ2G2UMJQR7PMBX_1759203739.2515829",
       "type": "feature_addition",
-      "instruction": "Add a 1.5 millimetre rib to increase support and make the structure strong.",
+      "instruction": "Hi , Please create a filling system on the radiator , including a pouring section and a cap.",
       "A": {
-        "chamfer": 0.9827,
-        "volume_f1": 0.7943,
-        "diff_f1": 0.0612,
+        "chamfer": 0.979,
+        "volume_f1": 0.8858,
+        "diff_f1": 0.0204,
         "valid": true
       },
       "B": {
-        "chamfer": 0.9816,
-        "volume_f1": 0.7814,
-        "diff_f1": 0.0865,
-        "valid": true
-      },
-      "B_accepted": true,
-      "B_tool": "Strategy feature_add: one local solid, no raw scaffold"
-    },
-    {
-      "id": "SUJ2G2UMJQR7PMBX_1759209917.917027",
-      "type": "fillet_chamfer",
-      "instruction": "Hi , Please remove the fillet at the front center and add a 1 millimeter chamfer instead",
-      "A": {
-        "chamfer": 0.9872,
-        "volume_f1": 0.9209,
-        "diff_f1": 0.0042,
-        "valid": true
-      },
-      "B": {
-        "chamfer": 0.9864,
-        "volume_f1": 0.9508,
-        "diff_f1": 0.1791,
+        "chamfer": 0.9789,
+        "volume_f1": 0.7463,
+        "diff_f1": 0.1017,
         "valid": true
       },
       "B_accepted": false,
-      "B_tool": "Strategy blend: hole rims if named, else length-band edges"
+      "B_tool": "Strategy cap: pouring boss on the top face"
     }
   ]
 }

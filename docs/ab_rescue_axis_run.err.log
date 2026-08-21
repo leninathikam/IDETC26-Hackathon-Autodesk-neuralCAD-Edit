@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "C:\Users\lenin\Downloads\IDETC\scripts\ab_compare.py", line 22, in <module>
+    from scripts.score_groundedcad_baseline import (
+ModuleNotFoundError: No module named 'scripts'

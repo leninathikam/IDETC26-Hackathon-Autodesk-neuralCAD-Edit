@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 import os
 from pathlib import Path
 from typing import Any, Optional
@@ -9,12 +10,36 @@ from typing import Any, Optional
 VIEW_PROJECTIONS = {
     "toprightiso": (1, -1, 1),
     "isometric": (1, -1, 1),
-    "front": (0, 0, 1),
-    "back": (0, 0, -1),
+    "front": (0, -1, 0),
+    "back": (0, 1, 0),
     "left": (-1, 0, 0),
     "right": (1, 0, 0),
+    "top": (0, 0, 1),
+    "bottom": (0, 0, -1),
+}
+
+# Keep the image roll stable for every cardinal camera.  The direction points
+# from the model toward the camera; ``viewup`` lies in the image plane.
+ORTHOGRAPHIC_VIEW_UP = {
+    "front": (0, 0, 1),
+    "back": (0, 0, 1),
+    "left": (0, 0, 1),
+    "right": (0, 0, 1),
     "top": (0, 1, 0),
-    "bottom": (0, -1, 0),
+    "bottom": (0, 1, 0),
+}
+
+# STEP has no universal semantic "front" marker.  State the world-axis
+# convention in the contact sheet so a user and the model can tell an actual
+# front/back reversal from a merely symmetric part.
+VIEW_LABELS = {
+    "toprightiso": "TOPRIGHTISO (+X,-Y,+Z)",
+    "front": "FRONT (-Y)",
+    "back": "BACK (+Y)",
+    "left": "LEFT (-X)",
+    "right": "RIGHT (+X)",
+    "top": "TOP (+Z)",
+    "bottom": "BOTTOM (-Z)",
 }
 
 CANONICAL_VIEWS = ["toprightiso", "front", "back", "left", "right", "top", "bottom"]
@@ -24,6 +49,45 @@ def _get_shape(result):
     from groundedcad.geometry.inspect import shape_from_workplane
 
     return shape_from_workplane(result)
+
+
+def _camera_for_shape(
+    shape, proj: tuple[float, float, float]
+) -> tuple[tuple[float, float, float], tuple[float, float, float]]:
+    """Frame the model bbox instead of assuming it is near world origin."""
+    try:
+        bb = shape.BoundingBox()
+        focus = (
+            0.5 * (float(bb.xmin) + float(bb.xmax)),
+            0.5 * (float(bb.ymin) + float(bb.ymax)),
+            0.5 * (float(bb.zmin) + float(bb.zmax)),
+        )
+        diagonal = math.sqrt(
+            (float(bb.xmax) - float(bb.xmin)) ** 2
+            + (float(bb.ymax) - float(bb.ymin)) ** 2
+            + (float(bb.zmax) - float(bb.zmin)) ** 2
+        )
+        # Extra margin is needed for the oblique canonical view.
+        distance = max(10.0, 3.0 * diagonal)
+    except Exception:
+        focus = (0.0, 0.0, 0.0)
+        distance = 10.0
+    return (
+        tuple(focus[i] + float(proj[i]) * distance for i in range(3)),
+        focus,
+    )
+
+
+def _orthographic_zoom(shape) -> float:
+    """Fit a parallel camera whose default scale is otherwise only 1 mm."""
+    try:
+        bb = shape.BoundingBox()
+        span = max(float(bb.xlen), float(bb.ylen), float(bb.zlen), 1.0)
+        # VTK's Camera.Zoom divides parallel scale by this factor.  A factor
+        # below one therefore expands the 1 mm default scale to the model.
+        return 1.0 / (1.35 * span)
+    except Exception:
+        return 0.1
 
 
 def export_step(result, output_dir: str | Path, filename: str = "tmp.step") -> Path:
@@ -68,6 +132,9 @@ def render_png(
     proj: tuple[float, float, float] = (1, -1, 1),
     width: int = 1024,
     height: int = 1024,
+    *,
+    orthographic: bool = False,
+    viewup: tuple[float, float, float] | None = None,
 ) -> Optional[Path]:
     """Best-effort offscreen PNG render; returns None if rendering unavailable."""
     from groundedcad.geometry.fallback import SimpleSolid
@@ -98,8 +165,7 @@ def render_png(
         from cadquery.vis import show
 
         wrapped = shape.wrapped if hasattr(shape, "wrapped") else shape
-        distance = 10.0
-        position = tuple(float(component) * distance for component in proj)
+        position, focus = _camera_for_shape(shape, proj)
         show(
             wrapped,
             screenshot=str(png_path),
@@ -107,7 +173,16 @@ def render_png(
             height=height,
             interact=False,
             position=position,
-            focus=(0.0, 0.0, 0.0),
+            focus=focus,
+            viewup=viewup,
+            orthographic=orthographic,
+            # ``show`` applies these relative rotations even after an
+            # absolute position/focus has been supplied.  Leaving its
+            # isometric defaults here was the source of tilted named views.
+            roll=0,
+            elevation=0,
+            azimuth=0,
+            zoom=_orthographic_zoom(shape) if orthographic else 1.0,
             trihedron=False,
             gradient=False,
             bgcolor=(1.0, 1.0, 1.0),
@@ -189,6 +264,80 @@ def render_png(
         return None
 
 
+def _has_visible_geometry(path: Path) -> bool:
+    """Reject missing/near-white VTK screenshots before they reach the LLM."""
+    try:
+        from PIL import Image
+
+        with Image.open(path).convert("RGB") as image:
+            # The renderer background is white.  A few antialiased pixels are
+            # not evidence of a usable view, so require a modest ink count.
+            return sum(
+                1
+                for r, g, b in image.getdata()
+                if min(r, g, b) < 235
+            ) >= 500
+    except Exception:
+        return False
+
+
+def stitch_orthographic_views(
+    views: dict[str, str],
+    output_path: str | Path,
+    tile_size: int = 512,
+) -> Optional[Path]:
+    """Create one labelled CAD contact sheet for visual-language prompts.
+
+    Individual renders remain useful evidence files, but a contact sheet makes
+    their spatial relationship explicit and avoids relying on attachment order.
+    """
+    try:
+        from PIL import Image, ImageDraw, ImageOps
+
+        output_path = Path(output_path)
+        layout = (
+            ("toprightiso", "top", "back"),
+            ("left", "front", "right"),
+            ("", "bottom", ""),
+        )
+        label_height = 28
+        canvas = Image.new("RGB", (tile_size * 3, (tile_size + label_height) * 3), "white")
+        draw = ImageDraw.Draw(canvas)
+        rendered = 0
+
+        for row, names in enumerate(layout):
+            for col, name in enumerate(names):
+                x = col * tile_size
+                y = row * (tile_size + label_height)
+                if not name:
+                    continue
+                path = Path(views.get(name, ""))
+                if path.exists() and _has_visible_geometry(path):
+                    with Image.open(path) as source:
+                        source = source.convert("RGB")
+                        tile = ImageOps.contain(source, (tile_size, tile_size))
+                        canvas.paste(
+                            tile,
+                            (x + (tile_size - tile.width) // 2, y + (tile_size - tile.height) // 2),
+                        )
+                    rendered += 1
+                else:
+                    draw.text((x + 8, y + 8), "MISSING VIEW", fill="red")
+                draw.rectangle((x, y, x + tile_size - 1, y + tile_size - 1), outline="black")
+                draw.text(
+                    (x + 8, y + tile_size + 6),
+                    VIEW_LABELS.get(name, name.upper()),
+                    fill="black",
+                )
+        if not rendered:
+            return None
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        canvas.save(output_path)
+        return output_path
+    except Exception:
+        return None
+
+
 def render_canonical_views(
     result,
     output_dir: str | Path,
@@ -203,12 +352,34 @@ def render_canonical_views(
     paths: dict[str, str] = {}
     for name in views:
         proj = VIEW_PROJECTIONS.get(name, (1, -1, 1))
+        is_orthographic = name not in {"toprightiso", "isometric"}
         # neuralCAD-Edit uses topright isometric naming
         fname = "iso.png" if name in {"toprightiso", "isometric"} else f"{name}.png"
         path = out / fname
-        rendered = render_png(shape, path, proj=proj, width=width, height=height)
+        rendered = render_png(
+            shape,
+            path,
+            proj=proj,
+            width=width,
+            height=height,
+            orthographic=is_orthographic,
+            viewup=ORTHOGRAPHIC_VIEW_UP.get(name),
+        )
+        if rendered is None or not _has_visible_geometry(path):
+            path.unlink(missing_ok=True)
+            if not is_orthographic:
+                # ISO is intentionally perspective; a small tilt is harmless
+                # there and is preferable to losing its overview tile.
+                tilt = (0.13, -0.11, 0.17)
+                fallback_proj = tuple(float(proj[i]) + tilt[i] for i in range(3))
+                rendered = render_png(
+                    shape, path, proj=fallback_proj, width=width, height=height
+                )
         if rendered is not None:
             paths[name] = str(rendered)
+    sheet = stitch_orthographic_views(paths, out / "orthographic_sheet.png")
+    if sheet is not None:
+        paths["orthographic_sheet"] = str(sheet)
     return paths
 
 
